@@ -5,15 +5,23 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed;
-
-    private Vector2 inputVec;
+    public float jumpPower;
 
     private Rigidbody2D rigid;
 
     private void Move()
     {
-        Vector2 moveVelocity = inputVec.normalized * moveSpeed;
-        rigid.MovePosition(rigid.position + moveVelocity * Time.fixedDeltaTime);
+        float moveInput = Input.GetAxisRaw("Horizontal");
+        rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
+    }
+
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rigid.velocity = Vector2.zero;
+            rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
+        }
     }
 
     void Awake()
@@ -23,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        inputVec.x = Input.GetAxisRaw("Horizontal");
+        Jump();
     }
 
     private void FixedUpdate()
