@@ -7,15 +7,23 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed;
     public float jumpPower;
     public float minJumpVelocity;
-    public float fallingVelocity;
+    public float fallVelocity;
 
     public PlatformCheckObject platformCheckObject;
 
     private Rigidbody2D rigid;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        minJumpVelocity = jumpPower - minJumpVelocity;
+        fallVelocity = jumpPower - fallVelocity;
     }
 
     private void Update()
@@ -32,6 +40,8 @@ public class PlayerController : MonoBehaviour
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
+        if (moveInput < 0) spriteRenderer.flipX = false;
+        else if (moveInput > 0) spriteRenderer.flipX = true;
     }
 
     private void Jump()
@@ -43,11 +53,11 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
         }
         
-        if (rigid.velocity.y > (jumpPower - fallingVelocity) && rigid.velocity.y < (jumpPower - minJumpVelocity))
+        if (rigid.velocity.y > fallVelocity && rigid.velocity.y < minJumpVelocity)
         {
             if (!Input.GetKey(KeyCode.Space))
             {
-                rigid.velocity = new Vector2(rigid.velocity.x, (jumpPower - fallingVelocity));
+                rigid.velocity = new Vector2(rigid.velocity.x, fallVelocity);
             }
         }
     }

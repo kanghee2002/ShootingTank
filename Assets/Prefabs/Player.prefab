@@ -150,7 +150,7 @@ MonoBehaviour:
   moveSpeed: 5
   jumpPower: 15
   minJumpVelocity: 5
-  fallingVelocity: 10
+  fallVelocity: 10
   platformCheckObject: {fileID: 86312411206472192}
 --- !u!1 &4947932166487284532
 GameObject:
