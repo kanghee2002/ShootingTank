@@ -1,0 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class DefaultWeapon : Weapon
+{
+    private void Start()
+    {
+        Init();
+        bulletPool = new Queue<GameObject>();
+        MakeBulletPool(ref bulletPool, bulletObj, poolSize);
+    }
+
+    public override void Fire(Vector3 dir)
+    {
+        var obj = base.GetBullet(ref bulletPool, bulletObj);
+        obj.GetComponent<Rigidbody2D>().velocity = dir * speed;
+    }
+}
