@@ -8,8 +8,10 @@ public abstract class Weapon : MonoBehaviour
     public string description;
     public float damage;
     public float coolTime;
-    public float speed;
     public int poolSize;
+    public float length;
+
+    protected float speed;
 
     [SerializeField]
     protected GameObject bulletObj;

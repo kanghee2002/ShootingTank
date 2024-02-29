@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType { left, right };
+
 public class WeaponController : MonoBehaviour
 {
     [SerializeField]
-    private Weapon leftWeapon;
+    private GameObject leftWeaponParent;
     [SerializeField]
+    private GameObject rightWeaponParent;
+
+    private Weapon leftWeapon;
     private Weapon rightWeapon;
 
     private void Update()
@@ -16,7 +21,6 @@ public class WeaponController : MonoBehaviour
 
         ClickFire();
     }
-
 
     private void LookAtMouse(Weapon weapon)
     {
@@ -32,17 +36,31 @@ public class WeaponController : MonoBehaviour
         weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
     }
 
-    public void SwitchLeftWeapon(Weapon weapon) => leftWeapon = weapon;
 
-    public void SwitchRightWeapon(Weapon weapon) => rightWeapon = weapon;
+    public void SwitchWeapon(WeaponType type, GameObject weaponObj)
+    {
+        if (type == WeaponType.left)
+        {
+            var obj = Instantiate(weaponObj, leftWeaponParent.transform);
+            leftWeaponParent = obj;
+            leftWeapon = leftWeaponParent.GetComponent<Weapon>();
+        }
+        else if (type == WeaponType.right)
+        {
+            var obj = Instantiate(weaponObj, rightWeaponParent.transform);
+            rightWeaponParent = obj;
+            rightWeapon = rightWeaponParent.GetComponent<Weapon>();
+        }
+    }
 
     private void ClickFire()
     {
         if (Input.GetMouseButtonDown(0))    //Left Click
         {
-            leftWeapon.Fire(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (leftWeapon == null) return;
+
+            leftWeapon.Fire(Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized);
         }
-        //If left click -> leftWeapon.weapon.fire();
         //If right click -> rightWeapon.weapon.fire();
     }
 }

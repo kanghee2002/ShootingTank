@@ -101,6 +101,7 @@ MonoBehaviour:
   description: 
   damage: 0
   coolTime: 0
-  speed: 10
+  speed: 50
   poolSize: 20
+  length: 1.7
   bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}

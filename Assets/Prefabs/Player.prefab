@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691444259}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LeftWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1691934165}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RightWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 5149772926927298261}
   - component: {fileID: 8667531476937016520}
   - component: {fileID: 1393926900}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55de82058bf9bce428eeeeabbea1960f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWeapon: {fileID: 0}
-  rightWeapon: {fileID: 0}
+  leftWeaponObj: {fileID: 1691444258}
+  rightWeaponObj: {fileID: 1691934164}
 --- !u!1 &4947932166487284532
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 6925766464730426144}
   - component: {fileID: 8270230206083286979}
   - component: {fileID: 86312411206472192}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlatformCheckObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
