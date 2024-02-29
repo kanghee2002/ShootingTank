@@ -19,8 +19,10 @@ public abstract class Weapon : MonoBehaviour
 
     public virtual void Init()
     {
-        bulletObj.SetActive(false);
         speed = bulletObj.GetComponent<Bullet>().speed;
+        bulletObj.SetActive(false);
+        bulletPool = new Queue<GameObject>();
+        MakeBulletPool(ref bulletPool, bulletObj, poolSize);
     }
 
     public virtual void MakeBulletPool (ref Queue<GameObject> bulletPool, GameObject bullet, int size)

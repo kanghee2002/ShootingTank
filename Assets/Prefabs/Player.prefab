@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55de82058bf9bce428eeeeabbea1960f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWeaponObj: {fileID: 1691444258}
-  rightWeaponObj: {fileID: 1691934164}
+  leftWeaponParent: {fileID: 1691444258}
+  rightWeaponParent: {fileID: 1691934164}
 --- !u!1 &4947932166487284532
 GameObject:
   m_ObjectHideFlags: 0

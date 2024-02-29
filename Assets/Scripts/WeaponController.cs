@@ -26,30 +26,36 @@ public class WeaponController : MonoBehaviour
     {
         if (weapon == null) return;
 
-        Vector3 targetPostion = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 weaponPosition = weapon.transform.position;
+        Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 weaponPos = weapon.transform.position;
 
-        float dy = targetPostion.y - weaponPosition.y;
-        float dx = targetPostion.x - weaponPosition.x;
+        float dy = targetPos.y - weaponPos.y;
+        float dx = targetPos.x - weaponPos.x;
         float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
 
         weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
     }
 
-
     public void SwitchWeapon(WeaponType type, GameObject weaponObj)
     {
         if (type == WeaponType.left)
         {
+            if (leftWeapon != null)
+            {
+                //Optimization: make disable and destroy when it's loading
+                Destroy(leftWeapon.gameObject);
+            }
             var obj = Instantiate(weaponObj, leftWeaponParent.transform);
-            leftWeaponParent = obj;
-            leftWeapon = leftWeaponParent.GetComponent<Weapon>();
+            leftWeapon = obj.GetComponent<Weapon>();
         }
         else if (type == WeaponType.right)
         {
+            if (rightWeapon != null)
+            {
+                Destroy(rightWeapon.gameObject);
+            }
             var obj = Instantiate(weaponObj, rightWeaponParent.transform);
-            rightWeaponParent = obj;
-            rightWeapon = rightWeaponParent.GetComponent<Weapon>();
+            rightWeapon = obj.GetComponent<Weapon>();
         }
     }
 
@@ -59,7 +65,10 @@ public class WeaponController : MonoBehaviour
         {
             if (leftWeapon == null) return;
 
-            leftWeapon.Fire(Camera.main.ScreenToWorldPoint(Input.mousePosition).normalized);
+            Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 myPos = transform.position;
+            var dir = (targetPos - myPos).normalized;
+            leftWeapon.Fire(dir);
         }
         //If right click -> rightWeapon.weapon.fire();
     }

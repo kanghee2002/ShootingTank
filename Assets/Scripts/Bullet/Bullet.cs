@@ -10,6 +10,7 @@ public abstract class Bullet : MonoBehaviour
 
     public void DestroyBullet()
     {
-        weapon.ReturnBullet(gameObject, weapon);
+        if (weapon == null) Destroy(gameObject);
+        else weapon.ReturnBullet(gameObject, weapon);
     }
 }

@@ -6,9 +6,7 @@ public class DefaultWeapon : Weapon
 {
     private void Start()
     {
-        Init();
-        bulletPool = new Queue<GameObject>();
-        MakeBulletPool(ref bulletPool, bulletObj, poolSize);
+        base.Init();
     }
 
     public override void Fire(Vector3 dir)
@@ -16,6 +14,5 @@ public class DefaultWeapon : Weapon
         var obj = base.GetBullet(ref bulletPool, bulletObj);
         obj.transform.position = transform.position + dir * length;
         obj.GetComponent<Rigidbody2D>().velocity = dir * speed;
-        Debug.Log(dir * speed);
     }
 }

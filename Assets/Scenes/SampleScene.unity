@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponController: {fileID: 1856948664}
   defaultWeapon: {fileID: 6917438833306291598, guid: d86e30a399c2fa84d9847fb0a6e1ac45, type: 3}
+  defaultWeapon1: {fileID: 6917438833306291598, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
