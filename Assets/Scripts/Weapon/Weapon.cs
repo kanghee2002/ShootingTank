@@ -15,7 +15,7 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField]
     protected GameObject bulletObj;
-    public Queue<GameObject> bulletPool;
+    protected Queue<GameObject> bulletPool;
 
     public virtual void Init()
     {
@@ -25,24 +25,24 @@ public abstract class Weapon : MonoBehaviour
         MakeBulletPool(ref bulletPool, bulletObj, poolSize);
     }
 
-    public virtual void MakeBulletPool (ref Queue<GameObject> bulletPool, GameObject bullet, int size)
+    public virtual void MakeBulletPool(ref Queue<GameObject> bulletPool, GameObject bullet, int size)
     {
         for (int i = 0; i < size; i++)
         {
-            bulletPool.Enqueue(MakeBullet(bullet));
+            bulletPool.Enqueue(MakeBullet());
         }
     }
 
-    private GameObject MakeBullet (GameObject bullet)
+    private GameObject MakeBullet()
     {
-        var obj = Instantiate(bullet);
+        var obj = Instantiate(bulletObj);
         obj.GetComponent<Bullet>().weapon = this;
         obj.SetActive(false);
         obj.transform.SetParent(transform);
         return obj;
     }
 
-    public virtual GameObject GetBullet(ref Queue<GameObject> bulletPool, GameObject bullet)
+    public virtual GameObject GetBullet()
     {
         GameObject obj;
         if (bulletPool.Count > 0)
@@ -51,19 +51,19 @@ public abstract class Weapon : MonoBehaviour
         }
         else
         {
-            obj = MakeBullet(bullet);
+            obj = MakeBullet();
         }
         obj.transform.SetParent(null);
         obj.SetActive(true);
         return obj;
     }
 
-    public virtual void ReturnBullet(GameObject obj, Weapon weapon)
+    public virtual void ReturnBullet(GameObject obj)
     {
         obj.transform.position = transform.position;
         obj.transform.SetParent(transform);
         obj.SetActive(false);
-        weapon.bulletPool.Enqueue(obj);
+        bulletPool.Enqueue(obj);
     }
 
     public abstract void Fire(Vector3 dir);

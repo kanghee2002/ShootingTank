@@ -169,7 +169,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponController: {fileID: 1856948664}
   defaultWeapon: {fileID: 6917438833306291598, guid: d86e30a399c2fa84d9847fb0a6e1ac45, type: 3}
-  defaultWeapon1: {fileID: 6917438833306291598, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+  testWeapon: {fileID: 6917438833306291598, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+  testObj: {fileID: 0}
+  testParentObj: {fileID: 0}
+--- !u!1 &516775843 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1691934164, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
+  m_PrefabInstance: {fileID: 949896589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,6 +261,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &712679499 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1691444258, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
+  m_PrefabInstance: {fileID: 949896589}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &949896589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -261,6 +273,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1393926900, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
+      propertyPath: weaponParent.Array.data[0]
+      value: 
+      objectReference: {fileID: 712679499}
+    - target: {fileID: 1393926900, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
+      propertyPath: weaponParent.Array.data[1]
+      value: 
+      objectReference: {fileID: 516775843}
     - target: {fileID: 1805002466296185585, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
       propertyPath: m_Name
       value: Player
