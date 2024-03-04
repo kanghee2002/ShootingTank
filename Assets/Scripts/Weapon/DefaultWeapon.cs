@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class DefaultWeapon : Weapon
 {
+    public override void Init()
+    {
+        base.Init();
+        title = WeaponName.DefaultWeapon;
+    }
+
     public override void Fire(Vector3 dir)
     {
         var obj = GetBullet();

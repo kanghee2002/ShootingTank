@@ -4,12 +4,13 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public string title;
+    public WeaponName title { get; protected set; }
     public string description;
     public float damage;
     public float coolTime;
     public int poolSize;
     public float length;
+
 
     protected float speed;
 

@@ -60,12 +60,11 @@ public class WeaponController : MonoBehaviour
 
         if (weapons[weaponIdx] != null)
         {
-            //Optimization: SetActive(false) and destroy when it's loading
-            Destroy(weapons[weaponIdx].gameObject);
+            Destroy(weapons[weaponIdx].gameObject);     //Need to be changed
         }
         var obj = Instantiate(weaponObj, weaponParents[weaponIdx].transform);
         weapons[weaponIdx] = obj.GetComponent<Weapon>();
-        weapons[weaponIdx].Init();
+        weapons[weaponIdx].Init();     //Need to be changed
 
     }
 
