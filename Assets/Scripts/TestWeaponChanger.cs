@@ -12,22 +12,22 @@ public class TestWeaponChanger : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            weaponController.SwitchWeapon(WeaponType.left, defaultWeapon);
+            weaponController.SwitchWeapon(WeaponHand.left, defaultWeapon);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            weaponController.SwitchWeapon(WeaponType.right, defaultWeapon);
+            weaponController.SwitchWeapon(WeaponHand.right, defaultWeapon);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            weaponController.SwitchWeapon(WeaponType.left, testWeapon);
+            weaponController.SwitchWeapon(WeaponHand.left, testWeapon);
         }
 
         if (Input.GetKeyDown(KeyCode.V))
         {
-            weaponController.SwitchWeapon(WeaponType.right, testWeapon);
+            weaponController.SwitchWeapon(WeaponHand.right, testWeapon);
         }
     }
 

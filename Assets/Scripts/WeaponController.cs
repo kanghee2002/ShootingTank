@@ -2,20 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType { left, right };        //Naming has to be changed
+public enum WeaponHand { left = 0, right = 1 };
 
 public class WeaponController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject leftWeaponParent;
-    [SerializeField]
-    private GameObject rightWeaponParent;
+    private GameObject[] weaponParents = new GameObject[2];
 
-    private Weapon leftWeapon;
-    private Weapon rightWeapon;
+    private Weapon[] weapons = new Weapon[2];
 
-    private bool isLeftWeaponCool;
-    private bool isRightWeaponCool;
+    private bool[] isWeaponCool = new bool[2]; 
 
     private void Start()
     {
@@ -24,15 +20,21 @@ public class WeaponController : MonoBehaviour
 
     private void Init()
     {
-        isLeftWeaponCool = false;
-        isRightWeaponCool = false;
+        for (int i = 0; i < isWeaponCool.Length; i++)
+        {
+            isWeaponCool[i] = false;
+        }
     }
 
     private void Update()
     {
-        LookAtMouse(leftWeapon, rightWeapon);
+        for(int i = 0; i < weapons.Length; i++)
+        {
+            LookAtMouse(weapons[i]);
+        }
 
-        ClickFire();
+        ClickFire(WeaponHand.left);
+        ClickFire(WeaponHand.right);
     }
 
     private void LookAtMouse(params Weapon[] weapons)
@@ -52,62 +54,49 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void SwitchWeapon(WeaponType type, GameObject weaponObj)
+    public void SwitchWeapon(WeaponHand weaponHand, GameObject weaponObj)
     {
-        if (type == WeaponType.left)
-        {
-            if (leftWeapon != null)
-            {
-                //Optimization: SetActive(false) and destroy when it's loading
-                Destroy(leftWeapon.gameObject);
-            }
-            var obj = Instantiate(weaponObj, leftWeaponParent.transform);
-            leftWeapon = obj.GetComponent<Weapon>();
-            leftWeapon.Init();
+        int weaponIdx = (int)weaponHand;
 
-            StopCoroutine(CheckCoolTime(WeaponType.left, leftWeapon.coolTime));
-            isLeftWeaponCool = false;
-        }
-        else if (type == WeaponType.right)
+        if (weapons[weaponIdx] != null)
         {
-            if (rightWeapon != null)
-            {
-                Destroy(rightWeapon.gameObject);
-            }
-            var obj = Instantiate(weaponObj, rightWeaponParent.transform);
-            rightWeapon = obj.GetComponent<Weapon>();
-            rightWeapon.Init();
-
-            StopCoroutine(CheckCoolTime(WeaponType.left, rightWeapon.coolTime));
-            isRightWeaponCool = false;
+            //Optimization: SetActive(false) and destroy when it's loading
+            Destroy(weapons[weaponIdx].gameObject);
         }
+        var obj = Instantiate(weaponObj, weaponParents[weaponIdx].transform);
+        weapons[weaponIdx] = obj.GetComponent<Weapon>();
+        weapons[weaponIdx].Init();
+
     }
 
-    private void ClickFire()
+    private void ClickFire(WeaponHand weaponHand)
     {
-        if (Input.GetMouseButton(0))    //Left Click
+        int weaponIdx = (int)weaponHand;
+
+        if (Input.GetMouseButton(weaponIdx))
         {
-            if (leftWeapon == null || isLeftWeaponCool) return;
+            if (weapons[weaponIdx] == null || isWeaponCool[weaponIdx]) return;
 
             Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 myPos = transform.position;
             var dir = (targetPos - myPos).normalized;
-            leftWeapon.Fire(dir);
+            weapons[weaponIdx].Fire(dir);
 
-            StartCoroutine(CheckCoolTime(WeaponType.left, leftWeapon.coolTime));
-            isLeftWeaponCool = true;
+            StartCoroutine(CheckCoolTime(weaponHand, weapons[weaponIdx].coolTime));
+            isWeaponCool[weaponIdx] = true;
         }
-        //If right click -> rightWeapon.weapon.fire();
     }
 
-    IEnumerator CheckCoolTime(WeaponType weaponType, float coolTime)
+    IEnumerator CheckCoolTime(WeaponHand weaponHand, float coolTime)
     {
+        int weaponIdx = (int)weaponHand;
+
         while (coolTime > 0f)
         {
             coolTime -= Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
 
-        if (weaponType == WeaponType.left) isLeftWeaponCool = false;
+        isWeaponCool[weaponIdx] = false;
     }
 }
