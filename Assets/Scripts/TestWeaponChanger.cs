@@ -4,30 +4,26 @@ using UnityEngine;
 
 public class TestWeaponChanger : MonoBehaviour
 {
-    public WeaponController weaponController;
-    public GameObject defaultWeapon;
-    public GameObject testWeapon;
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            weaponController.SwitchWeapon(WeaponHand.left, defaultWeapon);
+            WeaponManager.Instance.AddAvailableWeapon(WeaponName.DefaultWeapon);
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            weaponController.SwitchWeapon(WeaponHand.right, defaultWeapon);
+            WeaponManager.Instance.AddAvailableWeapon(WeaponName.TestWeapon);
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            weaponController.SwitchWeapon(WeaponHand.left, testWeapon);
+            WeaponManager.Instance.AddAvailableWeapon(WeaponName.DefaultWeapon);
         }
 
         if (Input.GetKeyDown(KeyCode.V))
         {
-            weaponController.SwitchWeapon(WeaponHand.right, testWeapon);
+            WeaponManager.Instance.AddAvailableWeapon(WeaponName.TestWeapon);
         }
     }
 

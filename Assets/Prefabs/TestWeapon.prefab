@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5902622998344908052}
   - component: {fileID: 5860492195903490947}
-  - component: {fileID: 1877275368419847368}
+  - component: {fileID: 998010052405848856}
   m_Layer: 0
   m_Name: TestWeapon
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1877275368419847368
+--- !u!114 &998010052405848856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,13 +94,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6917438833306291598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b803fa2711ae44a4b9ca7f86da4ac9fe, type: 3}
+  m_Script: {fileID: 11500000, guid: cfdaacb3b5b5aee4aa601338b257970d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: 
+  title: 1
   description: 
   damage: 0
   coolTime: 0.7
   poolSize: 10
   length: 0.8
-  bulletObj: {fileID: 2725257939580471691, guid: 32661ecdad0e4f843899637e74c5e19b, type: 3}
+  bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}

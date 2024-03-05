@@ -4,13 +4,14 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public WeaponName title { get; protected set; }
+    [SerializeField]
+    private WeaponName title;
+    public WeaponName Title { get => title; private set => title = value; }
     public string description;
     public float damage;
     public float coolTime;
     public int poolSize;
     public float length;
-
 
     protected float speed;
 

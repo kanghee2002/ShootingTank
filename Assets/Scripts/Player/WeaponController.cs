@@ -28,10 +28,7 @@ public class WeaponController : MonoBehaviour
 
     private void Update()
     {
-        for(int i = 0; i < weapons.Length; i++)
-        {
-            LookAtMouse(weapons[i]);
-        }
+        LookAtMouse(weapons);
 
         ClickFire(WeaponHand.left);
         ClickFire(WeaponHand.right);
@@ -60,11 +57,10 @@ public class WeaponController : MonoBehaviour
 
         if (weapons[weaponIdx] != null)
         {
-            Destroy(weapons[weaponIdx].gameObject);     //Need to be changed
+            WeaponManager.Instance.ReturnWeapon(weapons[weaponIdx].gameObject);
         }
         var obj = Instantiate(weaponObj, weaponParents[weaponIdx].transform);
         weapons[weaponIdx] = obj.GetComponent<Weapon>();
-        weapons[weaponIdx].Init();     //Need to be changed
 
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultWeapon : Weapon
+public class TestWeapon : Weapon
 {
     public override void Init()
     {

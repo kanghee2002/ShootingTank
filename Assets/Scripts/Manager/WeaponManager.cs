@@ -10,24 +10,22 @@ public class WeaponManager : Singleton<WeaponManager>
     private List<GameObject> weapons = new List<GameObject>();
     private Dictionary<GameObject, Weapon> availableWeaponDic = new Dictionary<GameObject, Weapon>();
 
-    private void Awake()
-    {
+    [SerializeField]
+    private Transform weaponsParent;
 
-    }
-
-    public void Init()      //Act at First
+    public (GameObject, Weapon) InitWeapon(GameObject weaponObj)      //Act at First
     {
-        foreach (var weapon in availableWeaponDic) 
-        {
-            weapon.Value.Init();
-        }
+        var obj = Instantiate(weaponObj, weaponsParent);
+        var weapon = obj.GetComponent<Weapon>();
+        weapon.Init();
+        return (obj, weapon);
     }
 
     public void AddAvailableWeapon(WeaponName weaponName)
     {
         foreach(var weapon in availableWeaponDic)
         {
-            if (weapon.Value.title == weaponName)
+            if (weapon.Value.Title == weaponName)
             {
                 return;
             }
@@ -36,9 +34,10 @@ public class WeaponManager : Singleton<WeaponManager>
         foreach (var obj in weapons)
         {
             var weapon = obj.GetComponent<Weapon>();
-            if (weapon.title == weaponName)
+            if (weapon.Title == weaponName)
             {
-                availableWeaponDic.Add(obj, weapon);
+                var result = InitWeapon(obj);
+                availableWeaponDic.Add(result.Item1, result.Item2);
                 return;
             }
         }
@@ -46,6 +45,6 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void ReturnWeapon(GameObject obj)
     {
-
+        availableWeaponDic.Add(obj, obj.GetComponent<Weapon>());
     }
 }
