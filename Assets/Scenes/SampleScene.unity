@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 1480846586}
   - component: {fileID: 1480846585}
   m_Layer: 0
-  m_Name: AvailabilityManager
+  m_Name: WeaponManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,8 +402,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapons:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 6917438833306291598, guid: d86e30a399c2fa84d9847fb0a6e1ac45, type: 3}
+  - {fileID: 6917438833306291598, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
 --- !u!4 &1480846586
 Transform:
   m_ObjectHideFlags: 0
