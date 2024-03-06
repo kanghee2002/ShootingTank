@@ -14,6 +14,21 @@ public class WeaponManager : Singleton<WeaponManager>
     [SerializeField]
     private Transform weaponsParent;
 
+    public int availableWeaponNum { get { return availableWeaponList.Count; } 
+                                    private set { availableWeaponNum = availableWeaponList.Count; } }
+
+    private void Awake()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        AddAvailableWeapon(WeaponName.DefaultWeapon);
+        AddAvailableWeapon(WeaponName.DefaultWeapon);
+        AddAvailableWeapon(WeaponName.TestWeapon);
+    }
+
     public (GameObject, Weapon) InitWeapon(GameObject weaponObj)      //Act at First
     {
         var obj = Instantiate(weaponObj, weaponsParent);
@@ -24,11 +39,14 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void AddAvailableWeapon(WeaponName weaponName)
     {
-        foreach(var tuple in availableWeaponList)
+        if (weaponName != WeaponName.DefaultWeapon)
         {
-            if (tuple.weapon.Title == weaponName)
+            foreach (var tuple in availableWeaponList)
             {
-                return;
+                if (tuple.weapon.Title == weaponName)
+                {
+                    return;
+                }
             }
         }
 
@@ -44,19 +62,20 @@ public class WeaponManager : Singleton<WeaponManager>
         }
     }
 
-    public (GameObject, Weapon) GetWeapon(WeaponName weaponName)
+    public (GameObject, Weapon) GetWeapon(bool isFront)
     {
-        foreach (var tuple in availableWeaponList)
+        if (isFront)
         {
-            if (tuple.weapon.Title == weaponName)
-            {
-                availableWeaponList.Remove(tuple);
-                return tuple;
-            }
+            var tuple = availableWeaponList[0];
+            availableWeaponList.RemoveAt(0);
+            return tuple;
         }
-
-        Debug.Log("Unavailable Weapon Request");
-        return (null, null);    //Need to be removed
+        else
+        {
+            var tuple = availableWeaponList[availableWeaponList.Count - 1];
+            availableWeaponList.RemoveAt(availableWeaponList.Count - 1);
+            return tuple;
+        }
     }
 
     public void ReturnWeapon(GameObject obj, Weapon weapon = null)

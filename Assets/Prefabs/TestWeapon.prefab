@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6917438833306291598}
   m_LocalRotation: {x: 0, y: 0, z: 0.90346485, w: 0.42866218}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,5 +102,5 @@ MonoBehaviour:
   damage: 0
   coolTime: 0.7
   poolSize: 10
-  length: 0.8
+  length: 1.5
   bulletObj: {fileID: 2725257939580471691, guid: 32661ecdad0e4f843899637e74c5e19b, type: 3}

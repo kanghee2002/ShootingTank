@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponHand { left = 0, right = 1 };
+public enum WeaponHand { Left = 0, Right = 1 };
 
 public class WeaponController : MonoBehaviour
 {
@@ -11,11 +11,13 @@ public class WeaponController : MonoBehaviour
 
     private Weapon[] weapons = new Weapon[2];
 
-    private bool[] isWeaponCool = new bool[2]; 
+    private bool[] isWeaponCool = new bool[2];
 
     private void Start()
     {
         Init();
+        SwitchWeapon(WeaponHand.Left, isFront: true);
+        SwitchWeapon(WeaponHand.Right, isFront: true);
     }
 
     private void Init()
@@ -30,8 +32,11 @@ public class WeaponController : MonoBehaviour
     {
         LookAtMouse(weapons);
 
-        ClickFire(WeaponHand.left);
-        ClickFire(WeaponHand.right);
+        ClickFire(WeaponHand.Left);
+        ClickFire(WeaponHand.Right);
+
+        CheckSwitch(WeaponHand.Left);
+        CheckSwitch(WeaponHand.Right);
     }
 
     private void LookAtMouse(params Weapon[] weapons)
@@ -51,42 +56,64 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void SwitchWeapon(WeaponHand weaponHand, WeaponName weaponName)
+    private void CheckSwitch(WeaponHand weaponHand)
     {
-        int weaponIdx = (int)weaponHand;
-
-        if (weapons[weaponIdx] != null)
+        float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+        if ((weaponHand == WeaponHand.Left && !Input.GetKey(KeyCode.LeftShift)) ||
+            (weaponHand == WeaponHand.Right && Input.GetKey(KeyCode.LeftShift)))
         {
-            WeaponManager.Instance.ReturnWeapon(weapons[weaponIdx].gameObject, weapons[weaponIdx]);
+            if (wheelInput > 0f)
+            {
+                SwitchWeapon(weaponHand, isFront: false);
+            }
+            else if (wheelInput < 0f)
+            {
+                SwitchWeapon(weaponHand, isFront: true);
+            }
         }
-        var (obj, weapon) = WeaponManager.Instance.GetWeapon(weaponName);
-        obj.transform.SetParent(weaponParents[weaponIdx].transform);
+    }
+
+    public void SwitchWeapon(WeaponHand weaponHand, bool isFront)
+    {
+        if (WeaponManager.Instance.availableWeaponNum == 0)
+        {
+            return;
+        }
+
+        int weaponHandIdx = (int)weaponHand;
+        var (obj, weapon) = WeaponManager.Instance.GetWeapon(isFront);
+        obj.transform.SetParent(weaponParents[weaponHandIdx].transform);
         obj.transform.localPosition = Vector3.zero;
-        weapons[weaponIdx] = weapon;
+
+        if (weapons[weaponHandIdx] != null)
+        {
+            WeaponManager.Instance.ReturnWeapon(weapons[weaponHandIdx].gameObject, weapons[weaponHandIdx]);
+        }
+        weapons[weaponHandIdx] = weapon;
 
     }
 
     private void ClickFire(WeaponHand weaponHand)
     {
-        int weaponIdx = (int)weaponHand;
+        int weaponHandIdx = (int)weaponHand;
 
-        if (Input.GetMouseButton(weaponIdx))
+        if (Input.GetMouseButton(weaponHandIdx))
         {
-            if (weapons[weaponIdx] == null || isWeaponCool[weaponIdx]) return;
+            if (weapons[weaponHandIdx] == null || isWeaponCool[weaponHandIdx]) return;
 
             Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 myPos = transform.position;
             var dir = (targetPos - myPos).normalized;
-            weapons[weaponIdx].Fire(dir);
+            weapons[weaponHandIdx].Fire(dir);
 
-            StartCoroutine(CheckCoolTime(weaponHand, weapons[weaponIdx].coolTime));
-            isWeaponCool[weaponIdx] = true;
+            StartCoroutine(CheckCoolTime(weaponHand, weapons[weaponHandIdx].coolTime));
+            isWeaponCool[weaponHandIdx] = true;
         }
     }
 
     IEnumerator CheckCoolTime(WeaponHand weaponHand, float coolTime)
     {
-        int weaponIdx = (int)weaponHand;
+        int weaponHandIdx = (int)weaponHand;
 
         while (coolTime > 0f)
         {
@@ -94,6 +121,6 @@ public class WeaponController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
 
-        isWeaponCool[weaponIdx] = false;
+        isWeaponCool[weaponHandIdx] = false;
     }
 }
