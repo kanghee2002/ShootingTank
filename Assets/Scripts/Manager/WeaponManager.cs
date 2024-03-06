@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class WeaponManager : Singleton<WeaponManager>
 {
     [SerializeField]
     private List<GameObject> weapons = new List<GameObject>();
-    private Dictionary<GameObject, Weapon> availableWeaponDic = new Dictionary<GameObject, Weapon>();
+    private List<(GameObject obj, Weapon weapon)> availableWeaponList = new List<(GameObject, Weapon)>();
 
     [SerializeField]
     private Transform weaponsParent;
@@ -23,9 +24,9 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void AddAvailableWeapon(WeaponName weaponName)
     {
-        foreach(var weapon in availableWeaponDic)
+        foreach(var tuple in availableWeaponList)
         {
-            if (weapon.Value.Title == weaponName)
+            if (tuple.weapon.Title == weaponName)
             {
                 return;
             }
@@ -37,14 +38,37 @@ public class WeaponManager : Singleton<WeaponManager>
             if (weapon.Title == weaponName)
             {
                 var result = InitWeapon(obj);
-                availableWeaponDic.Add(result.Item1, result.Item2);
+                availableWeaponList.Add(result);
                 return;
             }
         }
     }
 
-    public void ReturnWeapon(GameObject obj)
+    public (GameObject, Weapon) GetWeapon(WeaponName weaponName)
     {
-        availableWeaponDic.Add(obj, obj.GetComponent<Weapon>());
+        foreach (var tuple in availableWeaponList)
+        {
+            if (tuple.weapon.Title == weaponName)
+            {
+                availableWeaponList.Remove(tuple);
+                return tuple;
+            }
+        }
+
+        Debug.Log("Unavailable Weapon Request");
+        return (null, null);    //Need to be removed
+    }
+
+    public void ReturnWeapon(GameObject obj, Weapon weapon = null)
+    {
+        if (weapon == null)
+        {
+            availableWeaponList.Add((obj, obj.GetComponent<Weapon>()));
+        }
+        else
+        {
+            availableWeaponList.Add((obj, weapon));
+        }
+        obj.transform.SetParent(weaponsParent);
     }
 }

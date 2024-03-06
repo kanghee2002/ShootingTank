@@ -51,16 +51,18 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    public void SwitchWeapon(WeaponHand weaponHand, GameObject weaponObj)
+    public void SwitchWeapon(WeaponHand weaponHand, WeaponName weaponName)
     {
         int weaponIdx = (int)weaponHand;
 
         if (weapons[weaponIdx] != null)
         {
-            WeaponManager.Instance.ReturnWeapon(weapons[weaponIdx].gameObject);
+            WeaponManager.Instance.ReturnWeapon(weapons[weaponIdx].gameObject, weapons[weaponIdx]);
         }
-        var obj = Instantiate(weaponObj, weaponParents[weaponIdx].transform);
-        weapons[weaponIdx] = obj.GetComponent<Weapon>();
+        var (obj, weapon) = WeaponManager.Instance.GetWeapon(weaponName);
+        obj.transform.SetParent(weaponParents[weaponIdx].transform);
+        obj.transform.localPosition = Vector3.zero;
+        weapons[weaponIdx] = weapon;
 
     }
 

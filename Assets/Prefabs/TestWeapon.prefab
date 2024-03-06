@@ -103,4 +103,4 @@ MonoBehaviour:
   coolTime: 0.7
   poolSize: 10
   length: 0.8
-  bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
+  bulletObj: {fileID: 2725257939580471691, guid: 32661ecdad0e4f843899637e74c5e19b, type: 3}
