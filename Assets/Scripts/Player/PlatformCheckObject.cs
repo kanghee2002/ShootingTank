@@ -8,7 +8,7 @@ public class PlatformCheckObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Platform")
+        if (other.CompareTag("Platform"))
         {
             isTouchingPlatform = true;
         }
@@ -16,7 +16,7 @@ public class PlatformCheckObject : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Platform")
+        if (other.CompareTag("Platform"))
         {
             isTouchingPlatform = false;
         }
