@@ -11,8 +11,6 @@ public class TestWeapon : Weapon
 
     public override void Fire(Vector3 dir)
     {
-        var obj = GetBullet();
-        obj.transform.position = transform.position + dir * length;
-        obj.GetComponent<Rigidbody2D>().velocity = dir * speed;
+        base.Fire(dir);
     }
 }

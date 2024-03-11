@@ -68,5 +68,10 @@ public abstract class Weapon : MonoBehaviour
         bulletPool.Enqueue(obj);
     }
 
-    public abstract void Fire(Vector3 dir);
+    public virtual void Fire(Vector3 dir)
+    {
+        var obj = GetBullet();
+        obj.transform.position = transform.position + dir * length;
+        obj.GetComponent<Rigidbody2D>().velocity = dir * speed;
+    }
 }

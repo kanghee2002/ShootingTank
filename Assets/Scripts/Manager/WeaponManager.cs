@@ -80,7 +80,7 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void ReturnWeapon(GameObject obj, Weapon weapon = null)
     {
-        if (weapon == null)
+        if (!weapon)
         {
             availableWeaponList.Add((obj, obj.GetComponent<Weapon>()));
         }

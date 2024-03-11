@@ -43,7 +43,7 @@ public class WeaponController : MonoBehaviour
     {
         foreach (var weapon in weapons)
         {
-            if (weapon == null) return;
+            if (!weapon) return;
 
             Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 weaponPos = weapon.transform.position;
@@ -85,7 +85,7 @@ public class WeaponController : MonoBehaviour
         obj.transform.SetParent(weaponParents[weaponHandIdx].transform);
         obj.transform.localPosition = Vector3.zero;
 
-        if (weapons[weaponHandIdx] != null)
+        if (weapons[weaponHandIdx])
         {
             WeaponManager.Instance.ReturnWeapon(weapons[weaponHandIdx].gameObject, weapons[weaponHandIdx]);
         }
@@ -99,7 +99,7 @@ public class WeaponController : MonoBehaviour
 
         if (Input.GetMouseButton(weaponHandIdx))
         {
-            if (weapons[weaponHandIdx] == null || isWeaponCool[weaponHandIdx]) return;
+            if (!weapons[weaponHandIdx] || isWeaponCool[weaponHandIdx]) return;
 
             Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 myPos = transform.position;
@@ -111,7 +111,7 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    IEnumerator CheckCoolTime(WeaponHand weaponHand, float coolTime)
+    private IEnumerator CheckCoolTime(WeaponHand weaponHand, float coolTime)
     {
         int weaponHandIdx = (int)weaponHand;
 
