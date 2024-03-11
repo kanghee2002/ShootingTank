@@ -139,4 +139,4 @@ MonoBehaviour:
   weapon: {fileID: 0}
   speed: 20
   damage: 0
-  destroyTime: 3
+  lifeTIme: 3

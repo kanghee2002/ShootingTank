@@ -320,10 +320,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TmpWall
       objectReference: {fileID: 0}
-    - target: {fileID: 237547940488373538, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
-      propertyPath: m_TagString
-      value: Platform
-      objectReference: {fileID: 0}
     - target: {fileID: 237547940488373551, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -587,40 +583,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
---- !u!1 &1350285744694978334 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8089172946932009105, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
-  m_PrefabInstance: {fileID: 1350285744694978333}
-  m_PrefabAsset: {fileID: 0}
---- !u!58 &1350285744694978335
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350285744694978334}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 4
---- !u!114 &1350285744694978336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350285744694978334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12c2781632ca4aa48bc5c61844cd9e62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  viewObstacleMask:
-  - serializedVersion: 2
-    m_Bits: 128
-  coolTime: 0

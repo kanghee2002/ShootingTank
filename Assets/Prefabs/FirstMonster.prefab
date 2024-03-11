@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6480561379283226129}
   - component: {fileID: 4561013565632133627}
   - component: {fileID: 1609629898989105984}
+  - component: {fileID: 1350285744694978335}
+  - component: {fileID: 1350285744694978336}
   m_Layer: 0
   m_Name: FirstMonster
   m_TagString: Untagged
@@ -133,3 +135,35 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.4}
   m_EdgeRadius: 0
+--- !u!58 &1350285744694978335
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089172946932009105}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4
+--- !u!114 &1350285744694978336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089172946932009105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12c2781632ca4aa48bc5c61844cd9e62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewObstacleMask:
+  - serializedVersion: 2
+    m_Bits: 128
+  coolTime: 0
