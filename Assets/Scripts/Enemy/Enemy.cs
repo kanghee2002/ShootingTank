@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public abstract class Enemy : ShootingObject
 {
     [SerializeField]
     private List<LayerMask> viewObstacleMask = new List<LayerMask>();
@@ -11,8 +11,6 @@ public class EnemyController : MonoBehaviour
 
     private Transform player;
 
-    [SerializeField]
-    private float coolTime;
     private bool isCool;
     private bool isPlayerDetected;
 
@@ -44,9 +42,19 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public LayerMask GetObstacleLayerMask()
+    {
+        LayerMask newLayerMask = viewObstacleMask[0];
+        foreach (var layerMask in viewObstacleMask)
+        {
+            newLayerMask = newLayerMask | layerMask;
+        }
+        return newLayerMask;
+    }
+
     private bool IsTargetVisible(Transform target)
     {
-        Vector2 dir = GetTargetDir(target);
+        var dir = GetTargetDir(target);
         RaycastHit2D rayHit = Physics2D.Raycast(transform.position, dir,
                                                 circleCollider.radius, GetObstacleLayerMask());
         
@@ -60,22 +68,29 @@ public class EnemyController : MonoBehaviour
 
     private bool isAttackPossible() => (isPlayerDetected && !isCool);
 
+    private Vector3 GetTargetDir(Transform target)
+        => (target.position - transform.position).normalized;
+
     protected virtual void Attack(Transform target)
     {
         var dir = GetTargetDir(target);
-        //Implement Attack
+        base.Fire(dir);
+        StartCoroutine(CheckCoolTime(coolTime));
+        isCool = true;
     }
 
-    private Vector2 GetTargetDir(Transform target)
-        => (target.position - transform.position).normalized;
-
-    public LayerMask GetObstacleLayerMask()
+    protected virtual IEnumerator CheckCoolTime(float coolTime)
     {
-        LayerMask newLayerMask = viewObstacleMask[0];
-        foreach (var layerMask in viewObstacleMask)
+        while (coolTime > 0f)
         {
-            newLayerMask = newLayerMask | layerMask;
+            coolTime -= Time.deltaTime;
+            yield return new WaitForFixedUpdate();
         }
-        return newLayerMask;
+        isCool = false;
+    } 
+
+    protected virtual void LookAtPlayer()
+    {
+
     }
 }

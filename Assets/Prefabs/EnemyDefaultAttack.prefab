@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 9145616883401481574}
   - component: {fileID: 4627200372952755670}
   - component: {fileID: 647994991755651472}
-  m_Layer: 0
+  - component: {fileID: -3045992383447977010}
+  m_Layer: 10
   m_Name: EnemyDefaultAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4003872621897938578
 Transform:
   m_ObjectHideFlags: 0
@@ -191,3 +192,20 @@ PolygonCollider2D:
       - {x: -0.30800003, y: -0.628}
       - {x: -0.284, y: -0.592}
       - {x: -0.264, y: -0.568}
+--- !u!114 &-3045992383447977010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328794040276415184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed1d4f72ec22fd4d8e199507f1c6788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingObject: {fileID: 0}
+  speed: 10
+  damageValue: 0
+  lifeTIme: 5
+  rotatedDegree: -90

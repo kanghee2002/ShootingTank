@@ -136,9 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed1d4f72ec22fd4d8e199507f1c6788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
+  shootingObject: {fileID: 0}
   speed: 20
   damageValue: 0
   lifeTIme: 3
-  defaultCollisionTags:
-  - Platform
+  rotatedDegree: 0

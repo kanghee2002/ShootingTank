@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 4561013565632133627}
   - component: {fileID: 1609629898989105984}
   - component: {fileID: 1350285744694978335}
-  - component: {fileID: 1350285744694978336}
-  m_Layer: 0
+  - component: {fileID: 3660864576351736020}
+  m_Layer: 8
   m_Name: FirstMonster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4
---- !u!114 &1350285744694978336
+--- !u!114 &3660864576351736020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,10 +160,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8089172946932009105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12c2781632ca4aa48bc5c61844cd9e62, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fc5a8938db4f594fb7e7a006380436f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  description: 
+  damage: 0
+  coolTime: 1
+  poolSize: 10
+  length: 0.5
+  bulletObj: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
   viewObstacleMask:
   - serializedVersion: 2
     m_Bits: 128
-  coolTime: 0

@@ -366,30 +366,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
---- !u!1 &1194575316 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 237547940488373538, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
-  m_PrefabInstance: {fileID: 2131544416}
-  m_PrefabAsset: {fileID: 0}
---- !u!251 &1194575317
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1194575316}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 0
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 180
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
 --- !u!1001 &1352474985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -400,6 +376,10 @@ PrefabInstance:
     - target: {fileID: 237547940488373538, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
       propertyPath: m_Name
       value: TmpWall (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 237547940488373538, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 237547940488373538, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
       propertyPath: m_TagString
@@ -557,10 +537,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -814524183441307432, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
-      propertyPath: m_UsedByEffector
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 237547940488373538, guid: 295f66e1e3d9d3e4690346416d8dcf77, type: 3}
       propertyPath: m_Name
       value: TmpWall (2)
@@ -618,14 +594,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1609629898989105984, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1609629898989105984, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2.4
-      objectReference: {fileID: 0}
     - target: {fileID: 5069515194461726083, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -670,10 +638,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6480561379283226129, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d18660f35a4d642458b731a441a98472, type: 3}
     - target: {fileID: 8089172946932009105, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: m_Name
       value: FirstMonster

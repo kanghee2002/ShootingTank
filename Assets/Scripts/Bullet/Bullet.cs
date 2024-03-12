@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    public Weapon weapon;
+    public ShootingObject shootingObject;
 
     [SerializeField]
     private float speed;
@@ -16,6 +16,10 @@ public abstract class Bullet : MonoBehaviour
 
     [SerializeField]
     private float lifeTIme;
+
+    [SerializeField]
+    private float rotatedDegree;
+    public float RotatedDegree { get => rotatedDegree; private set => rotatedDegree = value; }
 
     private List<string> defaultCollisionTags = new List<string>();
 
@@ -71,11 +75,11 @@ public abstract class Bullet : MonoBehaviour
     protected virtual void DestroyBullet()
     {
         //StopAllCoroutines();
-        if (!weapon)
+        if (!shootingObject)
         {
             Debug.Log("Error: No weapon in Bullet");
             Destroy(gameObject);
         }
-        else weapon.ReturnBullet(gameObject);
+        else shootingObject.ReturnBullet(gameObject);
     }
 }
