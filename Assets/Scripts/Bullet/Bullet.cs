@@ -52,7 +52,6 @@ public abstract class Bullet : MonoBehaviour
     {
         while (time > 0f)
         {
-            Debug.Log(time);
             time -= Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
@@ -74,7 +73,7 @@ public abstract class Bullet : MonoBehaviour
         //StopAllCoroutines();
         if (!weapon)
         {
-            Debug.Log("No weapon in Bullet");
+            Debug.Log("Error: No weapon in Bullet");
             Destroy(gameObject);
         }
         else weapon.ReturnBullet(gameObject);

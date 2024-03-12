@@ -618,6 +618,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1609629898989105984, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609629898989105984, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5069515194461726083, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -662,6 +670,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6480561379283226129, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d18660f35a4d642458b731a441a98472, type: 3}
     - target: {fileID: 8089172946932009105, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: m_Name
       value: FirstMonster
