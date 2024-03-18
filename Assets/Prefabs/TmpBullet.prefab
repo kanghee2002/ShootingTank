@@ -140,4 +140,4 @@ MonoBehaviour:
   speed: 20
   damageValue: 0
   lifeTIme: 3
-  rotatedDegree: 0
+  rotatedDegree: -90

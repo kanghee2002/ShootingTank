@@ -75,14 +75,9 @@ public class ShootingObject : MonoBehaviour
         LookAtObject(obj.transform, dir);
     }
 
-    private void LookAtObject(Transform obj, Vector3 target)
+    private void LookAtObject(Transform obj, Vector3 dir)
     {
-        Vector3 objPos = obj.position;
-
-        float dy = target.y - objPos.y;
-        float dx = target.x - objPos.x;
-        float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-
-        obj.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree  + bulletRotatedDegree);
+        float rotateDegree = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        obj.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree + bulletRotatedDegree);
     }
 }
