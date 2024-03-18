@@ -21,7 +21,6 @@ public class ShootingObject : MonoBehaviour
     {
         speed = bulletObj.GetComponent<Bullet>().Speed;
         bulletRotatedDegree = bulletObj.GetComponent<Bullet>().RotatedDegree;
-        bulletObj.SetActive(false);
         bulletPool = new Queue<GameObject>();
         MakeBulletPool(ref bulletPool, bulletObj, poolSize);
     }
