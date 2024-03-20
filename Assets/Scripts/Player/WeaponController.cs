@@ -77,6 +77,7 @@ public class WeaponController : MonoBehaviour
     {
         if (WeaponManager.Instance.availableWeaponNum == 0)
         {
+            Debug.Log("No Weapon Error");
             return;
         }
 
