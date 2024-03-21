@@ -75,7 +75,7 @@ public abstract class Enemy : ShootingObject
     {
         var dir = GetTargetDir(target);
         base.Fire(dir);
-        StartCoroutine(CheckCoolTime(coolTime));
+        StartCoroutine(CheckCoolTime(CoolTime));
         isCool = true;
     }
 

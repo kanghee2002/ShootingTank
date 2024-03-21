@@ -107,7 +107,7 @@ public class WeaponController : MonoBehaviour
             var dir = (targetPos - myPos).normalized;
             weapons[weaponHandIdx].Fire(dir);
 
-            StartCoroutine(CheckCoolTime(weaponHand, weapons[weaponHandIdx].coolTime));
+            StartCoroutine(CheckCoolTime(weaponHand, weapons[weaponHandIdx].CoolTime));
             isWeaponCool[weaponHandIdx] = true;
         }
     }

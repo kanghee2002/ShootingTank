@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class ShootingObject : MonoBehaviour
 {
-    public string description;
-    public float damage;
-    public float coolTime;
-    public int poolSize;
-    public float length;
+    [SerializeField]
+    private string description;
+    public string Description { get => description; private set => description = value; }
+
+    [SerializeField]
+    private float damage;
+    public float Damage { get => damage; set => damage = value; }
+
+    [SerializeField]
+    private float coolTime;
+    public float CoolTime { get => coolTime; private set => coolTime = value; }
+
+    [SerializeField]
+    private int poolSize;
+    [SerializeField]
+    private float length;
 
     protected float speed;
     protected float bulletRotatedDegree;

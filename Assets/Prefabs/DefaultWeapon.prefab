@@ -97,10 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b803fa2711ae44a4b9ca7f86da4ac9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: 0
   description: 
   damage: 0
   coolTime: 0.3
   poolSize: 15
   length: 0.8
   bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
+  title: 0

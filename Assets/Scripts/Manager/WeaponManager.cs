@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponName { DefaultWeapon, TestWeapon };
+public enum WeaponName { Default, Test };
 
 public class WeaponManager : Singleton<WeaponManager>
 {
@@ -25,9 +25,9 @@ public class WeaponManager : Singleton<WeaponManager>
 
     private void Init()
     {
-        AddAvailableWeapon(WeaponName.DefaultWeapon);
-        AddAvailableWeapon(WeaponName.DefaultWeapon);
-        AddAvailableWeapon(WeaponName.TestWeapon);
+        AddAvailableWeapon(WeaponName.Default);
+        AddAvailableWeapon(WeaponName.Default);
+        AddAvailableWeapon(WeaponName.Test);
     }
 
     public (GameObject, Weapon) InitWeapon(GameObject weaponObj)      //Act at First
@@ -40,7 +40,7 @@ public class WeaponManager : Singleton<WeaponManager>
 
     public void AddAvailableWeapon(WeaponName weaponName)
     {
-        if (weaponName != WeaponName.DefaultWeapon)
+        if (weaponName != WeaponName.Default)
         {
             foreach (var tuple in availableWeaponList)
             {
