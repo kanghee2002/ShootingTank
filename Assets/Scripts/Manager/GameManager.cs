@@ -9,14 +9,15 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject playerObj { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         InstantiatePlayer();
     }
 
     private void InstantiatePlayer()
     {
-        //Load Data Files
+        //Load Data Files and ...
         playerObj = Instantiate(playerPrefab, transform);
         playerObj.SetActive(false);
     }
@@ -24,16 +25,22 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         //[DEBUG]
-        MakePlayerActive();
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            MakePlayerActive();
+        }
     }
 
-    //[DEBUG]
-    private void MakePlayerActive()
+    public void MakePlayerActive()
     {
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            playerObj.transform.parent = null;
-            playerObj.SetActive(true);
-            playerObj.transform.position = Vector3.zero;
-        }
+        playerObj.transform.parent = null;
+        playerObj.SetActive(true);
+        playerObj.transform.position = Vector3.zero;
+    }
+
+    public void MakePlayerInactive()
+    {
+        playerObj.transform.parent = transform;
+        playerObj.SetActive(false);
     }
 }

@@ -9,7 +9,7 @@ public class StageExitDetector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Shop");
+            StageManager.Instance.FinishStage();
         }
     }
 }

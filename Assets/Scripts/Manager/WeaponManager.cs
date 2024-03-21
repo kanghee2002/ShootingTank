@@ -17,8 +17,9 @@ public class WeaponManager : Singleton<WeaponManager>
     public int availableWeaponNum { get { return availableWeaponList.Count; } 
                                     private set { availableWeaponNum = availableWeaponList.Count; } }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Init();
     }
 

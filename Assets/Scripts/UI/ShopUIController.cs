@@ -4,15 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class ShopUIManager : MonoBehaviour
+public class ShopUIController : MonoBehaviour
 {
     [SerializeField]
-    private Button GamePlayBtn;
+    private Button gamePlayBtn;
 
     private void Start()
     {
-        GamePlayBtn.onClick.AddListener(() =>
-            SceneManager.LoadScene("GamePlay")
+        gamePlayBtn.onClick.AddListener(() =>
+            SceneManager.LoadScene("Stage1")
 
         );
     }
