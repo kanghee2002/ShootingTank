@@ -6,5 +6,59 @@ public abstract class Weapon : ShootingObject
 {
     [SerializeField]
     private WeaponName title;
-    public WeaponName Title { get => title; private set => title = value; }
+    public WeaponName Title { get => title; }
+
+    [SerializeField]
+    private float minChargeTime;
+
+    [SerializeField]
+    private float maxChargeTime;
+
+    private float chargedTime;
+
+    private IEnumerator curChargeCoroutine;
+
+    public bool isCharged { get => chargedTime >= minChargeTime; }
+
+    /// <summary>
+    /// 0 &lt;= percentage &lt;= 1<br />
+    /// </summary>
+    public float ChargePercentage
+    {
+        get
+        {
+            float percentage = (chargedTime - minChargeTime) / (maxChargeTime - minChargeTime);
+            if (percentage < 0f) return 0f;
+            else if (percentage > 1f) return 1f;
+            else return percentage;
+        }
+    }
+
+    private void OnEnable()
+    {
+        Recharge();
+    }
+
+    public override void Fire(Vector3 dir)
+    {
+        base.Fire(dir);
+        Recharge();
+    }
+
+    private void Recharge()
+    {
+        chargedTime = 0f;
+        if (curChargeCoroutine != null) StopCoroutine(curChargeCoroutine);
+        curChargeCoroutine = IncreaseChargedTime();
+        StartCoroutine(curChargeCoroutine);
+    }
+
+    protected virtual IEnumerator IncreaseChargedTime()
+    {
+        while (chargedTime < maxChargeTime)
+        {
+            chargedTime += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+    }
 }

@@ -11,6 +11,9 @@ public abstract class Enemy : ShootingObject
 
     private Transform player;
 
+    [SerializeField]
+    private float coolTime;
+
     private bool isCool;
     private bool isPlayerDetected;
 
@@ -75,7 +78,7 @@ public abstract class Enemy : ShootingObject
     {
         var dir = GetTargetDir(target);
         base.Fire(dir);
-        StartCoroutine(CheckCoolTime(CoolTime));
+        StartCoroutine(CheckCoolTime(coolTime));
         isCool = true;
     }
 

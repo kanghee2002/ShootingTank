@@ -11,21 +11,15 @@ public class WeaponController : MonoBehaviour
 
     private Weapon[] weapons = new Weapon[2];
 
-    private bool[] isWeaponCool = new bool[2];
-
     private void Start()
     {
         Init();
-        SwitchWeapon(WeaponHand.Left, isFront: true);
-        SwitchWeapon(WeaponHand.Right, isFront: true);
     }
 
     private void Init()
-    {
-        for (int i = 0; i < isWeaponCool.Length; i++)
-        {
-            isWeaponCool[i] = false;
-        }
+    { 
+        SwitchWeapon(WeaponHand.Left, isFront: true);
+        SwitchWeapon(WeaponHand.Right, isFront: true);
     }
 
     private void Update()
@@ -97,31 +91,17 @@ public class WeaponController : MonoBehaviour
     private void ClickFire(WeaponHand weaponHand)
     {
         int weaponHandIdx = (int)weaponHand;
+        Weapon weapon = weapons[weaponHandIdx];
 
         if (Input.GetMouseButton(weaponHandIdx))
         {
-            if (!weapons[weaponHandIdx] || isWeaponCool[weaponHandIdx]) return;
+            if (!weapon) return;
+            if (!weapon.isCharged) return;
 
             Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 myPos = transform.position;
             var dir = (targetPos - myPos).normalized;
-            weapons[weaponHandIdx].Fire(dir);
-
-            StartCoroutine(CheckCoolTime(weaponHand, weapons[weaponHandIdx].CoolTime));
-            isWeaponCool[weaponHandIdx] = true;
+            weapon.Fire(dir);
         }
-    }
-
-    private IEnumerator CheckCoolTime(WeaponHand weaponHand, float coolTime)
-    {
-        int weaponHandIdx = (int)weaponHand;
-
-        while (coolTime > 0f)
-        {
-            coolTime -= Time.deltaTime;
-            yield return new WaitForFixedUpdate();
-        }
-
-        isWeaponCool[weaponHandIdx] = false;
     }
 }

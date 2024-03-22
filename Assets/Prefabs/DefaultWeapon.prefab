@@ -104,3 +104,5 @@ MonoBehaviour:
   length: 0.8
   bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
   title: 0
+  minChargeTime: 0.3
+  maxChargeTime: 1

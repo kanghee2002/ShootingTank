@@ -6,15 +6,11 @@ public class ShootingObject : MonoBehaviour
 {
     [SerializeField]
     private string description;
-    public string Description { get => description; private set => description = value; }
+    public string Description { get => description; }
 
     [SerializeField]
     private float damage;
     public float Damage { get => damage; set => damage = value; }
-
-    [SerializeField]
-    private float coolTime;
-    public float CoolTime { get => coolTime; private set => coolTime = value; }
 
     [SerializeField]
     private int poolSize;
@@ -85,7 +81,7 @@ public class ShootingObject : MonoBehaviour
         LookAtObject(obj.transform, dir);
     }
 
-    private void LookAtObject(Transform obj, Vector3 dir)
+    protected void LookAtObject(Transform obj, Vector3 dir)
     {
         float rotateDegree = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         obj.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree + bulletRotatedDegree);
