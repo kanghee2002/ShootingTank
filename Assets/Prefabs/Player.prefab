@@ -207,6 +207,7 @@ MonoBehaviour:
   minJumpVelocity: 5
   fallVelocity: 10
   platformCheckObject: {fileID: 86312411206472192}
+  hp: 100
 --- !u!114 &1393926900
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     public float moveSpeed;
     public float jumpPower;
@@ -14,10 +14,17 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
 
+    private IDamageable damageableInstance;
+
+    [SerializeField]
+    private int hp;
+    int IDamageable.Hp { get => hp; set => hp = value; }
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        damageableInstance = this;
     }
 
     private void Start()
@@ -60,5 +67,20 @@ public class PlayerController : MonoBehaviour
                 rigid.velocity = new Vector2(rigid.velocity.x, fallVelocity);
             }
         }
+    }
+
+    void IDamageable.Damage(int damageAmount)
+    {
+        damageableInstance.Hp -= damageAmount;
+
+        if (damageableInstance.Hp <= 0)
+        {
+            damageableInstance.Die();
+        }
+    }
+
+    void IDamageable.Die()
+    {
+        //Do Die
     }
 }

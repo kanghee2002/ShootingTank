@@ -4,22 +4,22 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    public ShootingObject shootingObject;
+    public ShootingObject shootingObject { get => shootingObject; set => shootingObject = value; }
 
     [SerializeField]
     private float speed;
-    public float Speed { get => speed; private set => speed = value; }
+    public float Speed { get => speed;}
 
     [SerializeField]
     private float damageValue;
-    public float DamageValue { get => damageValue; private set => damageValue = value; }
+    public float DamageValue { get => damageValue;}
 
     [SerializeField]
     private float lifeTIme;
 
     [SerializeField]
     private float rotatedDegree;
-    public float RotatedDegree { get => rotatedDegree; private set => rotatedDegree = value; }
+    public float RotatedDegree { get => rotatedDegree;}
 
     private List<string> defaultCollisionTags = new List<string>();
 
@@ -48,8 +48,6 @@ public abstract class Bullet : MonoBehaviour
                 return;
             }
         }
-
-        //if (collision.collider.CompareTag("Player", "Enemy")) Damage();
     }
 
     private IEnumerator CheckLifeTime(float time)
@@ -67,7 +65,7 @@ public abstract class Bullet : MonoBehaviour
         DestroyBullet();
     }
 
-    protected virtual void Damage(Transform target)
+    protected virtual void Damage<T>(T target) where T : IDamageable
     {
 
     }
@@ -77,7 +75,7 @@ public abstract class Bullet : MonoBehaviour
         //StopAllCoroutines();
         if (!shootingObject)
         {
-            Debug.Log("Error: No weapon in Bullet");
+            Debug.Log("Error: No Shooting Object in Bullet");
             Destroy(gameObject);
         }
         else shootingObject.ReturnBullet(gameObject);

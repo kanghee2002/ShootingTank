@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : ShootingObject
+public abstract class Enemy : ShootingObject, IDamageable
 {
     [SerializeField]
     private List<LayerMask> viewObstacleMask = new List<LayerMask>();
@@ -17,9 +17,16 @@ public abstract class Enemy : ShootingObject
     private bool isCool;
     private bool isPlayerDetected;
 
+    IDamageable damageableInstance;
+
+    private int hp;
+
+    int IDamageable.Hp { get => hp; set => hp = value; }
+
     private void Awake()
     {
         circleCollider = GetComponent<CircleCollider2D>();
+        damageableInstance = this;
     }
 
     private void Start()
@@ -95,5 +102,20 @@ public abstract class Enemy : ShootingObject
     protected virtual void LookAtPlayer()
     {
 
+    }
+
+    void IDamageable.Damage(int damageAmount)
+    {
+        damageableInstance.Hp -= damageAmount;
+
+        if (damageableInstance.Hp <= 0)
+        {
+            damageableInstance.Die();
+        }
+    }
+
+    void IDamageable.Die()
+    {
+        //Do Die
     }
 }
