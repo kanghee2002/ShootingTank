@@ -9,8 +9,8 @@ public class TestWeapon : Weapon
         base.Init();
     }
 
-    public override void Fire(Vector3 dir)
+    public override GameObject Fire(Vector3 dir)
     {
-        base.Fire(dir);
+        return base.Fire(dir);
     }
 }

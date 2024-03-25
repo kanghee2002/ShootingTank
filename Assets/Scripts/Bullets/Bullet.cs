@@ -4,15 +4,15 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    public ShootingObject shootingObject { get => shootingObject; set => shootingObject = value; }
+    public ShootingObject shootingObject;
 
     [SerializeField]
     private float speed;
     public float Speed { get => speed;}
 
     [SerializeField]
-    private float damageValue;
-    public float DamageValue { get => damageValue;}
+    private float finalDamage;
+    public float FinalDamage { get => finalDamage; set => finalDamage = value; }
 
     [SerializeField]
     private float lifeTIme;

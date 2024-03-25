@@ -9,8 +9,8 @@ public class ShootingObject : MonoBehaviour
     public string Description { get => description; }
 
     [SerializeField]
-    private float damage;
-    public float Damage { get => damage; set => damage = value; }
+    protected float damageValue;
+    public float DamageValue { get => damageValue; set => damageValue = value; }
 
     [SerializeField]
     private int poolSize;
@@ -73,12 +73,13 @@ public class ShootingObject : MonoBehaviour
         bulletPool.Enqueue(obj);
     }
 
-    public virtual void Fire(Vector3 dir)
+    public virtual GameObject Fire(Vector3 dir)
     {
         var obj = GetBullet();
         obj.transform.position = transform.position + dir * length;
         obj.GetComponent<Rigidbody2D>().velocity = dir * speed;
         LookAtObject(obj.transform, dir);
+        return obj;
     }
 
     protected void LookAtObject(Transform obj, Vector3 dir)

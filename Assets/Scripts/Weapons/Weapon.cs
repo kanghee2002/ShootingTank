@@ -39,10 +39,12 @@ public abstract class Weapon : ShootingObject
         Recharge();
     }
 
-    public override void Fire(Vector3 dir)
+    public override GameObject Fire(Vector3 dir)
     {
-        base.Fire(dir);
+        var obj = base.Fire(dir);
+        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
         Recharge();
+        return obj;
     }
 
     private void Recharge()
@@ -52,6 +54,9 @@ public abstract class Weapon : ShootingObject
         curChargeCoroutine = IncreaseChargedTime();
         StartCoroutine(curChargeCoroutine);
     }
+
+    private float GetDamageMultiplier(float percentage)
+        => 0.5f * Mathf.Pow(percentage, 2) + percentage + 1;
 
     protected virtual IEnumerator IncreaseChargedTime()
     {
