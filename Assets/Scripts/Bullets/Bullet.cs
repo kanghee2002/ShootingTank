@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,14 +70,14 @@ public abstract class Bullet : MonoBehaviour
     }
 
     /// <summary>
-    /// Platform, Wall ����� �浹
+    /// Platform, Wall 등과의 충돌
     /// </summary>
     protected virtual void ProcessDefaultCollision()
     {
         //Do Particle, Sound, etc...
     }
     /// <summary>
-    /// Player, Enemy ����� �浹
+    /// Player, Enemy 등과의 충돌
     /// </summary>
     /// 
     protected virtual void ProcessObjectCollision()
