@@ -98,11 +98,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   description: 
-  damage: 0
+  damageValue: 1
   poolSize: 15
   length: 0.8
+  speed: 20
+  bulletRotatedDegree: 0
   bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
   title: 0
-  damageValue: 1
+  maxAmmo: 0
+  curAmmo: 0
   minChargeTime: 0.3
   maxChargeTime: 1

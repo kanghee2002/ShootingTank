@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,21 @@ public abstract class Weapon : ShootingObject
     [SerializeField]
     private WeaponName title;
     public WeaponName Title { get => title; }
+
+    [SerializeField]
+    private int maxAmmo;
+    public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
+
+    [SerializeField]
+    private int curAmmo;
+    public int CurAmmo { get => curAmmo; 
+        set 
+        {
+            if (value < 0) curAmmo = 0;
+            else if (value > maxAmmo) curAmmo = maxAmmo;
+            else curAmmo = value;
+        } 
+    }
 
     [SerializeField]
     private float minChargeTime;
@@ -41,13 +56,20 @@ public abstract class Weapon : ShootingObject
 
     public override GameObject Fire(Vector3 dir)
     {
+        if (curAmmo <= 0)
+        {
+            Debug.Log(name + " : No Ammo");
+            return null;
+        }
+
         var obj = base.Fire(dir);
         obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
+        CurAmmo--;
         Recharge();
         return obj;
     }
 
-    private void Recharge()
+    protected void Recharge()
     {
         chargedTime = 0f;
         if (curChargeCoroutine != null) StopCoroutine(curChargeCoroutine);
@@ -55,7 +77,7 @@ public abstract class Weapon : ShootingObject
         StartCoroutine(curChargeCoroutine);
     }
 
-    private float GetDamageMultiplier(float percentage)
+    protected float GetDamageMultiplier(float percentage)
         => 0.5f * Mathf.Pow(percentage, 2) + percentage + 1;
 
     protected virtual IEnumerator IncreaseChargedTime()

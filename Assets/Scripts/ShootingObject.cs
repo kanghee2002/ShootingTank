@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,10 +14,14 @@ public class ShootingObject : MonoBehaviour
 
     [SerializeField]
     private int poolSize;
-    [SerializeField]
-    private float length;
 
+    [SerializeField]
+    protected float length;
+
+    [SerializeField]
     protected float speed;
+
+    [SerializeField]
     protected float bulletRotatedDegree;
 
     [SerializeField]
@@ -26,8 +30,6 @@ public class ShootingObject : MonoBehaviour
 
     public virtual void Init()
     {
-        speed = bulletObj.GetComponent<Bullet>().Speed;
-        bulletRotatedDegree = bulletObj.GetComponent<Bullet>().RotatedDegree;
         bulletPool = new Queue<GameObject>();
         MakeBulletPool(ref bulletPool, bulletObj, poolSize);
     }

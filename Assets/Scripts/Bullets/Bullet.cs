@@ -6,19 +6,11 @@ public abstract class Bullet : MonoBehaviour
 {
     public ShootingObject shootingObject;
 
-    [SerializeField]
-    private float speed;
-    public float Speed { get => speed;}
-
     private float finalDamage;
     public float FinalDamage { get => finalDamage; set => finalDamage = value; }
 
     [SerializeField]
     private float lifeTIme;
-
-    [SerializeField]
-    private float rotatedDegree;
-    public float RotatedDegree { get => rotatedDegree;}
 
     private List<string> defaultCollisionTags = new();
 
@@ -53,9 +45,9 @@ public abstract class Bullet : MonoBehaviour
 
         if (collision.collider.CompareTag(TargetTag))
         {
+            Debug.Log("Damage " + FinalDamage + " To " + TargetTag);
             collision.transform.GetComponent<IDamageable>().Damage(FinalDamage);
             DestroyBullet();
-
         }
     }
 

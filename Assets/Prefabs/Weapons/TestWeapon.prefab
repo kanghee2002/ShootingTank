@@ -101,7 +101,11 @@ MonoBehaviour:
   damageValue: 1
   poolSize: 10
   length: 1.5
+  speed: 20
+  bulletRotatedDegree: 0
   bulletObj: {fileID: 2725257939580471691, guid: 32661ecdad0e4f843899637e74c5e19b, type: 3}
   title: 1
+  maxAmmo: 100
+  curAmmo: 100
   minChargeTime: 0.7
   maxChargeTime: 3
