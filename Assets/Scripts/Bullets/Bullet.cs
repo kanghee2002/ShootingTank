@@ -10,7 +10,6 @@ public abstract class Bullet : MonoBehaviour
     private float speed;
     public float Speed { get => speed;}
 
-    [SerializeField]
     private float finalDamage;
     public float FinalDamage { get => finalDamage; set => finalDamage = value; }
 
@@ -21,7 +20,9 @@ public abstract class Bullet : MonoBehaviour
     private float rotatedDegree;
     public float RotatedDegree { get => rotatedDegree;}
 
-    private List<string> defaultCollisionTags = new List<string>();
+    private List<string> defaultCollisionTags = new();
+
+    protected abstract string TargetTag { get; }
 
     private void Start()
     {
@@ -45,8 +46,16 @@ public abstract class Bullet : MonoBehaviour
             if (collision.collider.CompareTag(defaultTag))
             {
                 ProcessDefaultCollision();
+                DestroyBullet();
                 return;
             }
+        }
+
+        if (collision.collider.CompareTag(TargetTag))
+        {
+            collision.transform.GetComponent<IDamageable>().Damage(FinalDamage);
+            DestroyBullet();
+
         }
     }
 
@@ -60,17 +69,23 @@ public abstract class Bullet : MonoBehaviour
         DestroyBullet();
     }
 
+    /// <summary>
+    /// Platform, Wall ����� �浹
+    /// </summary>
     protected virtual void ProcessDefaultCollision()
     {
-        DestroyBullet();
+        //Do Particle, Sound, etc...
     }
-
-    protected virtual void Damage<T>(T target) where T : IDamageable
+    /// <summary>
+    /// Player, Enemy ����� �浹
+    /// </summary>
+    /// 
+    protected virtual void ProcessObjectCollision()
     {
-
+        //Do Particle, Sound, etc...
     }
 
-    protected virtual void DestroyBullet()
+    protected void DestroyBullet()
     {
         //StopAllCoroutines();
         if (!shootingObject)

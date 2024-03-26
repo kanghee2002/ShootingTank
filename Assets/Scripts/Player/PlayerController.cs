@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private IDamageable damageableInstance;
 
     [SerializeField]
-    private int hp;
-    int IDamageable.Hp { get => hp; set => hp = value; }
+    private float hp;
+    float IDamageable.Hp { get => hp; set => hp = value; }
 
     private void Awake()
     {
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    void IDamageable.Damage(int damageAmount)
+    void IDamageable.Damage(float damageAmount)
     {
         damageableInstance.Hp -= damageAmount;
 

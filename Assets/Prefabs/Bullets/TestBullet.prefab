@@ -138,6 +138,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingObject: {fileID: 0}
   speed: 20
-  damageValue: 0
   lifeTIme: 3
   rotatedDegree: 0

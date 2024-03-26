@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Enemy : ShootingObject, IDamageable
 {
     [SerializeField]
-    private List<LayerMask> viewObstacleMask = new List<LayerMask>();
+    private List<LayerMask> viewObstacleMask = new();
 
     private CircleCollider2D circleCollider;
 
@@ -19,9 +19,9 @@ public abstract class Enemy : ShootingObject, IDamageable
 
     IDamageable damageableInstance;
 
-    private int hp;
+    private float hp;
 
-    int IDamageable.Hp { get => hp; set => hp = value; }
+    float IDamageable.Hp { get => hp; set => hp = value; }
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public abstract class Enemy : ShootingObject, IDamageable
 
     private void Update()
     {
-        if (isAttackPossible()) Attack(player);
+        if (IsAttackPossible()) Attack(player);
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -57,7 +57,7 @@ public abstract class Enemy : ShootingObject, IDamageable
         LayerMask newLayerMask = viewObstacleMask[0];
         foreach (var layerMask in viewObstacleMask)
         {
-            newLayerMask = newLayerMask | layerMask;
+            newLayerMask |= layerMask;
         }
         return newLayerMask;
     }
@@ -76,7 +76,7 @@ public abstract class Enemy : ShootingObject, IDamageable
         else return true;
     }
 
-    private bool isAttackPossible() => (isPlayerDetected && !isCool);
+    private bool IsAttackPossible() => (isPlayerDetected && !isCool);
 
     private Vector3 GetTargetDir(Transform target)
         => (target.position - transform.position).normalized;
@@ -84,7 +84,8 @@ public abstract class Enemy : ShootingObject, IDamageable
     protected virtual void Attack(Transform target)
     {
         var dir = GetTargetDir(target);
-        base.Fire(dir);
+        var obj = base.Fire(dir);
+        obj.GetComponent<Bullet>().FinalDamage = damageValue;
         StartCoroutine(CheckCoolTime(coolTime));
         isCool = true;
     }
@@ -104,7 +105,7 @@ public abstract class Enemy : ShootingObject, IDamageable
 
     }
 
-    void IDamageable.Damage(int damageAmount)
+    void IDamageable.Damage(float damageAmount)
     {
         damageableInstance.Hp -= damageAmount;
 

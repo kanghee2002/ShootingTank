@@ -4,9 +4,9 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    int Hp { get; set; }
+    float Hp { get; set; }
 
-    void Damage(int damageAmount);
+    void Damage(float damageAmount);
 
     void Die();
 }

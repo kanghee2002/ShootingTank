@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9145616883401481574}
   - component: {fileID: 4627200372952755670}
   - component: {fileID: 647994991755651472}
-  - component: {fileID: 183916362972319023}
+  - component: {fileID: -5344770364092184619}
   m_Layer: 10
   m_Name: EnemyDefaultAttack
   m_TagString: EnemyAttack
@@ -192,7 +192,7 @@ PolygonCollider2D:
       - {x: -0.30800003, y: -0.628}
       - {x: -0.284, y: -0.592}
       - {x: -0.264, y: -0.568}
---- !u!114 &183916362972319023
+--- !u!114 &-5344770364092184619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -201,10 +201,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5328794040276415184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a81945736f1071b41ab74f25fa7a582e, type: 3}
+  m_Script: {fileID: 11500000, guid: 492bf9a69d15451489cb743b658fb051, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  damageValue: 0
+  shootingObject: {fileID: 0}
+  speed: 20
   lifeTIme: 3
-  rotatedDegree: 0
+  rotatedDegree: -90
