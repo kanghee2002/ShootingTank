@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponName { Default, Test, Shotgun };
+
 public abstract class Weapon : ShootingObject
 {
     [SerializeField]
@@ -51,7 +53,10 @@ public abstract class Weapon : ShootingObject
 
     private void OnEnable()
     {
-        Recharge();
+        chargedTime = minChargeTime;
+        if (curChargeCoroutine != null) StopCoroutine(curChargeCoroutine);
+        curChargeCoroutine = IncreaseChargedTime();
+        StartCoroutine(curChargeCoroutine);
     }
 
     public override GameObject Fire(Vector3 dir)

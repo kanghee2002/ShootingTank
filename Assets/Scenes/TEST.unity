@@ -642,6 +642,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 6917438833306291598, guid: d86e30a399c2fa84d9847fb0a6e1ac45, type: 3}
   - {fileID: 6917438833306291598, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+  - {fileID: 6917438833306291598, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
   weaponsParent: {fileID: 1542100178}
 --- !u!4 &1452721816
 Transform:

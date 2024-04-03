@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -82,7 +82,8 @@ public class WeaponController : MonoBehaviour
 
         if (weapons[weaponHandIdx])
         {
-            WeaponManager.Instance.ReturnWeapon(weapons[weaponHandIdx].gameObject, weapons[weaponHandIdx]);
+            WeaponManager.Instance.ReturnWeapon
+                (weapons[weaponHandIdx].gameObject, weapons[weaponHandIdx], isFront);
         }
         weapons[weaponHandIdx] = weapon;
 

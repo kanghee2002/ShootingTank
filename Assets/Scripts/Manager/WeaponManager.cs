@@ -1,9 +1,7 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum WeaponName { Default, Test };
 
 public class WeaponManager : Singleton<WeaponManager>
 {
@@ -28,6 +26,7 @@ public class WeaponManager : Singleton<WeaponManager>
         AddAvailableWeapon(WeaponName.Default);
         AddAvailableWeapon(WeaponName.Default);
         AddAvailableWeapon(WeaponName.Test);
+        AddAvailableWeapon(WeaponName.Shotgun);
     }
 
     public (GameObject, Weapon) InitWeapon(GameObject weaponObj)      //Act at First
@@ -79,7 +78,7 @@ public class WeaponManager : Singleton<WeaponManager>
         }
     }
 
-    public void ReturnWeapon(GameObject obj, Weapon weapon = null)
+    public void ReturnWeapon(GameObject obj, Weapon weapon, bool isFront)
     {
         if (!weapon)
         {
@@ -87,7 +86,8 @@ public class WeaponManager : Singleton<WeaponManager>
         }
         else
         {
-            availableWeaponList.Add((obj, weapon));
+            if (isFront) availableWeaponList.Add((obj, weapon));
+            else availableWeaponList.Insert(0, (obj, weapon));
         }
         obj.transform.SetParent(weaponsParent);
     }
