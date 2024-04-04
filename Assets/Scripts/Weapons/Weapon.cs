@@ -82,6 +82,7 @@ public abstract class Weapon : ShootingObject
         StartCoroutine(curChargeCoroutine);
     }
 
+    //maxChargeTime < minChargeTime * damageMultiplier 
     protected float GetDamageMultiplier(float percentage)
         => 0.5f * Mathf.Pow(percentage, 2) + percentage + 1;
 
