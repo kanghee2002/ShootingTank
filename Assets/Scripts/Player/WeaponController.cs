@@ -11,6 +11,8 @@ public class WeaponController : MonoBehaviour
 
     private Weapon[] weapons = new Weapon[2];
 
+    public Weapon[] Weapons { get => weapons; }
+
     private void Start()
     {
         Init();

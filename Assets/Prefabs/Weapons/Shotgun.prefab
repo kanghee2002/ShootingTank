@@ -107,7 +107,7 @@ MonoBehaviour:
   title: 2
   maxAmmo: 500
   curAmmo: 500
-  minChargeTime: 1
+  minChargeTime: 2
   maxChargeTime: 5
   pelletCount: 5
   aimAccuracy: 80
