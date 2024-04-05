@@ -15,8 +15,9 @@ public abstract class Enemy : ShootingObject, IDamageable
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
 
-    IDamageable damageableInstance;
+    private IDamageable damageableInstance;
 
+    [SerializeField]
     private float hp;
 
     float IDamageable.Hp { get => hp; set => hp = value; }
