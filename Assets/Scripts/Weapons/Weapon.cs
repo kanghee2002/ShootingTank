@@ -59,21 +59,6 @@ public abstract class Weapon : ShootingObject
         StartCoroutine(curChargeCoroutine);
     }
 
-    public override GameObject Fire(Vector3 dir)
-    {
-        if (curAmmo <= 0)
-        {
-            Debug.Log(name + " : No Ammo");
-            return null;
-        }
-
-        var obj = base.Fire(dir);
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
-        CurAmmo--;
-        Recharge();
-        return obj;
-    }
-
     protected void Recharge()
     {
         chargedTime = 0f;

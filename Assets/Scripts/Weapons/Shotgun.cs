@@ -15,6 +15,12 @@ public class Shotgun : Weapon
 
     public override GameObject Fire(Vector3 dir)
     {
+        if (CurAmmo <= 0)
+        {
+            Debug.Log(name + " : No Ammo");
+            return null;
+        }
+
         float accuracyRadian = (90 - (aimAccuracy * 9 / 10)) * Mathf.Deg2Rad;
 
         for (int i = 0; i < pelletCount; i++)
@@ -24,8 +30,11 @@ public class Shotgun : Weapon
                 dir.x * Mathf.Cos(randomAngle) - dir.y * Mathf.Sin(randomAngle),
                 dir.x * Mathf.Sin(randomAngle) + dir.y * Mathf.Cos(randomAngle),
                 0 );
-            base.Fire(randomDir);
+            var obj = base.Fire(randomDir);
+            obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
         }
+        CurAmmo--;
+        Recharge();
 
         return null;
     }
