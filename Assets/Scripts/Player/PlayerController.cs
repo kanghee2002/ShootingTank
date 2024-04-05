@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,8 +47,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
-        if (moveInput < 0) spriteRenderer.flipX = false;
-        else if (moveInput > 0) spriteRenderer.flipX = true;
+        if (moveInput < 0) transform.localScale =
+                new Vector3(1, transform.localScale.y, transform.localScale.z);
+        else if (moveInput > 0) transform.localScale =
+                new Vector3(-1, transform.localScale.y, transform.localScale.z);
     }
 
     private void Jump()
