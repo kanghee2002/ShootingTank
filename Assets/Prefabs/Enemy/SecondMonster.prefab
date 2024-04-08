@@ -220,7 +220,7 @@ MonoBehaviour:
   bulletRotatedDegree: -90
   bulletObj: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
   coolTime: 0.5
-  hp: 0
+  hp: 50
 --- !u!1001 &2180314278522786468
 PrefabInstance:
   m_ObjectHideFlags: 0

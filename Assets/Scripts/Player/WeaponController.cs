@@ -24,15 +24,31 @@ public class WeaponController : MonoBehaviour
         SwitchWeapon(WeaponHand.Right, isFront: true);
     }
 
+    private void OnEnable()
+    {
+        int weaponHand = (int)WeaponHand.Right;
+        if (!WeaponManager.Instance.IsRightWeaponEnabled)
+        {
+            weaponParents[weaponHand].SetActive(false);
+        }
+        else
+        {
+            weaponParents[weaponHand].SetActive(true);
+        }
+    }
+
     private void Update()
     {
         LookAtMouse(weapons);
 
         ClickFire(WeaponHand.Left);
-        ClickFire(WeaponHand.Right);
-
         CheckSwitch(WeaponHand.Left);
-        CheckSwitch(WeaponHand.Right);
+
+        if (WeaponManager.Instance.IsRightWeaponEnabled)
+        {
+            ClickFire(WeaponHand.Right);
+            CheckSwitch(WeaponHand.Right);
+        }
     }
 
     private void LookAtMouse(params Weapon[] weapons)

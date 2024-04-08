@@ -80,5 +80,6 @@ public abstract class Enemy : ShootingObject, IDamageable
     void IDamageable.Die()
     {
         //Do Die
+        gameObject.SetActive(false);
     }
 }

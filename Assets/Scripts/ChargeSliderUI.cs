@@ -12,6 +12,18 @@ public class ChargeSliderUI : MonoBehaviour
 
     private Weapon[] weapons = new Weapon[2];
 
+    private void Start()
+    {
+        if (!WeaponManager.Instance.IsRightWeaponEnabled)
+        {
+            rightSlider.gameObject.SetActive(false);
+        }
+        else
+        {
+            rightSlider.gameObject.SetActive(true);
+        }
+    }
+
     private void Update()
     {
         if (!weapons[0])
@@ -27,7 +39,10 @@ public class ChargeSliderUI : MonoBehaviour
         else
         {
             SetChargeSlider(leftSlider, WeaponHand.Left);
-            SetChargeSlider(rightSlider, WeaponHand.Right);
+            if (WeaponManager.Instance.IsRightWeaponEnabled)
+            {
+                SetChargeSlider(rightSlider, WeaponHand.Right);
+            }
         }
     }
 

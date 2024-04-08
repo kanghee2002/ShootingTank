@@ -12,6 +12,10 @@ public class WeaponManager : Singleton<WeaponManager>
     [SerializeField]
     private Transform weaponsParent;
 
+    [SerializeField]
+    private bool isRightWeaponEnabled;
+    public bool IsRightWeaponEnabled { get => isRightWeaponEnabled; }
+
     public int availableWeaponNum { get { return availableWeaponList.Count; } 
                                     private set { availableWeaponNum = availableWeaponList.Count; } }
 
@@ -27,6 +31,8 @@ public class WeaponManager : Singleton<WeaponManager>
         AddAvailableWeapon(WeaponName.Default);
         AddAvailableWeapon(WeaponName.Test);
         AddAvailableWeapon(WeaponName.Shotgun);
+
+        isRightWeaponEnabled = false;
     }
 
     public (GameObject, Weapon) InitWeapon(GameObject weaponObj)      //Act at First

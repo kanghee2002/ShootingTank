@@ -440,7 +440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 203285065542807102, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
       propertyPath: m_Name
-      value: WeaponManager (1)
+      value: WeaponManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
