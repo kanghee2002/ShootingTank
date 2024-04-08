@@ -47,10 +47,27 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
-        if (moveInput < 0) transform.localScale =
-                new Vector3(1, transform.localScale.y, transform.localScale.z);
-        else if (moveInput > 0) transform.localScale =
-                new Vector3(-1, transform.localScale.y, transform.localScale.z);
+        if (moveInput != 0)
+        {
+            Vector3 scaleVec;
+            if (moveInput < 0)
+            {
+                scaleVec = new Vector3(1, transform.localScale.y, transform.localScale.z);
+            }
+            else
+            {
+                scaleVec = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            }
+
+            transform.localScale = scaleVec;
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                var child = transform.GetChild(i);
+                child.localScale = scaleVec;
+            }
+        }
+        
+        
     }
 
     private void Jump()
