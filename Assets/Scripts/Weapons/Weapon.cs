@@ -68,7 +68,7 @@ public abstract class Weapon : ShootingObject
     }
 
     //maxChargeTime < minChargeTime * damageMultiplier 
-    protected float GetDamageMultiplier(float percentage)
+    protected virtual float GetDamageMultiplier(float percentage)
         => 0.5f * Mathf.Pow(percentage, 2) + percentage + 1;
 
     protected virtual IEnumerator IncreaseChargedTime()
