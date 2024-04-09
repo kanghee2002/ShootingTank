@@ -101,13 +101,13 @@ MonoBehaviour:
   damageValue: 1
   poolSize: 50
   length: 1.6
-  speed: 20
-  bulletRotatedDegree: 0
+  speed: 40
+  bulletRotatedDegree: 90
   bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
   title: 2
   maxAmmo: 500
   curAmmo: 500
-  minChargeTime: 2
-  maxChargeTime: 5
+  minChargeTime: 1
+  maxChargeTime: 3
   pelletCount: 5
   aimAccuracy: 80
