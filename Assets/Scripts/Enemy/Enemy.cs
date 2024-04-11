@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : ShootingObject, IDamageable
 {
+    private Rigidbody2D rigid;
 
     private Transform player;
     public Transform Player { get => player; set => player = value; }
@@ -25,6 +26,7 @@ public abstract class Enemy : ShootingObject, IDamageable
     private void Awake()
     {
         damageableInstance = this;
+        rigid = GetComponent<Rigidbody2D>();
     }
 
     private void Start()
@@ -81,5 +83,13 @@ public abstract class Enemy : ShootingObject, IDamageable
     {
         //Do Die
         gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            rigid.velocity = Vector3.zero;
+        }
     }
 }
