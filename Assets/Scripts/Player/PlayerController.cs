@@ -9,7 +9,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     public float minJumpVelocity;
     public float fallVelocity;
 
-    public PlatformCheckObject platformCheckObject;
+    [SerializeField]
+    private List<Transform> weaponParents;
+
+    [SerializeField]
+    private PlatformDetector platformCheckObject;
 
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
@@ -49,25 +53,23 @@ public class PlayerController : MonoBehaviour, IDamageable
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
         if (moveInput != 0)
         {
-            Vector3 scaleVec;
+            int xDir;
             if (moveInput < 0)
             {
-                scaleVec = new Vector3(1, transform.localScale.y, transform.localScale.z);
+                xDir = 1;
             }
             else
             {
-                scaleVec = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+                xDir = -1;
             }
 
-            transform.localScale = scaleVec;
-            for (int i = 0; i < transform.childCount; i++)
+            transform.localScale = new Vector3(xDir,
+                transform.localScale.y, transform.localScale.z);
+            foreach(var weaponObj in weaponParents)
             {
-                var child = transform.GetChild(i);
-                child.localScale = scaleVec;
+                weaponObj.localScale = new Vector3(xDir, transform.localScale.y, transform.localScale.z);
             }
         }
-        
-        
     }
 
     private void Jump()

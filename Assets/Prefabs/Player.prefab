@@ -191,7 +191,10 @@ MonoBehaviour:
   jumpPower: 15
   minJumpVelocity: 5
   fallVelocity: 10
-  platformCheckObject: {fileID: 86312411206472192}
+  weaponParents:
+  - {fileID: 1691444259}
+  - {fileID: 1691934165}
+  platformCheckObject: {fileID: 2621585076969096417}
   hp: 100
 --- !u!114 &1393926900
 MonoBehaviour:
@@ -221,7 +224,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.1, y: 0}
+  m_Offset: {x: -0.05, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -232,7 +235,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.8}
+  m_Size: {x: 1.1, y: 1.8}
   m_EdgeRadius: 0
 --- !u!1 &4947932166487284532
 GameObject:
@@ -244,9 +247,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6925766464730426144}
   - component: {fileID: 8270230206083286979}
-  - component: {fileID: 86312411206472192}
+  - component: {fileID: 2621585076969096417}
   m_Layer: 6
-  m_Name: PlatformCheckObject
+  m_Name: PlatformDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +263,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4947932166487284532}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.87, z: 0}
   m_LocalScale: {x: 1.5, y: 0.1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -293,7 +296,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &86312411206472192
+--- !u!114 &2621585076969096417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
