@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     private List<Transform> weaponParents;
 
     [SerializeField]
-    private PlatformDetector platformCheckObject;
+    private PlayerJumpChecker playerJumpChecker;
 
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
@@ -74,9 +74,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && platformCheckObject.isTouchingPlatform == true)
+        if (Input.GetKeyDown(KeyCode.Space) && playerJumpChecker.canJump == true)
         {
-            platformCheckObject.isTouchingPlatform = false;
+            playerJumpChecker.canJump = false;
             rigid.velocity = Vector2.zero;
             rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
         }

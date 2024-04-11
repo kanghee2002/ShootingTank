@@ -194,7 +194,7 @@ MonoBehaviour:
   weaponParents:
   - {fileID: 1691444259}
   - {fileID: 1691934165}
-  platformCheckObject: {fileID: 2621585076969096417}
+  playerJumpChecker: {fileID: 7584130720466633466}
   hp: 100
 --- !u!114 &1393926900
 MonoBehaviour:
@@ -247,9 +247,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6925766464730426144}
   - component: {fileID: 8270230206083286979}
-  - component: {fileID: 2621585076969096417}
+  - component: {fileID: 7584130720466633466}
   m_Layer: 6
-  m_Name: PlatformDetector
+  m_Name: PlayerJumpDetector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,7 +296,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2621585076969096417
+--- !u!114 &7584130720466633466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -308,7 +308,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f55a549cb65d094baa86ddd8f2928f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isTouchingPlatform: 0
+  canJump: 0
+  jumpableTags:
+  - Platform
+  - Enemy
 --- !u!1001 &8513847865838957653
 PrefabInstance:
   m_ObjectHideFlags: 0
