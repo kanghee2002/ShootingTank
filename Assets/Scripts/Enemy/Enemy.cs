@@ -27,20 +27,11 @@ public abstract class Enemy : ShootingObject, IDamageable
     {
         damageableInstance = this;
         rigid = GetComponent<Rigidbody2D>();
-    }
-
-    private void Start()
-    {
         isCool = false;
         isPlayerDetected = false;
     }
 
-    private void Update()
-    {
-        if (IsAttackPossible()) Attack(player);
-    }
-
-    private bool IsAttackPossible() => (isPlayerDetected && !isCool);
+    protected bool IsAttackPossible() => (isPlayerDetected && !isCool);
 
     private Vector3 GetTargetDir(Transform target)
         => (target.position - transform.position).normalized;
@@ -64,9 +55,31 @@ public abstract class Enemy : ShootingObject, IDamageable
         isCool = false;
     } 
 
-    protected virtual void LookAtPlayer()
+    protected void LookAtPlayer(GameObject headObj, SpriteRenderer spriteRenderer)
     {
+        Vector3 targetPos = player.position;
+        Vector3 headPos = headObj.transform.position;
 
+        float dy = targetPos.y - headPos.y;
+        float dx = targetPos.x - headPos.x;
+        float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg + 180f;
+
+        if ((rotateDegree > 30f && rotateDegree < 150f) || 
+            (rotateDegree > 210f && rotateDegree < 330f))
+        {
+            return;
+        }
+
+        headObj.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
+
+        if (Mathf.Abs(rotateDegree - 180f) < 90f)
+        {
+            spriteRenderer.flipY = true;
+        }
+        else
+        {
+            spriteRenderer.flipY = false;
+        }
     }
 
     void IDamageable.Damage(float damageAmount)
