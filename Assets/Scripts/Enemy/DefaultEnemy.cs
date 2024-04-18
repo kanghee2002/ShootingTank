@@ -19,5 +19,6 @@ public class DefaultEnemy : Enemy
     {
         if (IsAttackPossible()) Attack(Player);
         if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
+        SetHpSlider();
     }
 }

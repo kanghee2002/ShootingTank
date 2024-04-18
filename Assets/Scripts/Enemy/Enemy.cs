@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Enemy : ShootingObject, IDamageable
 {
@@ -16,16 +17,18 @@ public abstract class Enemy : ShootingObject, IDamageable
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
 
-    private IDamageable damageableInstance;
+    [SerializeField]
+    private float maxHp;
 
     [SerializeField]
     private float hp;
 
-    float IDamageable.Hp { get => hp; set => hp = value; }
+    [SerializeField]
+    private Slider hpSlider;
 
     private void Awake()
     {
-        damageableInstance = this;
+        hp = maxHp;
         rigid = GetComponent<Rigidbody2D>();
         isCool = false;
         isPlayerDetected = false;
@@ -82,13 +85,18 @@ public abstract class Enemy : ShootingObject, IDamageable
         }
     }
 
+    protected void SetHpSlider()
+    {
+        hpSlider.value = hp / maxHp;
+    }
+
     void IDamageable.Damage(float damageAmount)
     {
-        damageableInstance.Hp -= damageAmount;
+        hp -= damageAmount;
 
-        if (damageableInstance.Hp <= 0)
+        if (hp <= 0)
         {
-            damageableInstance.Die();
+            ((IDamageable)this).Die();
         }
     }
 

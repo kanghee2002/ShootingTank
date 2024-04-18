@@ -18,17 +18,16 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
 
-    private IDamageable damageableInstance;
+    [SerializeField]
+    private float maxHp;
 
     [SerializeField]
     private float hp;
-    float IDamageable.Hp { get => hp; set => hp = value; }
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        damageableInstance = this;
     }
 
     private void Start()
@@ -92,16 +91,17 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void IDamageable.Damage(float damageAmount)
     {
-        damageableInstance.Hp -= damageAmount;
+        hp -= damageAmount;
 
-        if (damageableInstance.Hp <= 0)
+        if (hp <= 0)
         {
-            damageableInstance.Die();
+            ((IDamageable)this).Die();
         }
     }
 
     void IDamageable.Die()
     {
         //Do Die
+        Debug.Log("Player Die");
     }
 }
