@@ -29,7 +29,7 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         AddAvailableWeapon(WeaponName.Default);
         AddAvailableWeapon(WeaponName.Default);
-        AddAvailableWeapon(WeaponName.Test);
+        AddAvailableWeapon(WeaponName.Rifle);
         AddAvailableWeapon(WeaponName.Shotgun);
 
         isRightWeaponEnabled = false;
