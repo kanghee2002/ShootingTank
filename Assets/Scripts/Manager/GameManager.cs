@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +28,10 @@ public class GameManager : Singleton<GameManager>
         if (Input.GetKeyDown(KeyCode.Z))
         {
             MakePlayerActive();
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            WeaponManager.Instance.IsRightWeaponEnabled = !WeaponManager.Instance.IsRightWeaponEnabled;
         }
     }
 

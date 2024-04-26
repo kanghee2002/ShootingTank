@@ -14,7 +14,7 @@ public class WeaponManager : Singleton<WeaponManager>
 
     [SerializeField]
     private bool isRightWeaponEnabled;
-    public bool IsRightWeaponEnabled { get => isRightWeaponEnabled; }
+    public bool IsRightWeaponEnabled { get => isRightWeaponEnabled; set => isRightWeaponEnabled = value; }
 
     public int availableWeaponNum { get { return availableWeaponList.Count; } 
                                     private set { availableWeaponNum = availableWeaponList.Count; } }

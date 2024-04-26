@@ -2,44 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class StageUIController : MonoBehaviour
 {
+    [Header("Weapon Display")]
+    [SerializeField]
+    private GameObject leftWeaponDisplay;
+    [SerializeField]
+    private GameObject rightWeaponDisplay;
+
     [Header("Charge Slider")]
     [SerializeField]
-    private Slider leftSlider;
+    private Slider leftWeaponChargeSlider;
     [SerializeField]
-    private Slider rightSlider;
+    private Slider rightWeaponChargeSlider;
 
+    private Weapon[] weapons;
+
+    [Header("Ammo Text")]
     [SerializeField]
-    private Weapon[] weapons = null;
+    private TMP_Text leftWeaponAmmoText;
+    [SerializeField]
+    private TMP_Text rightWeaponAmmoText;
 
     private void Start()
     {
-        InitSlider();
+        InitDisplay();
     }
 
     private void Update()
     {
+        //Set Sliders
         if (weapons[0] != null)
         {
-            SetChargeSlider(leftSlider, WeaponHand.Left);
-            if (WeaponManager.Instance.IsRightWeaponEnabled)
-            {
-                SetChargeSlider(rightSlider, WeaponHand.Right);
-            }
+            SetChargeSlider(leftWeaponChargeSlider, WeaponHand.Left);
+            SetChargeSlider(rightWeaponChargeSlider, WeaponHand.Right);
+        }
+
+        //Set Ammo Texts
+        if (weapons[0] != null)
+        {
+            SetAmmoText(leftWeaponAmmoText, WeaponHand.Left);
+            SetAmmoText(rightWeaponAmmoText, WeaponHand.Right);
         }
     }
 
-    private void InitSlider()
+    private void InitDisplay()
     {
         if (!WeaponManager.Instance.IsRightWeaponEnabled)
         {
-            rightSlider.gameObject.SetActive(false);
+            rightWeaponDisplay.gameObject.SetActive(false);
         }
         else
         {
-            rightSlider.gameObject.SetActive(true);
+            rightWeaponDisplay.gameObject.SetActive(true);
         }
         weapons = GameManager.Instance.playerObj.GetComponent<WeaponController>().Weapons;
     }
@@ -48,5 +65,18 @@ public class StageUIController : MonoBehaviour
     {
         int weaponHandIdx = (int)weaponHand;
         slider.value = weapons[weaponHandIdx].ChargePercentage;
+    }
+
+    private void SetAmmoText(TMP_Text ammoText, WeaponHand weaponHand)
+    {
+        int weaponHandIdx = (int)weaponHand;
+        if (weapons[weaponHandIdx].Title == WeaponName.Default)
+        {
+            ammoText.text = " - / - ";
+        }
+        else
+        {
+            ammoText.text = weapons[weaponHandIdx].CurAmmo.ToString() + " / " + weapons[weaponHandIdx].MaxAmmo.ToString();
+        }
     }
 }
