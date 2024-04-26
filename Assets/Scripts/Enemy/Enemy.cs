@@ -10,6 +10,7 @@ public abstract class Enemy : ShootingObject, IDamageable
     private Transform player;
     public Transform Player { get => player; set => player = value; }
 
+    [Header("Enemy Settings")]
     [SerializeField]
     private float coolTime;
 

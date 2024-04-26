@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShootingObject : MonoBehaviour
 {
+    [Header("Default Settings")]
     [SerializeField]
     private string description;
     public string Description { get => description; }
@@ -13,20 +14,21 @@ public class ShootingObject : MonoBehaviour
     public float DamageValue { get => damageValue; set => damageValue = value; }
 
     [SerializeField]
-    private int poolSize;
-
-    [SerializeField]
     protected float length;
 
     [SerializeField]
     protected float speed;
 
+    [Header("Bullet Settings")]
+    [SerializeField]
+    protected GameObject bulletObj;
+    protected Queue<GameObject> bulletPool;
+
     [SerializeField]
     protected float bulletRotatedDegree;
 
     [SerializeField]
-    protected GameObject bulletObj;
-    protected Queue<GameObject> bulletPool;
+    private int poolSize;
 
     public virtual void Init()
     {

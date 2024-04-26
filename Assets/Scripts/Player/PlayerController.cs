@@ -4,11 +4,30 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IDamageable
 {
-    public float moveSpeed;
-    public float jumpPower;
-    public float minJumpVelocity;
-    public float fallVelocity;
+    [Header("Default Settings")]
+    [SerializeField]
+    private float moveSpeed;
+    public float MoveSpeed { get; set; }
 
+    [SerializeField]
+    private float jumpPower;
+    public float JumpPower { get; set; }
+
+    [SerializeField]
+    private float minJumpVelocity;
+    public float MinJumpVelocity { get; set; }
+
+    [SerializeField]
+    private float fallVelocity;
+    public float FallVelocity { get; set; }
+
+    [SerializeField]
+    private float maxHp;
+
+    [SerializeField]
+    private float curHp;
+
+    [Header("Additional Settings")]
     [SerializeField]
     private List<Transform> weaponParents;
 
@@ -18,11 +37,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
 
-    [SerializeField]
-    private float maxHp;
-
-    [SerializeField]
-    private float hp;
 
     private void Awake()
     {
@@ -91,9 +105,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void IDamageable.Damage(float damageAmount)
     {
-        hp -= damageAmount;
+        curHp -= damageAmount;
 
-        if (hp <= 0)
+        if (curHp <= 0)
         {
             ((IDamageable)this).Die();
         }

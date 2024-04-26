@@ -6,6 +6,7 @@ public enum WeaponName { Default, Rifle, Shotgun };
 
 public abstract class Weapon : ShootingObject
 {
+    [Header("Weapon Settings")]
     [SerializeField]
     private WeaponName title;
     public WeaponName Title { get => title; }

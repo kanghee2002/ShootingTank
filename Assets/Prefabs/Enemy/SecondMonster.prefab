@@ -622,9 +622,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5069515194461726083}
   - component: {fileID: 6480561379283226129}
+  - component: {fileID: 3660864576351736020}
   - component: {fileID: 4561013565632133627}
   - component: {fileID: 1609629898989105984}
-  - component: {fileID: 3660864576351736020}
   m_Layer: 8
   m_Name: SecondMonster
   m_TagString: Enemy
@@ -704,6 +704,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3660864576351736020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089172946932009105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc5a8938db4f594fb7e7a006380436f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: 
+  damageValue: 2
+  length: 0.5
+  speed: 15
+  bulletObj: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
+  bulletRotatedDegree: -90
+  poolSize: 10
+  coolTime: 0.5
+  maxHp: 50
+  hp: 50
+  hpSlider: {fileID: 131959183}
+  headObj: {fileID: 4752895060451126872}
+  headSpriteRenderer: {fileID: 8675356326617528551}
 --- !u!50 &4561013565632133627
 Rigidbody2D:
   serializedVersion: 4
@@ -751,31 +776,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2, y: 1.8}
   m_EdgeRadius: 0
---- !u!114 &3660864576351736020
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8089172946932009105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc5a8938db4f594fb7e7a006380436f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  description: 
-  damageValue: 2
-  poolSize: 10
-  length: 0.5
-  speed: 15
-  bulletRotatedDegree: -90
-  bulletObj: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
-  coolTime: 0.5
-  maxHp: 50
-  hp: 50
-  hpSlider: {fileID: 131959183}
-  headObj: {fileID: 4752895060451126872}
-  headSpriteRenderer: {fileID: 8675356326617528551}
 --- !u!1001 &2180314278522786468
 PrefabInstance:
   m_ObjectHideFlags: 0

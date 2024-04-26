@@ -4,11 +4,13 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
+    [Header("For Check")]
     public ShootingObject shootingObject;
 
     private float finalDamage;
     public float FinalDamage { get => finalDamage; set => finalDamage = value; }
 
+    [Header("Default Settings")]
     [SerializeField]
     private float lifeTIme;
 
