@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -324,11 +324,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 160109283}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac9e7d1e4938684e8215c6030c2b726, type: 3}
+  m_Script: {fileID: 11500000, guid: 122fc5ebc11304c4ab455ea81c010ca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftSlider: {fileID: 2113569334}
   rightSlider: {fileID: 776418641}
+  weapons: []
 --- !u!1 &202395658
 GameObject:
   m_ObjectHideFlags: 0
