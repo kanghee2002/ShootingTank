@@ -33,11 +33,12 @@ public abstract class Bullet : MonoBehaviour
         StartCoroutine(CheckLifeTime(lifeTIme));
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         foreach (var defaultTag in defaultCollisionTags)
         {
-            if (collision.collider.CompareTag(defaultTag))
+            if (collision.CompareTag(defaultTag))
             {
                 ProcessDefaultCollision();
                 DestroyBullet();
@@ -45,9 +46,9 @@ public abstract class Bullet : MonoBehaviour
             }
         }
 
-        if (collision.collider.CompareTag(TargetTag))
+        if (collision.CompareTag(TargetTag))
         {
-            collision.collider.transform.GetComponent<IDamageable>().Damage(FinalDamage);
+            collision.transform.GetComponent<IDamageable>().Damage(FinalDamage);
             DestroyBullet();
         }
     }
