@@ -18,17 +18,25 @@ public class StageUIController : MonoBehaviour
     [SerializeField]
     private Slider rightWeaponChargeSlider;
 
-    private Weapon[] weapons;
-
     [Header("Ammo Text")]
     [SerializeField]
     private TMP_Text leftWeaponAmmoText;
     [SerializeField]
     private TMP_Text rightWeaponAmmoText;
 
+    [Header("Hp Display")]
+    [SerializeField]
+    private Image hpImage;
+    [SerializeField]
+    private TMP_Text hpText;
+
+    private PlayerController playerController;
+    private Weapon[] weapons;
+
     private void Start()
     {
         InitDisplay();
+        playerController = GameManager.Instance.playerObj.GetComponent<PlayerController>();
     }
 
     private void Update()
@@ -46,6 +54,9 @@ public class StageUIController : MonoBehaviour
             SetAmmoText(leftWeaponAmmoText, WeaponHand.Left);
             SetAmmoText(rightWeaponAmmoText, WeaponHand.Right);
         }
+
+        //Set Hp Image
+        SetHpDisplay();
     }
 
     private void InitDisplay()
@@ -78,5 +89,11 @@ public class StageUIController : MonoBehaviour
         {
             ammoText.text = weapons[weaponHandIdx].CurAmmo.ToString() + " / " + weapons[weaponHandIdx].MaxAmmo.ToString();
         }
+    }
+
+    private void SetHpDisplay()
+    {
+        hpImage.fillAmount = playerController.CurHp / playerController.MaxHp;
+        hpText.text = playerController.CurHp.ToString();
     }
 }

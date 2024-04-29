@@ -23,9 +23,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     [SerializeField]
     private float maxHp;
+    public float MaxHp { get => maxHp; }
 
     [SerializeField]
     private float curHp;
+    public float CurHp { get => curHp; }
 
     [Header("Additional Settings")]
     [SerializeField]
