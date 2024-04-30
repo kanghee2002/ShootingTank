@@ -12,7 +12,20 @@ public class Core : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        damageable = transform.parent.GetComponent<IDamageable>();
+        Transform curTransform = transform.parent;
+        while (curTransform != null)
+        {
+            if (curTransform.TryGetComponent(out damageable))
+            {
+                break;
+            }
+            curTransform = curTransform.parent;
+        }
+
+        if (damageable == null)
+        {
+            Debug.Log("No IDamageable in Core's parent");
+        }
     }
 
     void IDamageable.Damage(float damageAmount)

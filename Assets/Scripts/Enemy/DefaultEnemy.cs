@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class DefaultEnemy : Enemy
 {
-    [Header("Head Settings")]
+    [Header("Body Part Settings")]
     [SerializeField]
     private GameObject headObj;
-
     [SerializeField]
     private SpriteRenderer headSpriteRenderer;
+    [SerializeField]
+    private GameObject bodyObj;
 
     [Header("Move Ray Settings")]
     [SerializeField]
@@ -39,6 +40,23 @@ public class DefaultEnemy : Enemy
         {
             float moveTime = Random.Range(1f, 3f);
             int moveDir = Random.Range(-1, 2);
+
+            if (moveDir < 0)
+            {
+                bodyObj.transform.localScale = new Vector3(1, 1, 1);
+                if (IsPlayerDetected)
+                {
+                    headSpriteRenderer.flipX = false;
+                }
+            }
+            else if (moveDir > 0)
+            {
+                bodyObj.transform.localScale = new Vector3(-1, 1, 1);
+                if (IsPlayerDetected)
+                {
+                    headSpriteRenderer.flipX = true;
+                }
+            }
 
             while (moveTime > 0f)
             {
