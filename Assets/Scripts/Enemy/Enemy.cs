@@ -5,24 +5,27 @@ using UnityEngine.UI;
 
 public abstract class Enemy : ShootingObject, IDamageable
 {
-    private Rigidbody2D rigid;
+    protected Rigidbody2D rigid;
 
     private Transform player;
     public Transform Player { get => player; set => player = value; }
 
     [Header("Enemy Settings")]
     [SerializeField]
-    private float coolTime;
+    protected float coolTime;
 
     private bool isCool;
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
 
     [SerializeField]
-    private float maxHp;
+    protected float moveSpeed;
 
     [SerializeField]
-    private float hp;
+    protected float maxHp;
+
+    [SerializeField]
+    protected float hp;
 
     [SerializeField]
     private Slider hpSlider;
@@ -85,6 +88,8 @@ public abstract class Enemy : ShootingObject, IDamageable
             spriteRenderer.flipY = false;
         }
     }
+
+    protected abstract IEnumerator IdleMove();
 
     protected void SetHpSlider()
     {

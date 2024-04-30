@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class DefaultEnemy : Enemy
 {
+    [Header("Head Settings")]
     [SerializeField]
     private GameObject headObj;
 
     [SerializeField]
     private SpriteRenderer headSpriteRenderer;
 
+    [Header("Move Ray Settings")]
+    [SerializeField]
+    private float platformCheckRayGap;
+    [SerializeField]
+    private float platformCheckRayDistance;
+    [SerializeField]
+    private float lampCheckRayDistance;
+
+
     private void Start()
     {
         base.Init();
+        StartCoroutine(IdleMove());
     }
 
     private void Update()
@@ -20,5 +31,38 @@ public class DefaultEnemy : Enemy
         if (IsAttackPossible()) Attack(Player);
         if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
         SetHpSlider();
+    }
+
+    protected override IEnumerator IdleMove()
+    {
+        while (true)
+        {
+            float moveTime = Random.Range(1f, 3f);
+            int moveDir = Random.Range(-1, 2);
+
+            while (moveTime > 0f)
+            {
+                rigid.velocity = new Vector2(moveDir * moveSpeed, rigid.velocity.y);
+
+                //Platform Check
+                Vector2 frontVec = new Vector2(rigid.position.x + moveDir * platformCheckRayGap, rigid.position.y);
+                
+                Debug.DrawRay(frontVec, Vector3.down * platformCheckRayDistance, new Color(1, 0, 1));
+                RaycastHit2D rayHitPlatform = Physics2D.Raycast(frontVec, Vector3.down, platformCheckRayDistance, LayerMask.GetMask("Platform"));
+                
+                Debug.DrawRay(transform.position, new Vector3(moveDir * lampCheckRayDistance, 0, 0), new Color(1, 0, 0));
+                RaycastHit2D rayHitLamp = Physics2D.Raycast(transform.position, Vector3.right * moveDir, lampCheckRayDistance, LayerMask.GetMask("Platform"));
+
+                if (rayHitPlatform.collider == null || rayHitLamp.collider != null)
+                {
+                    rigid.velocity = new Vector2(0, rigid.velocity.y);
+                    yield return new WaitForSeconds(1f);
+                    break;
+                }
+
+                moveTime -= Time.deltaTime;
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+        }
     }
 }

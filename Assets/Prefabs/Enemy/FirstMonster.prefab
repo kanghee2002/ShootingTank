@@ -724,11 +724,15 @@ MonoBehaviour:
   bulletRotatedDegree: -90
   poolSize: 10
   coolTime: 1
+  moveSpeed: 5
   maxHp: 20
   hp: 20
   hpSlider: {fileID: 1295694678}
   headObj: {fileID: 2662353260130757995}
   headSpriteRenderer: {fileID: 2963433176096036708}
+  platformCheckRayGap: 1
+  platformCheckRayDistance: 1.5
+  lampCheckRayDistance: 2
 --- !u!50 &4561013565632133627
 Rigidbody2D:
   serializedVersion: 4
