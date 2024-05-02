@@ -27,6 +27,10 @@ public abstract class Weapon : ShootingObject
     }
 
     [SerializeField]
+    private float aimAccuracy;
+    public float AimAccuracy { get => aimAccuracy; set => aimAccuracy = value; }
+
+    [SerializeField]
     private float minChargeTime;
 
     [SerializeField]
@@ -79,5 +83,16 @@ public abstract class Weapon : ShootingObject
             chargedTime += Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    protected virtual Vector3 GetRandomDir(Vector3 dir, float aimAccuracy)
+    {
+        float accuracyRadian = (90 - (aimAccuracy * 9 / 10)) * Mathf.Deg2Rad;
+        float randomAngle = Random.Range(-accuracyRadian, accuracyRadian);
+        Vector3 randomDir = new Vector3(
+                dir.x * Mathf.Cos(randomAngle) - dir.y * Mathf.Sin(randomAngle),
+                dir.x * Mathf.Sin(randomAngle) + dir.y * Mathf.Cos(randomAngle),
+                0);
+        return randomDir;
     }
 }

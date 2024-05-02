@@ -111,12 +111,4 @@ public abstract class Enemy : ShootingObject, IDamageable
         //Do Die
         gameObject.SetActive(false);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Player"))
-        {
-            rigid.velocity = Vector3.zero;
-        }
-    }
 }
