@@ -49,6 +49,7 @@ public abstract class Bullet : MonoBehaviour
         if (collision.CompareTag(TargetTag))
         {
             collision.transform.GetComponent<IDamageable>().Damage(FinalDamage);
+            ProcessObjectCollision();
             DestroyBullet();
         }
     }

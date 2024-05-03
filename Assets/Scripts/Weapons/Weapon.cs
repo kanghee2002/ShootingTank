@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponName { Default, Rifle, Shotgun };
+public enum WeaponName { Default, Rifle, Shotgun, Missilegun };
 
 public abstract class Weapon : ShootingObject
 {
