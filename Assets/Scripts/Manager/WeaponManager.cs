@@ -24,7 +24,6 @@ public class WeaponManager : Singleton<WeaponManager>
         base.Awake();
         Init();
     }
-
     private void Init()
     {
         AddAvailableWeapon(WeaponName.Default);

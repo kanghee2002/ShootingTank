@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingObject: {fileID: 0}
   lifeTIme: 3
+  targetTags:
+  - Player
 --- !u!50 &4627200372952755670
 Rigidbody2D:
   serializedVersion: 4

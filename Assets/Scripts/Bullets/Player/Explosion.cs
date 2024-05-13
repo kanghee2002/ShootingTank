@@ -22,7 +22,12 @@ public class Explosion : MonoBehaviour
         missileObj = transform.parent.gameObject;
     }
 
-    public IEnumerator Explode()
+    private void OnEnable()
+    {
+        StartCoroutine(Explode());
+    }
+
+    private IEnumerator Explode()
     {
         var targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetTag));
         Debug.Log("Explosion Detect " + targets.Length + " enemies");

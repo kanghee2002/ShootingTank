@@ -118,6 +118,5 @@ public class PlayerController : MonoBehaviour, IDamageable
     void IDamageable.Die()
     {
         //Do Die
-        Debug.Log("Player Die");
     }
 }

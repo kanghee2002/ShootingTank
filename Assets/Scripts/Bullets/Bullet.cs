@@ -14,44 +14,12 @@ public abstract class Bullet : MonoBehaviour
     [SerializeField]
     private float lifeTIme;
 
-    private List<string> defaultCollisionTags = new();
-
-    protected abstract string TargetTag { get; }
-
-    private void Start()
-    {
-        Init();
-    }
-
-    protected virtual void Init()
-    {
-        defaultCollisionTags.Add("Platform");
-    }
+    [SerializeField]
+    protected List<string> targetTags;
 
     private void OnEnable()
     {
         StartCoroutine(CheckLifeTime(lifeTIme));
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        foreach (var defaultTag in defaultCollisionTags)
-        {
-            if (collision.CompareTag(defaultTag))
-            {
-                ProcessDefaultCollision();
-                DestroyBullet();
-                return;
-            }
-        }
-
-        if (collision.CompareTag(TargetTag))
-        {
-            collision.transform.GetComponent<IDamageable>().Damage(FinalDamage);
-            ProcessObjectCollision();
-            DestroyBullet();
-        }
     }
 
     private IEnumerator CheckLifeTime(float time)
@@ -64,23 +32,7 @@ public abstract class Bullet : MonoBehaviour
         DestroyBullet();
     }
 
-    /// <summary>
-    /// Platform, Wall 등과의 충돌
-    /// </summary>
-    protected virtual void ProcessDefaultCollision()
-    {
-        //Do Particle, Sound, etc...
-    }
-    /// <summary>
-    /// Player, Enemy 등과의 충돌
-    /// </summary>
-    /// 
-    protected virtual void ProcessObjectCollision()
-    {
-        //Do Particle, Sound, etc...
-    }
-
-    protected void DestroyBullet()
+    protected virtual void DestroyBullet()
     {
         //StopAllCoroutines();
         if (!shootingObject)

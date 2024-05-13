@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingObject: {fileID: 0}
   lifeTIme: 3
+  targetTags: []
   explosionObj: {fileID: 6144096021394338452}
 --- !u!50 &495847386941388813
 Rigidbody2D:

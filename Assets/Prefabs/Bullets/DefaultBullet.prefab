@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1372763480812680581}
   - component: {fileID: 7452629641549635547}
-  - component: {fileID: 100828517317492362}
+  - component: {fileID: 7047784779267388611}
   - component: {fileID: 6398269949806321713}
   - component: {fileID: 3837006855874641791}
   m_Layer: 9
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &100828517317492362
+--- !u!114 &7047784779267388611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,11 +96,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2725257939580471691}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa6c834551607e42b273c2a2351f705, type: 3}
+  m_Script: {fileID: 11500000, guid: 359dff671794cc84eb5c7d2722535e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   shootingObject: {fileID: 0}
   lifeTIme: 3
+  targetTags:
+  - Enemy
 --- !u!50 &6398269949806321713
 Rigidbody2D:
   serializedVersion: 4
