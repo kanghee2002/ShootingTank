@@ -5,15 +5,25 @@ using UnityEngine;
 public class Missile : PlayerBullet
 {
     [SerializeField]
-    private GameObject explosionPrefab;
+    private GameObject explosionObj;
 
     protected override void ProcessDefaultCollision()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        explosionObj.SetActive(true);
+        explosionObj.transform.parent = null;
+        explosionObj.transform.position = transform.position;
+        var explosion = explosionObj.GetComponent<Explosion>();
+        //explosion.DamageAmount = FinalDamage;
+        explosion.StartCoroutine(explosion.Explode());
     }
 
     protected override void ProcessObjectCollision()
     {
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        explosionObj.SetActive(true);
+        explosionObj.transform.parent = null;
+        explosionObj.transform.position = transform.position;
+        var explosion = explosionObj.GetComponent<Explosion>();
+        //explosion.DamageAmount = FinalDamage;
+        explosion.StartCoroutine(explosion.Explode());
     }
 }

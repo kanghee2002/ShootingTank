@@ -3539,6 +3539,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
+      propertyPath: isRightWeaponEnabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
       propertyPath: weapons.Array.data[3]
       value: 
       objectReference: {fileID: 1060029884443221473, guid: 5184912688e275a4b8f74be1f3f3233f, type: 3}
