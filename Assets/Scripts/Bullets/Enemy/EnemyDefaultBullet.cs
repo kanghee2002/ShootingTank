@@ -16,7 +16,11 @@ public class EnemyDefaultBullet : Bullet
                     DestroyBullet();
                 }
             }
-            else
+        }
+
+        foreach (var defaultCollideTag in defaultCollideTags)
+        {
+            if (collision.CompareTag(defaultCollideTag))
             {
                 DestroyBullet();
             }

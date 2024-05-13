@@ -103,6 +103,8 @@ MonoBehaviour:
   lifeTIme: 3
   targetTags:
   - Player
+  defaultCollideTags:
+  - Platform
 --- !u!50 &4627200372952755670
 Rigidbody2D:
   serializedVersion: 4

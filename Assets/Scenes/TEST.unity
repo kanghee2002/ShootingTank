@@ -509,6 +509,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1093823649148921451, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 3660864576351736020, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: bodyObj
       value: 

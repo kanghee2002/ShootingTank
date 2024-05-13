@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 5106169497921847733}
   m_Layer: 8
   m_Name: PlayerDetector
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
