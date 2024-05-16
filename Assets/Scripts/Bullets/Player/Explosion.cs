@@ -30,19 +30,17 @@ public class Explosion : MonoBehaviour
     private IEnumerator Explode()
     {
         var targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetTag));
-        Debug.Log("Explosion Detect " + targets.Length + " enemies");
         foreach (var target in targets)
         {
-            Debug.Log("Enemy : " + target);
             if (target.TryGetComponent(out IDamageable damageable))
             {
                 damageable.Damage(damageAmount);
-                Debug.Log("Damage " + target + " : " + damageAmount);
             }
         }
         yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
         transform.parent = missileObj.transform;
+        transform.localPosition = Vector3.zero;
     }
 
     private void OnDrawGizmos()
