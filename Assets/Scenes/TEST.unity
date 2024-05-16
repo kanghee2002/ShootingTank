@@ -509,12 +509,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 1093823649148921451, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
-      propertyPath: m_Layer
-      value: 0
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
-=======
     - target: {fileID: 3660864576351736020, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: bodyObj
       value: 
@@ -523,7 +521,6 @@ PrefabInstance:
       propertyPath: bodySpriteRenderer
       value: 
       objectReference: {fileID: 1970485917}
->>>>>>> parent of 13c2f23 (Fix: Enemy의 PlayerDetector tag로 인한 이단 점프 버그 수정)
     - target: {fileID: 5069515194461726083, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -571,6 +568,14 @@ PrefabInstance:
     - target: {fileID: 5069515194461726083, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084135061369712860, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6566929050875376246, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+      propertyPath: m_Name
+      value: BodyParts
       objectReference: {fileID: 0}
     - target: {fileID: 8089172946932009105, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
       propertyPath: m_Name
@@ -2933,6 +2938,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638049283}
   m_CullTransparentMesh: 1
+--- !u!1 &1640037757 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6566929050875376246, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+  m_PrefabInstance: {fileID: 510838148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1652382236
 GameObject:
   m_ObjectHideFlags: 0
@@ -3301,6 +3311,11 @@ Transform:
   m_Father: {fileID: 37116725}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &1970485917 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5966965608835475470, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+  m_PrefabInstance: {fileID: 510838148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2019188123
 GameObject:
   m_ObjectHideFlags: 0
