@@ -7,21 +7,22 @@ public class Missile : Bullet
     [SerializeField]
     private GameObject explosionObj;
 
-    private void ProcessDefaultCollision()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        explosionObj.SetActive(true);
-        explosionObj.transform.parent = null;
-        explosionObj.transform.position = transform.position;
-        var explosion = explosionObj.GetComponent<Explosion>();
-        //explosion.DamageAmount = FinalDamage;
+        foreach (var defaultCollideTag in defaultCollideTags)
+        {
+            if (collision.CompareTag(defaultCollideTag))
+            {
+                ProcessCollision();
+                DestroyBullet();
+            }
+        }
     }
 
-    protected  void ProcessObjectCollision()
+    private void ProcessCollision()
     {
+        explosionObj.GetComponent<Explosion>().DamageAmount = FinalDamage;
         explosionObj.SetActive(true);
         explosionObj.transform.parent = null;
-        explosionObj.transform.position = transform.position;
-        var explosion = explosionObj.GetComponent<Explosion>();
-        //explosion.DamageAmount = FinalDamage;
     }
 }
