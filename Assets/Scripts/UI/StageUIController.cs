@@ -31,32 +31,35 @@ public class StageUIController : MonoBehaviour
     private TMP_Text hpText;
 
     private PlayerController playerController;
+    private WeaponController weaponController;
     private Weapon[] weapons;
 
     private void Start()
     {
         InitDisplay();
-        playerController = GameManager.Instance.playerObj.GetComponent<PlayerController>();
+
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+        if (playerController != null)
+        {
+            playerController.onPlayerHpChanged += SetHpDisplay;
+        }
+
+        weaponController = GameManager.Instance.playerObj.GetComponent<WeaponController>();
+        weaponController.onWeaponChanged += OnWeaponChanged;
+
+        weapons = GameManager.Instance.playerObj.GetComponent<WeaponController>().Weapons;
     }
 
-    private void Update()
+    public void OnWeaponCharged()
     {
-        //Set Sliders
-        if (weapons[0] != null)
-        {
-            SetChargeSlider(leftWeaponChargeSlider, WeaponHand.Left);
-            SetChargeSlider(rightWeaponChargeSlider, WeaponHand.Right);
-        }
+        SetChargeSlider(leftWeaponChargeSlider, WeaponHand.Left);
+        SetChargeSlider(rightWeaponChargeSlider, WeaponHand.Right);
+    }
 
-        //Set Ammo Texts
-        if (weapons[0] != null)
-        {
-            SetAmmoText(leftWeaponAmmoText, WeaponHand.Left);
-            SetAmmoText(rightWeaponAmmoText, WeaponHand.Right);
-        }
-
-        //Set Hp Image
-        SetHpDisplay();
+    public void OnWeaponChanged()
+    {
+        SetAmmoText(leftWeaponAmmoText, WeaponHand.Left);
+        SetAmmoText(rightWeaponAmmoText, WeaponHand.Right);
     }
 
     private void InitDisplay()
@@ -69,7 +72,6 @@ public class StageUIController : MonoBehaviour
         {
             rightWeaponDisplay.gameObject.SetActive(true);
         }
-        weapons = GameManager.Instance.playerObj.GetComponent<WeaponController>().Weapons;
     }
 
     private void SetChargeSlider(Slider slider, WeaponHand weaponHand)
@@ -81,6 +83,10 @@ public class StageUIController : MonoBehaviour
     private void SetAmmoText(TMP_Text ammoText, WeaponHand weaponHand)
     {
         int weaponHandIdx = (int)weaponHand;
+        if (weapons[weaponHandIdx] == null)
+        {
+            return;
+        }
         if (weapons[weaponHandIdx].Title == WeaponName.Default)
         {
             ammoText.text = " - / - ";
@@ -91,9 +97,9 @@ public class StageUIController : MonoBehaviour
         }
     }
 
-    private void SetHpDisplay()
+    private void SetHpDisplay(float curHp, float maxHp)
     {
-        hpImage.fillAmount = playerController.CurHp / playerController.MaxHp;
-        hpText.text = playerController.CurHp.ToString();
+        hpImage.fillAmount = curHp / maxHp;
+        hpText.text = curHp.ToString();
     }
 }
