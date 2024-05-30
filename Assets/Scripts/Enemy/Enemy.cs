@@ -40,6 +40,12 @@ public abstract class Enemy : ShootingObject, IDamageable
 
     protected bool IsAttackPossible() => (isPlayerDetected && !isCool);
 
+    public virtual void OnPlayerDetected(Transform player)
+    {
+        IsPlayerDetected = true;
+        Player = player;
+    }
+
     private Vector3 GetTargetDir(Transform target)
         => (target.position - transform.position).normalized;
 
@@ -99,6 +105,8 @@ public abstract class Enemy : ShootingObject, IDamageable
     void IDamageable.Damage(float damageAmount)
     {
         hp -= damageAmount;
+
+        SetHpSlider();
 
         if (hp <= 0)
         {

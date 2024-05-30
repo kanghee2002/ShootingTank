@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultEnemy : Enemy
+public class ExplosiveEnemy : Enemy
 {
     [Header("Body Part Settings")]
     [SerializeField]
@@ -20,16 +20,37 @@ public class DefaultEnemy : Enemy
     [SerializeField]
     private float lampCheckRayDistance;
 
+    [Header("Attack Settings")]
+    [SerializeField]
+    private float explosionRadius;
+
+    private IEnumerator curMoveCoroutine;
+
     private void Start()
     {
-        base.Init();
-        StartCoroutine(IdleMove());
+        curMoveCoroutine = IdleMove();
+        StartCoroutine(curMoveCoroutine);
     }
 
     private void Update()
     {
-        if (IsAttackPossible()) Attack(Player);
-        if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
+        if (IsPlayerDetected)
+        {
+            LookAtPlayer(headObj, headSpriteRenderer);
+        }
+    }
+
+    protected override void Attack(Transform target)
+    {
+
+    }
+
+    public override void OnPlayerDetected(Transform player)
+    {
+        base.OnPlayerDetected(player);
+        StopCoroutine(curMoveCoroutine);
+        curMoveCoroutine = ChasePlayer();
+        StartCoroutine(curMoveCoroutine);
     }
 
     protected override IEnumerator IdleMove()
@@ -42,18 +63,10 @@ public class DefaultEnemy : Enemy
             if (moveDir < 0)
             {
                 bodyObj.transform.localScale = new Vector3(1, 1, 1);
-                if (IsPlayerDetected)
-                {
-                    headSpriteRenderer.flipX = false;
-                }
             }
             else if (moveDir > 0)
             {
                 bodyObj.transform.localScale = new Vector3(-1, 1, 1);
-                if (IsPlayerDetected)
-                {
-                    headSpriteRenderer.flipX = true;
-                }
             }
 
             while (moveTime > 0f)
@@ -62,10 +75,10 @@ public class DefaultEnemy : Enemy
 
                 //Platform Check
                 Vector2 frontVec = new Vector2(rigid.position.x + moveDir * platformCheckRayGap, rigid.position.y);
-                
+
                 Debug.DrawRay(frontVec, Vector3.down * platformCheckRayDistance, new Color(1, 0, 1));
                 RaycastHit2D rayHitPlatform = Physics2D.Raycast(frontVec, Vector3.down, platformCheckRayDistance, LayerMask.GetMask("Platform"));
-                
+
                 Debug.DrawRay(transform.position, new Vector3(moveDir * lampCheckRayDistance, 0, 0), new Color(1, 0, 0));
                 RaycastHit2D rayHitLamp = Physics2D.Raycast(transform.position, Vector3.right * moveDir, lampCheckRayDistance, LayerMask.GetMask("Platform"));
 
@@ -81,4 +94,35 @@ public class DefaultEnemy : Enemy
             }
         }
     }
+
+    private IEnumerator ChasePlayer()
+    {
+        Debug.Log("Chase Player");
+        while (true)
+        {
+            int moveDir;
+            float distance = Player.position.x - transform.position.x;
+
+            if (Mathf.Abs(distance) < 0.3f) moveDir = 0;
+            else if (distance < 0) moveDir = -1;
+            else moveDir = 1;
+
+            if (moveDir < 0)
+            {
+                bodyObj.transform.localScale = new Vector3(1, 1, 1);
+            }
+            else if (moveDir > 0)
+            {
+                bodyObj.transform.localScale = new Vector3(-1, 1, 1);
+            }
+
+            rigid.velocity = new Vector2(moveDir * moveSpeed, rigid.velocity.y);
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    /*private IEnumerator Explode()
+    {
+
+    }*/
 }

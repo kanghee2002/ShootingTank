@@ -24,8 +24,7 @@ public class PlayerDetector : MonoBehaviour
         {
             if (IsTargetVisible(other.transform) && enemy.IsPlayerDetected == false)
             {
-                enemy.IsPlayerDetected = true;
-                enemy.Player = other.transform;
+                enemy.OnPlayerDetected(other.transform);
             }
         }
     }
