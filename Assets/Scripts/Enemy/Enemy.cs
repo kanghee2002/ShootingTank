@@ -91,13 +91,11 @@ public abstract class Enemy : ShootingObject, IDamageable
 
     protected abstract IEnumerator IdleMove();
 
-    // Need Refactoring
     protected void SetHpSlider()
     {
         hpSlider.value = hp / maxHp;
     }
 
-    // Need Refactoring
     void IDamageable.Damage(float damageAmount)
     {
         hp -= damageAmount;
@@ -108,7 +106,6 @@ public abstract class Enemy : ShootingObject, IDamageable
         }
     }
 
-    // Need Refactoring
     void IDamageable.Die()
     {
         //Do Die

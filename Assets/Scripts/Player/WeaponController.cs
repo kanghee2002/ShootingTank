@@ -14,6 +14,17 @@ public class WeaponController : MonoBehaviour
 
     private SpriteRenderer[] weaponSpriteRenderers = new SpriteRenderer[2];
 
+    public delegate void OnWeaponChanged(WeaponHand weaponHand, Weapon weapon);
+    public event OnWeaponChanged onWeaponChanged;
+
+    public delegate void OnWeaponCharged(WeaponHand weaponHand, Weapon weapon);
+    public event OnWeaponCharged onWeaponCharged;
+
+    public delegate void OnWeaponShoot(WeaponHand weaponHand, Weapon weapon);
+    public event OnWeaponShoot onWeaponShoot;
+
+
+
     private void Start()
     {
         Init();
@@ -50,6 +61,9 @@ public class WeaponController : MonoBehaviour
             ClickFire(WeaponHand.Right);
             CheckSwitch(WeaponHand.Right);
         }
+
+        onWeaponCharged?.Invoke(WeaponHand.Left, weapons[0]);
+        onWeaponCharged?.Invoke(WeaponHand.Right, weapons[1]);
     }
 
     private void LookAtMouse(WeaponHand weaponHand)
@@ -118,6 +132,7 @@ public class WeaponController : MonoBehaviour
         }
         weapons[weaponHandIdx] = weapon;
 
+        onWeaponChanged?.Invoke(weaponHand, weapon); ;
     }
 
     private void ClickFire(WeaponHand weaponHand)
@@ -134,6 +149,8 @@ public class WeaponController : MonoBehaviour
             Vector2 myPos = transform.position;
             var dir = (targetPos - myPos).normalized;
             weapon.Fire(dir);
+
+            onWeaponShoot?.Invoke(weaponHand, weapon);
         }
     }
 }

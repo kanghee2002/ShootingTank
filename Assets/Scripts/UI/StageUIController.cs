@@ -8,31 +8,21 @@ public class StageUIController : MonoBehaviour
 {
     [Header("Weapon Display")]
     [SerializeField]
-    private GameObject leftWeaponDisplay;
-    [SerializeField]
-    private GameObject rightWeaponDisplay;
+    private GameObject[] weaponDisplay;
 
     [Header("Charge Slider")]
     [SerializeField]
-    private Slider leftWeaponChargeSlider;
-    [SerializeField]
-    private Slider rightWeaponChargeSlider;
+    private Slider[] weaponChargeSlider;
 
     [Header("Ammo Text")]
     [SerializeField]
-    private TMP_Text leftWeaponAmmoText;
-    [SerializeField]
-    private TMP_Text rightWeaponAmmoText;
+    private TMP_Text[] weaponAmmoText;
 
     [Header("Hp Display")]
     [SerializeField]
     private Image hpImage;
     [SerializeField]
     private TMP_Text hpText;
-
-    private PlayerController playerController;
-    private WeaponController weaponController;
-    private Weapon[] weapons;
 
     private void Start()
     {
@@ -44,56 +34,43 @@ public class StageUIController : MonoBehaviour
             playerController.onPlayerHpChanged += SetHpDisplay;
         }
 
-        weaponController = GameManager.Instance.playerObj.GetComponent<WeaponController>();
-        weaponController.onWeaponChanged += OnWeaponChanged;
-
-        weapons = GameManager.Instance.playerObj.GetComponent<WeaponController>().Weapons;
-    }
-
-    public void OnWeaponCharged()
-    {
-        SetChargeSlider(leftWeaponChargeSlider, WeaponHand.Left);
-        SetChargeSlider(rightWeaponChargeSlider, WeaponHand.Right);
-    }
-
-    public void OnWeaponChanged()
-    {
-        SetAmmoText(leftWeaponAmmoText, WeaponHand.Left);
-        SetAmmoText(rightWeaponAmmoText, WeaponHand.Right);
+        WeaponController weaponController = FindObjectOfType<WeaponController>();
+        if (weaponController != null)
+        {
+            weaponController.onWeaponChanged += SetAmmoText;
+            weaponController.onWeaponCharged += SetChargeSlider;
+            weaponController.onWeaponShoot += SetAmmoText;
+        }
     }
 
     private void InitDisplay()
     {
         if (!WeaponManager.Instance.IsRightWeaponEnabled)
         {
-            rightWeaponDisplay.gameObject.SetActive(false);
+            weaponDisplay[1].gameObject.SetActive(false);
         }
         else
         {
-            rightWeaponDisplay.gameObject.SetActive(true);
+            weaponDisplay[1].gameObject.SetActive(true);
         }
     }
 
-    private void SetChargeSlider(Slider slider, WeaponHand weaponHand)
+    private void SetChargeSlider(WeaponHand weaponHand, Weapon weapon)
     {
         int weaponHandIdx = (int)weaponHand;
-        slider.value = weapons[weaponHandIdx].ChargePercentage;
+        weaponChargeSlider[weaponHandIdx].value = weapon.ChargePercentage;
     }
 
-    private void SetAmmoText(TMP_Text ammoText, WeaponHand weaponHand)
+    private void SetAmmoText(WeaponHand weaponHand, Weapon weapon)
     {
         int weaponHandIdx = (int)weaponHand;
-        if (weapons[weaponHandIdx] == null)
+        if (weapon.Title == WeaponName.Default)
         {
-            return;
-        }
-        if (weapons[weaponHandIdx].Title == WeaponName.Default)
-        {
-            ammoText.text = " - / - ";
+            weaponAmmoText[weaponHandIdx].text = " - / - ";
         }
         else
         {
-            ammoText.text = weapons[weaponHandIdx].CurAmmo.ToString() + " / " + weapons[weaponHandIdx].MaxAmmo.ToString();
+            weaponAmmoText[weaponHandIdx].text = weapon.CurAmmo.ToString() + " / " + weapon.MaxAmmo.ToString();
         }
     }
 

@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
 
-    [HideInInspector] public delegate void OnPlayerHpChanged(float curHp, float maxHp);
-    [HideInInspector] public event OnPlayerHpChanged onPlayerHpChanged;
+    public delegate void OnPlayerHpChanged(float curHp, float maxHp);
+    public event OnPlayerHpChanged onPlayerHpChanged;
 
     private void Awake()
     {
