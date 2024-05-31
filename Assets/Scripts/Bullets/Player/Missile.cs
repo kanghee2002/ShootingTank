@@ -5,7 +5,7 @@ using UnityEngine;
 public class Missile : Bullet
 {
     [SerializeField]
-    private GameObject explosionObj;
+    private Explosion explosion;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -21,8 +21,8 @@ public class Missile : Bullet
 
     private void ProcessCollision()
     {
-        explosionObj.GetComponent<Explosion>().DamageAmount = FinalDamage;
-        explosionObj.SetActive(true);
-        explosionObj.transform.parent = null;
+        explosion.DamageAmount = FinalDamage;
+        explosion.gameObject.SetActive(true);
+        explosion.transform.SetParent(null);
     }
 }

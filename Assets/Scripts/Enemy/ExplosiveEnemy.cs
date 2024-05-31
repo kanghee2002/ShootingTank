@@ -23,6 +23,8 @@ public class ExplosiveEnemy : Enemy
     [Header("Attack Settings")]
     [SerializeField]
     private float explosionRadius;
+    [SerializeField]
+    private float explosionDelay;
 
     private IEnumerator curMoveCoroutine;
 
@@ -38,11 +40,6 @@ public class ExplosiveEnemy : Enemy
         {
             LookAtPlayer(headObj, headSpriteRenderer);
         }
-    }
-
-    protected override void Attack(Transform target)
-    {
-
     }
 
     public override void OnPlayerDetected(Transform player)
@@ -97,7 +94,6 @@ public class ExplosiveEnemy : Enemy
 
     private IEnumerator ChasePlayer()
     {
-        Debug.Log("Chase Player");
         while (true)
         {
             int moveDir;
@@ -117,12 +113,19 @@ public class ExplosiveEnemy : Enemy
             }
 
             rigid.velocity = new Vector2(moveDir * moveSpeed, rigid.velocity.y);
+
+            if ((Player.position - transform.position).magnitude <= explosionRadius)
+            {
+                StartCoroutine(Explode());
+            }
+
             yield return new WaitForFixedUpdate();
         }
     }
 
-    /*private IEnumerator Explode()
+    private IEnumerator Explode()
     {
+        yield return new WaitForSeconds(explosionDelay);
 
-    }*/
+    }
 }

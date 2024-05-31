@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    private GameObject missileObj;
+    private Transform parent;
+    private SpriteRenderer spriteRenderer;
 
     [SerializeField]
     private string targetTag;
@@ -17,14 +18,19 @@ public class Explosion : MonoBehaviour
     private float radius;
     public float Radius { get => radius; set => radius = value; }
 
+    [SerializeField]
+    private float explosionTime;
+
     private void Awake()
     {
-        missileObj = transform.parent.gameObject;
+        parent = transform.parent;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void OnEnable()
     {
         StartCoroutine(Explode());
+        StartCoroutine(FadeOut());
     }
 
     private IEnumerator Explode()
@@ -37,10 +43,22 @@ public class Explosion : MonoBehaviour
                 damageable.Damage(damageAmount);
             }
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(explosionTime);
         gameObject.SetActive(false);
-        transform.parent = missileObj.transform;
+        if (parent != null) transform.SetParent(parent);
         transform.localPosition = Vector3.zero;
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float elapsedTime = 0;
+        while (elapsedTime < explosionTime)
+        {
+            spriteRenderer.color = new Color(1f, 1f, 1f, 1f - (elapsedTime / explosionTime));
+
+            elapsedTime += Time.deltaTime;        
+            yield return null;
+        }
     }
 
     private void OnDrawGizmos()

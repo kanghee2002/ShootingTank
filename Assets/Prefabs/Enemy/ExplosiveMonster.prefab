@@ -766,7 +766,8 @@ MonoBehaviour:
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
   lampCheckRayDistance: 2
-  explosionRadius: 3
+  explosionRadius: 4
+  explosionDelay: 3
 --- !u!50 &4561013565632133627
 Rigidbody2D:
   serializedVersion: 4
