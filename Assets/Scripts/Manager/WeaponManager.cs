@@ -31,6 +31,7 @@ public class WeaponManager : Singleton<WeaponManager>
         AddAvailableWeapon(WeaponName.Rifle);
         AddAvailableWeapon(WeaponName.Shotgun);
         AddAvailableWeapon(WeaponName.Missilegun);
+        AddAvailableWeapon(WeaponName.GrenadeLauncher);
 
         isRightWeaponEnabled = false;
     }
