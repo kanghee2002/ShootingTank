@@ -584,6 +584,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstMonster
       objectReference: {fileID: 0}
+    - target: {fileID: 8089172946932009105, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bab899cee77ed2e47a1554fddf337898, type: 3}
 --- !u!1 &511370579
@@ -3654,17 +3658,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponManager
       objectReference: {fileID: 0}
-    - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
-      propertyPath: weapons.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
-      propertyPath: isRightWeaponEnabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
-      propertyPath: weapons.Array.data[3]
-      value: 
-      objectReference: {fileID: 1060029884443221473, guid: 5184912688e275a4b8f74be1f3f3233f, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54c3659284ddf5488760eb99af445c9, type: 3}

@@ -12,7 +12,7 @@ public abstract class Bullet : MonoBehaviour
 
     [Header("Default Settings")]
     [SerializeField]
-    private float lifeTIme;
+    protected float lifeTIme;
 
     [SerializeField]
     protected List<string> targetTags;
@@ -40,7 +40,7 @@ public abstract class Bullet : MonoBehaviour
         //StopAllCoroutines();
         if (!shootingObject)
         {
-            Debug.Log("Error: No Shooting Object in Bullet");
+            Debug.Log("Error: No Shooting Object in" + name + " Bullet");
             Destroy(gameObject);
         }
         else shootingObject.ReturnBullet(gameObject);
