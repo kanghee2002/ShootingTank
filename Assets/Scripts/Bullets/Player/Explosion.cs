@@ -9,6 +9,7 @@ public class Explosion : MonoBehaviour
 
     [SerializeField]
     private string targetTag;
+    public string TargetTag { get => targetTag; set => targetTag = value; }
 
     [SerializeField]
     private float damageAmount;
@@ -54,7 +55,7 @@ public class Explosion : MonoBehaviour
         float elapsedTime = 0;
         while (elapsedTime < explosionTime)
         {
-            spriteRenderer.color = new Color(1f, 1f, 1f, 1f - (elapsedTime / explosionTime));
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0.8f - (elapsedTime / explosionTime));
 
             elapsedTime += Time.deltaTime;        
             yield return null;

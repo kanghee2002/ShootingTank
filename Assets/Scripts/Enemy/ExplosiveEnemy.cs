@@ -25,6 +25,8 @@ public class ExplosiveEnemy : Enemy
     private float explosionRadius;
     [SerializeField]
     private float explosionDelay;
+    [SerializeField]
+    private Explosion explosion;
 
     private IEnumerator curMoveCoroutine;
 
@@ -125,7 +127,14 @@ public class ExplosiveEnemy : Enemy
 
     private IEnumerator Explode()
     {
+        StopCoroutine(curMoveCoroutine);
+
         yield return new WaitForSeconds(explosionDelay);
 
+        explosion.TargetTag = "Player";
+        explosion.DamageAmount = damageValue;
+        explosion.gameObject.SetActive(true);
+        explosion.transform.SetParent(null);
+        gameObject.SetActive(false);
     }
 }

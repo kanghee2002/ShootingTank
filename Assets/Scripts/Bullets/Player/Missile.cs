@@ -21,6 +21,7 @@ public class Missile : Bullet
 
     private void ProcessCollision()
     {
+        explosion.TargetTag = "Enemy";
         explosion.DamageAmount = FinalDamage;
         explosion.gameObject.SetActive(true);
         explosion.transform.SetParent(null);
