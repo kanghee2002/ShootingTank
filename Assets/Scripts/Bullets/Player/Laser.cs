@@ -12,6 +12,9 @@ public class Laser : Bullet
     [SerializeField]
     private float distance;
 
+    [SerializeField]
+    private List<string> blockLayerMasks;
+
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -27,7 +30,7 @@ public class Laser : Bullet
         Vector3 startPosition = transform.position, endPosition;
 
         RaycastHit2D rayHit = Physics2D.Raycast(startPosition, dir, 
-            (startPosition + dir * distance).magnitude, LayerMask.GetMask("Platform"));
+            (startPosition + dir * distance).magnitude, LayerMask.GetMask(blockLayerMasks.ToArray()));
 
         if (rayHit)
         {
@@ -75,6 +78,20 @@ public class Laser : Bullet
         boxCollider.offset = new Vector2(0, offsetY);
 
         boxCollider.size = new Vector2(width, lineDistance);
+    }
+
+    public bool AddBlockLayerMask(string layerMask)
+    {
+        foreach (var blockLayerMask in blockLayerMasks)
+        {
+            if (blockLayerMask.Equals(layerMask))
+            {
+                return false;
+            }
+        }
+
+        blockLayerMasks.Add(layerMask);
+        return true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

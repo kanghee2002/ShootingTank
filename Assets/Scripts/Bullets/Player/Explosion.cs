@@ -8,8 +8,7 @@ public class Explosion : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     [SerializeField]
-    private string targetTag;
-    public string TargetTag { get => targetTag; set => targetTag = value; }
+    private List<string> targetLayerMasks;
 
     [SerializeField]
     private float damageAmount;
@@ -36,7 +35,7 @@ public class Explosion : MonoBehaviour
 
     private IEnumerator Explode()
     {
-        var targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetTag));
+        var targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetLayerMasks.ToArray()));
         foreach (var target in targets)
         {
             if (target.TryGetComponent(out IDamageable damageable))
@@ -60,6 +59,20 @@ public class Explosion : MonoBehaviour
             elapsedTime += Time.deltaTime;        
             yield return null;
         }
+    }
+
+    public bool AddTargetLayerMask(string layerMask)
+    {
+        foreach (var targetLayerMask in targetLayerMasks)
+        {
+            if (targetLayerMask.Equals(layerMask))
+            {
+                return false;
+            }
+        }
+
+        targetLayerMasks.Add(layerMask);
+        return true;
     }
 
     private void OnDrawGizmos()

@@ -50,11 +50,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootingObject: {fileID: 0}
   lifeTIme: 1
-  targetTags:
-  - Enemy
+  targetTags: []
   defaultCollideTags:
   - Platform
   distance: 30
+  blockLayerMasks:
+  - Platform
 --- !u!120 &7900961425719176080
 LineRenderer:
   m_ObjectHideFlags: 0

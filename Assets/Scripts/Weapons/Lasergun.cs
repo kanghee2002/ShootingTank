@@ -13,8 +13,10 @@ public class Lasergun : Weapon
         }
         var randomDir = GetRandomDir(dir, AimAccuracy);
         var obj = base.Fire(randomDir);
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
-        obj.GetComponent<Laser>().Activate(randomDir);
+        Laser laser = obj.GetComponent<Laser>();
+        laser.AddTargetTag("Enemy");
+        laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
+        laser.Activate(randomDir);
         CurAmmo--;
         Recharge();
 

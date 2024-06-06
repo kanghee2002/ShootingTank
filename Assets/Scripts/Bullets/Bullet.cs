@@ -45,4 +45,18 @@ public abstract class Bullet : MonoBehaviour
         }
         else shootingObject.ReturnBullet(gameObject);
     }
+
+    public bool AddTargetTag(string tag)
+    {
+        foreach(var targetTag in targetTags)
+        {
+            if (targetTag.Equals(tag))
+            {
+                return false;
+            }
+        }
+
+        targetTags.Add(tag);
+        return true;
+    }
 }
