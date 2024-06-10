@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DefaultEnemy : Enemy
 {
+    private SpriteRenderer headSpriteRenderer;
+
     [Header("Body Part Settings")]
     [SerializeField]
     private GameObject headObj;
-    [SerializeField]
-    private SpriteRenderer headSpriteRenderer;
     [SerializeField]
     private GameObject bodyObj;
 
@@ -24,6 +24,8 @@ public class DefaultEnemy : Enemy
     {
         base.Init();
         StartCoroutine(IdleMove());
+
+        headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
     }
 
     private void Update()

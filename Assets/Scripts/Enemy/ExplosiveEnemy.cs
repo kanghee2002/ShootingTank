@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class ExplosiveEnemy : Enemy
 {
+    private SpriteRenderer headSpriteRenderer;
+    private List<SpriteRenderer> bodyPartSpriteRenderers = new();
+
     [Header("Body Part Settings")]
     [SerializeField]
     private GameObject headObj;
     [SerializeField]
-    private SpriteRenderer headSpriteRenderer;
-    [SerializeField]
     private GameObject bodyObj;
+    [SerializeField]
+    private GameObject coreObj;
 
     [Header("Move Ray Settings")]
     [SerializeField]
@@ -30,10 +33,21 @@ public class ExplosiveEnemy : Enemy
 
     private IEnumerator curMoveCoroutine;
 
+    private IDamageable damageable;
+
+    private float fadeInOutSpeed = 3f;
+
     private void Start()
     {
         curMoveCoroutine = IdleMove();
         StartCoroutine(curMoveCoroutine);
+
+        headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
+        damageable = GetComponent<IDamageable>();
+
+        bodyPartSpriteRenderers.Add(headObj.GetComponent<SpriteRenderer>());
+        bodyPartSpriteRenderers.Add(bodyObj.GetComponent<SpriteRenderer>());
+        bodyPartSpriteRenderers.Add(coreObj.GetComponent<SpriteRenderer>());
     }
 
     private void Update()
@@ -125,9 +139,68 @@ public class ExplosiveEnemy : Enemy
         }
     }
 
+    private IEnumerator RepeatFadeInOut()
+    {
+        IEnumerator curCoroutine = null;
+        while (gameObject.activeSelf == true)
+        {
+            if (bodyPartSpriteRenderers[0].color.r > 0.99f)
+            {
+                if (curCoroutine != null)
+                {
+                    StopCoroutine(curCoroutine);
+                }
+                curCoroutine = FadeOut();
+                StartCoroutine(curCoroutine);
+            }
+            else if (bodyPartSpriteRenderers[0].color.r < 0.01f)
+            {
+
+                if (curCoroutine != null)
+                {
+                    StopCoroutine(curCoroutine);
+                }
+                curCoroutine = FadeIn();
+                StartCoroutine(curCoroutine);
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float curColorNum = bodyPartSpriteRenderers[0].color.r;
+        while (curColorNum > 0f)
+        {
+            curColorNum -= fadeInOutSpeed * Time.deltaTime;
+            foreach (var spriteRenderer in bodyPartSpriteRenderers)
+            {
+                spriteRenderer.color = new Color(curColorNum, curColorNum, curColorNum);
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator FadeIn()
+    {
+        float curColorNum = bodyPartSpriteRenderers[0].color.r;
+        while (curColorNum < 1f)
+        {
+            curColorNum += fadeInOutSpeed * Time.deltaTime;
+            foreach (var spriteRenderer in bodyPartSpriteRenderers)
+            {
+                spriteRenderer.color = new Color(curColorNum, curColorNum, curColorNum);
+            }
+
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
     private IEnumerator Explode()
     {
         StopCoroutine(curMoveCoroutine);
+        StartCoroutine(RepeatFadeInOut());
 
         yield return new WaitForSeconds(explosionDelay);
 
