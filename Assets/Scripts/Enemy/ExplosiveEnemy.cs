@@ -1,21 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class ExplosiveEnemy : Enemy
 {
+    private GameObject headObj;
     private SpriteRenderer headSpriteRenderer;
     private List<SpriteRenderer> bodyPartSpriteRenderers = new();
 
     [Header("Body Part Settings")]
     [SerializeField]
     private GameObject bodyPartsObj;
-    [SerializeField]
-    private GameObject headObj;
-    [SerializeField]
-    private GameObject bodyObj;
-    [SerializeField]
-    private GameObject coreObj;
 
     [Header("Move Ray Settings")]
     [SerializeField]
@@ -44,12 +40,11 @@ public class ExplosiveEnemy : Enemy
         curMoveCoroutine = IdleMove();
         StartCoroutine(curMoveCoroutine);
 
+        headObj = bodyPartsObj.transform.Find("Head").gameObject;
         headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
         damageable = GetComponent<IDamageable>();
 
-        bodyPartSpriteRenderers.Add(headObj.GetComponent<SpriteRenderer>());
-        bodyPartSpriteRenderers.Add(bodyObj.GetComponent<SpriteRenderer>());
-        bodyPartSpriteRenderers.Add(coreObj.GetComponent<SpriteRenderer>());
+        bodyPartSpriteRenderers = bodyPartsObj.GetComponentsInChildren<SpriteRenderer>().ToList<SpriteRenderer>();
 
         onDie += () => StartCoroutine(Explode());
     }

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class ShotgunEnemy : Enemy
 {
+    private GameObject headObj;
     private SpriteRenderer headSpriteRenderer;
 
     [Header("Body Part Settings")]
-    [SerializeField]
-    private GameObject headObj;
     [SerializeField]
     private GameObject bodyPartsObj;
 
@@ -29,6 +28,7 @@ public class ShotgunEnemy : Enemy
         base.Init();
         StartCoroutine(IdleMove());
 
+        headObj = bodyPartsObj.transform.Find("Head").gameObject;
         headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
 
         onDie += () => gameObject.SetActive(false);
