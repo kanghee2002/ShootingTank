@@ -49,12 +49,11 @@ public abstract class Enemy : ShootingObject, IDamageable
         Player = player;
     }
 
-    private Vector3 GetTargetDir(Transform target)
+    protected Vector3 GetTargetDir(Transform target)
         => (target.position - transform.position).normalized;
 
-    protected virtual void Attack(Transform target)
+    protected virtual void Attack(Vector2 dir)
     {
-        var dir = GetTargetDir(target);
         var obj = base.Fire(dir);
         obj.GetComponent<Bullet>().FinalDamage = damageValue;
         StartCoroutine(CheckCoolTime(coolTime));

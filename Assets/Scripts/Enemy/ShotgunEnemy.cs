@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultEnemy : Enemy
+public class ShotgunEnemy : Enemy
 {
     private SpriteRenderer headSpriteRenderer;
 
@@ -20,6 +20,10 @@ public class DefaultEnemy : Enemy
     [SerializeField]
     private float lampCheckRayDistance;
 
+    [Header("Attack Settings")]
+    [SerializeField]
+    private float aimAccuracy;
+
     private void Start()
     {
         base.Init();
@@ -34,6 +38,21 @@ public class DefaultEnemy : Enemy
     {
         if (IsAttackPossible()) Attack(GetTargetDir(Player));
         if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
+    }
+
+    protected override void Attack(Vector2 dir)
+    {
+        float aimAngle = (90 - (aimAccuracy * 9 * 0.1f)) * Mathf.Deg2Rad;
+        Vector3 dir2 = new Vector3(
+                dir.x * Mathf.Cos(aimAngle) - dir.y * Mathf.Sin(aimAngle),
+                dir.x * Mathf.Sin(aimAngle) + dir.y * Mathf.Cos(aimAngle));
+        Vector3 dir3 = new Vector3(
+                dir.x * Mathf.Cos(-aimAngle) - dir.y * Mathf.Sin(-aimAngle),
+                dir.x * Mathf.Sin(-aimAngle) + dir.y * Mathf.Cos(-aimAngle));
+
+        base.Attack(dir);
+        base.Attack(dir2);
+        base.Attack(dir3);
     }
 
     protected override IEnumerator IdleMove()
@@ -66,10 +85,10 @@ public class DefaultEnemy : Enemy
 
                 //Platform Check
                 Vector2 frontVec = new Vector2(rigid.position.x + moveDir * platformCheckRayGap, rigid.position.y);
-                
+
                 Debug.DrawRay(frontVec, Vector3.down * platformCheckRayDistance, new Color(1, 0, 1));
                 RaycastHit2D rayHitPlatform = Physics2D.Raycast(frontVec, Vector3.down, platformCheckRayDistance, LayerMask.GetMask("Platform"));
-                
+
                 Debug.DrawRay(transform.position, new Vector3(moveDir * lampCheckRayDistance, 0, 0), new Color(1, 0, 0));
                 RaycastHit2D rayHitLamp = Physics2D.Raycast(transform.position, Vector3.right * moveDir, lampCheckRayDistance, LayerMask.GetMask("Platform"));
 
