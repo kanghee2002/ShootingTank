@@ -761,6 +761,7 @@ MonoBehaviour:
   maxHp: 10
   hp: 10
   hpSlider: {fileID: 1295694678}
+  bodyPartsObj: {fileID: 6566929050875376246}
   headObj: {fileID: 2662353260130757995}
   bodyObj: {fileID: 5338702557462206307}
   coreObj: {fileID: 7641113970491313483}

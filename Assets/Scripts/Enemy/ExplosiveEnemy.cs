@@ -9,6 +9,8 @@ public class ExplosiveEnemy : Enemy
 
     [Header("Body Part Settings")]
     [SerializeField]
+    private GameObject bodyPartsObj;
+    [SerializeField]
     private GameObject headObj;
     [SerializeField]
     private GameObject bodyObj;
@@ -77,11 +79,11 @@ public class ExplosiveEnemy : Enemy
 
             if (moveDir < 0)
             {
-                bodyObj.transform.localScale = new Vector3(1, 1, 1);
+                bodyPartsObj.transform.localScale = new Vector3(1, 1, 1);
             }
             else if (moveDir > 0)
             {
-                bodyObj.transform.localScale = new Vector3(-1, 1, 1);
+                bodyPartsObj.transform.localScale = new Vector3(-1, 1, 1);
             }
 
             while (moveTime > 0f)
@@ -123,11 +125,11 @@ public class ExplosiveEnemy : Enemy
 
             if (moveDir < 0)
             {
-                bodyObj.transform.localScale = new Vector3(1, 1, 1);
+                bodyPartsObj.transform.localScale = new Vector3(1, 1, 1);
             }
             else if (moveDir > 0)
             {
-                bodyObj.transform.localScale = new Vector3(-1, 1, 1);
+                bodyPartsObj.transform.localScale = new Vector3(-1, 1, 1);
             }
 
             rigid.velocity = new Vector2(moveDir * moveSpeed, rigid.velocity.y);

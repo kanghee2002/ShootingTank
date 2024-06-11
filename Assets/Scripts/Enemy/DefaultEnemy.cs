@@ -10,7 +10,7 @@ public class DefaultEnemy : Enemy
     [SerializeField]
     private GameObject headObj;
     [SerializeField]
-    private GameObject bodyObj;
+    private GameObject bodyPartsObj;
 
     [Header("Move Ray Settings")]
     [SerializeField]
@@ -45,7 +45,7 @@ public class DefaultEnemy : Enemy
 
             if (moveDir < 0)
             {
-                bodyObj.transform.localScale = new Vector3(1, 1, 1);
+                bodyPartsObj.transform.localScale = new Vector3(1, 1, 1);
                 if (IsPlayerDetected)
                 {
                     headSpriteRenderer.flipX = false;
@@ -53,7 +53,7 @@ public class DefaultEnemy : Enemy
             }
             else if (moveDir > 0)
             {
-                bodyObj.transform.localScale = new Vector3(-1, 1, 1);
+                bodyPartsObj.transform.localScale = new Vector3(-1, 1, 1);
                 if (IsPlayerDetected)
                 {
                     headSpriteRenderer.flipX = true;

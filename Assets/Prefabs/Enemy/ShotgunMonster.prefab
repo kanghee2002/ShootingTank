@@ -761,7 +761,7 @@ MonoBehaviour:
   hp: 20
   hpSlider: {fileID: 1295694678}
   headObj: {fileID: 2662353260130757995}
-  bodyObj: {fileID: 5338702557462206307}
+  bodyPartsObj: {fileID: 6566929050875376246}
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
   lampCheckRayDistance: 2
