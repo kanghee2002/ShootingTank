@@ -48,15 +48,14 @@ public abstract class Bullet : MonoBehaviour
 
     public bool AddTargetTag(string tag)
     {
-        foreach(var targetTag in targetTags)
+        if (targetTags.Contains(tag))
         {
-            if (targetTag.Equals(tag))
-            {
-                return false;
-            }
+            return false;
         }
-
-        targetTags.Add(tag);
-        return true;
+        else
+        {
+            targetTags.Add(tag);
+            return true;
+        }
     }
 }

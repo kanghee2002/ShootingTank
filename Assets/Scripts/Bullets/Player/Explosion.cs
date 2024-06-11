@@ -63,16 +63,15 @@ public class Explosion : MonoBehaviour
 
     public bool AddTargetLayerMask(string layerMask)
     {
-        foreach (var targetLayerMask in targetLayerMasks)
+        if (targetLayerMasks.Contains(layerMask))
         {
-            if (targetLayerMask.Equals(layerMask))
-            {
-                return false;
-            }
+            return false;
         }
-
-        targetLayerMasks.Add(layerMask);
-        return true;
+        else
+        {
+            targetLayerMasks.Add(layerMask);
+            return true;
+        }
     }
 
     private void OnDrawGizmos()

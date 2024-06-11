@@ -82,16 +82,15 @@ public class Laser : Bullet
 
     public bool AddBlockLayerMask(string layerMask)
     {
-        foreach (var blockLayerMask in blockLayerMasks)
+        if (blockLayerMasks.Contains(layerMask))
         {
-            if (blockLayerMask.Equals(layerMask))
-            {
-                return false;
-            }
+            return false;
         }
-
-        blockLayerMasks.Add(layerMask);
-        return true;
+        else
+        {
+            blockLayerMasks.Add(layerMask);
+            return true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

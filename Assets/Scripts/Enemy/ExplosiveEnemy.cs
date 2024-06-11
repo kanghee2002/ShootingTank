@@ -48,6 +48,8 @@ public class ExplosiveEnemy : Enemy
         bodyPartSpriteRenderers.Add(headObj.GetComponent<SpriteRenderer>());
         bodyPartSpriteRenderers.Add(bodyObj.GetComponent<SpriteRenderer>());
         bodyPartSpriteRenderers.Add(coreObj.GetComponent<SpriteRenderer>());
+
+        onDie += () => StartCoroutine(Explode());
     }
 
     private void Update()

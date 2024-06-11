@@ -39,8 +39,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
 
-    public delegate void OnPlayerHpChanged(float curHp, float maxHp);
-    public event OnPlayerHpChanged onPlayerHpChanged;
+    public delegate void OnHpChanged(float curHp, float maxHp);
+    public event OnHpChanged onHpChanged;
+
+    public delegate void OnDie();
+    public event OnDie onDie;
 
     private void Awake()
     {
@@ -111,7 +114,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         curHp -= damageAmount;
 
-        onPlayerHpChanged?.Invoke(curHp, maxHp);
+        onHpChanged?.Invoke(curHp, maxHp);
 
         if (curHp <= 0)
         {
@@ -121,6 +124,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void IDamageable.Die()
     {
-        //Do Die
+        onDie?.Invoke();
     }
 }

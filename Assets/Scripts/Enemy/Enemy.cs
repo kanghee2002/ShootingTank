@@ -30,6 +30,9 @@ public abstract class Enemy : ShootingObject, IDamageable
     [SerializeField]
     private Slider hpSlider;
 
+    public delegate void OnDie();
+    public event OnDie onDie;
+
     private void Awake()
     {
         hp = maxHp;
@@ -117,6 +120,6 @@ public abstract class Enemy : ShootingObject, IDamageable
     void IDamageable.Die()
     {
         //Do Die
-        gameObject.SetActive(false);
+        onDie?.Invoke();
     }
 }

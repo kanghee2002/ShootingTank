@@ -31,7 +31,7 @@ public class StageUIController : MonoBehaviour
         PlayerController playerController = FindObjectOfType<PlayerController>();
         if (playerController != null)
         {
-            playerController.onPlayerHpChanged += SetHpDisplay;
+            playerController.onHpChanged += SetHpDisplay;
         }
 
         WeaponController weaponController = FindObjectOfType<WeaponController>();

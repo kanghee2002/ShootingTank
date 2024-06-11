@@ -26,6 +26,8 @@ public class DefaultEnemy : Enemy
         StartCoroutine(IdleMove());
 
         headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
+
+        onDie += () => gameObject.SetActive(false);
     }
 
     private void Update()
