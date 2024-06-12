@@ -52,12 +52,15 @@ public abstract class Enemy : ShootingObject, IDamageable
     protected Vector3 GetTargetDir(Transform target)
         => (target.position - transform.position).normalized;
 
-    protected virtual void Attack(Vector2 dir)
+    protected virtual GameObject Attack(Vector2 dir)
     {
         var obj = base.Fire(dir);
-        obj.GetComponent<Bullet>().FinalDamage = damageValue;
+        Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.FinalDamage = damageValue;
+        bullet.AddTargetTag("Player");
         StartCoroutine(CheckCoolTime(coolTime));
         isCool = true;
+        return obj;
     }
 
     protected virtual IEnumerator CheckCoolTime(float coolTime)

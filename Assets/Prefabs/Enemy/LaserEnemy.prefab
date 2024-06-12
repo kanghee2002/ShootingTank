@@ -656,7 +656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5069515194461726083}
   - component: {fileID: 6480561379283226129}
-  - component: {fileID: 3660864576351736020}
+  - component: {fileID: 1049541876414283772}
   - component: {fileID: 4561013565632133627}
   - component: {fileID: 1609629898989105984}
   m_Layer: 8
@@ -736,7 +736,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3660864576351736020
+--- !u!114 &1049541876414283772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -745,22 +745,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8089172946932009105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fc5a8938db4f594fb7e7a006380436f, type: 3}
+  m_Script: {fileID: 11500000, guid: d095aa28b130b9e409b1c44943dfa854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   description: 
   damageValue: 2
   length: 0.5
-  speed: 15
-  bulletObj: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
-  bulletRotatedDegree: -90
+  speed: 0
+  bulletObj: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
+  bulletRotatedDegree: 90
   poolSize: 10
   coolTime: 1
   moveSpeed: 5
   maxHp: 20
   hp: 20
   hpSlider: {fileID: 1295694678}
-  headObj: {fileID: 2662353260130757995}
   bodyPartsObj: {fileID: 6566929050875376246}
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5

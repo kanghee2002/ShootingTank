@@ -10,10 +10,10 @@ public class Laser : Bullet
     private float firstWidth;
 
     [SerializeField]
-    private float distance;
+    private List<string> blockLayerMasks;
 
     [SerializeField]
-    private List<string> blockLayerMasks;
+    private float distance;
 
     private void Awake()
     {
@@ -97,6 +97,7 @@ public class Laser : Bullet
     {
         foreach (var targetTag in targetTags)
         {
+
             if (collision.CompareTag(targetTag))
             {
                 if (collision.TryGetComponent(out IDamageable damageable))

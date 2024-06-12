@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotgunEnemy : Enemy
+public class LaserEnemy : Enemy
 {
     private GameObject headObj;
     private SpriteRenderer headSpriteRenderer;
@@ -18,10 +18,6 @@ public class ShotgunEnemy : Enemy
     private float platformCheckRayDistance;
     [SerializeField]
     private float lampCheckRayDistance;
-
-    [Header("Attack Settings")]
-    [SerializeField]
-    private float aimAccuracy;
 
     private void Start()
     {
@@ -42,18 +38,10 @@ public class ShotgunEnemy : Enemy
 
     protected override GameObject Attack(Vector2 dir)
     {
-        float aimAngle = (90 - (aimAccuracy * 9 * 0.1f)) * Mathf.Deg2Rad;
-        Vector3 dir2 = new Vector3(
-                dir.x * Mathf.Cos(aimAngle) - dir.y * Mathf.Sin(aimAngle),
-                dir.x * Mathf.Sin(aimAngle) + dir.y * Mathf.Cos(aimAngle));
-        Vector3 dir3 = new Vector3(
-                dir.x * Mathf.Cos(-aimAngle) - dir.y * Mathf.Sin(-aimAngle),
-                dir.x * Mathf.Sin(-aimAngle) + dir.y * Mathf.Cos(-aimAngle));
-
         var obj = base.Attack(dir);
-        base.Attack(dir2);
-        base.Attack(dir3);
-
+        Laser laser = obj.GetComponent<Laser>();
+        laser.Activate(dir);
+        obj.GetComponent<LineRenderer>().material.color = new Color(128, 0, 0);
         return obj;
     }
 
