@@ -25,8 +25,6 @@ public class Laser : Bullet
 
     public void Activate(Vector3 dir)
     {
-        StartCoroutine(FadeOut());
-
         Vector3 startPosition = transform.position, endPosition;
 
         RaycastHit2D rayHit = Physics2D.Raycast(startPosition, dir, 
@@ -45,6 +43,8 @@ public class Laser : Bullet
         lineRenderer.SetPosition(1, endPosition);
 
         lineRenderer.enabled = true;
+
+        StartCoroutine(FadeOut());
     }
 
     private IEnumerator FadeOut()
@@ -97,7 +97,6 @@ public class Laser : Bullet
     {
         foreach (var targetTag in targetTags)
         {
-
             if (collision.CompareTag(targetTag))
             {
                 if (collision.TryGetComponent(out IDamageable damageable))
