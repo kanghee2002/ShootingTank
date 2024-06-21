@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LaserEnemy : Enemy
 {
     private GameObject headObj;
     private SpriteRenderer headSpriteRenderer;
+
+    private Vector2 targetVec;
 
     [Header("Body Part Settings")]
     [SerializeField]
@@ -18,6 +21,10 @@ public class LaserEnemy : Enemy
     private float platformCheckRayDistance;
     [SerializeField]
     private float lampCheckRayDistance;
+
+    [Header("Warning Laser")]
+    [SerializeField]
+    private WarningLaser warningLaser;
 
     private void Start()
     {
@@ -32,8 +39,16 @@ public class LaserEnemy : Enemy
 
     private void Update()
     {
-        if (IsAttackPossible()) Attack(GetTargetDir(Player));
-        if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
+        if (IsAttackPossible())
+        {
+            StartCoroutine(DelayAttack());
+            isCool = true;
+        }
+        if (IsPlayerDetected)
+        {
+            LookAtPlayer(headObj, headSpriteRenderer);
+            SetWarningLaser();
+        }
     }
 
     protected override GameObject Attack(Vector2 dir)
@@ -43,6 +58,22 @@ public class LaserEnemy : Enemy
         laser.Activate(dir);
         obj.GetComponent<LineRenderer>().material.color = new Color(128, 0, 0);
         return obj;
+    }
+
+    private IEnumerator DelayAttack()
+    {
+        float delay = warningLaser.StartLuminesce();
+
+        yield return new WaitForSeconds(delay);
+
+        if ((transform.position - Player.position).magnitude <= warningLaser.MaxDistance)
+        {
+            Attack(GetTargetDir(Player));
+        }
+        else
+        {
+            isCool = false;
+        }
     }
 
     protected override IEnumerator IdleMove()
@@ -93,5 +124,10 @@ public class LaserEnemy : Enemy
                 yield return new WaitForSeconds(Time.deltaTime);
             }
         }
+    }
+
+    private void SetWarningLaser()
+    {
+        warningLaser.SetPosition(transform.position, Player.position);
     }
 }

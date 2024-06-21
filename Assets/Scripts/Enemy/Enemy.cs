@@ -14,7 +14,7 @@ public abstract class Enemy : ShootingObject, IDamageable
     [SerializeField]
     protected float coolTime;
 
-    private bool isCool;
+    protected bool isCool;
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
 

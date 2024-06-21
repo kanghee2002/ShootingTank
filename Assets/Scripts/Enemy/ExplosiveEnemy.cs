@@ -204,6 +204,7 @@ public class ExplosiveEnemy : Enemy
         yield return new WaitForSeconds(explosionDelay);
 
         explosion.AddTargetLayerMask("Player");
+        explosion.AddTargetLayerMask("Enemy");
         explosion.DamageAmount = damageValue;
         explosion.gameObject.SetActive(true);
         explosion.transform.SetParent(null);

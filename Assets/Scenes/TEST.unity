@@ -1060,11 +1060,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1101922218, guid: 1fb24ec421fb86243b6a9ae3da0c22d3, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1101922218, guid: 1fb24ec421fb86243b6a9ae3da0c22d3, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5069515194461726083, guid: 1fb24ec421fb86243b6a9ae3da0c22d3, type: 3}
       propertyPath: m_RootOrder
@@ -1113,6 +1113,10 @@ PrefabInstance:
     - target: {fileID: 8089172946932009105, guid: 1fb24ec421fb86243b6a9ae3da0c22d3, type: 3}
       propertyPath: m_Name
       value: ExplosiveMonster
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089172946932009105, guid: 1fb24ec421fb86243b6a9ae3da0c22d3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fb24ec421fb86243b6a9ae3da0c22d3, type: 3}
@@ -1297,6 +1301,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1049541876414283772, guid: 288b7cb8fcb097c45abe0f08330a8296, type: 3}
+      propertyPath: coolTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5069515194461726083, guid: 288b7cb8fcb097c45abe0f08330a8296, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1344,10 +1352,6 @@ PrefabInstance:
     - target: {fileID: 8089172946932009105, guid: 288b7cb8fcb097c45abe0f08330a8296, type: 3}
       propertyPath: m_Name
       value: LaserEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8089172946932009105, guid: 288b7cb8fcb097c45abe0f08330a8296, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 288b7cb8fcb097c45abe0f08330a8296, type: 3}
