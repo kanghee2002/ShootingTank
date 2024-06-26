@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Enemy : ShootingObject, IDamageable
+[RequireComponent(typeof(Health))]
+public abstract class Enemy : ShootingObject
 {
     protected Rigidbody2D rigid;
 
@@ -21,22 +22,12 @@ public abstract class Enemy : ShootingObject, IDamageable
     [SerializeField]
     protected float moveSpeed;
 
-    [SerializeField]
-    protected float maxHp;
-
-    [SerializeField]
-    protected float hp;
-
-    [SerializeField]
-    private Slider hpSlider;
-
-    public delegate void OnDie();
-    public event OnDie onDie;
+    protected Health health;
 
     private void Awake()
     {
-        hp = maxHp;
         rigid = GetComponent<Rigidbody2D>();
+        health = GetComponent<Health>();
         isCool = false;
         isPlayerDetected = false;
     }
@@ -101,27 +92,4 @@ public abstract class Enemy : ShootingObject, IDamageable
     }
 
     protected abstract IEnumerator IdleMove();
-
-    protected void SetHpSlider()
-    {
-        hpSlider.value = hp / maxHp;
-    }
-
-    void IDamageable.Damage(float damageAmount)
-    {
-        hp -= damageAmount;
-
-        SetHpSlider();
-
-        if (hp <= 0)
-        {
-            ((IDamageable)this).Die();
-        }
-    }
-
-    void IDamageable.Die()
-    {
-        //Do Die
-        onDie?.Invoke();
-    }
 }

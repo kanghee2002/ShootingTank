@@ -38,9 +38,9 @@ public class Explosion : MonoBehaviour
         var targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetLayerMasks.ToArray()));
         foreach (var target in targets)
         {
-            if (target.TryGetComponent(out IDamageable damageable))
+            if (target.TryGetComponent(out Health health))
             {
-                damageable.Damage(damageAmount);
+                health.TakeDamage(damageAmount);
             }
         }
         yield return new WaitForSeconds(explosionTime);

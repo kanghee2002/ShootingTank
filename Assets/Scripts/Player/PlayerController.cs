@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : MonoBehaviour
 {
     [Header("Default Settings")]
     [SerializeField]
@@ -21,14 +21,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     private float fallVelocity;
     public float FallVelocity { get; set; }
 
-    [SerializeField]
-    private float maxHp;
-    public float MaxHp { get => maxHp; }
-
-    [SerializeField]
-    private float curHp;
-    public float CurHp { get => curHp; }
-
     [Header("Additional Settings")]
     [SerializeField]
     private List<Transform> weaponParents;
@@ -38,12 +30,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
-
-    public delegate void OnHpChanged(float curHp, float maxHp);
-    public event OnHpChanged onHpChanged;
-
-    public delegate void OnDie();
-    public event OnDie onDie;
 
     private void Awake()
     {
@@ -108,22 +94,5 @@ public class PlayerController : MonoBehaviour, IDamageable
                 rigid.velocity = new Vector2(rigid.velocity.x, fallVelocity);
             }
         }
-    }
-
-    void IDamageable.Damage(float damageAmount)
-    {
-        curHp -= damageAmount;
-
-        onHpChanged?.Invoke(curHp, maxHp);
-
-        if (curHp <= 0)
-        {
-            ((IDamageable)this).Die();
-        }
-    }
-
-    void IDamageable.Die()
-    {
-        onDie?.Invoke();
     }
 }

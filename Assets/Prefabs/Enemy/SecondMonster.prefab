@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 131959182}
   - component: {fileID: 131959183}
   m_Layer: 8
-  m_Name: HpBar
+  m_Name: HealthSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -657,6 +657,7 @@ GameObject:
   - component: {fileID: 5069515194461726083}
   - component: {fileID: 6480561379283226129}
   - component: {fileID: 3660864576351736020}
+  - component: {fileID: 6630017351526668444}
   - component: {fileID: 4561013565632133627}
   - component: {fileID: 1609629898989105984}
   m_Layer: 8
@@ -757,14 +758,24 @@ MonoBehaviour:
   poolSize: 10
   coolTime: 0.5
   moveSpeed: 4
-  maxHp: 50
-  hp: 50
-  hpSlider: {fileID: 131959183}
-  headObj: {fileID: 4752895060451126872}
   bodyPartsObj: {fileID: 7109805142561697705}
   platformCheckRayGap: 2
   platformCheckRayDistance: 2.5
   lampCheckRayDistance: 3.5
+--- !u!114 &6630017351526668444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089172946932009105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b672ad47b6633a42b3b68aad0213520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 131959183}
+  maxHealth: 20
 --- !u!50 &4561013565632133627
 Rigidbody2D:
   serializedVersion: 4

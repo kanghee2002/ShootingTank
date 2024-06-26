@@ -31,7 +31,7 @@ public class ShotgunEnemy : Enemy
         headObj = bodyPartsObj.transform.Find("Head").gameObject;
         headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
 
-        onDie += () => gameObject.SetActive(false);
+        health.onDie += () => gameObject.SetActive(false);
     }
 
     private void Update()

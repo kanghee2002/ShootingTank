@@ -10,9 +10,9 @@ public class EnemyDefaultBullet : Bullet
         {
             if (collision.CompareTag(targetTag))
             {
-                if (collision.TryGetComponent(out IDamageable damageable))
+                if (collision.TryGetComponent(out Health health))
                 {
-                    damageable.Damage(FinalDamage);
+                    health.TakeDamage(FinalDamage);
                     DestroyBullet();
                 }
             }

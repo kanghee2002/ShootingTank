@@ -2,47 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Core : MonoBehaviour, IDamageable
+public class Core : MonoBehaviour
 {
     [SerializeField]
     private float coreDamageMultiplier;
 
-    private IDamageable damageable;
-
-
     private void Awake()
     {
-        Transform curTransform = transform.parent;
-        while (curTransform != null)
-        {
-            if (curTransform.TryGetComponent(out damageable))
-            {
-                break;
-            }
-            curTransform = curTransform.parent;
-        }
-
-        if (damageable == null)
-        {
-            Debug.Log("No IDamageable in Core's parent");
-        }
-    }
-
-    void IDamageable.Damage(float damageAmount)
-    {
-        damageable.Damage(damageAmount * coreDamageMultiplier);
-        /*Debug.Log("Core Damage! : " + damageAmount * coreDamageMultiplier + " to " +
-            damageable.ToString());*/
-    }
-
-    #region Useless
-    /// <summary>
-    /// Core 시스템 상 사용하지 않음
-    /// </summary>
-    void IDamageable.Die()
-    {
 
     }
-
-    #endregion
 }

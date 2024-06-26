@@ -31,8 +31,6 @@ public class ExplosiveEnemy : Enemy
 
     private IEnumerator curMoveCoroutine;
 
-    private IDamageable damageable;
-
     private float fadeInOutSpeed = 3f;
 
     private void Start()
@@ -42,11 +40,10 @@ public class ExplosiveEnemy : Enemy
 
         headObj = bodyPartsObj.transform.Find("Head").gameObject;
         headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
-        damageable = GetComponent<IDamageable>();
 
         bodyPartSpriteRenderers = bodyPartsObj.GetComponentsInChildren<SpriteRenderer>().ToList<SpriteRenderer>();
 
-        onDie += () => StartCoroutine(Explode());
+        health.onDie += () => StartCoroutine(Explode());
     }
 
     private void Update()

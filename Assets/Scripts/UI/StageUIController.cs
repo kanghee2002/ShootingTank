@@ -20,25 +20,34 @@ public class StageUIController : MonoBehaviour
 
     [Header("Hp Display")]
     [SerializeField]
-    private Image hpImage;
+    private Slider playerHealthSlider;
     [SerializeField]
-    private TMP_Text hpText;
+    private TMP_Text playerHealthText;
+
+    private Health playerHealth;
 
     private void Start()
     {
         InitDisplay();
 
-        PlayerController playerController = FindObjectOfType<PlayerController>();
-        if (playerController != null)
+        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
         {
-            playerController.onHpChanged += SetHpDisplay;
+            if (playerObject != null)
+            {
+                if (playerObject.TryGetComponent(out Health health))
+                {
+                    playerHealth = health;
+                    health.SetHealthSlider(playerHealthSlider);
+                    health.onHpChanged += SetHealthText;
+                }
+            }
         }
 
         WeaponController weaponController = FindObjectOfType<WeaponController>();
         if (weaponController != null)
         {
             weaponController.onWeaponChanged += SetAmmoText;
-            weaponController.onWeaponCharged += SetChargeSlider;
+            weaponController.onWeaponCharged += SetChargeSliderValue;
             weaponController.onWeaponShoot += SetAmmoText;
         }
     }
@@ -55,7 +64,12 @@ public class StageUIController : MonoBehaviour
         }
     }
 
-    private void SetChargeSlider(WeaponHand weaponHand, Weapon weapon)
+    private void SetHealthText()
+    {
+        playerHealthText.text = playerHealth.GetHealth.ToString();
+    }
+
+    private void SetChargeSliderValue(WeaponHand weaponHand, Weapon weapon)
     {
         int weaponHandIdx = (int)weaponHand;
         weaponChargeSlider[weaponHandIdx].value = weapon.ChargePercentage;
@@ -72,11 +86,5 @@ public class StageUIController : MonoBehaviour
         {
             weaponAmmoText[weaponHandIdx].text = weapon.CurAmmo.ToString() + " / " + weapon.MaxAmmo.ToString();
         }
-    }
-
-    private void SetHpDisplay(float curHp, float maxHp)
-    {
-        hpImage.fillAmount = curHp / maxHp;
-        hpText.text = curHp.ToString();
     }
 }
