@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour
 {
     [Header("For Check")]
-    public ShootingObject shootingObject;
+    public ObjectPooling objectPool;
 
     private float finalDamage;
     public float FinalDamage { get => finalDamage; set => finalDamage = value; }
@@ -38,12 +38,12 @@ public abstract class Bullet : MonoBehaviour
     protected virtual void DestroyBullet()
     {
         //StopAllCoroutines();
-        if (!shootingObject)
+        if (!objectPool)
         {
             Debug.Log("Error: No Shooting Object in" + name + " Bullet");
             Destroy(gameObject);
         }
-        else shootingObject.ReturnBullet(gameObject);
+        else objectPool.ReturnBullet(gameObject);
     }
 
     public bool AddTargetTag(string tag)

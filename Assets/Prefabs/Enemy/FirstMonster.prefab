@@ -656,6 +656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5069515194461726083}
   - component: {fileID: 6480561379283226129}
+  - component: {fileID: -8353429375503766615}
   - component: {fileID: 3660864576351736020}
   - component: {fileID: 6630017351526668444}
   - component: {fileID: 4561013565632133627}
@@ -737,6 +738,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-8353429375503766615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089172946932009105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
+  poolSize: 15
+  bulletRotatedDegree: 90
 --- !u!114 &3660864576351736020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,15 +765,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fc5a8938db4f594fb7e7a006380436f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
-  damageValue: 2
-  length: 0.5
-  speed: 15
-  bulletObj: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
-  bulletRotatedDegree: -90
-  poolSize: 10
   coolTime: 1
   moveSpeed: 5
+  damageValue: 2
+  bulletSpeed: 20
+  weaponLength: 0.5
   bodyPartsObj: {fileID: 6566929050875376246}
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5

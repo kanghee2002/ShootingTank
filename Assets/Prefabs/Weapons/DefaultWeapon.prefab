@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5902622998344908052}
   - component: {fileID: 5860492195903490947}
   - component: {fileID: 1877275368419847368}
+  - component: {fileID: 5325302779619427807}
   m_Layer: 0
   m_Name: DefaultWeapon
   m_TagString: Untagged
@@ -97,16 +98,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b803fa2711ae44a4b9ca7f86da4ac9fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
-  damageValue: 1
-  length: 0.8
-  speed: 30
-  bulletObj: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
-  bulletRotatedDegree: 90
-  poolSize: 15
   title: 0
-  maxAmmo: 0
-  curAmmo: 0
+  damageValue: 1
+  bulletSpeed: 30
+  weaponLength: 0.7
+  maxAmmo: 100
   aimAccuracy: 100
   minChargeTime: 0.7
   maxChargeTime: 1
+--- !u!114 &5325302779619427807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917438833306291598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
+  poolSize: 20
+  bulletRotatedDegree: 90

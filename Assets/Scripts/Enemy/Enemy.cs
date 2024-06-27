@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Health))]
-public abstract class Enemy : ShootingObject
+public abstract class Enemy : MonoBehaviour
 {
     protected Rigidbody2D rigid;
+    protected Health health;
+    protected ObjectPooling objectPool;
 
     private Transform player;
     public Transform Player { get => player; set => player = value; }
@@ -16,18 +19,21 @@ public abstract class Enemy : ShootingObject
     protected float coolTime;
 
     protected bool isCool;
+
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
 
     [SerializeField]
     protected float moveSpeed;
 
-    protected Health health;
+    [SerializeField]
+    protected float damageValue;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
+        objectPool = GetComponent<ObjectPooling>();
         isCool = false;
         isPlayerDetected = false;
     }
@@ -43,16 +49,7 @@ public abstract class Enemy : ShootingObject
     protected Vector3 GetTargetDir(Transform target)
         => (target.position - transform.position).normalized;
 
-    protected virtual GameObject Attack(Vector2 dir)
-    {
-        var obj = base.Fire(dir);
-        Bullet bullet = obj.GetComponent<Bullet>();
-        bullet.FinalDamage = damageValue;
-        bullet.AddTargetTag("Player");
-        StartCoroutine(CheckCoolTime(coolTime));
-        isCool = true;
-        return obj;
-    }
+    protected abstract void Attack(Vector3 direction);
 
     protected virtual IEnumerator CheckCoolTime(float coolTime)
     {

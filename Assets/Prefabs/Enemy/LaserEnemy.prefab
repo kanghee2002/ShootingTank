@@ -658,6 +658,7 @@ GameObject:
   - component: {fileID: 6480561379283226129}
   - component: {fileID: 1049541876414283772}
   - component: {fileID: 6630017351526668444}
+  - component: {fileID: -5540196099012487843}
   - component: {fileID: 4561013565632133627}
   - component: {fileID: 1609629898989105984}
   m_Layer: 8
@@ -750,15 +751,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d095aa28b130b9e409b1c44943dfa854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
-  damageValue: 2
-  length: 0.5
-  speed: 0
-  bulletObj: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
-  bulletRotatedDegree: 90
-  poolSize: 10
   coolTime: 1
   moveSpeed: 5
+  damageValue: 2
+  weaponLength: 0.5
   bodyPartsObj: {fileID: 6566929050875376246}
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
@@ -778,6 +774,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 1295694678}
   maxHealth: 20
+--- !u!114 &-5540196099012487843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8089172946932009105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
+  poolSize: 15
 --- !u!50 &4561013565632133627
 Rigidbody2D:
   serializedVersion: 4

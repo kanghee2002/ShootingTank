@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShotgunEnemy : Enemy
 {
     private GameObject headObj;
     private SpriteRenderer headSpriteRenderer;
+
+    [Header("Attack Settings")]
+    [SerializeField]
+    private float bulletSpeed;
+
+    [SerializeField]
+    private float weaponLength;
 
     [Header("Body Part Settings")]
     [SerializeField]
@@ -25,7 +33,6 @@ public class ShotgunEnemy : Enemy
 
     private void Start()
     {
-        base.Init();
         StartCoroutine(IdleMove());
 
         headObj = bodyPartsObj.transform.Find("Head").gameObject;
@@ -40,21 +47,38 @@ public class ShotgunEnemy : Enemy
         if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
     }
 
-    protected override GameObject Attack(Vector2 dir)
+    protected override void Attack(Vector3 direction)
     {
+        List<Vector3> directions = new();
+
         float aimAngle = (90 - (aimAccuracy * 9 * 0.1f)) * Mathf.Deg2Rad;
-        Vector3 dir2 = new Vector3(
-                dir.x * Mathf.Cos(aimAngle) - dir.y * Mathf.Sin(aimAngle),
-                dir.x * Mathf.Sin(aimAngle) + dir.y * Mathf.Cos(aimAngle));
-        Vector3 dir3 = new Vector3(
-                dir.x * Mathf.Cos(-aimAngle) - dir.y * Mathf.Sin(-aimAngle),
-                dir.x * Mathf.Sin(-aimAngle) + dir.y * Mathf.Cos(-aimAngle));
+        Vector3 direction2 = new Vector3(
+                direction.x * Mathf.Cos(aimAngle) - direction.y * Mathf.Sin(aimAngle),
+                direction.x * Mathf.Sin(aimAngle) + direction.y * Mathf.Cos(aimAngle));
+        Vector3 direction3 = new Vector3(
+                direction.x * Mathf.Cos(-aimAngle) - direction.y * Mathf.Sin(-aimAngle),
+                direction.x * Mathf.Sin(-aimAngle) + direction.y * Mathf.Cos(-aimAngle));
 
-        var obj = base.Attack(dir);
-        base.Attack(dir2);
-        base.Attack(dir3);
+        directions.Add(direction);
+        directions.Add(direction2);
+        directions.Add(direction3);
 
-        return obj;
+        foreach (var dir in directions)
+        {
+            var obj = objectPool.GetBullet();
+
+            obj.transform.position = transform.position + dir * weaponLength;
+            obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
+
+            objectPool.LookAtDirection(obj, dir);
+
+            Bullet bullet = obj.GetComponent<Bullet>();
+            bullet.FinalDamage = damageValue;
+            bullet.AddTargetTag("Player");
+
+            StartCoroutine(CheckCoolTime(coolTime));
+            isCool = true;
+        }
     }
 
     protected override IEnumerator IdleMove()

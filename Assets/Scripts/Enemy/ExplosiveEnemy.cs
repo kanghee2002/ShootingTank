@@ -128,11 +128,16 @@ public class ExplosiveEnemy : Enemy
 
             if ((Player.position - transform.position).magnitude <= explosionRadius)
             {
-                StartCoroutine(Explode());
+                Attack(Vector3.zero);
             }
 
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    protected override void Attack(Vector3 direction)
+    {
+        StartCoroutine(Explode());
     }
 
     private IEnumerator RepeatFadeInOut()

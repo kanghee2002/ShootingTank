@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class TestWeapon : Weapon
 {
-    public override GameObject Fire(Vector3 dir)
+    public override void Fire(Vector3 dir)
     {
         if (CurAmmo <= 0)
         {
             Debug.Log(name + " : No Ammo");
-            return null;
+            return;
         }
+        var obj = objectPool.GetBullet();
 
-        var obj = base.Fire(dir);
         obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
+
+        var randomDirection = GetRandomDirection(dir, AimAccuracy);
+        obj.transform.position = transform.position + randomDirection * weaponLength;
+        obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
+
         CurAmmo--;
+        
         Recharge();
-        return obj;
     }
 }

@@ -41,7 +41,6 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         var obj = Instantiate(weaponObj, weaponsParent);
         var weapon = obj.GetComponent<Weapon>();
-        weapon.Init();
         return (obj, weapon);
     }
 

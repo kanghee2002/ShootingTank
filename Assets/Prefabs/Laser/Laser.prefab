@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 6735118977937899445}
   - component: {fileID: 2919590552477546631}
   - component: {fileID: 7900961425719176080}
-  - component: {fileID: 495847386941388813}
-  - component: {fileID: 7092081229184559300}
+  - component: {fileID: -4482011382453731816}
   m_Layer: 9
   m_Name: Laser
   m_TagString: Attack
@@ -47,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd70104e0b64aef44a7422774e6abb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingObject: {fileID: 0}
-  lifeTIme: 0.4
+  objectPool: {fileID: 0}
+  lifeTIme: 0.5
   targetTags: []
   defaultCollideTags:
   - Platform
@@ -154,29 +153,8 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!50 &495847386941388813
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5923470562336805764}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!61 &7092081229184559300
-BoxCollider2D:
+--- !u!60 &-4482011382453731816
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -198,6 +176,9 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 0.5}
+      - {x: -0.47552827, y: 0.15450849}
+      - {x: -0.2938926, y: -0.40450853}
+      - {x: 0.29389268, y: -0.40450847}

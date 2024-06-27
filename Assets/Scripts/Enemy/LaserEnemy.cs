@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LaserEnemy : Enemy
 {
@@ -9,6 +10,11 @@ public class LaserEnemy : Enemy
     private SpriteRenderer headSpriteRenderer;
 
     private Vector2 targetVec;
+
+
+    [Header("Attack Settings")]
+    [SerializeField]
+    private float weaponLength;
 
     [Header("Body Part Settings")]
     [SerializeField]
@@ -28,7 +34,6 @@ public class LaserEnemy : Enemy
 
     private void Start()
     {
-        base.Init();
         StartCoroutine(IdleMove());
 
         headObj = bodyPartsObj.transform.Find("Head").gameObject;
@@ -51,13 +56,21 @@ public class LaserEnemy : Enemy
         }
     }
 
-    protected override GameObject Attack(Vector2 dir)
+    protected override void Attack(Vector3 direction)
     {
-        var obj = base.Attack(dir);
+        var obj = objectPool.GetBullet();
+
+        obj.transform.position = transform.position + direction * weaponLength;
+
         Laser laser = obj.GetComponent<Laser>();
-        laser.Activate(dir);
+        laser.FinalDamage = damageValue;
+        laser.AddTargetTag("Player");
+        laser.Activate(direction);
+
         obj.GetComponent<LineRenderer>().material.color = new Color(128, 0, 0);
-        return obj;
+
+        StartCoroutine(CheckCoolTime(coolTime));
+        isCool = true;
     }
 
     private IEnumerator DelayAttack()

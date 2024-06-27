@@ -1,11 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DefaultEnemy : Enemy
 {
     private GameObject headObj;
     private SpriteRenderer headSpriteRenderer;
+
+    [Header("Attack Settings")]
+    [SerializeField]
+    private float bulletSpeed;
+
+    [SerializeField]
+    private float weaponLength;
 
     [Header("Body Part Settings")]
     [SerializeField]
@@ -21,7 +29,6 @@ public class DefaultEnemy : Enemy
 
     private void Start()
     {
-        base.Init();
         StartCoroutine(IdleMove());
 
         headObj = bodyPartsObj.transform.Find("Head").gameObject;
@@ -34,6 +41,21 @@ public class DefaultEnemy : Enemy
     {
         if (IsAttackPossible()) Attack(GetTargetDir(Player));
         if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
+    }
+
+    protected override void Attack(Vector3 direction)
+    {
+        var obj = objectPool.GetBullet();
+        obj.transform.position = transform.position + direction * weaponLength;
+        obj.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+
+        objectPool.LookAtDirection(obj, direction);
+
+        Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.FinalDamage = damageValue;
+        bullet.AddTargetTag("Player");
+        StartCoroutine(CheckCoolTime(coolTime));
+        isCool = true;
     }
 
     protected override IEnumerator IdleMove()

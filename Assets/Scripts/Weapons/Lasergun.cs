@@ -4,22 +4,27 @@ using UnityEngine;
 
 public class Lasergun : Weapon
 {
-    public override GameObject Fire(Vector3 dir)
+    public override void Fire(Vector3 direction)
     {
         if (CurAmmo <= 0)
         {
             Debug.Log(name + " : No Ammo");
-            return null;
+            return;
         }
-        var randomDir = GetRandomDir(dir, AimAccuracy);
-        var obj = base.Fire(randomDir);
+
+        var obj = objectPool.GetBullet();
         Laser laser = obj.GetComponent<Laser>();
+
         laser.AddTargetTag("Enemy");
         laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
-        laser.Activate(randomDir);
-        CurAmmo--;
-        Recharge();
 
-        return obj;
+        var randomDirection = GetRandomDirection(direction, AimAccuracy);
+        obj.transform.position = transform.position + randomDirection * weaponLength;
+
+        laser.Activate(randomDirection);
+
+        CurAmmo--;
+
+        Recharge();
     }
 }

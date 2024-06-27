@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7223422800345576941}
   - component: {fileID: 5409469234311050851}
+  - component: {fileID: 8544781852477815607}
   - component: {fileID: 4747361088154296145}
   m_Layer: 0
   m_Name: Lasergun
@@ -45,19 +46,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47d89fdd4bca21f44b1a5f65914c6d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
-  damageValue: 1
-  length: 1
-  speed: 0
-  bulletObj: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
-  bulletRotatedDegree: 90
-  poolSize: 15
   title: 5
+  damageValue: 1
+  bulletSpeed: 0
+  weaponLength: 1
   maxAmmo: 200
-  curAmmo: 200
   aimAccuracy: 100
   minChargeTime: 0.5
   maxChargeTime: 2
+--- !u!114 &8544781852477815607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7357572772690487926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
+  poolSize: 10
 --- !u!212 &4747361088154296145
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Laser : Bullet
 {
     private LineRenderer lineRenderer;
-    private BoxCollider2D boxCollider;
+    private PolygonCollider2D polygonCollider;
 
     private float firstWidth;
 
@@ -20,7 +20,7 @@ public class Laser : Bullet
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
         firstWidth = lineRenderer.startWidth;
-        boxCollider = GetComponent<BoxCollider2D>();
+        polygonCollider = GetComponent<PolygonCollider2D>();
     }
 
     public void Activate(Vector3 dir)
@@ -57,7 +57,7 @@ public class Laser : Bullet
             lineRenderer.startWidth = width;
             lineRenderer.endWidth = width;
 
-            SetBoxCollider(width);
+            SetPolygonCollider(width);
 
             yield return new WaitForFixedUpdate();
         }
@@ -68,16 +68,23 @@ public class Laser : Bullet
         DestroyBullet();
     }
 
-    private void SetBoxCollider(float width)
+    private void SetPolygonCollider(float width)
     {
-        Vector3 startPos = lineRenderer.GetPosition(0);
-        Vector3 endPos = lineRenderer.GetPosition(1);
-        float lineDistance = (endPos - startPos).magnitude;
-        float offsetY = -(lineDistance / 2f);
+        Vector2 startPos = lineRenderer.GetPosition(0) - transform.position;
+        Vector2 endPos = lineRenderer.GetPosition(1) - transform.position;
 
-        boxCollider.offset = new Vector2(0, offsetY);
+        Vector2 directionVector = (endPos - startPos).normalized;
+        Vector2 perendicularVector = Quaternion.AngleAxis(90, Vector3.forward) * directionVector;
 
-        boxCollider.size = new Vector2(width, lineDistance);
+        List<Vector2> points = new()
+        {
+            startPos + perendicularVector * (width / 2f),
+            startPos - perendicularVector * (width / 2f),
+            endPos - perendicularVector * (width / 2f),
+            endPos + perendicularVector * (width / 2f),
+        };
+
+        polygonCollider.points = points.ToArray();
     }
 
     public bool AddBlockLayerMask(string layerMask)

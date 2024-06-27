@@ -11,23 +11,30 @@ public class Shotgun : Weapon
     private int pelletCount;
     public int PelletCount { get => pelletCount; set => pelletCount = value; }
 
-    public override GameObject Fire(Vector3 dir)
+    public override void Fire(Vector3 direction)
     {
         if (CurAmmo <= 0)
         {
             Debug.Log(name + " : No Ammo");
-            return null;
+            return;
         }
 
         for (int i = 0; i < pelletCount; i++)
         {
-            var randomDir = GetRandomDir(dir, AimAccuracy);
-            var obj = base.Fire(randomDir);
-            obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
-        }
-        CurAmmo--;
-        Recharge();
+            var obj = objectPool.GetBullet();
 
-        return null;
+            var randomDirection = GetRandomDirection(direction, AimAccuracy);
+
+            obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
+
+            obj.transform.position = transform.position + randomDirection * weaponLength;
+            obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
+
+            objectPool.LookAtDirection(obj, randomDirection);
+        }
+
+        CurAmmo -= pelletCount;
+
+        Recharge();
     }
 }

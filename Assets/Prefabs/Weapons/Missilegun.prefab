@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6159650691795635642}
   - component: {fileID: 7043585078191646924}
   - component: {fileID: 7845960069534902566}
+  - component: {fileID: 6815156192474566382}
   m_Layer: 0
   m_Name: Missilegun
   m_TagString: Untagged
@@ -97,16 +98,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 096c23c1ba63bd34fafaf58b7a36bc33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
-  damageValue: 1
-  length: 1
-  speed: 40
-  bulletObj: {fileID: 5923470562336805764, guid: f2b00c47a2982ae4e9191b329df21e3f, type: 3}
-  bulletRotatedDegree: 90
-  poolSize: 10
   title: 3
+  damageValue: 1
+  bulletSpeed: 30
+  weaponLength: 1
   maxAmmo: 200
-  curAmmo: 200
   aimAccuracy: 100
   minChargeTime: 0.5
   maxChargeTime: 2
+--- !u!114 &6815156192474566382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060029884443221473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 5923470562336805764, guid: f2b00c47a2982ae4e9191b329df21e3f, type: 3}
+  poolSize: 15
+  bulletRotatedDegree: 90

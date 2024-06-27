@@ -2,20 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponName { Default, Rifle, Shotgun, Missilegun, GrenadeLauncher, Lasergun };
+public enum WeaponName 
+{ 
+    Default,
+    Rifle,
+    Shotgun,
+    Missilegun,
+    GrenadeLauncher,
+    Lasergun
+};
 
-public abstract class Weapon : ShootingObject
+[RequireComponent(typeof(ObjectPooling))]
+public abstract class Weapon : MonoBehaviour
 {
+    protected ObjectPooling objectPool;
+
     [Header("Weapon Settings")]
     [SerializeField]
     private WeaponName title;
     public WeaponName Title { get => title; }
 
     [SerializeField]
+    protected float damageValue;
+
+    [SerializeField]
+    protected float bulletSpeed;
+
+    [SerializeField]
+    protected float weaponLength;
+
+    [SerializeField]
     private int maxAmmo;
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
 
-    [SerializeField]
     private int curAmmo;
     public int CurAmmo { get => curAmmo; 
         set 
@@ -56,6 +75,12 @@ public abstract class Weapon : ShootingObject
         }
     }
 
+    private void Awake()
+    {
+        objectPool = GetComponent<ObjectPooling>();
+        curAmmo = maxAmmo;
+    }
+
     private void OnEnable()
     {
         chargedTime = minChargeTime;
@@ -85,7 +110,7 @@ public abstract class Weapon : ShootingObject
         }
     }
 
-    protected virtual Vector3 GetRandomDir(Vector3 dir, float aimAccuracy)
+    protected virtual Vector3 GetRandomDirection(Vector3 dir, float aimAccuracy)
     {
         float accuracyRadian = (90 - (aimAccuracy * 9 / 10)) * Mathf.Deg2Rad;
         float randomAngle = Random.Range(-accuracyRadian, accuracyRadian);
@@ -95,4 +120,6 @@ public abstract class Weapon : ShootingObject
                 0);
         return randomDir;
     }
+
+    public abstract void Fire(Vector3 direction);
 }

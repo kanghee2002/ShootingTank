@@ -4,20 +4,23 @@ using UnityEngine;
 
 public class GrenadeLauncher : Weapon
 {
-    public override GameObject Fire(Vector3 dir)
+    public override void Fire(Vector3 direction)
     {
         if (CurAmmo <= 0)
         {
             Debug.Log(name + " : No Ammo");
-            return null;
+            return;
         }
+        var obj = objectPool.GetBullet();
 
-        var randomDir = GetRandomDir(dir, AimAccuracy);
-        var obj = base.Fire(randomDir);
         obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
-        CurAmmo--;
-        Recharge();
 
-        return obj;
+        var randomDirection = GetRandomDirection(direction, AimAccuracy);
+        obj.transform.position = transform.position + randomDirection * weaponLength;
+        obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
+
+        CurAmmo--;
+
+        Recharge();
     }
 }
