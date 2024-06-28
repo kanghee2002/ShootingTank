@@ -788,6 +788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
   poolSize: 15
+  bulletRotatedDegree: 0
 --- !u!50 &4561013565632133627
 Rigidbody2D:
   serializedVersion: 4
@@ -901,6 +902,14 @@ PrefabInstance:
     - target: {fileID: 6546798143788716939, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6845663657664383145, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: parentHealth
+      value: 
+      objectReference: {fileID: 6630017351526668444}
+    - target: {fileID: 6845663657664383145, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: coreDamageMultiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7259633309455396380, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_Name

@@ -750,15 +750,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55657335c636c634294eccf615126417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 
-  damageValue: 10
-  length: 0
-  speed: 0
-  bulletObj: {fileID: 0}
-  bulletRotatedDegree: 0
-  poolSize: 0
   coolTime: 0
   moveSpeed: 7
+  damageValue: 10
   bodyPartsObj: {fileID: 6566929050875376246}
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
@@ -893,6 +887,14 @@ PrefabInstance:
     - target: {fileID: 6546798143788716939, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_SortingOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6845663657664383145, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: parentHealth
+      value: 
+      objectReference: {fileID: 6630017351526668444}
+    - target: {fileID: 6845663657664383145, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: coreDamageMultiplier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7259633309455396380, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_Name

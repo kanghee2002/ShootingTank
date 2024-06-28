@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DisallowMultipleComponent]
 public class Health : MonoBehaviour
 {
     [SerializeField] private Slider healthSlider;
     [SerializeField] private float maxHealth;
-    private float currentHealth;
+    [SerializeField] protected float currentHealth;
     public float GetHealth { get => currentHealth; }
 
     public delegate void OnHealthChanged();
-    public event OnHealthChanged onHpChanged;
+    public event OnHealthChanged onHealthChanged;
 
     public delegate void OnDie();
     public event OnDie onDie;
@@ -20,7 +21,7 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        onHpChanged += SetHealthSliderValue;
+        onHealthChanged += SetHealthSliderValue;
     }
 
     public void SetHealthSlider(Slider slider)
@@ -36,11 +37,11 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount)
+    public virtual void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
 
-        onHpChanged?.Invoke();
+        onHealthChanged?.Invoke();
 
         if (currentHealth <= 0f)
         {

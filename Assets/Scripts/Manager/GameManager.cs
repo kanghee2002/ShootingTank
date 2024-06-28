@@ -13,12 +13,12 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        InstantiatePlayer();
+        //InstantiatePlayer();
 
         #region TEST_SCENE
         if (SceneManager.GetActiveScene().name == "TEST")
         {
-            MakePlayerActive();
+            playerObj = GameObject.FindGameObjectWithTag("Player");
         }
         #endregion
     }

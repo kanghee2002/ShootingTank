@@ -902,6 +902,14 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 6845663657664383145, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: parentHealth
+      value: 
+      objectReference: {fileID: 6630017351526668444}
+    - target: {fileID: 6845663657664383145, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: coreDamageMultiplier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7259633309455396380, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_Name
       value: Core

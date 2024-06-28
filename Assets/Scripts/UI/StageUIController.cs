@@ -7,52 +7,30 @@ using TMPro;
 public class StageUIController : MonoBehaviour
 {
     [Header("Weapon Display")]
-    [SerializeField]
-    private GameObject[] weaponDisplay;
+    [SerializeField] private GameObject[] weaponDisplay;
 
     [Header("Charge Slider")]
-    [SerializeField]
-    private Slider[] weaponChargeSlider;
+    [SerializeField] private Slider[] weaponChargeSlider;
 
     [Header("Ammo Text")]
-    [SerializeField]
-    private TMP_Text[] weaponAmmoText;
+    [SerializeField] private TMP_Text[] weaponAmmoText;
 
     [Header("Hp Display")]
-    [SerializeField]
-    private Slider playerHealthSlider;
-    [SerializeField]
-    private TMP_Text playerHealthText;
+    [SerializeField] private Slider playerHealthSlider;
+    [SerializeField] private TMP_Text playerHealthText;
+
+    [Header("Player")]
+    [SerializeField] private GameObject player;
 
     private Health playerHealth;
 
     private void Start()
     {
-        InitDisplay();
-
-        foreach (GameObject playerObject in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            if (playerObject != null)
-            {
-                if (playerObject.TryGetComponent(out Health health))
-                {
-                    playerHealth = health;
-                    health.SetHealthSlider(playerHealthSlider);
-                    health.onHpChanged += SetHealthText;
-                }
-            }
-        }
-
-        WeaponController weaponController = FindObjectOfType<WeaponController>();
-        if (weaponController != null)
-        {
-            weaponController.onWeaponChanged += SetAmmoText;
-            weaponController.onWeaponCharged += SetChargeSliderValue;
-            weaponController.onWeaponShoot += SetAmmoText;
-        }
+        InitializeDisplay();
+        InitializePlayerComponents();
     }
 
-    private void InitDisplay()
+    private void InitializeDisplay()
     {
         if (!WeaponManager.Instance.IsRightWeaponEnabled)
         {
@@ -62,6 +40,18 @@ public class StageUIController : MonoBehaviour
         {
             weaponDisplay[1].gameObject.SetActive(true);
         }
+    }
+
+    private void InitializePlayerComponents()
+    {
+        playerHealth = player.GetComponent<Health>();
+        playerHealth.SetHealthSlider(playerHealthSlider);
+        playerHealth.onHealthChanged += SetHealthText;
+
+        WeaponController weaponController = player.GetComponent<WeaponController>();
+        weaponController.onWeaponChanged += SetAmmoText;
+        weaponController.onWeaponCharged += SetChargeSliderValue;
+        weaponController.onWeaponShoot += SetAmmoText;
     }
 
     private void SetHealthText()
