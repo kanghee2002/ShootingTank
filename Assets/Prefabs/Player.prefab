@@ -73,7 +73,6 @@ GameObject:
   - component: {fileID: 4514303630860998652}
   - component: {fileID: 8667531476937016520}
   - component: {fileID: 1393926900}
-  - component: {fileID: -6504407506236775218}
   - component: {fileID: 1113142898372432530}
   - component: {fileID: 8667531476937016521}
   - component: {fileID: 2704809670115197413}
@@ -119,7 +118,6 @@ MonoBehaviour:
   moveSpeed: 8
   jumpPower: 15
   maxJumpCount: 2
-  minJumpVelocity: 5
   weaponParents:
   - {fileID: 1691444259}
   - {fileID: 1691934165}
@@ -139,23 +137,6 @@ MonoBehaviour:
   weaponParents:
   - {fileID: 1691444258}
   - {fileID: 1691934164}
---- !u!114 &-6504407506236775218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1805002466296185585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27df2c106afe8704f9aa970605570798, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallSpeed: -3
-  maxGauge: 3
-  useSpeed: 0.01
-  fillInterval: 1
-  fillSpeed: 0.05
 --- !u!114 &1113142898372432530
 MonoBehaviour:
   m_ObjectHideFlags: 0

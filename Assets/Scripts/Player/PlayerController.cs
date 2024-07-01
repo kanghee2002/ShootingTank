@@ -18,8 +18,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private int maxJumpCount;
 
-    [SerializeField] private float minJumpVelocity;
-
     [Header("Additional Settings")]
     [SerializeField] private List<Transform> weaponParents;
 
@@ -40,7 +38,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        minJumpVelocity = jumpPower - minJumpVelocity;
         jumpCount = maxJumpCount;
         jumpState = JumpState.NotJumping;
     }
@@ -146,7 +143,12 @@ public class PlayerController : MonoBehaviour
         if (jumpCount > 0) jumpCount--;
     }
 
-    public void AddMaxJumpCount() => maxJumpCount++;
+    public void AddMaxJumpCount(int count) => maxJumpCount += count;
+    public void MinusMaxJumpCount(int count) => maxJumpCount -= count;
 
-    public void MinusMaxJumpCount() => maxJumpCount--;
+    public void AddJumpPowerValue(float power) => jumpPower += power;
+    public void MinusJumpPowerValue(float power) => jumpPower -= power;
+
+    public void AddMoveSpeedValue(float speed) => moveSpeed += speed;
+    public void MinusMoveSpeedValue(float speed) => moveSpeed -= speed;
 }
