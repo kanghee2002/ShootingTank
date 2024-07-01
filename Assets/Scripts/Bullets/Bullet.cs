@@ -25,6 +25,11 @@ public abstract class Bullet : MonoBehaviour
         StartCoroutine(CheckLifeTime(lifeTIme));
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator CheckLifeTime(float time)
     {
         while (time > 0f)

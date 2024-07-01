@@ -33,6 +33,11 @@ public class Explosion : MonoBehaviour
         StartCoroutine(FadeOut());
     }
 
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
     private IEnumerator Explode()
     {
         var targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetLayerMasks.ToArray()));
