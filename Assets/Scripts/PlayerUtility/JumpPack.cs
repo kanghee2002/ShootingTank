@@ -5,11 +5,32 @@ using UnityEngine.UI;
 
 public class JumpPack : MonoBehaviour
 {
+    public enum Category
+    {
+        Broken,
+        Old,        // riseSpeed < 0f
+        Nice        // riseSpeed > 0f
+    }
+
+    public JumpPack(Category category, float riseSpeed, float maxGauge = 3f, 
+        float useSpeed = 0.01f, float fillInterval = 1f, float fillSpeed = 0.05f)
+    {
+        this.category = category;
+        this.riseSpeed = riseSpeed;
+        this.maxGauge = maxGauge;
+        this.useSpeed = useSpeed;
+        this.fillInterval = fillInterval;
+        this.fillSpeed = fillSpeed;
+    }
+
     private Rigidbody2D rigid;
     private PlayerController playerController;
 
     [SerializeField]
-    private float fallSpeed;
+    private Category category;
+
+    [SerializeField]
+    private float riseSpeed;
 
     [SerializeField]
     private float maxGauge;
@@ -26,8 +47,6 @@ public class JumpPack : MonoBehaviour
 
     private IEnumerator curFillCoroutine;
 
-
-
     //Re
     private Slider slider;
 
@@ -36,7 +55,6 @@ public class JumpPack : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         rigid = GetComponent<Rigidbody2D>();
         curGauge = maxGauge;
-
 
         //Re
         slider = GameObject.Find("JumpPackSlider").GetComponent<Slider>();
@@ -47,16 +65,19 @@ public class JumpPack : MonoBehaviour
         //Re
         slider.value = curGauge / maxGauge;
 
-
-
-
-        if (rigid.velocity.y < 0 && Input.GetKey(KeyCode.Space) && curGauge > 0f)
+        if (Input.GetKey(KeyCode.Space) && curGauge > 0f 
+            && playerController.GetJumpState() == JumpState.Falling)
         {
+            if (category == Category.Broken && rigid.velocity.y >= 0f)
+            {
+                return;
+            }
             if (curFillCoroutine != null)
             {
                 StopCoroutine(curFillCoroutine);
                 curFillCoroutine = null;
             }
+
             Use();
         }
         else
@@ -71,7 +92,7 @@ public class JumpPack : MonoBehaviour
 
     private void Use()
     {
-        rigid.velocity = new Vector2(rigid.velocity.x, fallSpeed);
+        rigid.velocity = new Vector2(rigid.velocity.x, riseSpeed);
         curGauge -= useSpeed;
     }
 

@@ -2,34 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum JumpState
+{
+    NotJumping,
+    Jumping,
+    Falling
+}
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Default Settings")]
-    [SerializeField]
-    private float moveSpeed;
-    public float MoveSpeed { get; set; }
+    [SerializeField] private float moveSpeed;
 
-    [SerializeField]
-    private float jumpPower;
-    public float JumpPower { get; set; }
+    [SerializeField] private float jumpPower;
 
-    [SerializeField]
-    private float minJumpVelocity;
-    public float MinJumpVelocity { get; set; }
+    [SerializeField] private int maxJumpCount;
 
-    [SerializeField]
-    private float fallVelocity;
-    public float FallVelocity { get; set; }
+    [SerializeField] private float minJumpVelocity;
 
     [Header("Additional Settings")]
-    [SerializeField]
-    private List<Transform> weaponParents;
+    [SerializeField] private List<Transform> weaponParents;
 
-    [SerializeField]
-    private PlayerJumpChecker playerJumpChecker;
+    [SerializeField] private PlayerJumpChecker playerJumpChecker;
 
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
+
+    private int jumpCount;
+    private JumpState jumpState;
+    public JumpState GetJumpState() => jumpState;
 
     private void Awake()
     {
@@ -40,12 +41,16 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         minJumpVelocity = jumpPower - minJumpVelocity;
-        fallVelocity = jumpPower - fallVelocity;
+        jumpCount = maxJumpCount;
+        jumpState = JumpState.NotJumping;
     }
 
     private void Update()
     {
-        Jump();
+        SetJumpVariables();
+
+        //Debug.Log("JumpCount = " + jumpCount + " | JumpState = " + jumpState.ToString());
+        //Debug.Log(maxJumpCount);
     }
 
     private void FixedUpdate()
@@ -78,21 +83,70 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void SetJumpVariables()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && playerJumpChecker.canJump == true)
+        if (jumpState == JumpState.NotJumping && !playerJumpChecker.isGrounding)
         {
-            playerJumpChecker.canJump = false;
-            rigid.velocity = Vector2.zero;
-            rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
-        }
-        
-        if (rigid.velocity.y > fallVelocity && rigid.velocity.y < minJumpVelocity)
-        {
-            if (!Input.GetKey(KeyCode.Space))
+            MinusJumpCount();
+
+            if (jumpCount == 0)
             {
-                rigid.velocity = new Vector2(rigid.velocity.x, fallVelocity);
+                jumpState = JumpState.Falling;
+            }
+            else
+            {
+                jumpState = JumpState.Jumping;
+            }
+        }
+
+        if ((jumpState == JumpState.Falling || jumpState == JumpState.Jumping)
+            && playerJumpChecker.isGrounding)
+        {
+            jumpCount = maxJumpCount;
+            jumpState = JumpState.NotJumping;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            switch (jumpState)
+            {
+                case JumpState.NotJumping:
+                case JumpState.Jumping:
+
+                    Jump();
+
+                    MinusJumpCount();
+
+                    if (jumpCount > 0)
+                    {
+                        jumpState = JumpState.Jumping;
+                    }
+                    else
+                    {
+                        jumpState = JumpState.Falling;
+                    }
+                    break;
+
+                case JumpState.Falling:
+                default:
+                    break;
             }
         }
     }
+
+    private void Jump()
+    {
+
+        rigid.velocity = Vector2.zero;
+        rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
+    }
+
+    private void MinusJumpCount()
+    {
+        if (jumpCount > 0) jumpCount--;
+    }
+
+    public void AddMaxJumpCount() => maxJumpCount++;
+
+    public void MinusMaxJumpCount() => maxJumpCount--;
 }
