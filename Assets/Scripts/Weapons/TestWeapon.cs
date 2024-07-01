@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TestWeapon : Weapon
 {
-    public override void Fire(Vector3 dir)
+    public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
+        float maxChargedDamageBonus)
     {
         if (CurAmmo <= 0)
         {
@@ -13,9 +14,9 @@ public class TestWeapon : Weapon
         }
         var obj = objectPool.GetBullet();
 
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
+        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
-        var randomDirection = GetRandomDirection(dir, AimAccuracy);
+        var randomDirection = GetRandomDirection(direction, AimAccuracy);
         obj.transform.position = transform.position + randomDirection * weaponLength;
         obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
 

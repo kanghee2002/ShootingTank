@@ -11,7 +11,8 @@ public class Shotgun : Weapon
     private int pelletCount;
     public int PelletCount { get => pelletCount; set => pelletCount = value; }
 
-    public override void Fire(Vector3 direction)
+    public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
+        float maxChargedDamageBonus)
     {
         if (CurAmmo <= 0)
         {
@@ -25,7 +26,7 @@ public class Shotgun : Weapon
 
             var randomDirection = GetRandomDirection(direction, AimAccuracy);
 
-            obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
+            obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
             obj.transform.position = transform.position + randomDirection * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;

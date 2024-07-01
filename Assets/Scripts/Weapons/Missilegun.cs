@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Missilegun : Weapon
 {
-    public override void Fire(Vector3 direction)
+    public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
+        float maxChargedDamageBonus)
     {
         if (CurAmmo <= 0)
         {
@@ -23,8 +24,8 @@ public class Missilegun : Weapon
 
         objectPool.LookAtDirection(obj, randomDirection);
 
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
-        
+        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+
         CurAmmo--;
 
         Recharge();

@@ -23,7 +23,8 @@ public class WeaponController : MonoBehaviour
     public delegate void OnWeaponShoot(WeaponHand weaponHand, Weapon weapon);
     public event OnWeaponShoot onWeaponShoot;
 
-
+    private float chargeDamageMultiplierBonus;
+    private float maxChargedDamageBonus;
 
     private void Start()
     {
@@ -34,6 +35,9 @@ public class WeaponController : MonoBehaviour
     {
         SwitchWeapon(WeaponHand.Left, isFront: true);
         SwitchWeapon(WeaponHand.Right, isFront: true);
+
+        chargeDamageMultiplierBonus = 0f;
+        maxChargedDamageBonus = 0f;
     }
 
     private void OnEnable()
@@ -148,9 +152,16 @@ public class WeaponController : MonoBehaviour
             Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 myPos = transform.position;
             var dir = (targetPos - myPos).normalized;
-            weapon.Fire(dir);
+            weapon.Fire(dir, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
             onWeaponShoot?.Invoke(weaponHand, weapon);
         }
     }
+
+    public void AddChargeDamageMultiplierBonus(float amount) => chargeDamageMultiplierBonus += amount;
+    public void MinusChargeDamageMultiplierBonus(float amount) => chargeDamageMultiplierBonus -= amount;
+
+    public void AddMaxChargedDamageBonus(float amount) => maxChargedDamageBonus += amount;
+    public void MinusMaxChargedDamageBonus(float amount) => maxChargedDamageBonus -= amount;
+
 }

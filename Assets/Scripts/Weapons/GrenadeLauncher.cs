@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GrenadeLauncher : Weapon
 {
-    public override void Fire(Vector3 direction)
+    public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
+        float maxChargedDamageBonus)
     {
         if (CurAmmo <= 0)
         {
@@ -13,7 +14,7 @@ public class GrenadeLauncher : Weapon
         }
         var obj = objectPool.GetBullet();
 
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage);
+        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
         var randomDirection = GetRandomDirection(direction, AimAccuracy);
         obj.transform.position = transform.position + randomDirection * weaponLength;

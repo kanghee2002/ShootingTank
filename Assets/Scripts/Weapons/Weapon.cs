@@ -22,14 +22,13 @@ public abstract class Weapon : MonoBehaviour
     private WeaponName title;
     public WeaponName Title { get => title; }
 
-    [SerializeField]
-    protected float damageValue;
+    [SerializeField] protected float damageValue;
 
-    [SerializeField]
-    protected float bulletSpeed;
+    [SerializeField] protected float ChargeDamageMultiplier;
 
-    [SerializeField]
-    protected float weaponLength;
+    [SerializeField] protected float bulletSpeed;
+
+    [SerializeField] protected float weaponLength;
 
     [SerializeField]
     private int maxAmmo;
@@ -79,6 +78,7 @@ public abstract class Weapon : MonoBehaviour
     {
         objectPool = GetComponent<ObjectPooling>();
         curAmmo = maxAmmo;
+        ChargeDamageMultiplier = 1.5f;
     }
 
     private void OnEnable()
@@ -98,8 +98,20 @@ public abstract class Weapon : MonoBehaviour
     }
 
     //maxChargeTime < minChargeTime * damageMultiplier 
-    protected virtual float GetDamageMultiplier(float percentage)
-        => 0.5f * Mathf.Pow(percentage, 2) + percentage + 1;
+    protected virtual float GetDamageMultiplier(float percentage, 
+        float chargeDamageMultiplierBonus, float maxChargedDamageBonus)
+    {
+        float x = percentage;
+
+        float resultDamageMultiplier = (ChargeDamageMultiplier + chargeDamageMultiplierBonus) * Mathf.Pow(x, 2) + 1;
+        
+        if (percentage >= 1f)
+        {
+            resultDamageMultiplier += maxChargedDamageBonus;
+        }
+
+        return resultDamageMultiplier;
+    }
 
     protected virtual IEnumerator IncreaseChargedTime()
     {
@@ -121,5 +133,6 @@ public abstract class Weapon : MonoBehaviour
         return randomDir;
     }
 
-    public abstract void Fire(Vector3 direction);
+    public abstract void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
+        float maxChargedDamageBonus);
 }
