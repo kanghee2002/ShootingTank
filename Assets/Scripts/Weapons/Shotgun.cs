@@ -26,7 +26,8 @@ public class Shotgun : Weapon
 
             var randomDirection = GetRandomDirection(direction, AimAccuracy);
 
-            obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            obj.GetComponent<Bullet>().FinalDamage = damageValue * 
+                GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
             obj.transform.position = transform.position + randomDirection * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
@@ -34,7 +35,7 @@ public class Shotgun : Weapon
             objectPool.LookAtDirection(obj, randomDirection);
         }
 
-        CurAmmo -= pelletCount;
+        CurAmmo--;
 
         Recharge();
     }

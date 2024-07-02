@@ -9,7 +9,8 @@ public enum WeaponName
     Shotgun,
     Missilegun,
     GrenadeLauncher,
-    Lasergun
+    Lasergun,
+    Burstgun
 };
 
 [RequireComponent(typeof(ObjectPooling))]

@@ -52,6 +52,7 @@ MonoBehaviour:
   - {fileID: 1060029884443221473, guid: 5184912688e275a4b8f74be1f3f3233f, type: 3}
   - {fileID: 1277207108211459209, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
   - {fileID: 7357572772690487926, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
+  - {fileID: 6917438833306291598, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
   weaponsParent: {fileID: 203285065590799482}
   isRightWeaponEnabled: 0
 --- !u!1 &203285065590799481
