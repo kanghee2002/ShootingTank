@@ -124,15 +124,15 @@ public class WeaponController : MonoBehaviour
         }
 
         int weaponHandIdx = (int)weaponHand;
-        var (obj, weapon) = WeaponManager.Instance.GetWeapon(isFront);
-        obj.transform.SetParent(weaponParents[weaponHandIdx].transform);
-        obj.transform.localPosition = Vector3.zero;
-        weaponSpriteRenderers[weaponHandIdx] = obj.GetComponent<SpriteRenderer>();
+        Weapon weapon = WeaponManager.Instance.GetWeapon(isFront);
+        weapon.transform.SetParent(weaponParents[weaponHandIdx].transform);
+        weapon.transform.localPosition = Vector3.zero;
+        weaponSpriteRenderers[weaponHandIdx] = weapon.GetComponent<SpriteRenderer>();
 
         if (weapons[weaponHandIdx])
         {
             WeaponManager.Instance.ReturnWeapon
-                (weapons[weaponHandIdx].gameObject, weapons[weaponHandIdx], isFront);
+                (weapons[weaponHandIdx], isFront);
         }
         weapons[weaponHandIdx] = weapon;
 

@@ -84,10 +84,7 @@ public abstract class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
-        chargedTime = minChargeTime;
-        if (curChargeCoroutine != null) StopCoroutine(curChargeCoroutine);
-        curChargeCoroutine = IncreaseChargedTime();
-        StartCoroutine(curChargeCoroutine);
+        Recharge();
     }
 
     protected void Recharge()

@@ -6,8 +6,8 @@ using UnityEngine;
 public class WeaponManager : Singleton<WeaponManager>
 {
     [SerializeField]
-    private List<GameObject> weapons = new List<GameObject>();
-    private List<(GameObject obj, Weapon weapon)> availableWeaponList = new List<(GameObject, Weapon)>();
+    private List<GameObject> weaponPrefabList = new List<GameObject>();
+    private List<Weapon> availableWeaponList = new List<Weapon>();
 
     [SerializeField]
     private Transform weaponsParent;
@@ -22,9 +22,9 @@ public class WeaponManager : Singleton<WeaponManager>
     protected override void Awake()
     {
         base.Awake();
-        Init();
+        Initialize();
     }
-    private void Init()
+    private void Initialize()
     {
         AddAvailableWeapon(WeaponName.Default);
         AddAvailableWeapon(WeaponName.Default);
@@ -38,65 +38,67 @@ public class WeaponManager : Singleton<WeaponManager>
         isRightWeaponEnabled = false;
     }
 
-    public (GameObject, Weapon) InitWeapon(GameObject weaponObj)      //Act at First
+    public Weapon InitializeWeapon(GameObject weaponPrefab)      //Act at First
     {
-        var obj = Instantiate(weaponObj, weaponsParent);
-        var weapon = obj.GetComponent<Weapon>();
-        return (obj, weapon);
+        GameObject weaponObject = Instantiate(weaponPrefab, weaponsParent);
+        Weapon weapon = weaponObject.GetComponent<Weapon>();
+        return weapon;
     }
 
     public void AddAvailableWeapon(WeaponName weaponName)
     {
         if (weaponName != WeaponName.Default)
         {
-            foreach (var tuple in availableWeaponList)
+            foreach (Weapon weapon in availableWeaponList)
             {
-                if (tuple.weapon.Title == weaponName)
+                if (weapon.Title == weaponName)
                 {
                     return;
                 }
             }
         }
 
-        foreach (var obj in weapons)
+        foreach (GameObject weaponPrefab in weaponPrefabList)
         {
-            var weapon = obj.GetComponent<Weapon>();
-            if (weapon.Title == weaponName)
+            Weapon currentWeapon = weaponPrefab.GetComponent<Weapon>();
+            if (currentWeapon.Title == weaponName)
             {
-                var result = InitWeapon(obj);
-                availableWeaponList.Add(result);
+                Weapon instantiatedWeapon = InitializeWeapon(weaponPrefab);
+                availableWeaponList.Add(instantiatedWeapon);
                 return;
             }
         }
     }
 
-    public (GameObject, Weapon) GetWeapon(bool isFront)
+    public Weapon GetWeapon(bool isFront)
     {
         if (isFront)
         {
-            var tuple = availableWeaponList[0];
+            Weapon nextWeapon = availableWeaponList[0];
             availableWeaponList.RemoveAt(0);
-            return tuple;
+            return nextWeapon;
         }
         else
         {
-            var tuple = availableWeaponList[availableWeaponList.Count - 1];
+            Weapon nextWeapon = availableWeaponList[availableWeaponList.Count - 1];
             availableWeaponList.RemoveAt(availableWeaponList.Count - 1);
-            return tuple;
+            return nextWeapon;
         }
     }
 
-    public void ReturnWeapon(GameObject obj, Weapon weapon, bool isFront)
+    public void ReturnWeapon(Weapon weapon, bool isFront)
     {
         if (!weapon)
         {
-            availableWeaponList.Add((obj, obj.GetComponent<Weapon>()));
+            availableWeaponList.Add(weapon);
         }
         else
         {
-            if (isFront) availableWeaponList.Add((obj, weapon));
-            else availableWeaponList.Insert(0, (obj, weapon));
+            if (isFront) availableWeaponList.Add(weapon);
+            else availableWeaponList.Insert(0, weapon);
         }
-        obj.transform.SetParent(weaponsParent);
+        weapon.transform.SetParent(weaponsParent);
     }
+
+    public List<Weapon> GetAvailableWeaponList() => availableWeaponList;
 }
