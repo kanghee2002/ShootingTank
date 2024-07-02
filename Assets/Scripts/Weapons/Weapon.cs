@@ -10,7 +10,8 @@ public enum WeaponName
     Missilegun,
     GrenadeLauncher,
     Lasergun,
-    Burstgun
+    Burstgun,
+    LaserShotgun
 };
 
 [RequireComponent(typeof(ObjectPooling))]
@@ -119,13 +120,23 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    protected virtual Vector3 GetRandomDirection(Vector3 dir, float aimAccuracy)
+    protected Vector3 GetDirectionByAngle(Vector3 dir, float angle)
+    {
+        float radian = angle * Mathf.Deg2Rad;
+        Vector3 newDir = new Vector3(
+                dir.x * Mathf.Cos(radian) - dir.y * Mathf.Sin(radian),
+                dir.x * Mathf.Sin(radian) + dir.y * Mathf.Cos(radian),
+                0);
+        return newDir;
+    }
+
+    protected Vector3 GetRandomDirection(Vector3 dir, float aimAccuracy)
     {
         float accuracyRadian = (90 - (aimAccuracy * 9 / 10)) * Mathf.Deg2Rad;
-        float randomAngle = Random.Range(-accuracyRadian, accuracyRadian);
+        float randomRadian = Random.Range(-accuracyRadian, accuracyRadian);
         Vector3 randomDir = new Vector3(
-                dir.x * Mathf.Cos(randomAngle) - dir.y * Mathf.Sin(randomAngle),
-                dir.x * Mathf.Sin(randomAngle) + dir.y * Mathf.Cos(randomAngle),
+                dir.x * Mathf.Cos(randomRadian) - dir.y * Mathf.Sin(randomRadian),
+                dir.x * Mathf.Sin(randomRadian) + dir.y * Mathf.Cos(randomRadian),
                 0);
         return randomDir;
     }

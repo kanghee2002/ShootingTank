@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : Weapon
+public class LaserShotgun : Weapon
 {
     public enum ShootingType
     {
         Random,
         Angle
     }
+
     [SerializeField] private int pelletCount;
     [SerializeField] private ShootingType shootingType;
     [SerializeField] private float shootingAngle;
 
-
-    public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
-        float maxChargedDamageBonus)
+    public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus, float maxChargedDamageBonus)
     {
         if (CurAmmo <= 0)
         {
@@ -58,14 +57,14 @@ public class Shotgun : Weapon
         foreach (var dir in directions)
         {
             var obj = objectPool.GetBullet();
+            Laser laser = obj.GetComponent<Laser>();
 
-            obj.GetComponent<Bullet>().FinalDamage = damageValue *
-                GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            laser.AddTargetTag("Enemy");
+            laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
             obj.transform.position = transform.position + dir * weaponLength;
-            obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
 
-            objectPool.LookAtDirection(obj, dir);
+            laser.Activate(dir);
         }
 
         CurAmmo--;

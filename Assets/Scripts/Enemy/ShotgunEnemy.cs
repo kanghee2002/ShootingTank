@@ -52,6 +52,7 @@ public class ShotgunEnemy : Enemy
         List<Vector3> directions = new();
 
         float aimAngle = (90 - (aimAccuracy * 9 * 0.1f)) * Mathf.Deg2Rad;
+
         Vector3 direction2 = new Vector3(
                 direction.x * Mathf.Cos(aimAngle) - direction.y * Mathf.Sin(aimAngle),
                 direction.x * Mathf.Sin(aimAngle) + direction.y * Mathf.Cos(aimAngle));
