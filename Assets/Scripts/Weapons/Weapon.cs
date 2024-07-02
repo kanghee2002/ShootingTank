@@ -51,7 +51,6 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField]
     private float minChargeTime;
-
     [SerializeField]
     private float maxChargeTime;
 
@@ -133,4 +132,8 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
         float maxChargedDamageBonus);
+
+    public void AddDamageValue(float amount) => damageValue += amount;
+
+    public void AddMaxAmmo(int amount) => maxAmmo += amount;
 }
