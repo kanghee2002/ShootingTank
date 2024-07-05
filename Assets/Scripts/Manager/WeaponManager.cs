@@ -59,6 +59,8 @@ public class WeaponManager : Singleton<WeaponManager>
             }
         }
 
+        // 중복되는 무기 추가 시 탄약 증가
+
         foreach (GameObject weaponPrefab in weaponPrefabList)
         {
             Weapon currentWeapon = weaponPrefab.GetComponent<Weapon>();

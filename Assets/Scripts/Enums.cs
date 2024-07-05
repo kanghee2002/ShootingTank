@@ -25,6 +25,7 @@ public enum WeaponName
 
 public enum RoomType
 {
+    None,
     Entrance,
     Small,
     Medium,

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoomDetailsSO_Large_1
   m_EditorClassIdentifier: 
   roomPrefab: {fileID: 7206078939362619287, guid: 9e65f2d0eb3f8144ba73adcee24a85d9, type: 3}
-  roomType: 3
+  roomType: 4
   doorwayArray:
   - orientation: 0
     position: {x: 11, y: 31}

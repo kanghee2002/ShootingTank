@@ -1,22 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DungeonBuilder : Singleton<DungeonBuilder>
 {
     [SerializeField] private DungeonLevelSO[] dungeonLevelSOArray;
 
-    // BFS 알고리즘 이용해서 Entrance와 제일 먼 곳에 HiddenRoom 배치
-    // 아래 순회 알고리즘 이용해서 ?? 퍼센트도 못다니면 다시 만들기
+    // nn 퍼센트도 못다니면 다시 만들기
 
     /*private DungeonLevelSO selectedDungeonLevel;
     private int dungeonWidth;
     private int dungeonHeight;
     private RoomInfo[,] roomInfos;*/
 
-    //DEBUG
+    #region DEBUG
     [SerializeField] private GameObject block;
-
+    [SerializeField] private GameObject blockRed;
+    [SerializeField] private GameObject blockBlue;
+    #endregion DEBUG
 
     private struct RoomInfo
     {
@@ -25,6 +28,8 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         public bool isDownConnected;
         public bool isLeftConnected;
         public bool isRightConnected;
+        public bool isVistiableWithoutJump;
+        public RoomType roomType;
     }
 
     private void Start()
@@ -48,9 +53,15 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         SetDoors(roomInfos, selectedDungeonLevel.horizontallyBlockedDoorCountPerFloor, selectedDungeonLevel.verticallyConnectedDoorCountPerFloor);
 
+        int[,] distanceArray = BFS(roomInfos, new Vector2Int(0, dungeonHeight - 1), new List<Vector2Int>() { Vector2Int.left, Vector2Int.right, Vector2Int.down });
+
+        SetRoomIsVisitable(roomInfos, distanceArray);
+
 
 
         PrintRoomInfo(roomInfos);
+
+        
     }
 
     private DungeonLevelSO SelectDungeonLevelSO(int level)
@@ -89,6 +100,9 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 {
                     roomInfos[x, y].isRightConnected = false;
                 }
+
+                roomInfos[x, y].isVistiableWithoutJump = false;
+                roomInfos[x, y].roomType = RoomType.None;
             }
         }
     }
@@ -117,7 +131,6 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             SetHorizontallyBlockedDoors(roomInfos, horizontallyBlockedDoorCountPerFloor, row);
             SetVerticallyConnectedDoors(roomInfos, verticallyConnectedDoorCountPerFloor, row);
         }
-
     }
 
     private void SetHorizontallyBlockedDoors(RoomInfo[,] roomInfos, int blockedDoorCount, int row)
@@ -180,8 +193,6 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             roomInfos[col, row - 1].isUpConnected = true;
 
         }
-
-
     }
 
     private List<RoomDetailsSO> GetSpecificRoom(RoomDetailsSO[] roomDetailsArray, RoomType roomType)
@@ -197,6 +208,109 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         }
 
         return resultRoomDetailsList;
+    }
+
+    private void SetRoomIsVisitable(RoomInfo[,] roomInfos, int[,] distanceArray)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        for(int i = 0; i < dungeonWidth;i++)
+        {
+            for (int j = 0; j < dungeonHeight;j++)
+            {
+                if (distanceArray[i, j] >= 0)
+                {
+                    roomInfos[i, j].isVistiableWithoutJump = true;
+                }
+            }
+        }
+    }
+
+    private void SetHiddenRoom(RoomInfo[,] roomInfos)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        int[,] distanceArray = BFS(roomInfos, new Vector2Int(0, dungeonHeight - 1), new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right });
+
+        int maxDistance = 0;
+        Vector2Int farthestPosition = Vector2Int.zero;
+
+        for (int i = 0; i < dungeonWidth; i++)
+        {
+            for (int j = 0; j < dungeonHeight; j++)
+            {
+                if (distanceArray[i, j] > maxDistance)
+                {
+                    maxDistance = distanceArray[i, j];
+                    farthestPosition = new Vector2Int(i, j);
+                }
+            }
+        }
+
+        roomInfos[farthestPosition.x, farthestPosition.y].roomType = RoomType.Hidden;
+    }
+
+    private int[,] BFS(RoomInfo[,] roomInfos, Vector2Int startPosition, List<Vector2Int> directions)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        Queue<Vector2Int> queue = new();
+        int[,] visited = new int[dungeonWidth, dungeonHeight];
+
+        for (int i = 0; i < dungeonWidth; i++)
+        {
+            for (int j = 0; j < dungeonHeight; j++)
+            {
+                visited[i, j] = -1;
+            }
+        }
+
+        queue.Enqueue(startPosition);
+        visited[startPosition.x, startPosition.y] = 0;
+
+        while (queue.Count > 0)
+        {
+            Vector2Int currentPosition = queue.Dequeue();
+
+            foreach (Vector2Int direction in directions)
+            {
+                
+                Vector2Int nextPosition = currentPosition + direction;
+                if (nextPosition.x < 0 || nextPosition.x >= dungeonWidth || nextPosition.y < 0 || nextPosition.y >= dungeonHeight)
+                    continue;
+
+                if (visited[nextPosition.x, nextPosition.y] != -1)
+                    continue;
+
+                RoomInfo currentRoomInfo = roomInfos[currentPosition.x, currentPosition.y];
+
+                if ((direction == Vector2Int.up && !currentRoomInfo.isUpConnected) ||
+                    (direction == Vector2Int.down && !currentRoomInfo.isDownConnected) ||
+                    (direction == Vector2Int.left && !currentRoomInfo.isLeftConnected) ||
+                    (direction == Vector2Int.right && !currentRoomInfo.isRightConnected))
+                    continue;
+
+                if (visited[nextPosition.x, nextPosition.y] == -1)
+                {
+                    visited[nextPosition.x, nextPosition.y] = visited[currentPosition.x, currentPosition.y] + 1;
+                    queue.Enqueue(nextPosition);
+                }
+            }
+        }
+
+        //DEBUG
+        /*for (int i = 0; i < dungeonWidth; i++)
+        {
+            for (int j = 0; j < dungeonHeight; j++)
+            {
+                Debug.Log(i + ", " + j + " : " + visited[i, j]);
+            }
+        }*/
+
+        return visited;
     }
 
 
@@ -232,6 +346,16 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 Instantiate(block, new Vector3(realPosX - 1, realPosY + 1, 0), Quaternion.identity);
                 Instantiate(block, new Vector3(realPosX + 1, realPosY - 1, 0), Quaternion.identity);
                 Instantiate(block, new Vector3(realPosX + 1, realPosY + 1, 0), Quaternion.identity);
+            
+                if (roomInfos[i, j].isVistiableWithoutJump)
+                {
+                    Instantiate(blockBlue, new Vector3(realPosX, realPosY, 0), Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(blockRed, new Vector3(realPosX, realPosY, 0), Quaternion.identity);
+
+                }
             }
         }
     }
