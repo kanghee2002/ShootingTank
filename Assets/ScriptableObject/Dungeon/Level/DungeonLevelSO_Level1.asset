@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1546e00a1161f9742b3a410fae74828c, type: 3}
+  m_Name: DungeonLevelSO_Level1
+  m_EditorClassIdentifier: 
+  level: 1
+  dungeonWidth: 6
+  dungeonHeight: 6
+  horizontallyBlockedDoorCountPerFloor: 1
+  verticallyConnectedDoorCountPerFloor: 1
+  roomGap: 10
+  chestCount: 0
+  shopCount: 0
+  roomDetails:
+  - {fileID: 11400000, guid: 448d9a9e10c56644d9feac0ed8106aa5, type: 2}
+  - {fileID: 11400000, guid: a2ebcf25bac75114d97c3e4b13e140f7, type: 2}
+  - {fileID: 11400000, guid: e9045c8837fe1904bb79048fc53e94cc, type: 2}
+  - {fileID: 11400000, guid: 44f4e80cfb39c314295f2fac2eac7ec3, type: 2}
+  - {fileID: 11400000, guid: 729130f12f0aa0949a428069ae62967d, type: 2}

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponHand { Left = 0, Right = 1 };
-
 public class WeaponController : MonoBehaviour
 {
     [SerializeField]

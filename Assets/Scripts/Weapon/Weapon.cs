@@ -2,18 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponName 
-{ 
-    Default,
-    Rifle,
-    Shotgun,
-    Missilegun,
-    GrenadeLauncher,
-    Lasergun,
-    Burstgun,
-    LaserShotgun
-};
-
 [RequireComponent(typeof(ObjectPooling))]
 public abstract class Weapon : MonoBehaviour
 {

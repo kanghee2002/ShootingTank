@@ -2,12 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum JumpState
-{
-    NotJumping,
-    Jumping,
-    Falling
-}
 
 public class PlayerController : MonoBehaviour
 {
