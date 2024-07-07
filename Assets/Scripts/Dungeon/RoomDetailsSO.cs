@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RoomDetailsSO_", menuName = "Dungeon/RoomDetailsSO")]
 public class RoomDetailsSO : ScriptableObject
 {
-    [SerializeField] private GameObject roomPrefab;
+    public GameObject roomPrefab;
 
     public RoomType roomType;
 

@@ -10,11 +10,6 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
     // nn 퍼센트도 못다니면 다시 만들기
 
-    /*private DungeonLevelSO selectedDungeonLevel;
-    private int dungeonWidth;
-    private int dungeonHeight;
-    private RoomInfo[,] roomInfos;*/
-
     #region DEBUG
     [SerializeField] private GameObject block;
     [SerializeField] private GameObject blockRed;
@@ -28,7 +23,6 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         public bool isDownConnected;
         public bool isLeftConnected;
         public bool isRightConnected;
-        public bool isVistiableWithoutJump;
         public RoomType roomType;
     }
 
@@ -41,27 +35,80 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
     {
         DungeonLevelSO selectedDungeonLevel = SelectDungeonLevelSO(level);
 
+        int buildAttemptCount = 10000;
+
+        RoomInfo[,] completedRoomInfos;
+
+        bool isSuccess = AttemptToBuildDungeon(selectedDungeonLevel, buildAttemptCount, out completedRoomInfos);
+
+        if (isSuccess)
+        {
+            InstantiatedRooms(selectedDungeonLevel, completedRoomInfos);
+
+            /* // DEBUG
+            int smallCount = 0;
+            int mediumCount = 0;
+            int largeCount = 0;
+            foreach (var room in completedRoomInfos)
+            {
+                if (room.roomType == RoomType.Small) smallCount++;
+                else if (room.roomType == RoomType.Medium) mediumCount++;
+                else if (room.roomType == RoomType.Large) largeCount++;
+            }
+            Debug.Log("Small Room Count : " + smallCount);
+            Debug.Log("Medium Room Count : " + mediumCount);
+            Debug.Log("Large Room Count : " + largeCount);
+            // DEBUG */
+
+            // Set Door Values
+        }
+        else
+        {
+            Debug.Log("Unable to Build Dungeon");
+        }
+
+    }
+
+    private bool AttemptToBuildDungeon(DungeonLevelSO selectedDungeonLevel, int maxLoopCount, out RoomInfo[,] roomInfos)
+    {
         int dungeonWidth = selectedDungeonLevel.dungeonWidth;
         int dungeonHeight = selectedDungeonLevel.dungeonHeight;
 
-        RoomInfo[ , ] roomInfos = new RoomInfo[dungeonWidth, dungeonHeight];
+        roomInfos = new RoomInfo[dungeonWidth, dungeonHeight];
 
-        InitializeDungeon(roomInfos);
+        bool isBuildSuccess = false;
+        int loopCount = 0;
         
+        while (loopCount < maxLoopCount)
+        {
+            InitializeDungeon(roomInfos);
 
-        SetDefaultRoomDetails(roomInfos, selectedDungeonLevel.roomDetails);
+            SetDefaultRoomSettings(roomInfos, selectedDungeonLevel.roomDetailsArray);
 
-        SetDoors(roomInfos, selectedDungeonLevel.horizontallyBlockedDoorCountPerFloor, selectedDungeonLevel.verticallyConnectedDoorCountPerFloor);
+            SetDoors(roomInfos, selectedDungeonLevel.horizontallyBlockedDoorCountPerFloor, selectedDungeonLevel.verticallyConnectedDoorCountPerFloor);
 
-        int[,] distanceArray = BFS(roomInfos, new Vector2Int(0, dungeonHeight - 1), new List<Vector2Int>() { Vector2Int.left, Vector2Int.right, Vector2Int.down });
+            int[,] distanceArray = BFS(roomInfos, new Vector2Int(0, dungeonHeight - 1), new List<Vector2Int>() { Vector2Int.left, Vector2Int.right, Vector2Int.down });
 
-        SetRoomIsVisitable(roomInfos, distanceArray);
+            int visitableRoomCount = CountVisitableRooms(distanceArray);
 
+            float visitableRoomPercentage = (float)visitableRoomCount / (dungeonWidth * dungeonHeight) * 100f;
 
+            if (visitableRoomPercentage >= selectedDungeonLevel.visitableRoomPercentageMin)
+            {
+                SetRoomTypes(selectedDungeonLevel, roomInfos);
 
-        PrintRoomInfo(roomInfos);
+                SetRoomDetails(selectedDungeonLevel, roomInfos);
 
-        
+                InstantiatedRooms(selectedDungeonLevel, roomInfos);
+
+                isBuildSuccess = true;
+                break;
+            }
+
+            loopCount++;
+        }
+
+        return isBuildSuccess;
     }
 
     private DungeonLevelSO SelectDungeonLevelSO(int level)
@@ -101,29 +148,29 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                     roomInfos[x, y].isRightConnected = false;
                 }
 
-                roomInfos[x, y].isVistiableWithoutJump = false;
                 roomInfos[x, y].roomType = RoomType.None;
             }
         }
     }
 
-    private void SetDefaultRoomDetails(RoomInfo[,] roomInfos, RoomDetailsSO[] roomDetailsArray)
+    private void SetDefaultRoomSettings(RoomInfo[,] roomInfos, RoomDetailsSO[] roomDetailsArray)
     {
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
 
         // Set Entrance Room
-        List<RoomDetailsSO> entranceRoomDetailsList = GetSpecificRoom(roomDetailsArray, RoomType.Entrance);
+        roomInfos[0, dungeonHeight - 1].roomType = RoomType.Entrance;
+        List<RoomDetailsSO> entranceRoomDetailsList = GetSpecificRoomDetails(roomDetailsArray, RoomType.Entrance);
         roomInfos[0, dungeonHeight - 1].roomDetails = entranceRoomDetailsList[Random.Range(0, entranceRoomDetailsList.Count)];
 
         // Set Boss Room
-        List<RoomDetailsSO> bossRoomDetailsList = GetSpecificRoom(roomDetailsArray, RoomType.Boss);
+        roomInfos[dungeonWidth - 1, 0].roomType = RoomType.Boss;
+        List<RoomDetailsSO> bossRoomDetailsList = GetSpecificRoomDetails(roomDetailsArray, RoomType.Boss);
         roomInfos[dungeonWidth - 1, 0].roomDetails = bossRoomDetailsList[Random.Range(0, bossRoomDetailsList.Count)];
     }
 
     private void SetDoors(RoomInfo[,] roomInfos, int horizontallyBlockedDoorCountPerFloor, int verticallyConnectedDoorCountPerFloor)
     {
-        int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
 
         for (int row = 1; row < dungeonHeight; row++)
@@ -195,7 +242,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         }
     }
 
-    private List<RoomDetailsSO> GetSpecificRoom(RoomDetailsSO[] roomDetailsArray, RoomType roomType)
+    private List<RoomDetailsSO> GetSpecificRoomDetails(RoomDetailsSO[] roomDetailsArray, RoomType roomType)
     {
         List<RoomDetailsSO> resultRoomDetailsList = new();
 
@@ -210,10 +257,12 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         return resultRoomDetailsList;
     }
 
-    private void SetRoomIsVisitable(RoomInfo[,] roomInfos, int[,] distanceArray)
+    private int CountVisitableRooms(int[,] distanceArray)
     {
-        int dungeonWidth = roomInfos.GetLength(0);
-        int dungeonHeight = roomInfos.GetLength(1);
+        int dungeonWidth = distanceArray.GetLength(0);
+        int dungeonHeight = distanceArray.GetLength(1);
+
+        int visitableRoomCount = 0;
 
         for(int i = 0; i < dungeonWidth;i++)
         {
@@ -221,10 +270,124 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             {
                 if (distanceArray[i, j] >= 0)
                 {
-                    roomInfos[i, j].isVistiableWithoutJump = true;
+                    visitableRoomCount++;
                 }
             }
         }
+        return visitableRoomCount;
+    }
+
+    private void SetRoomTypes(DungeonLevelSO dungeonLevel, RoomInfo[,] roomInfos)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        int totalRoomCount = dungeonWidth * dungeonHeight;
+        int untypedRoomCount = totalRoomCount - 2;         // Entrance and Boss
+
+        Dictionary<RoomType, int> roomCountDictionary = new()
+        {
+            { RoomType.Small, GetRoomCountByPercentage(dungeonLevel.smallRoomPercentage, totalRoomCount) },
+            { RoomType.Medium, GetRoomCountByPercentage(dungeonLevel.mediumRoomPercentage, totalRoomCount) },
+            { RoomType.Large, GetRoomCountByPercentage(dungeonLevel.largeRoomPercentage, totalRoomCount) }
+        };
+        // NEED TO ADD CHEST, SHOP, HIDDEN
+
+        int loopCount = 0;
+        bool isDone = false;
+
+        while (loopCount < 10000)
+        {
+            int regularRoomCount = 0;
+            foreach (KeyValuePair<RoomType, int> keyValuePair in roomCountDictionary)
+            {
+                regularRoomCount += keyValuePair.Value;
+            }
+            if (regularRoomCount >= untypedRoomCount)
+            {
+                isDone = true;
+                break;
+            }
+
+            RoomType randomRoomType = GetRandomRegularRoomType();
+
+            roomCountDictionary[randomRoomType]++;
+            loopCount++;
+        }
+
+        if (!isDone)
+        {
+            Debug.Log("Unable to Set Regular Room Types");
+        }
+
+        /* DEBUG
+        foreach (KeyValuePair<RoomType, int> keyValuePair in roomCountDictionary)
+        {
+            Debug.Log(keyValuePair.Key + " Count : " + keyValuePair.Value);
+        }
+        */
+
+        for (int i = 0; i < dungeonWidth; i++)
+        {
+            for (int j = 0; j < dungeonHeight; j++)
+            {
+                if (roomInfos[i, j].roomType == RoomType.Entrance || roomInfos[i, j].roomType == RoomType.Boss) 
+                {
+                    continue;
+                }
+
+                loopCount = 0;
+                isDone = false;
+
+                while (loopCount < 10000)
+                {
+                    RoomType selectedRoomType = GetRandomRegularRoomType();
+
+                    if (roomCountDictionary[selectedRoomType] > 0)
+                    {
+                        roomInfos[i, j].roomType = selectedRoomType;
+                        roomCountDictionary[selectedRoomType]--;
+                        isDone = true;
+                        break;
+                    }
+
+                    loopCount++;
+                }
+
+                if (!isDone) Debug.Log("Unable to select Room type");
+            }
+        }
+    }
+
+    private void SetRoomDetails(DungeonLevelSO selectedDungeonLevel, RoomInfo[,] roomInfos)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        for (int i = 0; i < dungeonWidth; i++)
+        {
+            for (int j = 0; j < dungeonHeight; j++)
+            {
+                List<RoomDetailsSO> selectedRoomDetailsList = GetSpecificRoomDetails(selectedDungeonLevel.roomDetailsArray, roomInfos[i, j].roomType);
+                roomInfos[i, j].roomDetails = selectedRoomDetailsList[Random.Range(0, selectedRoomDetailsList.Count)];
+            }
+        }
+
+    }
+
+    private int GetRoomCountByPercentage(float roomPercentage, int totalRoomCount) => Mathf.FloorToInt(roomPercentage * (float)totalRoomCount / 100f);
+
+    private RoomType GetRandomRegularRoomType()
+    {
+        int regularRoomCount = Random.Range(0, 3);
+        if (regularRoomCount == 0)
+            return RoomType.Small;
+        else if (regularRoomCount == 1)
+            return RoomType.Medium;
+        else if (regularRoomCount == 2)
+            return RoomType.Large;
+        else
+            return RoomType.None;
     }
 
     private void SetHiddenRoom(RoomInfo[,] roomInfos)
@@ -250,6 +413,21 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         }
 
         roomInfos[farthestPosition.x, farthestPosition.y].roomType = RoomType.Hidden;
+    }
+
+    private void InstantiatedRooms(DungeonLevelSO selectedDungeonLevel, RoomInfo[,] roomInfos)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                GameObject roomGameObject = Instantiate(roomInfos[x, y].roomDetails.roomPrefab, this.transform);
+                roomGameObject.transform.localPosition = new Vector3(x * selectedDungeonLevel.roomGap, y * selectedDungeonLevel.roomGap, 0f);
+            }
+        }
     }
 
     private int[,] BFS(RoomInfo[,] roomInfos, Vector2Int startPosition, List<Vector2Int> directions)
@@ -315,7 +493,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
 
     #region DEBUG
-    private void PrintRoomInfo(RoomInfo[,] roomInfos)
+    private void PrintRoomInfo(RoomInfo[,] roomInfos, int[,] distanceArray)
     {
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
@@ -347,7 +525,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 Instantiate(block, new Vector3(realPosX + 1, realPosY - 1, 0), Quaternion.identity);
                 Instantiate(block, new Vector3(realPosX + 1, realPosY + 1, 0), Quaternion.identity);
             
-                if (roomInfos[i, j].isVistiableWithoutJump)
+                if (distanceArray[i, j] >= 0)
                 {
                     Instantiate(blockBlue, new Vector3(realPosX, realPosY, 0), Quaternion.identity);
                 }

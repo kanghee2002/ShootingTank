@@ -17,10 +17,15 @@ MonoBehaviour:
   dungeonHeight: 6
   horizontallyBlockedDoorCountPerFloor: 1
   verticallyConnectedDoorCountPerFloor: 1
-  roomGap: 10
-  chestCount: 0
-  shopCount: 0
-  roomDetails:
+  roomGap: 100
+  chestRoomCount: 0
+  shopRoomCount: 0
+  hiddenRoomCount: 0
+  visitableRoomPercentageMin: 50
+  smallRoomPercentage: 30
+  mediumRoomPercentage: 30
+  largeRoomPercentage: 40
+  roomDetailsArray:
   - {fileID: 11400000, guid: 448d9a9e10c56644d9feac0ed8106aa5, type: 2}
   - {fileID: 11400000, guid: a2ebcf25bac75114d97c3e4b13e140f7, type: 2}
   - {fileID: 11400000, guid: e9045c8837fe1904bb79048fc53e94cc, type: 2}
