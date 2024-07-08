@@ -371,6 +371,9 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         int distanceBetweenSpecialRoom = maxDistance / (specialRoomCount + 1);
 
+        //Debug.Log("Max Distance : " + maxDistance + " And Gap : " + distanceBetweenSpecialRoom);
+        //Debug.Log("Boss Room Distance : " + distanceArray[dungeonWidth - 1, 0]);
+
         for (int count = 1; count <= specialRoomCount; count++)
         {
             int currentDistance = count * distanceBetweenSpecialRoom;
@@ -425,13 +428,56 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         }
 
         Vector2Int randomlySelectedRoomCoordinate = selectedRoomCoordinateList[Random.Range(0, selectedRoomCoordinateList.Count)];
-        
 
-        if (randomlySelectedRoomCoordinate == new Vector2Int(0, arrayHeight - 1) || randomlySelectedRoomCoordinate == new Vector2Int(arrayWidth - 1, 0))
-        {       // If Select Entrance or Boss
-            Debug.Log("Special Room Type is Selected on Entrance or Boss Room");
-            // return bool to send whether it's success or not
+        #region EXCEPTION CASE
+        if (randomlySelectedRoomCoordinate == new Vector2Int(0, arrayHeight - 1))       // If Select Entrance
+        {
+            List<Vector2Int> adjacentCoordinatList = new();
+
+            int currentCoordinateDistance = distanceArray[randomlySelectedRoomCoordinate.x, randomlySelectedRoomCoordinate.y];
+
+            int rightCoordinateDistance = distanceArray[randomlySelectedRoomCoordinate.x + 1, randomlySelectedRoomCoordinate.y];
+
+            if (Mathf.Abs(rightCoordinateDistance - currentCoordinateDistance) == 1)      // If distance == 1
+            {
+                adjacentCoordinatList.Add(new Vector2Int(randomlySelectedRoomCoordinate.x + 1, randomlySelectedRoomCoordinate.y));
+            }
+
+            int downCoordinateDistance = distanceArray[randomlySelectedRoomCoordinate.x, randomlySelectedRoomCoordinate.y - 1];
+
+            if (Mathf.Abs(downCoordinateDistance - currentCoordinateDistance) == 1)
+            {
+                adjacentCoordinatList.Add(new Vector2Int(randomlySelectedRoomCoordinate.x, randomlySelectedRoomCoordinate.y - 1));
+            }
+
+            randomlySelectedRoomCoordinate = adjacentCoordinatList[Random.Range(0, adjacentCoordinatList.Count)];
         }
+
+        if (randomlySelectedRoomCoordinate == new Vector2Int(arrayWidth - 1, 0))        // If Select Boss
+        {
+            List<Vector2Int> adjacentCoordinatList = new();
+
+            int currentCoordinateDistance = distanceArray[randomlySelectedRoomCoordinate.x, randomlySelectedRoomCoordinate.y];
+
+            int leftCoordinateDistance = distanceArray[randomlySelectedRoomCoordinate.x - 1, randomlySelectedRoomCoordinate.y];
+
+            if (Mathf.Abs(leftCoordinateDistance - currentCoordinateDistance) == 1)
+            {
+                adjacentCoordinatList.Add(new Vector2Int(randomlySelectedRoomCoordinate.x - 1, randomlySelectedRoomCoordinate.y));
+            }
+
+            int upCoordinateDistance = distanceArray[randomlySelectedRoomCoordinate.x, randomlySelectedRoomCoordinate.y + 1];
+
+            if (Mathf.Abs(upCoordinateDistance - currentCoordinateDistance) == 1)
+            {
+                adjacentCoordinatList.Add(new Vector2Int(randomlySelectedRoomCoordinate.x, randomlySelectedRoomCoordinate.y + 1));
+            }
+
+            randomlySelectedRoomCoordinate = adjacentCoordinatList[Random.Range(0, adjacentCoordinatList.Count)];
+
+            Debug.Log("Selected Room Coordinate is Boss So " + randomlySelectedRoomCoordinate + " is Selected");
+        }
+        #endregion EXCEPTION CASE
 
         return randomlySelectedRoomCoordinate;
     }
