@@ -18,16 +18,20 @@ MonoBehaviour:
   horizontallyBlockedDoorCountPerFloor: 1
   verticallyConnectedDoorCountPerFloor: 1
   roomGap: 100
-  chestRoomCount: 0
-  shopRoomCount: 0
+  chestRoomCount: 1
+  shopRoomCount: 1
   hiddenRoomCount: 0
   visitableRoomPercentageMin: 50
-  smallRoomPercentage: 30
+  smallRoomPercentage: 60
   mediumRoomPercentage: 30
-  largeRoomPercentage: 40
+  largeRoomPercentage: 10
   roomDetailsArray:
   - {fileID: 11400000, guid: 448d9a9e10c56644d9feac0ed8106aa5, type: 2}
   - {fileID: 11400000, guid: a2ebcf25bac75114d97c3e4b13e140f7, type: 2}
   - {fileID: 11400000, guid: e9045c8837fe1904bb79048fc53e94cc, type: 2}
   - {fileID: 11400000, guid: 44f4e80cfb39c314295f2fac2eac7ec3, type: 2}
   - {fileID: 11400000, guid: 729130f12f0aa0949a428069ae62967d, type: 2}
+  - {fileID: 11400000, guid: 2e66386d2bdf6a04da7521a7f3bcb582, type: 2}
+  - {fileID: 11400000, guid: 63a7d6d9112047d409846ddfe13b9935, type: 2}
+  verticalDoorPrefab: {fileID: 7206078939362619287, guid: 6bd9d05694522b94a8df92c8a1c04093, type: 3}
+  horizontalDoorPrefab: {fileID: 7206078939362619287, guid: e1e1492a164097447b165f93ea6099e3, type: 3}

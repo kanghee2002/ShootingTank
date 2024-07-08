@@ -16,22 +16,22 @@ MonoBehaviour:
   roomType: 4
   doorwayArray:
   - orientation: 0
-    position: {x: 11, y: 31}
+    position: {x: 13, y: 31}
     doorwayCopyPosition: {x: 9, y: 27}
     doorwayCopyWidth: 8
     doorwayCopyHeight: 4
   - orientation: 1
-    position: {x: 11, y: -16}
+    position: {x: 13, y: -15}
     doorwayCopyPosition: {x: 9, y: -15}
     doorwayCopyWidth: 8
     doorwayCopyHeight: 4
   - orientation: 2
-    position: {x: -19, y: 8}
+    position: {x: -18, y: 9}
     doorwayCopyPosition: {x: -18, y: 6}
     doorwayCopyWidth: 4
     doorwayCopyHeight: 8
   - orientation: 3
-    position: {x: 42, y: 2}
+    position: {x: 42, y: 3}
     doorwayCopyPosition: {x: 38, y: 0}
     doorwayCopyWidth: 4
     doorwayCopyHeight: 8

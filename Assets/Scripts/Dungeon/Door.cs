@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public Vector2Int connectedPosition;
+    public Vector3 connectedPosition;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // if Player -> Move Player To Connected Position
+        if (collision.CompareTag(Settings.playerTag))
+        {
+            MovePlayer(collision.transform, connectedPosition);
+        }
     }
 
-    private void MovePlayer(Transform player, Vector2Int movePosition)
+    private void MovePlayer(Transform player, Vector3 movePosition)
     {
-
+        player.transform.position = movePosition;
     }
 }

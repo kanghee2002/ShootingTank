@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class DungeonBuilder : Singleton<DungeonBuilder>
 {
     [SerializeField] private DungeonLevelSO[] dungeonLevelSOArray;
-
-    // nn 퍼센트도 못다니면 다시 만들기
 
     #region DEBUG
     [SerializeField] private GameObject block;
@@ -24,6 +24,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         public bool isLeftConnected;
         public bool isRightConnected;
         public RoomType roomType;
+        public Transform roomTransform;
     }
 
     private void Start()
@@ -45,6 +46,10 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         {
             InstantiatedRooms(selectedDungeonLevel, completedRoomInfos);
 
+            InstantiateDoors(selectedDungeonLevel, completedRoomInfos);
+
+            BlockUnusedDoors(completedRoomInfos);
+
             /* // DEBUG
             int smallCount = 0;
             int mediumCount = 0;
@@ -59,8 +64,6 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             Debug.Log("Medium Room Count : " + mediumCount);
             Debug.Log("Large Room Count : " + largeCount);
             // DEBUG */
-
-            // Set Door Values
         }
         else
         {
@@ -95,11 +98,9 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
             if (visitableRoomPercentage >= selectedDungeonLevel.visitableRoomPercentageMin)
             {
-                SetRoomTypes(selectedDungeonLevel, roomInfos);
+                SetRoomTypes(selectedDungeonLevel, roomInfos, distanceArray);
 
                 SetRoomDetails(selectedDungeonLevel, roomInfos);
-
-                InstantiatedRooms(selectedDungeonLevel, roomInfos);
 
                 isBuildSuccess = true;
                 break;
@@ -186,7 +187,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         List<int> selectedColumnsList = new();
 
-        for (int i = 0; i < blockedDoorCount; i++)
+        for (int x = 0; x < blockedDoorCount; x++)
         {
             int selectedColumn = Random.Range(0, dungeonWidth - 1);
             selectedColumnsList.Add(selectedColumn);
@@ -196,8 +197,6 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         {
             roomInfos[col, row].isRightConnected = false;
             roomInfos[col + 1, row].isLeftConnected = false;
-
-            //Debug.Log("(" + col + ", " + row + ")'s Right is Blocked");
         }
     }
 
@@ -207,11 +206,11 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         List<int> leftBlockedRoomColumnList = new();
 
-        for(int i = 1; i < dungeonWidth; i++)
+        for(int x = 1; x < dungeonWidth; x++)
         {
-            if (!roomInfos[i, row].isLeftConnected)
+            if (!roomInfos[x, row].isLeftConnected)
             {
-                leftBlockedRoomColumnList.Add(i);
+                leftBlockedRoomColumnList.Add(x);
             }
         }
         leftBlockedRoomColumnList.Add(dungeonWidth);
@@ -221,13 +220,10 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         int previousColumn = 0;
         foreach (int col in leftBlockedRoomColumnList)
         {
-            for (int i = 0; i < blockedDoorCount; i++)
+            for (int x = 0; x < blockedDoorCount; x++)
             {
-
                 int selectedColumn = Random.Range(previousColumn, col);
                 selectedColumnList.Add(selectedColumn);
-
-                //Debug.Log("Selected Column : " + selectedColumn + ", Range : " + previousColumn + " / " + col);
             }
 
             previousColumn = col;
@@ -235,26 +231,9 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         foreach (int col in selectedColumnList)
         {
-            //Debug.Log("(" + col + ", " + row + ")'s Down is Connected");
             roomInfos[col, row].isDownConnected = true;
             roomInfos[col, row - 1].isUpConnected = true;
-
         }
-    }
-
-    private List<RoomDetailsSO> GetSpecificRoomDetails(RoomDetailsSO[] roomDetailsArray, RoomType roomType)
-    {
-        List<RoomDetailsSO> resultRoomDetailsList = new();
-
-        foreach (RoomDetailsSO roomDetails in roomDetailsArray)
-        {
-            if (roomDetails.roomType == roomType)
-            {
-                resultRoomDetailsList.Add(roomDetails);
-            }
-        }
-
-        return resultRoomDetailsList;
     }
 
     private int CountVisitableRooms(int[,] distanceArray)
@@ -264,34 +243,34 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         int visitableRoomCount = 0;
 
-        for(int i = 0; i < dungeonWidth;i++)
+        for(int x = 0; x < dungeonWidth;x++)
         {
-            for (int j = 0; j < dungeonHeight;j++)
+            for (int y = 0; y < dungeonHeight;y++)
             {
-                if (distanceArray[i, j] >= 0)
+                if (distanceArray[x, y] >= 0)
                 {
                     visitableRoomCount++;
                 }
             }
         }
+
         return visitableRoomCount;
     }
 
-    private void SetRoomTypes(DungeonLevelSO dungeonLevel, RoomInfo[,] roomInfos)
+    private void SetRoomTypes(DungeonLevelSO dungeonLevel, RoomInfo[,] roomInfos, int[,] distanceArray)
     {
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
 
         int totalRoomCount = dungeonWidth * dungeonHeight;
-        int untypedRoomCount = totalRoomCount - 2;         // Entrance and Boss
+        int untypedRoomCount = totalRoomCount - 2;         // Subtract Entrance and Boss
 
-        Dictionary<RoomType, int> roomCountDictionary = new()
+        Dictionary<RoomType, int> roomTypeCountDictionary = new()
         {
             { RoomType.Small, GetRoomCountByPercentage(dungeonLevel.smallRoomPercentage, totalRoomCount) },
             { RoomType.Medium, GetRoomCountByPercentage(dungeonLevel.mediumRoomPercentage, totalRoomCount) },
             { RoomType.Large, GetRoomCountByPercentage(dungeonLevel.largeRoomPercentage, totalRoomCount) }
         };
-        // NEED TO ADD CHEST, SHOP, HIDDEN
 
         int loopCount = 0;
         bool isDone = false;
@@ -299,7 +278,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         while (loopCount < 10000)
         {
             int regularRoomCount = 0;
-            foreach (KeyValuePair<RoomType, int> keyValuePair in roomCountDictionary)
+            foreach (KeyValuePair<RoomType, int> keyValuePair in roomTypeCountDictionary)
             {
                 regularRoomCount += keyValuePair.Value;
             }
@@ -311,7 +290,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
             RoomType randomRoomType = GetRandomRegularRoomType();
 
-            roomCountDictionary[randomRoomType]++;
+            roomTypeCountDictionary[randomRoomType]++;
             loopCount++;
         }
 
@@ -321,17 +300,17 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         }
 
         /* DEBUG
-        foreach (KeyValuePair<RoomType, int> keyValuePair in roomCountDictionary)
+        foreach (KeyValuePair<RoomType, int> keyValuePair in roomTypeCountDictionary)
         {
             Debug.Log(keyValuePair.Key + " Count : " + keyValuePair.Value);
         }
         */
 
-        for (int i = 0; i < dungeonWidth; i++)
+        for (int x = 0; x < dungeonWidth; x++)
         {
-            for (int j = 0; j < dungeonHeight; j++)
+            for (int y = 0; y < dungeonHeight; y++)
             {
-                if (roomInfos[i, j].roomType == RoomType.Entrance || roomInfos[i, j].roomType == RoomType.Boss) 
+                if (roomInfos[x, y].roomType == RoomType.Entrance || roomInfos[x, y].roomType == RoomType.Boss) 
                 {
                     continue;
                 }
@@ -343,10 +322,10 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 {
                     RoomType selectedRoomType = GetRandomRegularRoomType();
 
-                    if (roomCountDictionary[selectedRoomType] > 0)
+                    if (roomTypeCountDictionary[selectedRoomType] > 0)
                     {
-                        roomInfos[i, j].roomType = selectedRoomType;
-                        roomCountDictionary[selectedRoomType]--;
+                        roomInfos[x, y].roomType = selectedRoomType;
+                        roomTypeCountDictionary[selectedRoomType]--;
                         isDone = true;
                         break;
                     }
@@ -357,6 +336,104 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 if (!isDone) Debug.Log("Unable to select Room type");
             }
         }
+
+        SetSpecialRoomTypes(dungeonLevel, roomInfos, distanceArray);
+    }
+
+    private void SetSpecialRoomTypes(DungeonLevelSO dungeonLevel, RoomInfo[,] roomInfos, int[,] distanceArray)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        Dictionary<RoomType, int> roomTypeCountDictionary = new()
+        {
+            { RoomType.Chest, dungeonLevel.chestRoomCount },
+            { RoomType.Shop, dungeonLevel.shopRoomCount },
+        };
+
+        int specialRoomCount = 0;
+        foreach (KeyValuePair<RoomType, int> keyValuePair in roomTypeCountDictionary)
+        {
+            specialRoomCount += keyValuePair.Value;
+        }
+
+        int maxDistance = 0;
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                if (distanceArray[x, y] > maxDistance)
+                {
+                    maxDistance = distanceArray[x, y];
+                }
+            }
+        }
+
+        int distanceBetweenSpecialRoom = maxDistance / (specialRoomCount + 1);
+
+        for (int count = 1; count <= specialRoomCount; count++)
+        {
+            int currentDistance = count * distanceBetweenSpecialRoom;
+            Vector2Int selectedCoordinate = GetRoomCoordinateByDistance(distanceArray, currentDistance);
+
+            int loopCount = 0;
+            bool isDone = false;
+
+            while (loopCount < 10000)
+            {
+                RoomType selectedRoomType = GetRandomSpecialRoomType();
+
+                if (roomTypeCountDictionary[selectedRoomType] > 0)
+                {
+                    roomInfos[selectedCoordinate.x, selectedCoordinate.y].roomType = selectedRoomType;
+                    roomTypeCountDictionary[selectedRoomType]--;
+                    isDone = true;
+                    break;
+                }
+
+                loopCount++;
+            }
+
+            if (!isDone) Debug.Log("Unable to select Room type");
+        }
+
+        // NEED TO SET HIDDEN ROOM
+    }
+
+    private Vector2Int GetRoomCoordinateByDistance(int[,] distanceArray, int distance)
+    {
+        int arrayWidth = distanceArray.GetLength(0);
+        int arrayHeight = distanceArray.GetLength(1);
+
+        List<Vector2Int> selectedRoomCoordinateList = new();
+
+        for (int x = 0; x < arrayWidth; x++)
+        {
+            for (int y = 0; y < arrayHeight; y++)
+            {
+                if (distanceArray[x, y] == distance)
+                {
+                    selectedRoomCoordinateList.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+
+        if (selectedRoomCoordinateList.Count == 0)
+        {
+            Debug.Log("There isn't " + distance + " Distance Room in Distance Array");
+            return Vector2Int.zero;
+        }
+
+        Vector2Int randomlySelectedRoomCoordinate = selectedRoomCoordinateList[Random.Range(0, selectedRoomCoordinateList.Count)];
+        
+
+        if (randomlySelectedRoomCoordinate == new Vector2Int(0, arrayHeight - 1) || randomlySelectedRoomCoordinate == new Vector2Int(arrayWidth - 1, 0))
+        {       // If Select Entrance or Boss
+            Debug.Log("Special Room Type is Selected on Entrance or Boss Room");
+            // return bool to send whether it's success or not
+        }
+
+        return randomlySelectedRoomCoordinate;
     }
 
     private void SetRoomDetails(DungeonLevelSO selectedDungeonLevel, RoomInfo[,] roomInfos)
@@ -364,15 +441,14 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
 
-        for (int i = 0; i < dungeonWidth; i++)
+        for (int x = 0; x < dungeonWidth; x++)
         {
-            for (int j = 0; j < dungeonHeight; j++)
+            for (int y = 0; y < dungeonHeight; y++)
             {
-                List<RoomDetailsSO> selectedRoomDetailsList = GetSpecificRoomDetails(selectedDungeonLevel.roomDetailsArray, roomInfos[i, j].roomType);
-                roomInfos[i, j].roomDetails = selectedRoomDetailsList[Random.Range(0, selectedRoomDetailsList.Count)];
+                List<RoomDetailsSO> selectedRoomDetailsList = GetSpecificRoomDetails(selectedDungeonLevel.roomDetailsArray, roomInfos[x, y].roomType);
+                roomInfos[x, y].roomDetails = selectedRoomDetailsList[Random.Range(0, selectedRoomDetailsList.Count)];
             }
         }
-
     }
 
     private int GetRoomCountByPercentage(float roomPercentage, int totalRoomCount) => Mathf.FloorToInt(roomPercentage * (float)totalRoomCount / 100f);
@@ -390,24 +466,33 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             return RoomType.None;
     }
 
-    private void SetHiddenRoom(RoomInfo[,] roomInfos)
+    private RoomType GetRandomSpecialRoomType()
+    {
+        int specialRoomCount = Random.Range(0, 2);
+        if (specialRoomCount == 0)
+            return RoomType.Chest;
+        else if (specialRoomCount == 1)
+            return RoomType.Shop;
+        else
+            return RoomType.None;
+    }
+
+    private void SetHiddenRoom(RoomInfo[,] roomInfos, int[,] distanceArray)
     {
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
 
-        int[,] distanceArray = BFS(roomInfos, new Vector2Int(0, dungeonHeight - 1), new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right });
-
         int maxDistance = 0;
         Vector2Int farthestPosition = Vector2Int.zero;
 
-        for (int i = 0; i < dungeonWidth; i++)
+        for (int x = 0; x < dungeonWidth; x++)
         {
-            for (int j = 0; j < dungeonHeight; j++)
+            for (int y = 0; y < dungeonHeight; y++)
             {
-                if (distanceArray[i, j] > maxDistance)
+                if (distanceArray[x, y] > maxDistance)
                 {
-                    maxDistance = distanceArray[i, j];
-                    farthestPosition = new Vector2Int(i, j);
+                    maxDistance = distanceArray[x, y];
+                    farthestPosition = new Vector2Int(x, y);
                 }
             }
         }
@@ -425,7 +510,10 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             for (int y = 0; y < dungeonHeight; y++)
             {
                 GameObject roomGameObject = Instantiate(roomInfos[x, y].roomDetails.roomPrefab, this.transform);
-                roomGameObject.transform.localPosition = new Vector3(x * selectedDungeonLevel.roomGap, y * selectedDungeonLevel.roomGap, 0f);
+                
+                Vector3 roomPosition = new Vector3(x * selectedDungeonLevel.roomGap, y * selectedDungeonLevel.roomGap, 0f);
+                roomGameObject.transform.localPosition = roomPosition;
+                roomInfos[x, y].roomTransform = roomGameObject.transform;
             }
         }
     }
@@ -438,11 +526,11 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         Queue<Vector2Int> queue = new();
         int[,] visited = new int[dungeonWidth, dungeonHeight];
 
-        for (int i = 0; i < dungeonWidth; i++)
+        for (int x = 0; x < dungeonWidth; x++)
         {
-            for (int j = 0; j < dungeonHeight; j++)
+            for (int y = 0; y < dungeonHeight; y++)
             {
-                visited[i, j] = -1;
+                visited[x, y] = -1;
             }
         }
 
@@ -479,16 +567,158 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             }
         }
 
-        //DEBUG
-        /*for (int i = 0; i < dungeonWidth; i++)
-        {
-            for (int j = 0; j < dungeonHeight; j++)
-            {
-                Debug.Log(i + ", " + j + " : " + visited[i, j]);
-            }
-        }*/
-
         return visited;
+    }
+
+    private void InstantiateDoors(DungeonLevelSO selectedDungeonLevel, RoomInfo[,] roomInfos)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                if (roomInfos[x, y].isUpConnected)
+                {
+                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.horizontalDoorPrefab, roomInfos[x, y].roomTransform);
+
+                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Up);
+                    instantiatedDoor.transform.localPosition = doorway.position;
+
+                    Door door = instantiatedDoor.GetComponent<Door>();
+                    door.connectedPosition = (Vector2)roomInfos[x, y + 1].roomTransform.position + GetSpecificDoorway(roomInfos[x, y + 1].roomDetails.doorwayArray, Orientation.Down).position +
+                        new Vector2(0, Settings.doorVerticalOffset);
+                }
+                if (roomInfos[x, y].isDownConnected)
+                {
+                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.horizontalDoorPrefab, roomInfos[x, y].roomTransform);
+
+                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Down);
+                    instantiatedDoor.transform.localPosition = doorway.position;
+
+                    Door door = instantiatedDoor.GetComponent<Door>();
+                    door.connectedPosition = (Vector2)roomInfos[x, y - 1].roomTransform.position + GetSpecificDoorway(roomInfos[x, y - 1].roomDetails.doorwayArray, Orientation.Up).position +
+                        new Vector2(0, -Settings.doorVerticalOffset);
+                }
+                if (roomInfos[x, y].isLeftConnected)
+                {
+                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.verticalDoorPrefab, roomInfos[x, y].roomTransform);
+
+                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Left);
+                    instantiatedDoor.transform.localPosition = doorway.position;
+
+                    Door door = instantiatedDoor.GetComponent<Door>();
+                    door.connectedPosition = (Vector2)roomInfos[x - 1, y].roomTransform.position + GetSpecificDoorway(roomInfos[x - 1, y].roomDetails.doorwayArray, Orientation.Right).position +
+                        new Vector2(-Settings.doorHorizontalOffset, 0);
+                }
+                if (roomInfos[x, y].isRightConnected)
+                {
+                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.verticalDoorPrefab, roomInfos[x, y].roomTransform);
+
+                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Right);
+                    instantiatedDoor.transform.localPosition = doorway.position;
+
+                    Door door = instantiatedDoor.GetComponent<Door>();
+                    door.connectedPosition = (Vector2)roomInfos[x + 1, y].roomTransform.position + GetSpecificDoorway(roomInfos[x + 1, y].roomDetails.doorwayArray, Orientation.Left).position +
+                        new Vector2(Settings.doorHorizontalOffset, 0);
+                }
+            }
+        }
+    }
+
+    private void BlockUnusedDoors(RoomInfo[,] roomInfos)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                Tilemap tilemap = roomInfos[x, y].roomTransform.GetComponentInChildren<Tilemap>();
+
+                if (!roomInfos[x, y].isUpConnected)
+                {
+                    Doorway upDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Up);
+
+                    BlockVerticalDoor(tilemap, upDoorway.doorwayCopyPosition, upDoorway.doorwayCopyWidth, upDoorway.doorwayCopyHeight);
+                }
+                if (!roomInfos[x, y].isDownConnected)
+                {
+                    Doorway downDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Down);
+
+                    BlockVerticalDoor(tilemap, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
+                }
+                if (!roomInfos[x, y].isLeftConnected)
+                {
+                    Doorway downDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Left);
+
+                    BlockHorizontalDoor(tilemap, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
+                }
+                if (!roomInfos[x, y].isRightConnected)
+                {
+                    Doorway downDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Right);
+
+                    BlockHorizontalDoor(tilemap, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
+                }
+            }
+        }
+    }
+
+    private void BlockVerticalDoor(Tilemap tilemap, Vector2Int copyPosition, int copyWidth, int copyHeight)
+    {
+        for (int y = copyPosition.y; y < copyPosition.y + copyHeight; y++)
+        {
+            TileBase copiedTile = tilemap.GetTile(new Vector3Int(copyPosition.x, y, 0));
+
+            for (int x = copyPosition.x + 1; x < copyPosition.x + copyWidth; x++)
+            {
+                tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
+            }
+        }
+    }
+
+    private void BlockHorizontalDoor(Tilemap tilemap, Vector2Int copyPosition, int copyWidth, int copyHeight)
+    {
+        for (int x = copyPosition.x; x < copyPosition.x + copyWidth; x++)
+        {
+            TileBase copiedTile = tilemap.GetTile(new Vector3Int(x, copyPosition.y, 0));
+
+            for (int y = copyPosition.y + 1;  y < copyPosition.y + copyHeight; y++)
+            {
+                tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
+            }
+        }
+    }
+
+    private List<RoomDetailsSO> GetSpecificRoomDetails(RoomDetailsSO[] roomDetailsArray, RoomType roomType)
+    {
+        List<RoomDetailsSO> resultRoomDetailsList = new();
+
+        foreach (RoomDetailsSO roomDetails in roomDetailsArray)
+        {
+            if (roomDetails.roomType == roomType)
+            {
+                resultRoomDetailsList.Add(roomDetails);
+            }
+        }
+
+        return resultRoomDetailsList;
+    }
+
+    private Doorway GetSpecificDoorway(Doorway[] doorwayArray, Orientation orientation)
+    {
+        foreach (Doorway doorway in doorwayArray)
+        {
+            if (doorway.orientation == orientation)
+            {
+                return doorway;
+            }
+        }
+
+        Debug.Log("Unable to find " + orientation + " doorway in " + doorwayArray);
+        return null;
     }
 
 
@@ -497,26 +727,27 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
     {
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
-        for (int i = 0 ; i < dungeonWidth; i++)
-        {
-            for (int j = 0; j < dungeonHeight; j++)
-            {
-                int realPosX = i * 2 + 1;
-                int realPosY = j * 2 + 1;
 
-                if (!roomInfos[i, j].isDownConnected)
+        for (int x = 0 ; x < dungeonWidth; x++)
+        {
+            for (int y = 0; y < dungeonHeight; y++)
+            {
+                int realPosX = x * 2 + 1;
+                int realPosY = y * 2 + 1;
+
+                if (!roomInfos[x, y].isDownConnected)
                 {
                     Instantiate(block, new Vector3(realPosX, realPosY - 1, 0), Quaternion.identity);
                 }
-                if (!roomInfos[i, j].isUpConnected)
+                if (!roomInfos[x, y].isUpConnected)
                 {
                     Instantiate(block, new Vector3(realPosX, realPosY + 1, 0), Quaternion.identity);
                 }
-                if (!roomInfos[i, j].isLeftConnected)
+                if (!roomInfos[x, y].isLeftConnected)
                 {
                     Instantiate(block, new Vector3(realPosX - 1, realPosY, 0), Quaternion.identity);
                 }
-                if (!roomInfos[i, j].isRightConnected)
+                if (!roomInfos[x, y].isRightConnected)
                 {
                     Instantiate(block, new Vector3(realPosX + 1, realPosY, 0), Quaternion.identity);
                 }
@@ -525,7 +756,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 Instantiate(block, new Vector3(realPosX + 1, realPosY - 1, 0), Quaternion.identity);
                 Instantiate(block, new Vector3(realPosX + 1, realPosY + 1, 0), Quaternion.identity);
             
-                if (distanceArray[i, j] >= 0)
+                if (distanceArray[x, y] >= 0)
                 {
                     Instantiate(blockBlue, new Vector3(realPosX, realPosY, 0), Quaternion.identity);
                 }

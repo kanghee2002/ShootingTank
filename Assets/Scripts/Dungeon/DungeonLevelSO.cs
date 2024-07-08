@@ -30,4 +30,9 @@ public class DungeonLevelSO : ScriptableObject
 
     [Header("ROOM DETAILS ARRAY")]
     public RoomDetailsSO[] roomDetailsArray;
+
+    [Header("DOOR PREFABS")]
+    public GameObject verticalDoorPrefab;
+    public GameObject horizontalDoorPrefab;
+
 }
