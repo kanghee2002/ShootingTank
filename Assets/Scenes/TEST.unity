@@ -270,11 +270,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4514303630860998652, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4514303630860998652, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4514303630860998652, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
       propertyPath: m_LocalPosition.z
@@ -311,6 +311,10 @@ PrefabInstance:
     - target: {fileID: 7069782927572256021, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667531476937016520, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
+      propertyPath: moveSpeed
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8667531476937016520, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
       propertyPath: maxJumpCount
@@ -1044,7 +1048,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19102178d3d1c85429400ecb7b2ea164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothing: 3
 --- !u!4 &717567555 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5069515194461726083, guid: 1fb24ec421fb86243b6a9ae3da0c22d3, type: 3}

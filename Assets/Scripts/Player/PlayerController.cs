@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 
 public class PlayerController : MonoBehaviour
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
+    private PolygonCollider2D polygonCollider;
 
     private int jumpCount;
     private JumpState jumpState;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        polygonCollider = GetComponent<PolygonCollider2D>();
     }
 
     private void Start()
@@ -39,9 +42,6 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         SetJumpVariables();
-
-        //Debug.Log("JumpCount = " + jumpCount + " | JumpState = " + jumpState.ToString());
-        //Debug.Log(maxJumpCount);
     }
 
     private void FixedUpdate()
@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
             jumpState = JumpState.NotJumping;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W))
         {
             switch (jumpState)
             {
@@ -123,13 +123,31 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.S) && playerJumpChecker.isGroundingOneWayPlatform)
+        {
+            DownJump();
+        }
     }
 
     private void Jump()
     {
-
         rigid.velocity = Vector2.zero;
         rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
+    }
+
+    private void DownJump()
+    {
+        StartCoroutine(IgnoreCollisionRoutine(polygonCollider, playerJumpChecker.oneWayPlatformCollider));
+    }
+
+    private IEnumerator IgnoreCollisionRoutine(Collider2D collider1, Collider2D collider2)
+    {
+        Physics2D.IgnoreCollision(collider1, collider2, true);
+
+        yield return new WaitForSeconds(0.3f);
+
+        Physics2D.IgnoreCollision(collider1, collider2, false);
     }
 
     private void MinusJumpCount()

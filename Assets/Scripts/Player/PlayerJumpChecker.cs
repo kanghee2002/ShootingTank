@@ -5,7 +5,13 @@ using UnityEngine;
 public class PlayerJumpChecker : MonoBehaviour
 {
     public bool isGrounding = false;
+    public bool isGroundingOneWayPlatform = false;
+
     public List<string> jumpableTags;
+
+    private string oneWayPlatformTag = "OneWayPlatform";
+
+    public Collider2D oneWayPlatformCollider = null;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,6 +21,13 @@ public class PlayerJumpChecker : MonoBehaviour
             {
                 isGrounding = true;
             }
+        }
+
+        if (other.CompareTag(oneWayPlatformTag))
+        {
+            isGroundingOneWayPlatform = true;
+
+            oneWayPlatformCollider = other;
         }
     }
 
@@ -26,6 +39,13 @@ public class PlayerJumpChecker : MonoBehaviour
             {
                 isGrounding = false;
             }
+        }
+
+        if (other.CompareTag(oneWayPlatformTag))
+        {
+            isGroundingOneWayPlatform = false;
+
+            oneWayPlatformCollider = null;
         }
     }
 }
