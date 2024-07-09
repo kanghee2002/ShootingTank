@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbb21c0965976e49b1101e4a9f94048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingObject: {fileID: 0}
+  objectPool: {fileID: 0}
   lifeTIme: 3
   targetTags: []
   defaultCollideTags:

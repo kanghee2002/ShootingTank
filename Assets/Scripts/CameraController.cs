@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField]
-    private float smoothing = 3f;
+    //[SerializeField] private float smoothing = 3f;
 
     private void FixedUpdate()
     {

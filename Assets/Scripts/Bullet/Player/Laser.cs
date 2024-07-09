@@ -9,11 +9,10 @@ public class Laser : Bullet
 
     private float firstWidth;
 
-    [SerializeField]
-    private List<string> blockLayerMasks;
+    [SerializeField] private List<string> blockLayerMaskList;
+    [SerializeField] private List<string> nonBlockingTagList;
 
-    [SerializeField]
-    private float distance;
+    [SerializeField] private float distance;
 
     private void Awake()
     {
@@ -28,10 +27,22 @@ public class Laser : Bullet
         Vector3 startPosition = transform.position, endPosition;
 
         RaycastHit2D rayHit = Physics2D.Raycast(startPosition, dir, 
-            (startPosition + dir * distance).magnitude, LayerMask.GetMask(blockLayerMasks.ToArray()));
+            (startPosition + dir * distance).magnitude, LayerMask.GetMask(blockLayerMaskList.ToArray()));
 
-        if (rayHit)
+        bool isNonBlocking = false;
+
+        foreach (string tag in nonBlockingTagList)
         {
+            if (rayHit.collider.CompareTag(tag))
+            {
+                isNonBlocking = true;
+                break;
+            }
+        }
+
+        if (rayHit && !isNonBlocking)
+        {
+
             endPosition = rayHit.point;
         }
         else
@@ -89,13 +100,13 @@ public class Laser : Bullet
 
     public bool AddBlockLayerMask(string layerMask)
     {
-        if (blockLayerMasks.Contains(layerMask))
+        if (blockLayerMaskList.Contains(layerMask))
         {
             return false;
         }
         else
         {
-            blockLayerMasks.Add(layerMask);
+            blockLayerMaskList.Add(layerMask);
             return true;
         }
     }

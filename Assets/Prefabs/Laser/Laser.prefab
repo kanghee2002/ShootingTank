@@ -49,10 +49,11 @@ MonoBehaviour:
   objectPool: {fileID: 0}
   lifeTIme: 0.5
   targetTags: []
-  defaultCollideTags:
+  defaultCollideTags: []
+  blockLayerMaskList:
   - Platform
-  blockLayerMasks:
-  - Platform
+  nonBlockingTagList:
+  - OneWayPlatform
   distance: 30
 --- !u!120 &7900961425719176080
 LineRenderer:

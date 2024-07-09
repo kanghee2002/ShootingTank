@@ -334,6 +334,7 @@ MonoBehaviour:
   jumpableTags:
   - Platform
   - Enemy
+  - OneWayPlatform
 --- !u!1001 &8513847865838957653
 PrefabInstance:
   m_ObjectHideFlags: 0

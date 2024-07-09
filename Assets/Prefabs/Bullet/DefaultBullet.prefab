@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359dff671794cc84eb5c7d2722535e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingObject: {fileID: 0}
+  objectPool: {fileID: 0}
   lifeTIme: 3
   targetTags:
   - Enemy
