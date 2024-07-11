@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13adfc726af3c8540abfcee847d5e885, type: 3}
   m_Name: RoomDetailsSO_Small_1
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 7206078939362619287, guid: bbff0dc5352a19446b4f2c5ea14ef271, type: 3}
+  roomPrefab: {fileID: 2950281325090501188, guid: b5592d9cda2312e4a9a09cfb07a33544, type: 3}
   roomType: 2
   doorwayArray:
   - orientation: 0

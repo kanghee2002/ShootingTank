@@ -15,19 +15,20 @@ public abstract class Enemy : MonoBehaviour
     public Transform Player { get => player; set => player = value; }
 
     [Header("Enemy Settings")]
-    [SerializeField]
-    protected float coolTime;
+    [SerializeField] protected EnemyRank enemyRank;
+
+    public EnemyRank GetEnemyRank() => this.enemyRank;
+
+    [SerializeField] protected float coolTime;
 
     protected bool isCool;
 
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
 
-    [SerializeField]
-    protected float moveSpeed;
+    [SerializeField] protected float moveSpeed;
 
-    [SerializeField]
-    protected float damageValue;
+    [SerializeField] protected float damageValue;
 
     private void Awake()
     {

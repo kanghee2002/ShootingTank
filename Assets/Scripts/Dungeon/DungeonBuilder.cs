@@ -16,7 +16,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
     [SerializeField] private GameObject blockBlue;
     #endregion DEBUG
 
-    private struct RoomInfo
+    public struct RoomInfo
     {
         public RoomDetailsSO roomDetails;
         public bool isUpConnected;
@@ -64,6 +64,8 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             Debug.Log("Medium Room Count : " + mediumCount);
             Debug.Log("Large Room Count : " + largeCount);
             // DEBUG */
+
+            EnemySpawner.Instance.SpawnEnemy(selectedDungeonLevel, completedRoomInfos);
         }
         else
         {

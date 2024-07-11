@@ -25,6 +25,37 @@ MonoBehaviour:
   smallRoomPercentage: 60
   mediumRoomPercentage: 30
   largeRoomPercentage: 10
+  enemyCountList:
+  - roomType: 2
+    enemyCount:
+    - enemyRank: 0
+      count: 1
+    - enemyRank: 1
+      count: 0
+    - enemyRank: 2
+      count: 0
+    - enemyRank: 3
+      count: 0
+  - roomType: 3
+    enemyCount:
+    - enemyRank: 0
+      count: 1
+    - enemyRank: 1
+      count: 1
+    - enemyRank: 2
+      count: 0
+    - enemyRank: 3
+      count: 0
+  - roomType: 4
+    enemyCount:
+    - enemyRank: 0
+      count: 1
+    - enemyRank: 1
+      count: 1
+    - enemyRank: 2
+      count: 1
+    - enemyRank: 3
+      count: 0
   roomDetailsArray:
   - {fileID: 11400000, guid: 448d9a9e10c56644d9feac0ed8106aa5, type: 2}
   - {fileID: 11400000, guid: a2ebcf25bac75114d97c3e4b13e140f7, type: 2}

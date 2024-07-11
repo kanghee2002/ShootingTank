@@ -11,7 +11,5 @@ public class RoomDetailsSO : ScriptableObject
 
     public Doorway[] doorwayArray;
 
-    public Vector2Int[] spawnPositionArray;
-
-
+    public Vector2[] spawnPositionArray;
 }

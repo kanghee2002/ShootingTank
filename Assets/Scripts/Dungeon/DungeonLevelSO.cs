@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "DungeonLevelSO_", menuName = "Dungeon/DungeonLevelSO")]
@@ -28,6 +29,10 @@ public class DungeonLevelSO : ScriptableObject
     public float mediumRoomPercentage;
     public float largeRoomPercentage;
 
+    [Header("ENEMY SPAWN VALUES")]
+    [SerializeField]
+    private List<EnemyCountPerRoomType> enemyCountList = new();
+
     [Header("ROOM DETAILS ARRAY")]
     public RoomDetailsSO[] roomDetailsArray;
 
@@ -35,4 +40,42 @@ public class DungeonLevelSO : ScriptableObject
     public GameObject verticalDoorPrefab;
     public GameObject horizontalDoorPrefab;
 
+    public Dictionary<EnemyRank, int> GetEnemyCountDictionary(RoomType roomType)
+    {
+        /*if (enemyCountList.Count != System.Enum.GetValues(typeof(EnemyRank)).Length)
+        {
+            Debug.Log(this.name + "'s Enemy Count List is Uncompleted");
+            return null;
+        }*/
+
+        Dictionary<EnemyRank, int> enemyCountDictionary = new();
+
+        foreach (EnemyCountPerRoomType enemyCountPerRoomType in enemyCountList)
+        {
+            if (enemyCountPerRoomType.roomType == roomType)
+            {
+                foreach (EnemyCount enemyCount in enemyCountPerRoomType.enemyCount)
+                {
+                    enemyCountDictionary.Add(enemyCount.enemyRank, enemyCount.count);
+                }
+            }
+        }
+
+        return enemyCountDictionary;
+    }
+
+    [System.Serializable]
+    private struct EnemyCountPerRoomType
+    {
+        public RoomType roomType;
+        public EnemyCount[] enemyCount;
+    }
+
+
+    [System.Serializable]
+    private struct EnemyCount
+    {
+        public EnemyRank enemyRank;
+        public int count;
+    }
 }
