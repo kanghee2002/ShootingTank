@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class PlayerDetector : MonoBehaviour
 {
-    [SerializeField]
-    private List<LayerMask> viewObstacleMasks = new();
+    [SerializeField] private List<LayerMask> viewObstacleMaskList = new();
 
     private CircleCollider2D circleCollider;
     private Enemy enemy;
@@ -20,7 +19,7 @@ public class PlayerDetector : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag(Settings.playerTag))
         {
             if (IsTargetVisible(other.transform) && enemy.IsPlayerDetected == false)
             {
@@ -29,10 +28,19 @@ public class PlayerDetector : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Settings.playerTag))
+        {
+            enemy.IsPlayerDetected = false;
+            enemy.Player = null;
+        }
+    }
+
     private LayerMask GetObstacleLayerMask()
     {
-        LayerMask newLayerMask = viewObstacleMasks[0];
-        foreach (var layerMask in viewObstacleMasks)
+        LayerMask newLayerMask = viewObstacleMaskList[0];
+        foreach (var layerMask in viewObstacleMaskList)
         {
             newLayerMask |= layerMask;
         }

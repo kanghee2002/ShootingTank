@@ -43,3 +43,11 @@ public enum Orientation
     Left,
     Right
 }
+
+public enum EnemyRank
+{
+    C,
+    B,
+    A,
+    S
+}
