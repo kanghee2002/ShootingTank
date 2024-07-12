@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
-  poolSize: 20
+  poolSize: 30
   bulletRotatedDegree: 0
 --- !u!212 &4747361088154296145
 SpriteRenderer:

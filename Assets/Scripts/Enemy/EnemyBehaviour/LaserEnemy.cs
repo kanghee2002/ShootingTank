@@ -6,19 +6,11 @@ using UnityEngine.UIElements;
 
 public class LaserEnemy : Enemy
 {
-    private GameObject headObj;
-    private SpriteRenderer headSpriteRenderer;
-
     private Vector2 targetVec;
-
 
     [Header("Attack Settings")]
     [SerializeField]
     private float weaponLength;
-
-    [Header("Body Part Settings")]
-    [SerializeField]
-    private GameObject bodyPartsObj;
 
     [Header("Move Ray Settings")]
     [SerializeField]
@@ -36,9 +28,6 @@ public class LaserEnemy : Enemy
     {
         StartCoroutine(IdleMove());
 
-        headObj = bodyPartsObj.transform.Find("Head").gameObject;
-        headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
-
         health.onDie += () => gameObject.SetActive(false);
     }
 
@@ -51,7 +40,7 @@ public class LaserEnemy : Enemy
         }
         if (IsPlayerDetected)
         {
-            LookAtPlayer(headObj, headSpriteRenderer);
+            //LookAtPlayer(headObj, headSpriteRenderer);
             SetWarningLaser();
         }
     }
@@ -98,18 +87,18 @@ public class LaserEnemy : Enemy
 
             if (moveDir < 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
                 if (IsPlayerDetected)
                 {
-                    headSpriteRenderer.flipX = false;
+                    //headSpriteRenderer.flipX = false;
                 }
             }
             else if (moveDir > 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
                 if (IsPlayerDetected)
                 {
-                    headSpriteRenderer.flipX = true;
+                    //headSpriteRenderer.flipX = true;
                 }
             }
 

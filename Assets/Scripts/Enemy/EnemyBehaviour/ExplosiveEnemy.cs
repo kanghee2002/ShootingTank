@@ -5,14 +5,6 @@ using System.Linq;
 
 public class ExplosiveEnemy : Enemy
 {
-    private GameObject headObj;
-    private SpriteRenderer headSpriteRenderer;
-    private List<SpriteRenderer> bodyPartSpriteRenderers = new();
-
-    [Header("Body Part Settings")]
-    [SerializeField]
-    private GameObject bodyPartsObj;
-
     [Header("Move Ray Settings")]
     [SerializeField]
     private float platformCheckRayGap;
@@ -29,19 +21,18 @@ public class ExplosiveEnemy : Enemy
     [SerializeField]
     private Explosion explosion;
 
+    private SpriteRenderer spriteRenderer;
+
     private IEnumerator curMoveCoroutine;
 
     private float fadeInOutSpeed = 3f;
 
     private void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         curMoveCoroutine = IdleMove();
         StartCoroutine(curMoveCoroutine);
-
-        headObj = bodyPartsObj.transform.Find("Head").gameObject;
-        headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
-
-        bodyPartSpriteRenderers = bodyPartsObj.GetComponentsInChildren<SpriteRenderer>().ToList<SpriteRenderer>();
 
         health.onDie += () => StartCoroutine(Explode());
     }
@@ -50,13 +41,16 @@ public class ExplosiveEnemy : Enemy
     {
         if (IsPlayerDetected)
         {
-            LookAtPlayer(headObj, headSpriteRenderer);
+            //LookAtPlayer(headObj, headSpriteRenderer);
         }
     }
 
     public override void OnPlayerDetected(Transform player)
     {
         base.OnPlayerDetected(player);
+
+        Debug.Log("Detect Player");
+
         StopCoroutine(curMoveCoroutine);
         curMoveCoroutine = ChasePlayer();
         StartCoroutine(curMoveCoroutine);
@@ -71,11 +65,11 @@ public class ExplosiveEnemy : Enemy
 
             if (moveDir < 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
             }
             else if (moveDir > 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
             }
 
             while (moveTime > 0f)
@@ -117,11 +111,11 @@ public class ExplosiveEnemy : Enemy
 
             if (moveDir < 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
             }
             else if (moveDir > 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
             }
 
             rigid.velocity = new Vector2(moveDir * moveSpeed, rigid.velocity.y);
@@ -145,7 +139,7 @@ public class ExplosiveEnemy : Enemy
         IEnumerator curCoroutine = null;
         while (gameObject.activeSelf == true)
         {
-            if (bodyPartSpriteRenderers[0].color.r > 0.99f)
+            if (spriteRenderer.color.r > 0.99f)
             {
                 if (curCoroutine != null)
                 {
@@ -154,7 +148,7 @@ public class ExplosiveEnemy : Enemy
                 curCoroutine = FadeOut();
                 StartCoroutine(curCoroutine);
             }
-            else if (bodyPartSpriteRenderers[0].color.r < 0.01f)
+            else if (spriteRenderer.color.r < 0.01f)
             {
 
                 if (curCoroutine != null)
@@ -170,14 +164,11 @@ public class ExplosiveEnemy : Enemy
 
     private IEnumerator FadeOut()
     {
-        float curColorNum = bodyPartSpriteRenderers[0].color.r;
+        float curColorNum = spriteRenderer.color.r;
         while (curColorNum > 0f)
         {
             curColorNum -= fadeInOutSpeed * Time.deltaTime;
-            foreach (var spriteRenderer in bodyPartSpriteRenderers)
-            {
-                spriteRenderer.color = new Color(curColorNum, curColorNum, curColorNum);
-            }
+            spriteRenderer.color = new Color(curColorNum, curColorNum, curColorNum);
 
             yield return new WaitForFixedUpdate();
         }
@@ -185,14 +176,11 @@ public class ExplosiveEnemy : Enemy
 
     private IEnumerator FadeIn()
     {
-        float curColorNum = bodyPartSpriteRenderers[0].color.r;
+        float curColorNum = spriteRenderer.color.r;
         while (curColorNum < 1f)
         {
             curColorNum += fadeInOutSpeed * Time.deltaTime;
-            foreach (var spriteRenderer in bodyPartSpriteRenderers)
-            {
-                spriteRenderer.color = new Color(curColorNum, curColorNum, curColorNum);
-            }
+            spriteRenderer.color = new Color(curColorNum, curColorNum, curColorNum);
 
             yield return new WaitForFixedUpdate();
         }

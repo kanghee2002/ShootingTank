@@ -5,8 +5,6 @@ using UnityEngine.UIElements;
 
 public class DefaultEnemy : Enemy
 {
-    private GameObject headObj;
-    private SpriteRenderer headSpriteRenderer;
 
     [Header("Attack Settings")]
     [SerializeField]
@@ -14,10 +12,6 @@ public class DefaultEnemy : Enemy
 
     [SerializeField]
     private float weaponLength;
-
-    [Header("Body Part Settings")]
-    [SerializeField]
-    private GameObject bodyPartsObj;
 
     [Header("Move Ray Settings")]
     [SerializeField]
@@ -31,16 +25,13 @@ public class DefaultEnemy : Enemy
     {
         StartCoroutine(IdleMove());
 
-        headObj = bodyPartsObj.transform.Find("Head").gameObject;
-        headSpriteRenderer = headObj.GetComponent<SpriteRenderer>();
-
         health.onDie += () => gameObject.SetActive(false);
     }
 
     private void Update()
     {
         if (IsAttackPossible()) Attack(GetTargetDir(Player));
-        if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
+        //if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
     }
 
     protected override void Attack(Vector3 direction)
@@ -67,19 +58,11 @@ public class DefaultEnemy : Enemy
 
             if (moveDir < 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(1, 1, 1);
-                if (IsPlayerDetected)
-                {
-                    headSpriteRenderer.flipX = false;
-                }
+                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
             }
             else if (moveDir > 0)
             {
-                bodyPartsObj.transform.localScale = new Vector3(-1, 1, 1);
-                if (IsPlayerDetected)
-                {
-                    headSpriteRenderer.flipX = true;
-                }
+                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
             }
 
             while (moveTime > 0f)

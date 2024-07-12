@@ -31,18 +31,20 @@ public class Laser : Bullet
 
         bool isNonBlocking = false;
 
-        foreach (string tag in nonBlockingTagList)
+        if (rayHit)
         {
-            if (rayHit.collider.CompareTag(tag))
+            foreach (string tag in nonBlockingTagList)
             {
-                isNonBlocking = true;
-                break;
+                if (rayHit.collider.CompareTag(tag))
+                {
+                    isNonBlocking = true;
+                    break;
+                }
             }
         }
 
         if (rayHit && !isNonBlocking)
         {
-
             endPosition = rayHit.point;
         }
         else

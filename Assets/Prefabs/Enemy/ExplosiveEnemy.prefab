@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1689843181765918820, guid: 7a9b427af86b4304484f6771f80e0179, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1689843181765918820, guid: 7a9b427af86b4304484f6771f80e0179, type: 3}
       propertyPath: m_LocalPosition.x
@@ -127,6 +127,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5864285603214950047, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5864285603214950047, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480561379283226129, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480561379283226129, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6480561379283226129, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 97449425cc7c2194b8a80e9f80a386d3, type: 3}
+    - target: {fileID: 6480561379283226129, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8089172946932009105, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: m_Name
       value: ExplosiveEnemy
@@ -150,10 +174,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55657335c636c634294eccf615126417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyRank: 0
   coolTime: 0
   moveSpeed: 7
   damageValue: 10
-  bodyPartsObj: {fileID: 4495869617557084534}
+  bodyPartsObj: {fileID: 0}
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
   lampCheckRayDistance: 2
@@ -163,10 +188,5 @@ MonoBehaviour:
 --- !u!4 &2530015291753008771 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5069515194461726083, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
-  m_PrefabInstance: {fileID: 7297769514969115392}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4495869617557084534 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6566929050875376246, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
   m_PrefabInstance: {fileID: 7297769514969115392}
   m_PrefabAsset: {fileID: 0}
