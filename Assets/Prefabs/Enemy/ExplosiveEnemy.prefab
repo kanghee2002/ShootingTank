@@ -178,7 +178,9 @@ MonoBehaviour:
   coolTime: 0
   moveSpeed: 7
   damageValue: 10
-  bodyPartsObj: {fileID: 0}
+  groundingLayerMask:
+    serializedVersion: 2
+    m_Bits: 1152
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
   lampCheckRayDistance: 2

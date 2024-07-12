@@ -187,8 +187,10 @@ MonoBehaviour:
   coolTime: 1
   moveSpeed: 5
   damageValue: 2
+  groundingLayerMask:
+    serializedVersion: 2
+    m_Bits: 1152
   weaponLength: 0.5
-  bodyPartsObj: {fileID: 0}
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
   lampCheckRayDistance: 2

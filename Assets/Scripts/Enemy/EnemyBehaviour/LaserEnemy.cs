@@ -58,7 +58,7 @@ public class LaserEnemy : Enemy
 
         obj.GetComponent<LineRenderer>().material.color = new Color(128, 0, 0);
 
-        StartCoroutine(CheckCoolTime(coolTime));
+        StartCoroutine(CoolDownRoutine(coolTime));
         isCool = true;
     }
 
@@ -68,9 +68,9 @@ public class LaserEnemy : Enemy
 
         yield return new WaitForSeconds(delay);
 
-        if ((transform.position - Player.position).magnitude <= warningLaser.MaxDistance)
+        if ((transform.position - playerTransform.position).magnitude <= warningLaser.MaxDistance)
         {
-            Attack(GetTargetDir(Player));
+            Attack(GetTargetDirection(playerTransform));
         }
         else
         {
@@ -78,7 +78,7 @@ public class LaserEnemy : Enemy
         }
     }
 
-    protected override IEnumerator IdleMove()
+    protected IEnumerator IdleMove()
     {
         while (true)
         {
@@ -130,6 +130,6 @@ public class LaserEnemy : Enemy
 
     private void SetWarningLaser()
     {
-        warningLaser.SetPosition(transform.position, Player.position);
+        warningLaser.SetPosition(transform.position, playerTransform.position);
     }
 }

@@ -32,8 +32,7 @@ public class PlayerDetector : MonoBehaviour
     {
         if (collision.CompareTag(Settings.playerTag))
         {
-            enemy.IsPlayerDetected = false;
-            enemy.Player = null;
+            enemy.OnPlayerLost();
         }
     }
 

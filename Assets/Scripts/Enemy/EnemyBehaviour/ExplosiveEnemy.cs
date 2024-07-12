@@ -45,18 +45,16 @@ public class ExplosiveEnemy : Enemy
         }
     }
 
-    public override void OnPlayerDetected(Transform player)
+    public override void OnPlayerDetected(Transform playerTransform)
     {
-        base.OnPlayerDetected(player);
-
-        Debug.Log("Detect Player");
+        base.OnPlayerDetected(playerTransform);
 
         StopCoroutine(curMoveCoroutine);
         curMoveCoroutine = ChasePlayer();
         StartCoroutine(curMoveCoroutine);
     }
 
-    protected override IEnumerator IdleMove()
+    protected IEnumerator IdleMove()
     {
         while (true)
         {
@@ -103,7 +101,7 @@ public class ExplosiveEnemy : Enemy
         while (true)
         {
             int moveDir;
-            float distance = Player.position.x - transform.position.x;
+            float distance = playerTransform.position.x - transform.position.x;
 
             if (Mathf.Abs(distance) < 0.3f) moveDir = 0;
             else if (distance < 0) moveDir = -1;
@@ -120,7 +118,7 @@ public class ExplosiveEnemy : Enemy
 
             rigid.velocity = new Vector2(moveDir * moveSpeed, rigid.velocity.y);
 
-            if ((Player.position - transform.position).magnitude <= explosionRadius)
+            if ((playerTransform.position - transform.position).magnitude <= explosionRadius)
             {
                 Attack(Vector3.zero);
             }

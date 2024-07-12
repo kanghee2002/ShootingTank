@@ -102,8 +102,12 @@ MonoBehaviour:
   coolTime: 1
   moveSpeed: 7
   damageValue: 1
+  groundingLayerMask:
+    serializedVersion: 2
+    m_Bits: 1152
   bulletSpeed: 20
   weaponLength: 1
+  attackRange: 0
   platformCheckRayGap: 1
   platformCheckRayDistance: 1.5
-  lampCheckRayDistance: 3
+  lampCheckRayDistance: 1.5

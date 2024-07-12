@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
@@ -7,52 +8,67 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Health))]
 public abstract class Enemy : MonoBehaviour
 {
+    protected enum State
+    {
+        Idle,
+        Chase,
+        Attack,
+        Dead
+    };
+
     protected Rigidbody2D rigid;
     protected Health health;
     protected ObjectPooling objectPool;
 
-    private Transform player;
-    public Transform Player { get => player; set => player = value; }
+    public Transform PlayerTransform { set => playerTransform = value; }
 
     [Header("Enemy Settings")]
     [SerializeField] protected EnemyRank enemyRank;
 
-    public EnemyRank GetEnemyRank() => this.enemyRank;
-
     [SerializeField] protected float coolTime;
-
-    protected bool isCool;
-
-    private bool isPlayerDetected;
-    public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
 
     [SerializeField] protected float moveSpeed;
 
     [SerializeField] protected float damageValue;
 
-    private void Awake()
+    [SerializeField] protected LayerMask groundingLayerMask;
+
+    protected Transform playerTransform;
+
+    protected bool isCool;
+
+    protected State state;
+
+    private bool isPlayerDetected;
+    public bool IsPlayerDetected { get => isPlayerDetected; set => isPlayerDetected = value; }
+
+
+    protected virtual void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         health = GetComponent<Health>();
         objectPool = GetComponent<ObjectPooling>();
+
         isCool = false;
         isPlayerDetected = false;
     }
 
-    protected bool IsAttackPossible() => (isPlayerDetected && !isCool);
-
-    public virtual void OnPlayerDetected(Transform player)
+    public virtual void OnPlayerDetected(Transform playerTransform)
     {
-        IsPlayerDetected = true;
-        Player = player;
+        isPlayerDetected = true;
+        this.playerTransform = playerTransform;
     }
 
-    protected Vector3 GetTargetDir(Transform target)
-        => (target.position - transform.position).normalized;
+    public virtual void OnPlayerLost()
+    {
+        isPlayerDetected = false;
+        this.playerTransform = null;
+    }
 
     protected abstract void Attack(Vector3 direction);
+    public EnemyRank GetEnemyRank() => this.enemyRank;
 
-    protected virtual IEnumerator CheckCoolTime(float coolTime)
+    protected virtual IEnumerator CoolDownRoutine(float coolTime)
     {
         while (coolTime > 0f)
         {
@@ -60,34 +76,12 @@ public abstract class Enemy : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         isCool = false;
-    } 
-
-    protected void LookAtPlayer(GameObject headObj, SpriteRenderer spriteRenderer)
-    {
-        Vector3 targetPos = player.position;
-        Vector3 headPos = headObj.transform.position;
-
-        float dy = targetPos.y - headPos.y;
-        float dx = targetPos.x - headPos.x;
-        float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg + 180f;
-
-        if ((rotateDegree > 30f && rotateDegree < 150f) || 
-            (rotateDegree > 210f && rotateDegree < 330f))
-        {
-            return;
-        }
-
-        headObj.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
-
-        if (Mathf.Abs(rotateDegree - 180f) < 90f)
-        {
-            spriteRenderer.flipY = true;
-        }
-        else
-        {
-            spriteRenderer.flipY = false;
-        }
     }
 
-    protected abstract IEnumerator IdleMove();
+    protected bool IsAttackPossible() => (isPlayerDetected && !isCool);
+
+    protected Vector3 GetTargetDirection(Transform target)
+        => (target.position - transform.position).normalized;
+
+    protected void ChangeState(State state) => this.state = state;
 }

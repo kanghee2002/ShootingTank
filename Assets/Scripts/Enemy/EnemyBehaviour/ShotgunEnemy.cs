@@ -33,7 +33,7 @@ public class ShotgunEnemy : Enemy
 
     private void Update()
     {
-        if (IsAttackPossible()) Attack(GetTargetDir(Player));
+        if (IsAttackPossible()) Attack(GetTargetDirection(playerTransform));
         //if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
     }
 
@@ -67,12 +67,12 @@ public class ShotgunEnemy : Enemy
             bullet.FinalDamage = damageValue;
             bullet.AddTargetTag("Player");
 
-            StartCoroutine(CheckCoolTime(coolTime));
+            StartCoroutine(CoolDownRoutine(coolTime));
             isCool = true;
         }
     }
 
-    protected override IEnumerator IdleMove()
+    protected IEnumerator IdleMove()
     {
         while (true)
         {
