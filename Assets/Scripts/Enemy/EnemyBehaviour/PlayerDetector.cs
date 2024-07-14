@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerDetector : MonoBehaviour
 {
+    [SerializeField] private EnemyController enemyController;
+
     [SerializeField] private List<LayerMask> viewObstacleMaskList = new();
 
     private CircleCollider2D circleCollider;
-    private Enemy enemy;
     private LayerMask compositedObstacleMask;
 
     private void Awake()
     {
         circleCollider = GetComponent<CircleCollider2D>();
-        enemy = transform.parent.GetComponent<Enemy>();
         compositedObstacleMask = GetObstacleLayerMask();
     }
 
@@ -21,18 +21,10 @@ public class PlayerDetector : MonoBehaviour
     {
         if (other.CompareTag(Settings.playerTag))
         {
-            if (IsTargetVisible(other.transform) && enemy.IsPlayerDetected == false)
+            if (IsTargetVisible(other.transform) && enemyController.IsPlayerDetected == false)
             {
-                enemy.OnPlayerDetected(other.transform);
+                enemyController.OnPlayerDetected(other.transform);
             }
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag(Settings.playerTag))
-        {
-            enemy.OnPlayerLost();
         }
     }
 
