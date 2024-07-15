@@ -75,6 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6621998725887795120}
   - component: {fileID: 6873915214491994978}
+  - component: {fileID: 5334763031197323677}
   m_Layer: 8
   m_Name: JumpChecker
   m_TagString: Untagged
@@ -111,8 +112,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGrounding: 0
   isGroundingOneWayPlatform: 0
-  jumpableTags: []
+  jumpableTags:
+  - Platform
+  - OneWayPlatform
   oneWayPlatformCollider: {fileID: 0}
+--- !u!61 &5334763031197323677
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5338972074266918973}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.009100258, y: -1.0696006}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.5590435, y: 0.15579927}
+  m_EdgeRadius: 0
 --- !u!1 &8089172946932009105
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +223,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e682faa78b0e1234bbe55cdadc908f1e, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -223,16 +252,19 @@ MonoBehaviour:
   groundingLayerMask:
     serializedVersion: 2
     m_Bits: 1152
-  detectOnHit: 1
-  isStationaryOnShooting: 1
   canJump: 0
   canFly: 0
+  detectOnHit: 1
+  isStationaryOnShooting: 1
+  moveSpeedOnDetectMultiplier: 1
   detectionRange: 20
   attackRange: 100
-  downCheckRayHorizontalOffset: 1
-  downCheckRayLength: 1.5
-  frontCheckRayVerticalOffset: -0.5
-  frontCheckRayLength: 1.5
+  downRayHorizontalOffset: 1
+  downRayLength: 1.5
+  frontRayVerticalOffset: -0.5
+  frontRayLength: 1.5
+  jumpHeight: 3
+  jumpRayLength: 1.5
 --- !u!114 &6630017351526668444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,8 +310,8 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 3.5
+  m_Material: {fileID: 6200000, guid: 97b72cdc7febc2b488c5af8a59bfe532, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

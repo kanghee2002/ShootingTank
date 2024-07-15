@@ -8,13 +8,13 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(Settings.playerTag))
+        if (collision.CompareTag(Settings.playerTag) || collision.CompareTag(Settings.enemyTag))
         {
-            MovePlayer(collision.transform, connectedPosition);
+            MoveObject(collision.transform, connectedPosition);
         }
     }
 
-    private void MovePlayer(Transform player, Vector3 movePosition)
+    private void MoveObject(Transform player, Vector3 movePosition)
     {
         player.transform.position = movePosition;
     }

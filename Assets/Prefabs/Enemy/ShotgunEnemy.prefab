@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: jumpRayLength
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1101922218, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
