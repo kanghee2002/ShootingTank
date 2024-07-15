@@ -10,11 +10,11 @@ public class DefaultEnemy : Enemy
 
     [SerializeField] private float weaponLength;
 
-    public override void Attack(Transform playerTransform)
+    public override bool Attack(Transform playerTransform)
     {
         if (isCool)
         {
-            return;
+            return false;
         }
 
         Vector3 direction = GetTargetDirection(playerTransform);
@@ -30,5 +30,7 @@ public class DefaultEnemy : Enemy
         bullet.AddTargetTag(Settings.playerTag);
         StartCoroutine(CoolDownRoutine(coolTime));
         isCool = true;
+
+        return true;
     }
 }

@@ -30,8 +30,13 @@ public class LaserEnemy : Enemy
         }*/
     }
 
-    public override void Attack(Transform playerTransform)
+    public override bool Attack(Transform playerTransform)
     {
+        if (isCool)
+        {
+            return false;
+        }
+
         Vector3 direction = GetTargetDirection(playerTransform);
 
         var obj = objectPool.GetBullet();
@@ -47,6 +52,8 @@ public class LaserEnemy : Enemy
 
         StartCoroutine(CoolDownRoutine(coolTime));
         isCool = true;
+
+        return true;
     }
 
     private IEnumerator DelayAttack(Transform playerTransform)

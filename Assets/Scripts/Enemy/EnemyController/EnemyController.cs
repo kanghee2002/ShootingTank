@@ -29,7 +29,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float detectionRadiusMultiplier = 2.5f;
     [SerializeField] private float moveSpeedOnDetectMultiplier = 1f;
     [Space(5)]
-    [SerializeField] private bool isStationaryOnShooting = true;
+    [SerializeField] private float stationaryTimeOnAttack = 0f;
 
     [Header("Attack Settings")]
     [SerializeField] private float attackRange = 100f;
@@ -78,7 +78,6 @@ public class EnemyController : MonoBehaviour
         isPlayerDetected = false;
 
         currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
-
     }
 
     private void Update()
@@ -131,7 +130,12 @@ public class EnemyController : MonoBehaviour
             case State.Attack:
                 if (isPlayerDetected && Vector2.Distance(playerTransform.position, transform.position) <= attackRange)
                 {
-                    enemy.Attack(playerTransform);
+                    bool isAttack = enemy.Attack(playerTransform);
+
+                    if (isAttack && stationaryTimeOnAttack > 0f)
+                    {
+                        StartCoroutine(PauseMoveRoutine(state, stationaryTimeOnAttack));
+                    }
                 }
                 break;
             case State.Chase:
@@ -364,6 +368,22 @@ public class EnemyController : MonoBehaviour
     private void Jump()
     {
         rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
+    }
+
+    private IEnumerator PauseMoveRoutine(State state, float time)
+    {
+        StopCoroutine(currentMoveRoutine);
+
+        rigid.velocity = new Vector2(0, rigid.velocity.y);
+
+        yield return new WaitForSeconds(time);
+
+        if (state == State.Idle)
+            currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
+        else if (state == State.Attack)
+            currentMoveRoutine = StartCoroutine(AttackMoveRoutine());
+        else
+            Debug.Log("EnemyController Error: Pause Move Routine is not implementing " + state + " action");
     }
 
     private void ChangeState(State state) => this.state = state;

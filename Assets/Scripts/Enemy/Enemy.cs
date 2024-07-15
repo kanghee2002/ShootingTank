@@ -23,7 +23,7 @@ public abstract class Enemy : MonoBehaviour
         isCool = false;
     }
 
-    public abstract void Attack(Transform playerTransform);
+    public abstract bool Attack(Transform playerTransform);
 
     public EnemyRank GetEnemyRank() => this.enemyRank;
 

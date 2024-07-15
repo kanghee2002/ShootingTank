@@ -54,9 +54,16 @@ public class ExplosiveEnemy : Enemy
         }
     }*/
 
-    public override void Attack(Transform playerTransform)
+    public override bool Attack(Transform playerTransform)
     {
+        if (isCool)
+        {
+            return false;
+        }
+
         StartCoroutine(Explode());
+        isCool = true;
+        return true;
     }
 
     private IEnumerator RepeatFadeInOut()

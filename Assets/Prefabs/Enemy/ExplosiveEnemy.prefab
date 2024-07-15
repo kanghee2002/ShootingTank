@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRank: 0
-  coolTime: 0
+  coolTime: 100
   damageValue: 10
   explosionRadius: 4
   explosionDelay: 3

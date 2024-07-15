@@ -21,11 +21,11 @@ public class ShotgunEnemy : Enemy
         //if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
     }
 
-    public override void Attack(Transform playerTransform)
+    public override bool Attack(Transform playerTransform)
     {
         if (isCool)
         {
-            return;
+            return false;
         }
 
         Vector3 direction = GetTargetDirection(playerTransform);
@@ -61,5 +61,7 @@ public class ShotgunEnemy : Enemy
 
         isCool = true;
         StartCoroutine(CoolDownRoutine(coolTime));
+
+        return true;
     }
 }
