@@ -158,19 +158,13 @@ PrefabInstance:
     - target: {fileID: 9087781231217556642, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: enemyController
       value: 
-      objectReference: {fileID: -4610458024347110777}
+      objectReference: {fileID: 644239833965546629}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
---- !u!1 &1514442416914801553 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8089172946932009105, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
-  m_PrefabInstance: {fileID: 7297769514969115392}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &-4610458024347110777
+--- !u!114 &644239833965546629 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+  m_PrefabInstance: {fileID: 7297769514969115392}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514442416914801553}
   m_Enabled: 1
@@ -178,16 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da2ad7f759384f4685431c5ca7c266d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
-  aggressionLevel: 1
-  groundingLayerMask:
-    serializedVersion: 2
-    m_Bits: 1152
-  detectionRange: 20
-  attackRange: 100
-  platformCheckRayGap: 1
-  platformCheckRayDistance: 1.5
-  lampCheckRayDistance: 1.5
+--- !u!1 &1514442416914801553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8089172946932009105, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+  m_PrefabInstance: {fileID: 7297769514969115392}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3161084852560966614
 MonoBehaviour:
   m_ObjectHideFlags: 0

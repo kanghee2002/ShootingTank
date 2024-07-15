@@ -121,7 +121,7 @@ MonoBehaviour:
   weaponParents:
   - {fileID: 1691444259}
   - {fileID: 1691934165}
-  playerJumpChecker: {fileID: 7584130720466633466}
+  jumpChecker: {fileID: 7584130720466633466}
 --- !u!114 &1393926900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,10 +331,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounding: 0
+  isGroundingOneWayPlatform: 0
   jumpableTags:
   - Platform
   - Enemy
   - OneWayPlatform
+  oneWayPlatformCollider: {fileID: 0}
 --- !u!1001 &8513847865838957653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -397,6 +399,14 @@ PrefabInstance:
     - target: {fileID: 389885211801630492, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6546798143788716939, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_Sprite

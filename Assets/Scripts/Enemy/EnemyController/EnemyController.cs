@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(Enemy))]
 public class EnemyController : MonoBehaviour
 {
     public enum State
@@ -16,25 +16,30 @@ public class EnemyController : MonoBehaviour
 
     [Header("Move Settings")]
     [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float jumpPower = 15f;
     [SerializeField] private int aggressionLevel = 1;
     [SerializeField] private LayerMask groundingLayerMask;
 
     [Header("Move Pattern Settings")]
     [SerializeField] private bool detectOnHit = true;
     [SerializeField] private bool isStationaryOnShooting = true;
+    [SerializeField] private bool canJump = false;
+    [SerializeField] private bool canFly = false;
 
     [Header("Attack Settings")]
     [SerializeField] private float detectionRange = 20f;
     [SerializeField] private float attackRange = 100f;
 
     [Header("Move Ray Settings")]
-    [SerializeField] private float platformCheckRayGap = 1f;
-    [SerializeField] private float platformCheckRayDistance = 1.5f;
-    [SerializeField] private float lampCheckRayDistance = 1.5f;
+    [SerializeField] private float downCheckRayHorizontalOffset = 1f;
+    [SerializeField] private float downCheckRayLength = 1.5f;
+    [SerializeField] private float frontCheckRayVerticalOffset = -0.5f;
+    [SerializeField] private float frontCheckRayLength = 1.5f;
 
     private Health health;
     private Rigidbody2D rigid;
     private Enemy enemy;
+    private PlayerDetector playerDetector;
 
     private bool isCool;
     private bool isPlayerDetected;
@@ -49,6 +54,7 @@ public class EnemyController : MonoBehaviour
         health = GetComponent<Health>();
         rigid = GetComponent<Rigidbody2D>();
         enemy = GetComponent<Enemy>();
+        playerDetector = GetComponentInChildren<PlayerDetector>();
     }
 
     private void Start()
@@ -119,34 +125,25 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator IdleMoveRoutine()
     {
-        int lastMoveDirection = -1;
-
         while (true)
         {
             float moveTime = 1f;
             int moveDirection = Random.Range(0, 1f) > 0.5f ? 1 : -1;
 
-            Vector3 oppositeScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
-
-            if (lastMoveDirection * moveDirection < 0)      // 마지막으로 향한 방향과 현재 가고자 하는 방향이 다를 경우 (-) 
-                transform.localScale = oppositeScale;
-
-            lastMoveDirection = moveDirection;
+            SetObjectDirection(moveDirection);
 
             while (moveTime > 0f)
             {
                 rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
 
                 #region Platform Check
-                Vector2 frontVec = new Vector2(rigid.position.x + moveDirection * platformCheckRayGap, rigid.position.y);
+                Vector2 frontVec = new Vector2(transform.position.x + moveDirection * downCheckRayHorizontalOffset, transform.position.y);
 
-                Debug.DrawRay(frontVec, Vector3.down * platformCheckRayDistance, new Color(1, 0, 1));
-                RaycastHit2D rayHitPlatform = Physics2D.Raycast(frontVec, Vector3.down, platformCheckRayDistance, groundingLayerMask);
+                RaycastHit2D downRayHit = Physics2D.Raycast(frontVec, Vector3.down, downCheckRayLength, groundingLayerMask);
 
-                Debug.DrawRay(transform.position, new Vector3(moveDirection * lampCheckRayDistance, 0, 0), new Color(1, 0, 0));
-                RaycastHit2D rayHitLamp = Physics2D.Raycast(transform.position, Vector3.right * moveDirection, lampCheckRayDistance, groundingLayerMask);
+                RaycastHit2D frontRayHit = Physics2D.Raycast(transform.position + new Vector3(0f, frontCheckRayVerticalOffset, 0f), Vector3.right * moveDirection, frontCheckRayLength, groundingLayerMask);
 
-                if (rayHitPlatform.collider == null || rayHitLamp.collider != null)
+                if (downRayHit.collider == null || frontRayHit.collider != null)
                 {
                     rigid.velocity = new Vector2(0, rigid.velocity.y);
                     yield return new WaitForSeconds(1f);
@@ -171,39 +168,52 @@ public class EnemyController : MonoBehaviour
     {
         if (aggressionLevel == 0)
         {
+            #region Run Away From Player
+            while (true)
+            {
+                int moveDirection = playerTransform.position.x - transform.position.x > 0 ? -1 : 1;
 
+                SetObjectDirection(moveDirection);
+
+                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+
+                #region Platform Check
+                RaycastHit2D frontRayHit = Physics2D.Raycast(transform.position + new Vector3(0f, frontCheckRayVerticalOffset, 0f), Vector3.right * moveDirection, frontCheckRayLength, groundingLayerMask);
+
+                if (frontRayHit.collider != null)
+                {
+                    rigid.velocity = new Vector2(0, rigid.velocity.y);
+                    break;
+                }
+
+                yield return new WaitForSeconds(Time.deltaTime);
+                #endregion Platform Check
+            }
+            #endregion
         }
         else if (aggressionLevel == 1)
         {
             #region Don't Care Player
-            int lastMoveDirection = -1;
 
             while (true)
             {
                 float moveTime = 1f;
                 int moveDirection = Random.Range(0, 1f) > 0.5f ? 1 : -1;
 
-                Vector3 oppositeScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
-
-                if (lastMoveDirection * moveDirection < 0)      // 마지막으로 향한 방향과 현재 가고자 하는 방향이 다를 경우 (-) 
-                    transform.localScale = oppositeScale;
-
-                lastMoveDirection = moveDirection;
+                SetObjectDirection(moveDirection);
 
                 while (moveTime > 0f)
                 {
                     rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
 
                     #region Platform Check
-                    Vector2 frontVec = new Vector2(rigid.position.x + moveDirection * platformCheckRayGap, rigid.position.y);
+                    Vector2 frontVector = new Vector2(transform.position.x + moveDirection * downCheckRayHorizontalOffset, transform.position.y);
 
-                    Debug.DrawRay(frontVec, Vector3.down * platformCheckRayDistance, new Color(1, 0, 1));
-                    RaycastHit2D rayHitPlatform = Physics2D.Raycast(frontVec, Vector3.down, platformCheckRayDistance, groundingLayerMask);
+                    RaycastHit2D downRayHit = Physics2D.Raycast(frontVector, Vector3.down, downCheckRayLength, groundingLayerMask);
 
-                    Debug.DrawRay(transform.position, new Vector3(moveDirection * lampCheckRayDistance, 0, 0), new Color(1, 0, 0));
-                    RaycastHit2D rayHitLamp = Physics2D.Raycast(transform.position, Vector3.right * moveDirection, lampCheckRayDistance, groundingLayerMask);
+                    RaycastHit2D frontRayHit = Physics2D.Raycast(transform.position + new Vector3(0f, frontCheckRayVerticalOffset, 0f), Vector3.right * moveDirection, frontCheckRayLength, groundingLayerMask);
 
-                    if (rayHitPlatform.collider == null || rayHitLamp.collider != null)
+                    if (downRayHit.collider == null || frontRayHit.collider != null)
                     {
                         rigid.velocity = new Vector2(0, rigid.velocity.y);
                         yield return new WaitForSeconds(1f);
@@ -233,13 +243,38 @@ public class EnemyController : MonoBehaviour
 
     private bool ScanCliffAhead()
     {
-
+        return false;
     }
 
     private bool ScanPlatformAhead()
     {
-
+        return false;
     }
 
     private void ChangeState(State state) => this.state = state;
+
+    private void SetObjectDirection(int moveDirection)
+    {
+        if (moveDirection < 0)
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, 1f);
+        else
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, 1f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        int moveDirection;
+        if (transform.localScale.x > 0)
+        {
+            moveDirection = -1;
+        }
+        else
+        {
+            moveDirection = 1;
+        }
+        Vector2 frontVec = new Vector2(transform.position.x + moveDirection * downCheckRayHorizontalOffset, transform.position.y);
+        Debug.DrawRay(frontVec, Vector3.down * downCheckRayLength, new Color(1, 0, 1));
+        Debug.DrawRay(transform.position + new Vector3(0f, frontCheckRayVerticalOffset, 0f), new Vector3(moveDirection * frontCheckRayLength, 0, 0), new Color(1, 0, 0));
+
+    }
 }

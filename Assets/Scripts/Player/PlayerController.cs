@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     [Header("Additional Settings")]
     [SerializeField] private List<Transform> weaponParents;
 
-    [SerializeField] private PlayerJumpChecker playerJumpChecker;
+    [SerializeField] private JumpChecker jumpChecker;
 
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
@@ -76,7 +76,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetJumpVariables()
     {
-        if (jumpState == JumpState.NotJumping && !playerJumpChecker.isGrounding)
+        if (jumpState == JumpState.NotJumping && !jumpChecker.isGrounding)
         {
             MinusJumpCount();
 
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
         }
 
         if ((jumpState == JumpState.Falling || jumpState == JumpState.Jumping)
-            && playerJumpChecker.isGrounding)
+            && jumpChecker.isGrounding)
         {
             jumpCount = maxJumpCount;
             jumpState = JumpState.NotJumping;
@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && playerJumpChecker.isGroundingOneWayPlatform)
+        if (Input.GetKeyDown(KeyCode.S) && jumpChecker.isGroundingOneWayPlatform)
         {
             DownJump();
         }
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
     private void DownJump()
     {
-        StartCoroutine(IgnoreCollisionRoutine(polygonCollider, playerJumpChecker.oneWayPlatformCollider));
+        StartCoroutine(IgnoreCollisionRoutine(polygonCollider, jumpChecker.oneWayPlatformCollider));
     }
 
     private IEnumerator IgnoreCollisionRoutine(Collider2D collider1, Collider2D collider2)

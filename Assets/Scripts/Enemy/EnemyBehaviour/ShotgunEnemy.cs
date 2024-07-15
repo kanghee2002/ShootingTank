@@ -8,17 +8,8 @@ public class ShotgunEnemy : Enemy
     [Header("Attack Settings")]
     [SerializeField]
     private float bulletSpeed;
-
     [SerializeField]
     private float weaponLength;
-
-    [Header("Move Ray Settings")]
-    [SerializeField]
-    private float platformCheckRayGap;
-    [SerializeField]
-    private float platformCheckRayDistance;
-    [SerializeField]
-    private float lampCheckRayDistance;
 
     [Header("Attack Settings")]
     [SerializeField]
@@ -32,6 +23,11 @@ public class ShotgunEnemy : Enemy
 
     public override void Attack(Transform playerTransform)
     {
+        if (isCool)
+        {
+            return;
+        }
+
         Vector3 direction = GetTargetDirection(playerTransform);
 
         List<Vector3> directions = new();
@@ -61,9 +57,9 @@ public class ShotgunEnemy : Enemy
             Bullet bullet = obj.GetComponent<Bullet>();
             bullet.FinalDamage = damageValue;
             bullet.AddTargetTag(Settings.playerTag);
-
-            StartCoroutine(CoolDownRoutine(coolTime));
-            isCool = true;
         }
+
+        isCool = true;
+        StartCoroutine(CoolDownRoutine(coolTime));
     }
 }

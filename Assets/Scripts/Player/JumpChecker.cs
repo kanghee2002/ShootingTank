@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpChecker : MonoBehaviour
+public class JumpChecker : MonoBehaviour
 {
     public bool isGrounding = false;
     public bool isGroundingOneWayPlatform = false;
 
     public List<string> jumpableTags;
 
+    [HideInInspector] public Collider2D oneWayPlatformCollider = null;
     private string oneWayPlatformTag = "OneWayPlatform";
 
-    public Collider2D oneWayPlatformCollider = null;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

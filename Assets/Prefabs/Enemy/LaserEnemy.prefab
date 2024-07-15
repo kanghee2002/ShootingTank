@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 9087781231217556642, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: enemyController
       value: 
-      objectReference: {fileID: 2343765074398226132}
+      objectReference: {fileID: 2667444050104179927}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
 --- !u!4 &1074122860481650385 stripped
@@ -170,16 +170,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5069515194461726083, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
   m_PrefabInstance: {fileID: 5238394698098588498}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4102787878820623299 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8089172946932009105, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
-  m_PrefabInstance: {fileID: 5238394698098588498}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2343765074398226132
+--- !u!114 &2667444050104179927 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+  m_PrefabInstance: {fileID: 5238394698098588498}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4102787878820623299}
   m_Enabled: 1
@@ -187,16 +181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3da2ad7f759384f4685431c5ca7c266d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
-  aggressionLevel: 1
-  groundingLayerMask:
-    serializedVersion: 2
-    m_Bits: 1152
-  detectionRange: 20
-  attackRange: 100
-  platformCheckRayGap: 1
-  platformCheckRayDistance: 1.5
-  lampCheckRayDistance: 1.5
+--- !u!1 &4102787878820623299 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8089172946932009105, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+  m_PrefabInstance: {fileID: 5238394698098588498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9001382796142811694
 MonoBehaviour:
   m_ObjectHideFlags: 0
