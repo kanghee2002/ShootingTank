@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Health))]
 public class EnemyController : MonoBehaviour
@@ -23,19 +24,23 @@ public class EnemyController : MonoBehaviour
     [Header("Move Pattern Settings")]
     [SerializeField] private bool canJump = false;
     [SerializeField] private bool canFly = false;
+    [Space(5)]
     [SerializeField] private bool detectOnHit = true;
-    [SerializeField] private bool isStationaryOnShooting = true;
+    [SerializeField] private float detectionRadiusMultiplier = 2.5f;
     [SerializeField] private float moveSpeedOnDetectMultiplier = 1f;
+    [Space(5)]
+    [SerializeField] private bool isStationaryOnShooting = true;
 
     [Header("Attack Settings")]
-    [SerializeField] private float detectionRange = 20f;
     [SerializeField] private float attackRange = 100f;
 
     [Header("Move Ray Settings")]
     [SerializeField] private float downRayHorizontalOffset = 1f;
     [SerializeField] private float downRayLength = 1.5f;
+    [Space(5)]
     [SerializeField] private float frontRayVerticalOffset = -0.5f;
     [SerializeField] private float frontRayLength = 1.5f;
+    [Space(5)]
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float jumpFrontRayLength = 2f;
 
@@ -46,7 +51,6 @@ public class EnemyController : MonoBehaviour
     private JumpChecker jumpChecker;
     private PlayerDetector playerDetector;
 
-    private bool isJumping;
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; }
 
@@ -67,21 +71,30 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        health.onHealthChanged += () => playerDetector.ExpandDetectRadius(detectionRadiusMultiplier);
+
         health.onDie += () => gameObject.SetActive(false);
-        isJumping = false;
+
         isPlayerDetected = false;
 
         currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
+
     }
 
     private void Update()
     {
         ExcuteStateAction();
-        CheckAttackRange();
     }
 
     public void OnPlayerDetected(Transform playerTransform)
     {
+        if (state != State.Idle)
+        {
+            return;
+        }
+
+        playerDetector.ExpandDetectRadius(detectionRadiusMultiplier);
+
         isPlayerDetected = true;
         this.playerTransform = playerTransform;
 
@@ -93,6 +106,13 @@ public class EnemyController : MonoBehaviour
 
     public void OnPlayerLost()
     {
+        if (state != State.Attack)
+        {
+            return;
+        }
+
+        playerDetector.ReduceDetectRadius();
+
         isPlayerDetected = false;
         this.playerTransform = null;
 
@@ -117,17 +137,6 @@ public class EnemyController : MonoBehaviour
             case State.Chase:
             case State.Dead:
                 break;
-        }
-    }
-
-    private void CheckAttackRange()
-    {
-        if (state == State.Attack && playerTransform != null)
-        {
-            if (Vector3.Distance(playerTransform.position, transform.position) > detectionRange)
-            {
-                OnPlayerLost();
-            }
         }
     }
 
@@ -160,7 +169,18 @@ public class EnemyController : MonoBehaviour
                         if (isFrontCliff && isFrontHighCliff)
                         {
                             rigid.velocity = new Vector2(0, rigid.velocity.y);
-                            yield return new WaitForSeconds(1f);
+                            yield return new WaitForSeconds(0.3f);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
+
+                        if (isFrontCliff && isFrontHighCliff)
+                        {
+                            rigid.velocity = new Vector2(0, rigid.velocity.y);
+                            yield return new WaitForSeconds(0.3f);
                             break;
                         }
                     }
@@ -170,7 +190,7 @@ public class EnemyController : MonoBehaviour
                     if (isFrontCliff)
                     {
                         rigid.velocity = new Vector2(0, rigid.velocity.y);
-                        yield return new WaitForSeconds(1f);
+                        yield return new WaitForSeconds(0.3f);
                         break;
                     }
                 }
@@ -211,23 +231,33 @@ public class EnemyController : MonoBehaviour
             #region Run Away From Player
             while (true)
             {
-                if (canJump && jumpChecker.isGrounding)
-                {
-                    Jump();
-                }
-
                 int moveDirection = playerTransform.position.x - transform.position.x > 0 ? -1 : 1;
 
                 #region Platform Check
                 bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
 
-                if (isFrontPlatform)
+                if (canJump)
                 {
-                    rigid.velocity = new Vector2(0, rigid.velocity.y);
+                    bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                    yield return new WaitForSeconds(Time.deltaTime);
+                    if (isFrontPlatform && !isUpFrontPlatform)
+                    {
+                        if (jumpChecker.isGrounding)
+                        {
+                            Jump();
+                        }
+                    }
+                }
+                else
+                {
+                    if (isFrontPlatform)
+                    {
+                        rigid.velocity = new Vector2(0, rigid.velocity.y);
 
-                    continue;
+                        yield return new WaitForSeconds(Time.deltaTime);
+
+                        continue;
+                    }
                 }
                 #endregion Platform Check
 
@@ -242,7 +272,6 @@ public class EnemyController : MonoBehaviour
         else if (aggressionLevel == 1)
         {
             #region Don't Care Player
-
             while (true)
             {
                 float moveTime = 1f;
@@ -252,13 +281,7 @@ public class EnemyController : MonoBehaviour
 
                 while (moveTime > 0f)
                 {
-                    if (canJump && jumpChecker.isGrounding)
-                    {
-                        Jump();
-                    }
-
                     rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
-
 
                     #region Platform Check
 
@@ -266,12 +289,56 @@ public class EnemyController : MonoBehaviour
 
                     bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
 
-                    if (isFrontCliff || isFrontPlatform)
+                    //Stop in front of Cliff
+                    if (canJump)
                     {
-                        rigid.velocity = new Vector2(0, rigid.velocity.y);
-                        yield return new WaitForSeconds(1f);
-                        break;
+                        if (jumpChecker.isGrounding)
+                        {
+                            bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
+
+                            if (isFrontCliff && isFrontHighCliff)
+                            {
+                                rigid.velocity = new Vector2(0, rigid.velocity.y);
+                                yield return new WaitForSeconds(0.3f);
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
+
+                            if (isFrontCliff && isFrontHighCliff)
+                            {
+                                rigid.velocity = new Vector2(0, rigid.velocity.y);
+                                yield return new WaitForSeconds(0.3f);
+                                break;
+                            }
+                        }
                     }
+                    else
+                    {
+                        if (isFrontCliff)
+                        {
+                            rigid.velocity = new Vector2(0, rigid.velocity.y);
+                            yield return new WaitForSeconds(0.3f);
+                            break;
+                        }
+                    }
+
+                    //Jump when it's possible
+                    if (canJump)
+                    {
+                        bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+
+                        if (isFrontPlatform && !isUpFrontPlatform)
+                        {
+                            if (jumpChecker.isGrounding)
+                            {
+                                Jump();
+                            }
+                        }
+                    }
+
                     #endregion Platform Check
 
                     moveTime -= Time.deltaTime;
@@ -327,18 +394,18 @@ public class EnemyController : MonoBehaviour
         }
 
         //Down Ray
-        Debug.DrawRay(new Vector2(transform.position.x + moveDirection * downRayHorizontalOffset, transform.position.y), Vector3.down * downRayLength, new Color(1, 0, 1));
+        Debug.DrawRay(new Vector2(transform.position.x + moveDirection * downRayHorizontalOffset, transform.position.y), Vector3.down * downRayLength, new Color(1f, 0f, 1f));
 
         //Front Ray
-        Debug.DrawRay(transform.position + new Vector3(0f, frontRayVerticalOffset, 0f), new Vector3(moveDirection * frontRayLength, 0, 0), new Color(1, 0, 0));
+        Debug.DrawRay(transform.position + new Vector3(0f, frontRayVerticalOffset, 0f), new Vector3(moveDirection * frontRayLength, 0, 0), new Color(1f, 0f, 0f));
 
         if (canJump)
         {
             //Down Platform Ray
-            Debug.DrawRay(new Vector2(transform.position.x + 0.3f + moveDirection * downRayHorizontalOffset, myCollider.bounds.min.y), Vector3.down * (jumpHeight + 0.3f), new Color(0.5f, 0, 0.5f));
+            Debug.DrawRay(new Vector2(transform.position.x + moveDirection * downRayHorizontalOffset, myCollider.bounds.min.y), Vector3.down * (jumpHeight + 0.3f), new Color(0f, 1f, 0f));
 
             //Jump Ray
-            Debug.DrawRay(new Vector3(transform.position.x, myCollider.bounds.min.y + jumpHeight + 0.3f, 0f), new Vector3(moveDirection * jumpFrontRayLength, 0, 0), new Color(0, 0, 1));
+            Debug.DrawRay(new Vector3(transform.position.x, myCollider.bounds.min.y + jumpHeight + 0.3f, 0f), new Vector3(moveDirection * jumpFrontRayLength, 0f, 0f), new Color(0f, 0f, 1));
         }
     }
 

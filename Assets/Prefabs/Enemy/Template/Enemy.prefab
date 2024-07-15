@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: -1317815253261293691}
-  viewObstacleMaskList:
+  viewObstacleLayerMaskList:
   - serializedVersion: 2
     m_Bits: 128
 --- !u!1 &5338972074266918973
@@ -259,12 +259,12 @@ MonoBehaviour:
   moveSpeedOnDetectMultiplier: 1
   detectionRange: 20
   attackRange: 100
-  downRayHorizontalOffset: 1
+  downRayHorizontalOffset: 0.7
   downRayLength: 1.5
   frontRayVerticalOffset: -0.5
   frontRayLength: 1.5
   jumpHeight: 3
-  jumpRayLength: 1.5
+  jumpFrontRayLength: 2
 --- !u!114 &6630017351526668444
 MonoBehaviour:
   m_ObjectHideFlags: 0

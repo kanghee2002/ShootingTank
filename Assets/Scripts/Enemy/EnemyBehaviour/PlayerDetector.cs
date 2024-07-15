@@ -6,15 +6,19 @@ public class PlayerDetector : MonoBehaviour
 {
     [SerializeField] private EnemyController enemyController;
 
-    [SerializeField] private List<LayerMask> viewObstacleMaskList = new();
+    [SerializeField] private List<LayerMask> viewObstacleLayerMaskList = new();
 
     private CircleCollider2D circleCollider;
-    private LayerMask compositedObstacleMask;
+    private LayerMask compositedObstacleLayerMask;
+
+    private float initialDetectRadius;
 
     private void Awake()
     {
         circleCollider = GetComponent<CircleCollider2D>();
-        compositedObstacleMask = GetObstacleLayerMask();
+        compositedObstacleLayerMask = GetObstacleLayerMask();
+
+        initialDetectRadius = circleCollider.radius;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -28,10 +32,28 @@ public class PlayerDetector : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Settings.playerTag))
+        {
+            enemyController.OnPlayerLost();
+        }
+    }
+
+    public void ExpandDetectRadius(float multiplier)
+    {
+        if (circleCollider.radius == initialDetectRadius)
+        {
+            circleCollider.radius = initialDetectRadius * multiplier;
+        }
+    }
+
+    public void ReduceDetectRadius() => circleCollider.radius = initialDetectRadius;
+
     private LayerMask GetObstacleLayerMask()
     {
-        LayerMask newLayerMask = viewObstacleMaskList[0];
-        foreach (var layerMask in viewObstacleMaskList)
+        LayerMask newLayerMask = viewObstacleLayerMaskList[0];
+        foreach (var layerMask in viewObstacleLayerMaskList)
         {
             newLayerMask |= layerMask;
         }
@@ -41,8 +63,7 @@ public class PlayerDetector : MonoBehaviour
     private bool IsTargetVisible(Transform target)
     {
         var dir = GetTargetDir(target);
-        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, dir,
-                                                circleCollider.radius, compositedObstacleMask);
+        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, dir, Vector2.Distance(transform.position, target.position), compositedObstacleLayerMask);
 
         //Debug
         if (rayHit) Debug.DrawLine(transform.position, rayHit.point, Color.yellow);
