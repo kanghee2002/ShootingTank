@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Health))]
 public class EnemyController : MonoBehaviour
@@ -19,6 +18,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float jumpPower = 15f;
     [SerializeField] private int aggressionLevel = 1;
+    [SerializeField] private float maintainingDistance = 0f;                        //Only Used on Aggression Level 2
     [SerializeField] private LayerMask groundingLayerMask;
 
     [Header("Move Pattern Settings")]
@@ -233,11 +233,15 @@ public class EnemyController : MonoBehaviour
         if (aggressionLevel == 0)
         {
             #region Run Away From Player
+
             while (true)
             {
                 int moveDirection = playerTransform.position.x - transform.position.x > 0 ? -1 : 1;
 
                 #region Platform Check
+
+                bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
+
                 bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
 
                 if (canJump)
@@ -254,7 +258,7 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
-                    if (isFrontPlatform)
+                    if (isFrontCliff || isFrontPlatform)
                     {
                         rigid.velocity = new Vector2(0, rigid.velocity.y);
 
@@ -263,6 +267,7 @@ public class EnemyController : MonoBehaviour
                         continue;
                     }
                 }
+
                 #endregion Platform Check
 
                 SetObjectDirection(moveDirection);
@@ -271,11 +276,13 @@ public class EnemyController : MonoBehaviour
 
                 yield return new WaitForSeconds(Time.deltaTime);
             }
-            #endregion
+
+            #endregion Run Away From Player
         }
         else if (aggressionLevel == 1)
         {
             #region Don't Care Player
+
             while (true)
             {
                 float moveTime = 1f;
@@ -349,15 +356,86 @@ public class EnemyController : MonoBehaviour
                     yield return new WaitForSeconds(Time.deltaTime);
                 }
             }
-            #endregion
+
+            #endregion Don't Care Player
         }
         else if (aggressionLevel == 2)
         {
+            #region Keep Distance From Player
 
+            // if distance <= maintainDistance
+                // stop
+            // else
+                // chase
+
+
+            #endregion Keep Distance From Player
         }
         else if (aggressionLevel == 3)
         {
+            #region Run to Player
 
+            while (true)
+            {
+                int moveDirection = playerTransform.position.x - transform.position.x > 0 ? 1 : -1;
+
+                if (Mathf.Abs(playerTransform.position.x - transform.position.x) < 0.05f)
+                {
+                    moveDirection = 0;
+                }
+
+                #region Platform Check
+
+                bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
+
+                bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
+
+                if (canJump)
+                {
+                    if (isFrontCliff)
+                    {
+                        bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
+
+                        if (isFrontHighCliff)
+                        {
+                            rigid.velocity = new Vector2(0, rigid.velocity.y);
+
+                            yield return new WaitForSeconds(Time.deltaTime);
+
+                            continue;
+                        }
+                    }
+
+                    if (isFrontPlatform)
+                    {
+                        if (jumpChecker.isGrounding)
+                        {
+                            Jump();
+                        }
+                    }
+                }
+                else
+                {
+                    if (isFrontCliff || isFrontPlatform)
+                    {
+                        rigid.velocity = new Vector2(0, rigid.velocity.y);
+
+                        yield return new WaitForSeconds(Time.deltaTime);
+
+                        continue;
+                    }
+                }
+
+                #endregion Platform Check
+
+                SetObjectDirection(moveDirection);
+
+                rigid.velocity = new Vector2(moveDirection * moveSpeed * moveSpeedOnDetectMultiplier, rigid.velocity.y);
+
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+
+            #endregion Run to Player
         }
         else
         {

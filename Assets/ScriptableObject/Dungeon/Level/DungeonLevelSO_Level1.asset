@@ -17,7 +17,7 @@ MonoBehaviour:
   dungeonHeight: 6
   horizontallyBlockedDoorCountPerFloor: 1
   verticallyConnectedDoorCountPerFloor: 1
-  roomGap: 100
+  roomGap: 75
   chestRoomCount: 1
   shopRoomCount: 1
   hiddenRoomCount: 0

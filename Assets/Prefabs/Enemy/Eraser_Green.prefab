@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: jumpRayLength
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: aggressionLevel
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5069515194461726083, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: m_RootOrder
       value: 0
