@@ -7,7 +7,7 @@ public static class Settings
     public const string playerTag = "Player";
     public const string enemyTag = "Enemy";
 
-    public const float doorHorizontalOffset = 1.5f;
+    public const float doorHorizontalOffset = 3.5f;
     public const float doorVerticalOffset = 2f;
 
     public static readonly List<RoomType> regularRoomTypeList = new()

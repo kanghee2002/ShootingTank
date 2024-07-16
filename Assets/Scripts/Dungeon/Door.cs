@@ -14,8 +14,8 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void MoveObject(Transform player, Vector3 movePosition)
+    private void MoveObject(Transform objectTransform, Vector3 movePosition)
     {
-        player.transform.position = movePosition;
+        objectTransform.position = movePosition;
     }
 }

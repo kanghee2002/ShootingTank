@@ -408,6 +408,66 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: 0.4375674
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.6222006
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: 0.24814397
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: 0.6242497
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: 0.25223273
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -0.49852583
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 0.5030468
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: -0.49428385
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].x
+      value: 0.6237865
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
+      value: -0.4350552
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].x
+      value: 0.6175112
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[5].y
+      value: 0.45472974
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].x
+      value: 0.40625
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223352020897710118, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6546798143788716939, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -447,37 +507,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6524588787280189207, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
---- !u!1 &1339862183955323465 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7259633309455396380, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
-  m_PrefabInstance: {fileID: 8513847865838957653}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &7069782927572256021
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1339862183955323465}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.4, y: 0.1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 0.32, y: 0.32}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.4, y: 1}
-  m_EdgeRadius: 0
 --- !u!4 &8308689474482684745 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 389885211801630492, guid: c888bb52657550e44ae1490b891a49d8, type: 3}

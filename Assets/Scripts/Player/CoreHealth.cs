@@ -17,5 +17,4 @@ public class CoreHealth : Health
     public void AddCoreDamageMultiplier(float amount) => coreDamageMultiplier += amount;
 
     public void MinusCoreDamageMultiplier(float amount) => coreDamageMultiplier -= amount;
-
 }

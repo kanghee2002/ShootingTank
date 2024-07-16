@@ -96,7 +96,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5069515194461726083}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6873915214491994978
 MonoBehaviour:
@@ -177,8 +177,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3548016325262430082}
-  - {fileID: 854822096941569099}
   - {fileID: 6621998725887795120}
+  - {fileID: 854822096941569099}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -255,9 +255,9 @@ MonoBehaviour:
   canJump: 0
   canFly: 0
   detectOnHit: 1
-  isStationaryOnShooting: 1
+  detectionRadiusMultiplier: 2.5
   moveSpeedOnDetectMultiplier: 1
-  detectionRange: 20
+  stationaryTimeOnAttack: 0
   attackRange: 100
   downRayHorizontalOffset: 0.7
   downRayLength: 1.5
@@ -354,7 +354,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 389885211801630492, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 389885211801630492, guid: c888bb52657550e44ae1490b891a49d8, type: 3}
       propertyPath: m_LocalScale.x
