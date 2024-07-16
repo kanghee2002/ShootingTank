@@ -684,58 +684,64 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         {
             for (int y = 0; y < dungeonHeight; y++)
             {
-                Tilemap tilemap = roomInfos[x, y].roomTransform.GetComponentInChildren<Tilemap>();
+                Tilemap[] tilemapArray = roomInfos[x, y].roomTransform.GetComponentsInChildren<Tilemap>();
 
                 if (!roomInfos[x, y].isUpConnected)
                 {
                     Doorway upDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Up);
 
-                    BlockVerticalDoor(tilemap, upDoorway.doorwayCopyPosition, upDoorway.doorwayCopyWidth, upDoorway.doorwayCopyHeight);
+                    BlockVerticalDoor(tilemapArray, upDoorway.doorwayCopyPosition, upDoorway.doorwayCopyWidth, upDoorway.doorwayCopyHeight);
                 }
                 if (!roomInfos[x, y].isDownConnected)
                 {
                     Doorway downDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Down);
 
-                    BlockVerticalDoor(tilemap, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
+                    BlockVerticalDoor(tilemapArray, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
                 }
                 if (!roomInfos[x, y].isLeftConnected)
                 {
                     Doorway downDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Left);
 
-                    BlockHorizontalDoor(tilemap, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
+                    BlockHorizontalDoor(tilemapArray, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
                 }
                 if (!roomInfos[x, y].isRightConnected)
                 {
                     Doorway downDoorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Right);
 
-                    BlockHorizontalDoor(tilemap, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
+                    BlockHorizontalDoor(tilemapArray, downDoorway.doorwayCopyPosition, downDoorway.doorwayCopyWidth, downDoorway.doorwayCopyHeight);
                 }
             }
         }
     }
 
-    private void BlockVerticalDoor(Tilemap tilemap, Vector2Int copyPosition, int copyWidth, int copyHeight)
+    private void BlockVerticalDoor(Tilemap[] tilemapArray, Vector2Int copyPosition, int copyWidth, int copyHeight)
     {
-        for (int y = copyPosition.y; y < copyPosition.y + copyHeight; y++)
+        foreach (Tilemap tilemap in tilemapArray)
         {
-            TileBase copiedTile = tilemap.GetTile(new Vector3Int(copyPosition.x, y, 0));
-
-            for (int x = copyPosition.x + 1; x < copyPosition.x + copyWidth; x++)
+            for (int y = copyPosition.y; y < copyPosition.y + copyHeight; y++)
             {
-                tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
+                TileBase copiedTile = tilemap.GetTile(new Vector3Int(copyPosition.x, y, 0));
+
+                for (int x = copyPosition.x + 1; x < copyPosition.x + copyWidth; x++)
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
+                }
             }
         }
     }
 
-    private void BlockHorizontalDoor(Tilemap tilemap, Vector2Int copyPosition, int copyWidth, int copyHeight)
+    private void BlockHorizontalDoor(Tilemap[] tilemapArray, Vector2Int copyPosition, int copyWidth, int copyHeight)
     {
-        for (int x = copyPosition.x; x < copyPosition.x + copyWidth; x++)
+        foreach (Tilemap tilemap in tilemapArray)
         {
-            TileBase copiedTile = tilemap.GetTile(new Vector3Int(x, copyPosition.y, 0));
-
-            for (int y = copyPosition.y + 1;  y < copyPosition.y + copyHeight; y++)
+            for (int x = copyPosition.x; x < copyPosition.x + copyWidth; x++)
             {
-                tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
+                TileBase copiedTile = tilemap.GetTile(new Vector3Int(x, copyPosition.y, 0));
+
+                for (int y = copyPosition.y + 1; y < copyPosition.y + copyHeight; y++)
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
+                }
             }
         }
     }
