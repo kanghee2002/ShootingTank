@@ -525,20 +525,6 @@ public class EnemyController : MonoBehaviour
 
                     if (canJump)
                     {
-
-                        if (isFrontPlatform)
-                        {
-                            bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
-
-                            if (!isUpFrontPlatform || isJumpAtDeadEnd)
-                            {
-                                if (jumpChecker.isGrounding)
-                                {
-                                    Jump();
-                                }
-                            }
-                        }
-
                         if (isFrontCliff)
                         {
                             bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
@@ -558,6 +544,19 @@ public class EnemyController : MonoBehaviour
                                 yield return new WaitForFixedUpdate();
 
                                 continue;
+                            }
+                        }
+
+                        if (isFrontPlatform)
+                        {
+                            bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+
+                            if (!isUpFrontPlatform || isJumpAtDeadEnd)
+                            {
+                                if (jumpChecker.isGrounding)
+                                {
+                                    Jump();
+                                }
                             }
                         }
                     }

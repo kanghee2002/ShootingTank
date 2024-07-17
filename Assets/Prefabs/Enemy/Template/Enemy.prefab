@@ -247,23 +247,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  jumpPower: 15
-  aggressionLevel: 1
   groundingLayerMask:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 3200
   canJump: 0
+  jumpPower: 15
+  jumpHeight: 3
+  isJumpAtDeadEnd: 0
   canFly: 0
+  aggressionLevel: 1
+  maintainDistance: 0
+  attackRange: 100
+  stationaryTimeOnAttack: 0
   detectOnHit: 1
   detectionRadiusMultiplier: 2.5
   moveSpeedOnDetectMultiplier: 1
-  stationaryTimeOnAttack: 0
-  attackRange: 100
   downRayHorizontalOffset: 0.7
   downRayLength: 1.5
   frontRayVerticalOffset: -0.5
   frontRayLength: 1.5
-  jumpHeight: 3
   jumpFrontRayLength: 2
 --- !u!114 &6630017351526668444
 MonoBehaviour:
