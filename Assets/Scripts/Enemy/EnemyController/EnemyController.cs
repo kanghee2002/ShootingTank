@@ -231,55 +231,26 @@ public class EnemyController : MonoBehaviour
 
                 #region Platform Check
 
-                bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
-
                 bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
 
                 if (canJump)
                 {
-                    if (isFrontCliff)
-                    {
-                        bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
-
-                        if (isFrontHighCliff)
-                        {
-                            if (isJumpAtDeadEnd && jumpChecker.isGrounding)
-                            {
-                                Jump();
-                            }
-
-                            rigid.velocity = new Vector2(0, rigid.velocity.y);
-                            yield return new WaitForFixedUpdate();
-                            continue;
-                        }
-                    }
-
                     if (isFrontPlatform)
                     {
                         bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                        if (!isUpFrontPlatform)
+                        if (!isUpFrontPlatform || isJumpAtDeadEnd)
                         {
                             if (jumpChecker.isGrounding)
                             {
                                 Jump();
                             }
                         }
-                        else
-                        {
-                            if (isJumpAtDeadEnd)
-                            {
-                                if (jumpChecker.isGrounding)
-                                {
-                                    Jump();
-                                }
-                            }
-                        }
                     }
                 }
                 else
                 {
-                    if (isFrontCliff || isFrontPlatform)
+                    if (isFrontPlatform)
                     {
                         if (isJumpAtDeadEnd && jumpChecker.isGrounding)
                         {
