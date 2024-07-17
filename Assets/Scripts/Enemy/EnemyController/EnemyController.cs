@@ -404,8 +404,6 @@ public class EnemyController : MonoBehaviour
                         continue;
                     }
 
-                    Debug.Log("State : Stay Still");
-
                     int viewDirection = playerTransform.position.x - transform.position.x > 0 ? 1 : -1;
 
                     SetObjectDirection(viewDirection);
@@ -427,8 +425,6 @@ public class EnemyController : MonoBehaviour
 
                 if (distanceToPlayer > maintainDistance)                // Chase Player
                 {
-                    Debug.Log("State : Chase Player");
-
                     #region Chase Player
 
                     int moveDirection = playerTransform.position.x - transform.position.x > 0 ? 1 : -1;
@@ -511,8 +507,6 @@ public class EnemyController : MonoBehaviour
                 }
                 else if (distanceToPlayer < maintainDistance)
                 {
-                    Debug.Log("State : Run Away");
-
                     #region Run Away From Player
 
                     int moveDirection = playerTransform.position.x - transform.position.x > 0 ? -1 : 1;
@@ -594,34 +588,11 @@ public class EnemyController : MonoBehaviour
             {
                 int moveDirection = playerTransform.position.x - transform.position.x > 0 ? 1 : -1;
 
-                if (Mathf.Abs(playerTransform.position.x - transform.position.x) < 0.05f)
+                if (Mathf.Abs(playerTransform.position.x - transform.position.x) < 1f)
                 {
                     moveDirection = 0;
-                }
 
-                #region Platform Check
-
-                bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
-
-                bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
-
-                if (canJump)
-                {
-                    if (isFrontCliff)
-                    {
-                        bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
-
-                        if (isFrontHighCliff)
-                        {
-                            rigid.velocity = new Vector2(0, rigid.velocity.y);
-
-                            yield return new WaitForFixedUpdate();
-
-                            continue;
-                        }
-                    }
-
-                    if (isFrontPlatform)
+                    if (canJump && isJumpAtDeadEnd)
                     {
                         if (jumpChecker.isGrounding)
                         {
@@ -629,15 +600,24 @@ public class EnemyController : MonoBehaviour
                         }
                     }
                 }
-                else
+
+                #region Platform Check
+
+                if (canJump)
                 {
-                    if (isFrontCliff || isFrontPlatform)
+                    bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
+
+                    if (isFrontPlatform)
                     {
-                        rigid.velocity = new Vector2(0, rigid.velocity.y);
+                        bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                        yield return new WaitForFixedUpdate();
-
-                        continue;
+                        if (!isUpFrontPlatform || isJumpAtDeadEnd)
+                        {
+                            if (jumpChecker.isGrounding)
+                            {
+                                Jump();
+                            }
+                        }
                     }
                 }
 
