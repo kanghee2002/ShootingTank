@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: 1
   damageValue: 1
+  ChargeDamageMultiplier: 0
   bulletSpeed: 30
   weaponLength: 1
   maxAmmo: 200
@@ -118,6 +119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 2725257939580471691, guid: 32661ecdad0e4f843899637e74c5e19b, type: 3}
+  bulletPrefab: {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
   poolSize: 30
   bulletRotatedDegree: 90

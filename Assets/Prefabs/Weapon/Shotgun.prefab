@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: 2
   damageValue: 1
+  ChargeDamageMultiplier: 0
   bulletSpeed: 30
   weaponLength: 1
   maxAmmo: 500
@@ -107,6 +108,8 @@ MonoBehaviour:
   minChargeTime: 1
   maxChargeTime: 3
   pelletCount: 5
+  shootingType: 0
+  shootingAngle: 0
 --- !u!114 &5325302779619427807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
+  bulletPrefab: {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
   poolSize: 20
   bulletRotatedDegree: 90

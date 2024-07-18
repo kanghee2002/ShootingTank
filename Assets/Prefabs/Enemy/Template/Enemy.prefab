@@ -65,6 +65,7 @@ MonoBehaviour:
   viewObstacleLayerMaskList:
   - serializedVersion: 2
     m_Bits: 128
+  circleCollider: {fileID: 0}
 --- !u!1 &5338972074266918973
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,9 +248,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
-  groundingLayerMask:
+  idleStopProbability: 0.25
+  blockingLayerMask:
     serializedVersion: 2
-    m_Bits: 3200
+    m_Bits: 3264
   canJump: 0
   jumpPower: 15
   jumpHeight: 3
@@ -259,6 +261,7 @@ MonoBehaviour:
   maintainDistance: 0
   attackRange: 100
   stationaryTimeOnAttack: 0
+  detectRadius: 10
   detectOnHit: 1
   detectionRadiusMultiplier: 2.5
   moveSpeedOnDetectMultiplier: 1
