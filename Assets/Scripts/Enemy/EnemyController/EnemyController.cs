@@ -16,7 +16,8 @@ public class EnemyController : MonoBehaviour
 
     [Header("Move Settings")]
     [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private LayerMask groundingLayerMask;
+    [SerializeField][Range(0, 1)] private float idleStopProbability = 0.25f;
+    [SerializeField] private LayerMask blockingLayerMask;
 
     [Header("Jump Settings")]
     [SerializeField] private bool canJump = false;
@@ -36,6 +37,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float stationaryTimeOnAttack = 0f;
 
     [Header("Detect On Hit Settings")]
+    [SerializeField] private float detectRadius = 10f;
     [SerializeField] private bool detectOnHit = true;
     [SerializeField] private float detectionRadiusMultiplier = 2.5f;
     [SerializeField] private float moveSpeedOnDetectMultiplier = 1f;
@@ -59,6 +61,8 @@ public class EnemyController : MonoBehaviour
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; }
 
+    public float DetectRadius { get => detectRadius; }
+
     private Transform playerTransform;
     private State state;
     private Coroutine currentMoveRoutine;
@@ -76,6 +80,8 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        playerDetector.circleCollider.radius = detectRadius;
+
         health.onHealthChanged += () => playerDetector.ExpandDetectRadius(detectionRadiusMultiplier);
 
         health.onDie += () => gameObject.SetActive(false);
@@ -154,57 +160,67 @@ public class EnemyController : MonoBehaviour
         while (true)
         {
             float moveTime = 1f;
+
             int moveDirection = Random.Range(0, 1f) > 0.5f ? 1 : -1;
 
             SetObjectDirection(moveDirection);
 
+            float stopProbability = Random.Range(0f, 1f);
+
             while (moveTime > 0f)
             {
-                rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
-
-                #region Platform Check
-
-                bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
-
-                bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
-
-                //Stop in front of Cliff
-                if (canJump)
+                if (stopProbability <= idleStopProbability)
                 {
-                    bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
-
-                    if (isFrontCliff && isFrontHighCliff)
-                    {
-                        rigid.velocity = new Vector2(0, rigid.velocity.y);
-                        yield return new WaitForFixedUpdate();
-                        break;
-                    }
+                    rigid.velocity = new Vector2(0f, rigid.velocity.y);
                 }
                 else
                 {
-                    if (isFrontCliff)
-                    {
-                        rigid.velocity = new Vector2(0, rigid.velocity.y);
-                        yield return new WaitForFixedUpdate();
-                        break;
-                    }
-                }
-                
-                //Jump when it's possible
-                if (canJump)
-                {
-                    bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+                    rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
 
-                    if (isFrontPlatform && !isUpFrontPlatform)
+                    #region Platform Check
+
+                    bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
+
+                    bool isFrontBlocking = CheckFrontBlocking(moveDirection, frontRayVerticalOffset, frontRayLength);
+
+                    //Stop in front of Cliff
+                    if (canJump)
                     {
-                        if (jumpChecker.isGrounding)
+                        bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
+
+                        if (isFrontCliff && isFrontHighCliff)
                         {
-                            Jump();
+                            rigid.velocity = new Vector2(0, rigid.velocity.y);
+                            yield return new WaitForFixedUpdate();
+                            break;
                         }
                     }
-                }
+                    else
+                    {
+                        if (isFrontCliff)
+                        {
+                            rigid.velocity = new Vector2(0, rigid.velocity.y);
+                            yield return new WaitForFixedUpdate();
+                            break;
+                        }
+                    }
 
-                #endregion Platform Check
+                    //Jump when it's possible
+                    if (canJump)
+                    {
+                        bool isUpFrontBlocking = CheckFrontBlocking(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+
+                        if (isFrontBlocking && !isUpFrontBlocking)
+                        {
+                            if (jumpChecker.isGrounding)
+                            {
+                                Jump();
+                            }
+                        }
+                    }
+
+                    #endregion Platform Check
+                }
 
                 moveTime -= Time.deltaTime;
                 yield return new WaitForFixedUpdate();
@@ -231,15 +247,15 @@ public class EnemyController : MonoBehaviour
 
                 #region Platform Check
 
-                bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
+                bool isFrontBlocking = CheckFrontBlocking(moveDirection, frontRayVerticalOffset, frontRayLength);
 
                 if (canJump)
                 {
-                    if (isFrontPlatform)
+                    if (isFrontBlocking)
                     {
-                        bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+                        bool isUpFrontBlocking = CheckFrontBlocking(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                        if (!isUpFrontPlatform || isJumpAtDeadEnd)
+                        if (!isUpFrontBlocking || isJumpAtDeadEnd)
                         {
                             if (jumpChecker.isGrounding)
                             {
@@ -250,7 +266,7 @@ public class EnemyController : MonoBehaviour
                 }
                 else
                 {
-                    if (isFrontPlatform)
+                    if (isFrontBlocking)
                     {
                         if (isJumpAtDeadEnd && jumpChecker.isGrounding)
                         {
@@ -283,37 +299,59 @@ public class EnemyController : MonoBehaviour
             while (true)
             {
                 float moveTime = 1f;
+
                 int moveDirection = Random.Range(0, 1f) > 0.5f ? 1 : -1;
 
                 SetObjectDirection(moveDirection);
 
+                float stopProbability = Random.Range(0f, 1f);
+
                 while (moveTime > 0f)
                 {
-                    rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
-
-                    #region Platform Check
-
-                    bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
-
-                    bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
-
-                    //Stop in front of Cliff
-                    if (canJump)
+                    if (stopProbability <= idleStopProbability)
                     {
-                        if (isFrontCliff)
+                        rigid.velocity = new Vector2(0f, rigid.velocity.y);
+                    }
+                    else
+                    {
+
+                        rigid.velocity = new Vector2(moveDirection * moveSpeed, rigid.velocity.y);
+
+                        #region Platform Check
+
+                        bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
+
+                        bool isFrontBlocking = CheckFrontBlocking(moveDirection, frontRayVerticalOffset, frontRayLength);
+
+                        //Stop in front of Cliff
+                        if (canJump)
                         {
-                            bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
-
-                            if (isFrontCliff && isFrontHighCliff)
+                            if (isFrontCliff)
                             {
-                                if (isJumpAtDeadEnd)
-                                {
-                                    if (jumpChecker.isGrounding)
-                                    {
-                                        Jump();
-                                    }
-                                }
+                                bool isFrontHighCliff = CheckFrontCliff(moveDirection, jumpHeight + 0.3f, false);
 
+                                if (isFrontCliff && isFrontHighCliff)
+                                {
+                                    if (isJumpAtDeadEnd)
+                                    {
+                                        if (jumpChecker.isGrounding)
+                                        {
+                                            Jump();
+                                        }
+                                    }
+
+                                    rigid.velocity = new Vector2(0, rigid.velocity.y);
+
+                                    yield return new WaitForFixedUpdate();
+
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (isFrontCliff || isFrontBlocking)
+                            {
                                 rigid.velocity = new Vector2(0, rigid.velocity.y);
 
                                 yield return new WaitForFixedUpdate();
@@ -321,34 +359,23 @@ public class EnemyController : MonoBehaviour
                                 break;
                             }
                         }
-                    }
-                    else
-                    {
-                        if (isFrontCliff)
+
+                        //Jump when it's possible
+                        if (canJump)
                         {
-                            rigid.velocity = new Vector2(0, rigid.velocity.y);
+                            bool isUpFrontBlocking = CheckFrontBlocking(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                            yield return new WaitForFixedUpdate();
-
-                            break;
-                        }
-                    }
-
-                    //Jump when it's possible
-                    if (canJump)
-                    {
-                        bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
-
-                        if ((isFrontPlatform && !isUpFrontPlatform) || (isFrontPlatform && isJumpAtDeadEnd))
-                        {
-                            if (jumpChecker.isGrounding)
+                            if ((isFrontBlocking && !isUpFrontBlocking) || (isFrontBlocking && isJumpAtDeadEnd))
                             {
-                                Jump();
+                                if (jumpChecker.isGrounding)
+                                {
+                                    Jump();
+                                }
                             }
                         }
-                    }
 
-                    #endregion Platform Check
+                        #endregion Platform Check
+                    }
 
                     moveTime -= Time.deltaTime;
 
@@ -417,7 +444,7 @@ public class EnemyController : MonoBehaviour
 
                     bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
 
-                    bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
+                    bool isFrontBlocking = CheckFrontBlocking(moveDirection, frontRayVerticalOffset, frontRayLength);
 
                     if (canJump)
                     {
@@ -443,11 +470,11 @@ public class EnemyController : MonoBehaviour
                             }
                         }
 
-                        if (isFrontPlatform)
+                        if (isFrontBlocking)
                         {
-                            bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+                            bool isUpFrontBlocking = CheckFrontBlocking(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                            if (!isUpFrontPlatform || isJumpAtDeadEnd)
+                            if (!isUpFrontBlocking || isJumpAtDeadEnd)
                             {
                                 if (jumpChecker.isGrounding)
                                 {
@@ -458,7 +485,7 @@ public class EnemyController : MonoBehaviour
                     }
                     else
                     {
-                        if (isFrontCliff || isFrontPlatform)
+                        if (isFrontCliff || isFrontBlocking)
                         {
                             rigid.velocity = new Vector2(0, rigid.velocity.y);
 
@@ -486,7 +513,7 @@ public class EnemyController : MonoBehaviour
 
                     bool isFrontCliff = CheckFrontCliff(moveDirection, downRayLength);
 
-                    bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
+                    bool isFrontBlocking = CheckFrontBlocking(moveDirection, frontRayVerticalOffset, frontRayLength);
 
                     if (canJump)
                     {
@@ -512,11 +539,11 @@ public class EnemyController : MonoBehaviour
                             }
                         }
 
-                        if (isFrontPlatform)
+                        if (isFrontBlocking)
                         {
-                            bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+                            bool isUpFrontBlocking = CheckFrontBlocking(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                            if (!isUpFrontPlatform || isJumpAtDeadEnd)
+                            if (!isUpFrontBlocking || isJumpAtDeadEnd)
                             {
                                 if (jumpChecker.isGrounding)
                                 {
@@ -527,7 +554,7 @@ public class EnemyController : MonoBehaviour
                     }
                     else
                     {
-                        if (isFrontCliff || isFrontPlatform)
+                        if (isFrontCliff || isFrontBlocking)
                         {
                             rigid.velocity = new Vector2(0, rigid.velocity.y);
 
@@ -559,7 +586,9 @@ public class EnemyController : MonoBehaviour
             {
                 int moveDirection = playerTransform.position.x - transform.position.x > 0 ? 1 : -1;
 
-                if (Mathf.Abs(playerTransform.position.x - transform.position.x) < 1f)
+                SetObjectDirection(moveDirection);
+
+                if (Mathf.Abs(playerTransform.position.x - transform.position.x) < 2f)
                 {
                     moveDirection = 0;
 
@@ -576,13 +605,13 @@ public class EnemyController : MonoBehaviour
 
                 if (canJump)
                 {
-                    bool isFrontPlatform = CheckFrontPlatform(moveDirection, frontRayVerticalOffset, frontRayLength);
+                    bool isFrontBlocking = CheckFrontBlocking(moveDirection, frontRayVerticalOffset, frontRayLength);
 
-                    if (isFrontPlatform)
+                    if (isFrontBlocking)
                     {
-                        bool isUpFrontPlatform = CheckFrontPlatform(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
+                        bool isUpFrontBlocking = CheckFrontBlocking(moveDirection, jumpHeight + 0.3f, jumpFrontRayLength, false);
 
-                        if (!isUpFrontPlatform || isJumpAtDeadEnd)
+                        if (!isUpFrontBlocking || isJumpAtDeadEnd)
                         {
                             if (jumpChecker.isGrounding)
                             {
@@ -593,8 +622,6 @@ public class EnemyController : MonoBehaviour
                 }
 
                 #endregion Platform Check
-
-                SetObjectDirection(moveDirection);
 
                 rigid.velocity = new Vector2(moveDirection * moveSpeed * moveSpeedOnDetectMultiplier, rigid.velocity.y);
 
@@ -688,7 +715,7 @@ public class EnemyController : MonoBehaviour
             originVector = new Vector2(transform.position.x + direction * downRayHorizontalOffset, myCollider.bounds.min.y);
         }
 
-        RaycastHit2D downRayHit = Physics2D.Raycast(originVector, Vector3.down, length, groundingLayerMask);
+        RaycastHit2D downRayHit = Physics2D.Raycast(originVector, Vector3.down, length, blockingLayerMask);
 
         if (downRayHit.collider == null)
             return true;
@@ -696,7 +723,7 @@ public class EnemyController : MonoBehaviour
             return false;
     }
 
-    private bool CheckFrontPlatform(int direction, float offset, float length, bool isUsingTransformPosition = true)
+    private bool CheckFrontBlocking(int direction, float offset, float length, bool isUsingTransformPosition = true)
     {
         Vector2 originVector;
 
@@ -705,7 +732,7 @@ public class EnemyController : MonoBehaviour
         else
             originVector = new Vector3(transform.position.x, myCollider.bounds.min.y + offset, 0f);
 
-        RaycastHit2D frontRayHit = Physics2D.Raycast(originVector, Vector3.right * direction, length, groundingLayerMask);
+        RaycastHit2D frontRayHit = Physics2D.Raycast(originVector, Vector3.right * direction, length, blockingLayerMask);
 
         if (frontRayHit.collider != null)
             return true;

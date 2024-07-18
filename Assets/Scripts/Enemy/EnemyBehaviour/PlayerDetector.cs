@@ -8,17 +8,14 @@ public class PlayerDetector : MonoBehaviour
 
     [SerializeField] private List<LayerMask> viewObstacleLayerMaskList = new();
 
-    private CircleCollider2D circleCollider;
-    private LayerMask compositedObstacleLayerMask;
+    public CircleCollider2D circleCollider;
 
-    private float initialDetectRadius;
+    private LayerMask compositedObstacleLayerMask;
 
     private void Awake()
     {
         circleCollider = GetComponent<CircleCollider2D>();
         compositedObstacleLayerMask = GetObstacleLayerMask();
-
-        initialDetectRadius = circleCollider.radius;
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -42,13 +39,13 @@ public class PlayerDetector : MonoBehaviour
 
     public void ExpandDetectRadius(float multiplier)
     {
-        if (circleCollider.radius == initialDetectRadius)
+        if (circleCollider.radius == enemyController.DetectRadius)
         {
-            circleCollider.radius = initialDetectRadius * multiplier;
+            circleCollider.radius = enemyController.DetectRadius * multiplier;
         }
     }
 
-    public void ReduceDetectRadius() => circleCollider.radius = initialDetectRadius;
+    public void ReduceDetectRadius() => circleCollider.radius = enemyController.DetectRadius;
 
     private LayerMask GetObstacleLayerMask()
     {
