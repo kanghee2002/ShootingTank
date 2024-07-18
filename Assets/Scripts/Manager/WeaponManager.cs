@@ -36,7 +36,7 @@ public class WeaponManager : Singleton<WeaponManager>
         AddAvailableWeapon(WeaponName.Burstgun);
         AddAvailableWeapon(WeaponName.LaserShotgun);
 
-        isRightWeaponEnabled = false;
+        //isRightWeaponEnabled = false;
     }
 
     public Weapon InitializeWeapon(GameObject weaponPrefab)      //Act at First

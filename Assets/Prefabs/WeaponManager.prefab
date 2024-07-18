@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203285065542807102}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPrefabList:
-  - {fileID: 6917438833306291598, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
   - {fileID: 6917438833306291598, guid: d86e30a399c2fa84d9847fb0a6e1ac45, type: 3}
   - {fileID: 1277207108211459209, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
   - {fileID: 7357572772690487926, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
@@ -54,8 +53,9 @@ MonoBehaviour:
   - {fileID: 1060029884443221473, guid: 5184912688e275a4b8f74be1f3f3233f, type: 3}
   - {fileID: 6917438833306291598, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
   - {fileID: 6917438833306291598, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
+  - {fileID: 6917438833306291598, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
   weaponsParent: {fileID: 203285065590799482}
-  isRightWeaponEnabled: 0
+  isRightWeaponEnabled: 1
 --- !u!1 &203285065590799481
 GameObject:
   m_ObjectHideFlags: 0

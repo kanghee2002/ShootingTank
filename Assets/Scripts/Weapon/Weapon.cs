@@ -12,6 +12,10 @@ public abstract class Weapon : MonoBehaviour
     private WeaponName title;
     public WeaponName Title { get => title; }
 
+    [SerializeField] private Vector2 handlePosition;
+
+    public Vector2 HandlePosition { get => handlePosition; }
+
     [SerializeField] protected float damageValue;
 
     [SerializeField] protected float ChargeDamageMultiplier;
@@ -20,8 +24,7 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] protected float weaponLength;
 
-    [SerializeField]
-    private int maxAmmo;
+    [SerializeField] private int maxAmmo;
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
 
     private int curAmmo;

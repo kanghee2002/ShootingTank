@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] weaponParents = new GameObject[2];
+    [SerializeField] private Transform[] weaponHandlePositions;
 
     private Weapon[] weapons = new Weapon[2];
     public Weapon[] Weapons { get => weapons; }
@@ -43,11 +42,11 @@ public class WeaponController : MonoBehaviour
         int weaponHand = (int)WeaponHand.Right;
         if (!WeaponManager.Instance.IsRightWeaponEnabled)
         {
-            weaponParents[weaponHand].SetActive(false);
+            weaponHandlePositions[weaponHand].gameObject.SetActive(false);
         }
         else
         {
-            weaponParents[weaponHand].SetActive(true);
+            weaponHandlePositions[weaponHand].gameObject.SetActive(true);
         }
     }
 
@@ -78,21 +77,43 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        /*Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 weaponPos = weapon.transform.position;
 
         float dy = targetPos.y - weaponPos.y;
         float dx = targetPos.x - weaponPos.x;
         float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-        weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
+
+        weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);*/
+
+        Vector3 targetPos = Input.mousePosition;
+            
+
+
+        targetPos.x = Mathf.Clamp(targetPos.x, 0f, Screen.width);
+        targetPos.y = Mathf.Clamp(targetPos.y, 0f, Screen.height);
+
+        targetPos = Camera.main.ScreenToWorldPoint(targetPos);
+
+
+        Vector3 weaponPos = weaponHandlePositions[weaponHandIdx].position;
+
+        float dy = targetPos.y - weaponPos.y;
+        float dx = targetPos.x - weaponPos.x;
+        float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
+
+        weaponHandlePositions[weaponHandIdx].eulerAngles = new Vector3(0f, 0f, rotateDegree);
 
         if (Mathf.Abs(rotateDegree) > 90f)
         {
-            weaponSpriteRenderers[weaponHandIdx].flipY = true;
+            Vector3 pointLocalScale = weaponHandlePositions[weaponHandIdx].localScale;
+            weaponHandlePositions[weaponHandIdx].localScale = new Vector3(pointLocalScale.x, -1f, 1f);
         }
         else
         {
-            weaponSpriteRenderers[weaponHandIdx].flipY = false;
+            //weaponSpriteRenderers[weaponHandIdx].flipY = false;
+            Vector3 pointLocalScale = weaponHandlePositions[weaponHandIdx].localScale;
+            weaponHandlePositions[weaponHandIdx].localScale = new Vector3(pointLocalScale.x, 1f, 1f);
         }
     }
 
@@ -123,8 +144,10 @@ public class WeaponController : MonoBehaviour
 
         int weaponHandIdx = (int)weaponHand;
         Weapon weapon = WeaponManager.Instance.GetWeapon(isFront);
-        weapon.transform.SetParent(weaponParents[weaponHandIdx].transform);
-        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.SetParent(weaponHandlePositions[weaponHandIdx]);
+        weapon.transform.localPosition = weapon.HandlePosition;
+        weapon.transform.localRotation = Quaternion.identity;
+        weapon.transform.localScale = new Vector3(weapon.transform.localScale.x, Mathf.Abs(weapon.transform.localScale.y), 1f);
         weaponSpriteRenderers[weaponHandIdx] = weapon.GetComponent<SpriteRenderer>();
 
         if (weapons[weaponHandIdx])
