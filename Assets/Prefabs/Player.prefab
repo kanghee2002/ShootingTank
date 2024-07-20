@@ -134,12 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55de82058bf9bce428eeeeabbea1960f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponParents:
-  - {fileID: 1691444258}
-  - {fileID: 1691934164}
-  weaponRotationPoints:
-  - {fileID: 1691444258}
-  - {fileID: 1691934164}
+  weaponHandlePositions: []
+  blockingLayerBetweenWeapon:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &1113142898372432530
 MonoBehaviour:
   m_ObjectHideFlags: 0

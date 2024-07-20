@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private Transform[] weaponHandlePositions;
+    [SerializeField] private LayerMask blockingLayerBetweenWeapon;
 
     private Weapon[] weapons = new Weapon[2];
     public Weapon[] Weapons { get => weapons; }
@@ -77,19 +78,8 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        /*Vector3 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 weaponPos = weapon.transform.position;
-
-        float dy = targetPos.y - weaponPos.y;
-        float dx = targetPos.x - weaponPos.x;
-        float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-
-        weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);*/
-
         Vector3 targetPos = Input.mousePosition;
             
-
-
         targetPos.x = Mathf.Clamp(targetPos.x, 0f, Screen.width);
         targetPos.y = Mathf.Clamp(targetPos.y, 0f, Screen.height);
 
@@ -172,11 +162,31 @@ public class WeaponController : MonoBehaviour
 
             Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 myPos = transform.position;
-            var dir = (targetPos - myPos).normalized;
-            weapon.Fire(dir, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            
+            Vector2 direction = (targetPos - myPos).normalized;
+
+            if (isBlockingBetweenWeapon(direction, weapon.WeaponLength))
+            {
+                //weapon.CurAmmo--;
+                //weapon.Recharge();
+                //onWeaponShoot?.Invoke(weaponHand, weapon);
+                return;
+            }
+
+            weapon.Fire(direction, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
             onWeaponShoot?.Invoke(weaponHand, weapon);
         }
+    }
+
+    private bool isBlockingBetweenWeapon(Vector2 direction, float distance)
+    {
+        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, direction, distance, blockingLayerBetweenWeapon);
+
+        if (rayHit)
+            return true;
+        else 
+            return false;
     }
 
     public void AddChargeDamageMultiplierBonus(float amount) => chargeDamageMultiplierBonus += amount;

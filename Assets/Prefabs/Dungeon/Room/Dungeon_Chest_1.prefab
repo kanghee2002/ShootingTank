@@ -10587,6 +10587,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6029305278595561831, guid: fc44a266201d3cd4992d14edbc0b5ad9, type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 320
+      objectReference: {fileID: 0}
     - target: {fileID: 6508562777994711269, guid: fc44a266201d3cd4992d14edbc0b5ad9, type: 3}
       propertyPath: m_CompositePaths.m_Paths.Array.size
       value: 1

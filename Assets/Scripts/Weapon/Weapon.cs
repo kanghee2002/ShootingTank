@@ -24,6 +24,8 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] protected float weaponLength;
 
+    public float WeaponLength { get => weaponLength; }
+
     [SerializeField] private int maxAmmo;
     public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
 

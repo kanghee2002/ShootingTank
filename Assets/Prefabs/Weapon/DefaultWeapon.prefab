@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5860492195903490947}
   - component: {fileID: 1877275368419847368}
   - component: {fileID: 5325302779619427807}
+  - component: {fileID: 7537909691717493701}
   m_Layer: 0
   m_Name: DefaultWeapon
   m_TagString: Untagged
@@ -123,3 +124,35 @@ MonoBehaviour:
   bulletPrefab: {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
   poolSize: 20
   bulletRotatedDegree: 90
+--- !u!60 &7537909691717493701
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917438833306291598}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.3333334, y: 1.3333334}
+    newSize: {x: 0.32, y: 0.32}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.625, y: 0.4166667}
+      - {x: -0.6666667, y: 0.375}
+      - {x: -0.6666667, y: -0.5}
+      - {x: -0.125, y: -0.5}
+      - {x: 0.6666667, y: -0.125}
+      - {x: 0.6666667, y: 0.33333334}
+      - {x: 0.375, y: 0.4166667}
