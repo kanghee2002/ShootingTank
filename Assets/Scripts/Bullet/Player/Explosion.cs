@@ -7,19 +7,18 @@ public class Explosion : MonoBehaviour
     private Transform parent;
     private SpriteRenderer spriteRenderer;
 
-    [SerializeField]
-    private List<string> targetLayerMasks;
+    [SerializeField] private List<string> targetLayerMasks;
 
     [SerializeField]
     private float damageAmount;
     public float DamageAmount { get => damageAmount; set => damageAmount = value; }
 
-    [SerializeField]
-    private float radius;
+    [SerializeField] private float radius;
     public float Radius { get => radius; set => radius = value; }
 
-    [SerializeField]
-    private float explosionTime;
+    [SerializeField] private float explosionTime;
+
+    private float elapsedTime = 0f;
 
     private void Awake()
     {
@@ -30,7 +29,13 @@ public class Explosion : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(Explode());
-        StartCoroutine(FadeOut());
+
+        elapsedTime = 0f;
+    }
+
+    private void Update()
+    {
+        FadeOut();
     }
 
     private void OnDisable()
@@ -40,8 +45,9 @@ public class Explosion : MonoBehaviour
 
     private IEnumerator Explode()
     {
-        var targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetLayerMasks.ToArray()));
-        foreach (var target in targets)
+        Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, radius, LayerMask.GetMask(targetLayerMasks.ToArray()));
+            
+        foreach (Collider2D target in targets)
         {
             if (target.TryGetComponent(out Health health))
             {
@@ -54,15 +60,13 @@ public class Explosion : MonoBehaviour
         transform.localPosition = Vector3.zero;
     }
 
-    private IEnumerator FadeOut()
+    private void FadeOut()
     {
-        float elapsedTime = 0;
-        while (elapsedTime < explosionTime)
+        if (elapsedTime < explosionTime)
         {
             spriteRenderer.color = new Color(1f, 1f, 1f, 0.8f - (elapsedTime / explosionTime));
 
-            elapsedTime += Time.deltaTime;        
-            yield return null;
+            elapsedTime += Time.deltaTime;
         }
     }
 

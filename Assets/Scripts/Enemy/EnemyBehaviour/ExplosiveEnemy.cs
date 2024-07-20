@@ -22,38 +22,6 @@ public class ExplosiveEnemy : Enemy
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-
-    /*private IEnumerator ChasePlayer()
-    {
-        while (true)
-        {
-            int moveDir;
-            float distance = playerTransform.position.x - transform.position.x;
-
-            if (Mathf.Abs(distance) < 0.3f) moveDir = 0;
-            else if (distance < 0) moveDir = -1;
-            else moveDir = 1;
-
-            if (moveDir < 0)
-            {
-                transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);
-            }
-            else if (moveDir > 0)
-            {
-                transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, 1);
-            }
-
-            rigid.velocity = new Vector2(moveDir * moveSpeed, rigid.velocity.y);
-
-            if ((playerTransform.position - transform.position).magnitude <= explosionRadius)
-            {
-                Attack(Vector3.zero);
-            }
-
-            yield return new WaitForFixedUpdate();
-        }
-    }*/
-
     public override bool Attack(Transform playerTransform)
     {
         if (isCool)
@@ -127,8 +95,9 @@ public class ExplosiveEnemy : Enemy
         explosion.AddTargetLayerMask(Settings.playerTag);
         explosion.AddTargetLayerMask(Settings.enemyTag);
         explosion.DamageAmount = damageValue;
-        explosion.gameObject.SetActive(true);
+
         explosion.transform.SetParent(null);
+        explosion.gameObject.SetActive(true);
         gameObject.SetActive(false);
     }
 }

@@ -121,6 +121,11 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
+
         playerDetector.ReduceDetectRadius();
 
         isPlayerDetected = false;
