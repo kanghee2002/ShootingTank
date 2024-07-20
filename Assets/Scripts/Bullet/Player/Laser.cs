@@ -24,6 +24,8 @@ public class Laser : Bullet
 
     public void Activate(Vector3 dir)
     {
+        transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), Mathf.Abs(transform.localScale.y));
+
         Vector3 startPosition = transform.position, endPosition;
 
         RaycastHit2D rayHit = Physics2D.Raycast(startPosition, dir, 

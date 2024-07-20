@@ -63,6 +63,12 @@ public class EnemyController : MonoBehaviour
 
     public float DetectRadius { get => detectRadius; }
 
+
+    public delegate void OnPlayerDetect(Transform playerTransform);
+    public OnPlayerDetect onPlayerDetect;
+    public delegate void OnPlayerLost();
+    public OnPlayerLost onPlayerLost;
+
     private Transform playerTransform;
     private State state;
     private Coroutine currentMoveRoutine;
@@ -86,6 +92,10 @@ public class EnemyController : MonoBehaviour
 
         health.onDie += () => gameObject.SetActive(false);
 
+        onPlayerDetect += EnemyEvent_OnPlayerDetect;
+
+        onPlayerLost += EnemyEvent_OnPlayerLost;
+
         isPlayerDetected = false;
 
         currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
@@ -96,7 +106,7 @@ public class EnemyController : MonoBehaviour
         ExcuteStateAction();
     }
 
-    public void OnPlayerDetected(Transform playerTransform)
+    public void EnemyEvent_OnPlayerDetect(Transform playerTransform)
     {
         if (state != State.Idle)
         {
@@ -114,7 +124,7 @@ public class EnemyController : MonoBehaviour
         currentMoveRoutine = StartCoroutine(AttackMoveRoutine());
     }
 
-    public void OnPlayerLost()
+    public void EnemyEvent_OnPlayerLost()
     {
         if (state != State.Attack)
         {
@@ -150,7 +160,7 @@ public class EnemyController : MonoBehaviour
 
                     if (isAttack && stationaryTimeOnAttack > 0f)
                     {
-                        StartCoroutine(PauseMoveRoutine(state, stationaryTimeOnAttack));
+                        PauseMove(stationaryTimeOnAttack);
                     }
                 }
                 break;
@@ -162,6 +172,8 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator IdleMoveRoutine()
     {
+        #region IdleMove
+
         while (true)
         {
             float moveTime = 1f;
@@ -231,6 +243,8 @@ public class EnemyController : MonoBehaviour
                 yield return new WaitForFixedUpdate();
             }
         }
+
+        #endregion IdleMove
     }
 
     /// <summary>
@@ -248,7 +262,12 @@ public class EnemyController : MonoBehaviour
 
             while (true)
             {
+                if (playerTransform == null)
+                {
+                    Debug.Log("Player is null");
+                }
                 int moveDirection = playerTransform.position.x - transform.position.x > 0 ? -1 : 1;
+
 
                 #region Platform Check
 
@@ -646,8 +665,14 @@ public class EnemyController : MonoBehaviour
         rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
     }
 
+    public void PauseMove(float time)
+    {
+        StartCoroutine(PauseMoveRoutine(state, time));
+    }
+
     private IEnumerator PauseMoveRoutine(State state, float time)
     {
+        //Warning: State can be Changed during Pause time
         StopCoroutine(currentMoveRoutine);
 
         rigid.velocity = new Vector2(0, rigid.velocity.y);

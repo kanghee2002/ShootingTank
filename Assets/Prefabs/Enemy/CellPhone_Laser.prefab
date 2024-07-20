@@ -75,6 +75,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8353429375503766615, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 5923470562336805764, guid: fe94a2d50ce85544f9a90cbec918b0eb, type: 3}
     - target: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: canJump
       value: 1
@@ -398,8 +402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d095aa28b130b9e409b1c44943dfa854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyRank: 0
-  coolTime: 1
+  enemyRank: 1
+  coolTime: 1.5
   damageValue: 2
   weaponLength: 0.5
   warningLaser: {fileID: 6905474217399131348}

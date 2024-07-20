@@ -6,20 +6,11 @@ using UnityEngine.UIElements;
 public class ShotgunEnemy : Enemy
 {
     [Header("Attack Settings")]
-    [SerializeField]
-    private float bulletSpeed;
-    [SerializeField]
-    private float weaponLength;
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float weaponLength;
 
     [Header("Attack Settings")]
-    [SerializeField]
-    private float aimAccuracy;
-
-    private void Update()
-    {
-        //if (IsAttackPossible()) Attack(GetTargetDirection(playerTransform));
-        //if (IsPlayerDetected) LookAtPlayer(headObj, headSpriteRenderer);
-    }
+    [SerializeField] private float aimAccuracy;
 
     public override bool Attack(Transform playerTransform)
     {

@@ -24,7 +24,7 @@ public class PlayerDetector : MonoBehaviour
         {
             if (IsTargetVisible(other.transform) && enemyController.IsPlayerDetected == false)
             {
-                enemyController.OnPlayerDetected(other.transform);
+                enemyController.onPlayerDetect?.Invoke(other.transform);
             }
         }
     }
@@ -33,7 +33,7 @@ public class PlayerDetector : MonoBehaviour
     {
         if (collision.CompareTag(Settings.playerTag))
         {
-            enemyController.OnPlayerLost();
+            enemyController.onPlayerLost?.Invoke();
         }
     }
 

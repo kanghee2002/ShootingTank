@@ -8,91 +8,72 @@ public class WarningLaser : MonoBehaviour
 {
     private LineRenderer lineRenderer;
 
-    private int luminesceCount = 5;
-    private float luminesceDelay = 0.3f;
+    [SerializeField] private int luminesceCount = 5;
+    [SerializeField] private float luminesceDelay = 0.3f;
+    [SerializeField] private float laserWidth = 0.2f;
+    [SerializeField] private LayerMask blockingLayerMask;
 
     private float luminesceTime;
-
-    [SerializeField]
-    private float maxDistance;
-    public float MaxDistance { get => maxDistance; set => maxDistance = value; }
-    [SerializeField]
-    private List<LayerMask> blockLayerMasks;
+    private Coroutine currentRoutine;
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        luminesceTime = luminesceCount * luminesceDelay * 2;
-
-
-        //Debug
-        //StartLuminesce();
+        luminesceTime = (luminesceCount + 0.5f) * luminesceDelay * 2;
     }
 
-    public bool SetPosition(Vector2 startPosition, Vector2 endPosition)
+    public Vector2 SetPosition(Vector2 origin, Vector2 direction)
     {
         lineRenderer.enabled = true;
 
-        Vector2 dir = (endPosition - startPosition).normalized;
-        float distance = (endPosition - startPosition).magnitude;
+        float distance = 100f;
 
-        if (distance > maxDistance)
-        {
-            lineRenderer.enabled = false;
-            return false;
-        }
+        RaycastHit2D rayHit = Physics2D.Raycast(origin, direction,
+            distance, blockingLayerMask);
 
-        RaycastHit2D rayHit = Physics2D.Raycast(startPosition, dir,
-            distance, CombineLayerMasks(blockLayerMasks));
-        
+        Vector2 endPosition = origin + direction * distance;
+
         if (rayHit)
         {
             endPosition = rayHit.point;
         }
 
-        lineRenderer.SetPosition(0, startPosition);
+        lineRenderer.SetPosition(0, origin);
         lineRenderer.SetPosition(1, endPosition);
 
-        return true;
+        return endPosition;
     }
 
     public float StartLuminesce()
     {
-        StartCoroutine(Luminesce());
+        currentRoutine = StartCoroutine(Luminesce());
         return luminesceTime;
     } 
 
     private IEnumerator Luminesce()
     {
         int count = luminesceCount;
-        float firstWidth = lineRenderer.startWidth;
         while (count > 0)
         {
+            lineRenderer.startWidth = laserWidth;
+            lineRenderer.endWidth = laserWidth;
+            yield return new WaitForSeconds(luminesceDelay);
+
             lineRenderer.startWidth = 0f;
             lineRenderer.endWidth = 0f;
             yield return new WaitForSeconds(luminesceDelay);
 
-            lineRenderer.startWidth = firstWidth;
-            lineRenderer.endWidth = firstWidth;
-            yield return new WaitForSeconds(luminesceDelay);
             count--;
         }
-        lineRenderer.enabled = false;
     }
 
-    private LayerMask CombineLayerMasks(List<LayerMask> layerMasks)
+    public void StopRoutine()
     {
-        if (layerMasks.Count == 0)
+        if (currentRoutine != null)
         {
-            Debug.Log(layerMasks + " is Empty so cannot combine");
-            return 0;
+            StopCoroutine(currentRoutine);
+            lineRenderer.startWidth = 0f;
+            lineRenderer.endWidth = 0f;
         }
-
-        LayerMask result = layerMasks[0];
-        foreach (var layerMask in layerMasks)
-        {
-            result |= layerMask;
-        }
-        return result;
     }
 }

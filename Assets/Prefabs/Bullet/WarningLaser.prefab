@@ -45,9 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea9f165077d614a42b13a60df4cd3384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDistance: 15
-  blockLayerMasks:
-  - serializedVersion: 2
+  luminesceCount: 5
+  luminesceDelay: 0.3
+  laserWidth: 0.3
+  blockingLayerMask:
+    serializedVersion: 2
     m_Bits: 128
 --- !u!120 &7900961425719176080
 LineRenderer:
