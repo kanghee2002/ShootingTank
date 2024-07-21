@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -60,7 +61,10 @@ public class ObjectPooling : MonoBehaviour
     private GameObject MakeBullet(GameObject prefab)
     {
         var obj = Instantiate(prefab);
-        obj.GetComponent<Bullet>().objectPool = this;
+
+        Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.objectPool = this;
+        bullet.prefabID = prefab.GetInstanceID();
         obj.SetActive(false);
         obj.transform.SetParent(transform);
         return obj;

@@ -2274,6 +2274,7 @@ GameObject:
   - component: {fileID: 1311045163}
   - component: {fileID: 1311045166}
   - component: {fileID: 1311045165}
+  - component: {fileID: 1311045167}
   m_Layer: 8
   m_Name: Refrigerator
   m_TagString: Enemy
@@ -2341,7 +2342,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311045160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 408.69174, y: 7.2438197, z: 0}
+  m_LocalPosition: {x: 390.87, y: 8.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2410,7 +2411,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolArray: []
+  poolArray:
+  - prefab: {fileID: 5328794040276415184, guid: 51149136747919d41aa2f80168706116, type: 3}
+    poolSize: 2
+  - prefab: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
+    poolSize: 3
 --- !u!114 &1311045166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2423,9 +2428,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89542b05266623642a99f2766e97765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 0
+  idleTime: 2
   bulletPrefabArray:
   - {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
   - {fileID: 5328794040276415184, guid: 51149136747919d41aa2f80168706116, type: 3}
+--- !u!114 &1311045167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311045160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b672ad47b6633a42b3b68aad0213520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 0}
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &1323752504
 GameObject:
   m_ObjectHideFlags: 0

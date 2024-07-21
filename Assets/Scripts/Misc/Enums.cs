@@ -51,3 +51,18 @@ public enum EnemyRank
     A,
     S
 }
+
+public enum GameState
+{
+    gameStarted,
+    playingLevel,
+    engagingEnemies,
+    bossStage,
+    engagingBoss,
+    levelCompleted,
+    gameWon,
+    gameLost,
+    gamePaused,
+    dungeonOverviewMap,
+    restartGame
+}
