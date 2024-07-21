@@ -121,9 +121,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
+  prefabArray:
+  - {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
   poolSize: 20
-  bulletRotatedDegree: 90
+  rotatedDegree: 0
+  prefab: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
 --- !u!60 &7537909691717493701
 PolygonCollider2D:
   m_ObjectHideFlags: 0

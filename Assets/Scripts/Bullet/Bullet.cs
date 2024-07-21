@@ -7,6 +7,8 @@ public abstract class Bullet : MonoBehaviour
     [Header("For Check")]
     public ObjectPooling objectPool;
 
+    public int prefabID;
+
     private float finalDamage;
     public float FinalDamage { get => finalDamage; set => finalDamage = value; }
 

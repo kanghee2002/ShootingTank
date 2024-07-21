@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5923470562336805764, guid: f2b00c47a2982ae4e9191b329df21e3f, type: 3}
+  prefabArray:
+  - {fileID: 5923470562336805764, guid: f2b00c47a2982ae4e9191b329df21e3f, type: 3}
   poolSize: 30
-  bulletRotatedDegree: 90
+  rotatedDegree: 90
