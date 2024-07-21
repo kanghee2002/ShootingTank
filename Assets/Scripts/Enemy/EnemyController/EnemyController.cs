@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Net.NetworkInformation;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -37,6 +38,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float stationaryTimeOnAttack = 0f;
 
     [Header("Detect On Hit Settings")]
+    [SerializeField] private Sprite detectSprite;
     [SerializeField] private float detectRadius = 10f;
     [SerializeField] private bool detectOnHit = true;
     [SerializeField] private float detectionRadiusMultiplier = 2.5f;
@@ -53,6 +55,7 @@ public class EnemyController : MonoBehaviour
 
     private Health health;
     private Rigidbody2D rigid;
+    private SpriteRenderer spriteRenderer;
     private Enemy enemy;
     private Collider2D myCollider;
     private JumpChecker jumpChecker;
@@ -72,11 +75,13 @@ public class EnemyController : MonoBehaviour
     private Transform playerTransform;
     private State state;
     private Coroutine currentMoveRoutine;
+    private Sprite idleSprite;
 
     private void Awake()
     {
         health = GetComponent<Health>();
         rigid = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         enemy = GetComponent<Enemy>();
         myCollider = GetComponent<Collider2D>();
 
@@ -86,6 +91,8 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        idleSprite = spriteRenderer.sprite;
+
         playerDetector.circleCollider.radius = detectRadius;
 
         health.onHealthChanged += () => playerDetector.ExpandDetectRadius(detectionRadiusMultiplier);
@@ -120,6 +127,11 @@ public class EnemyController : MonoBehaviour
 
         ChangeState(State.Attack);
 
+        if (detectSprite != null)
+        {
+            spriteRenderer.sprite = detectSprite;
+        }
+
         StopCoroutine(currentMoveRoutine);
         currentMoveRoutine = StartCoroutine(AttackMoveRoutine());
     }
@@ -142,6 +154,8 @@ public class EnemyController : MonoBehaviour
         this.playerTransform = null;
 
         ChangeState(State.Idle);
+
+        spriteRenderer.sprite = idleSprite;
 
         StopCoroutine(currentMoveRoutine);
         currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
@@ -667,24 +681,18 @@ public class EnemyController : MonoBehaviour
 
     public void PauseMove(float time)
     {
-        StartCoroutine(PauseMoveRoutine(state, time));
+        StartCoroutine(PauseMoveRoutine(time));
     }
 
-    private IEnumerator PauseMoveRoutine(State state, float time)
+    private IEnumerator PauseMoveRoutine(float time)
     {
-        //Warning: State can be Changed during Pause time
-        StopCoroutine(currentMoveRoutine);
+        float firstMoveSpeed = moveSpeed;
 
-        rigid.velocity = new Vector2(0, rigid.velocity.y);
+        moveSpeed = 0f;
 
         yield return new WaitForSeconds(time);
 
-        if (state == State.Idle)
-            currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
-        else if (state == State.Attack)
-            currentMoveRoutine = StartCoroutine(AttackMoveRoutine());
-        else
-            Debug.Log("EnemyController Error: Pause Move Routine is not implementing " + state + " action");
+        moveSpeed = firstMoveSpeed;
     }
 
     private void ChangeState(State state) => this.state = state;

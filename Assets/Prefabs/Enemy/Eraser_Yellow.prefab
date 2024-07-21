@@ -20,6 +20,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: detectSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e714f85df17aee944b6548a11f81e6cf, type: 3}
+    - target: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: downRayLength
       value: 2
       objectReference: {fileID: 0}

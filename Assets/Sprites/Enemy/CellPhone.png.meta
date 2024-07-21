@@ -52,7 +52,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.58
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -118,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90bb63e1f9c55a643a4e492491763494
-      internalID: -1282319276
+      spriteID: dd9c5d01c565ac44da748f2df1dda3f4
+      internalID: 466855171
       vertices: []
       indices: 
       edges: []
@@ -139,25 +139,49 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5c77f995923cd841a5ce7b46e7084df
-      internalID: -865479468
+      spriteID: 5f19440a17d8e5546ab0c4245a243dea
+      internalID: 458089547
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
-    physicsShape: []
+    physicsShape:
+    - - {x: -7, y: 33}
+      - {x: -12, y: 36}
+      - {x: -52, y: 36}
+      - {x: -57, y: 33}
+      - {x: -60, y: 28}
+      - {x: -60, y: -59}
+      - {x: -58, y: -62}
+      - {x: -55, y: -64}
+      - {x: -9, y: -64}
+      - {x: -6, y: -62}
+      - {x: -4, y: -59}
+      - {x: -4, y: 28}
+    - - {x: 57, y: 33}
+      - {x: 52, y: 36}
+      - {x: 12, y: 36}
+      - {x: 7, y: 33}
+      - {x: 4, y: 27}
+      - {x: 4, y: -59}
+      - {x: 6, y: -62}
+      - {x: 9, y: -64}
+      - {x: 55, y: -64}
+      - {x: 58, y: -62}
+      - {x: 60, y: -59}
+      - {x: 60, y: 28}
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CellPhone_1: -865479468
-      CellPhone_0: -1282319276
+      CellPhone_1: 458089547
+      CellPhone_0: 466855171
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

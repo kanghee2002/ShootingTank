@@ -112,14 +112,22 @@ TextureImporter:
         width: 26
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
+      physicsShape:
+      - - {x: -11, y: 26.5}
+        - {x: -13, y: 24.5}
+        - {x: -13, y: -29.5}
+        - {x: -11, y: -31.5}
+        - {x: 11, y: -31.5}
+        - {x: 13, y: -29.5}
+        - {x: 13, y: 24.5}
+        - {x: 11, y: 26.5}
       tessellationDetail: 0
       bones: []
-      spriteID: 9a299a919e4760a41bdcac750e0dcde3
-      internalID: -1259824071
+      spriteID: 1cda11b962c47ac48ba65df7922258d0
+      internalID: 61871042
       vertices: []
       indices: 
       edges: []
@@ -133,14 +141,22 @@ TextureImporter:
         width: 26
         height: 63
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape: []
-      tessellationDetail: 0
+      physicsShape:
+      - - {x: -11, y: 26.5}
+        - {x: -13, y: 24.5}
+        - {x: -13, y: -29.5}
+        - {x: -11, y: -31.5}
+        - {x: 11, y: -31.5}
+        - {x: 13, y: -29.5}
+        - {x: 13, y: 24.5}
+        - {x: 11, y: 26.5}
+      tessellationDetail: 0.22
       bones: []
-      spriteID: b51bf77595249ea438ee8d0e284ec07e
-      internalID: -2124537173
+      spriteID: b99a7621c6408eb4abf4b386fb49a4cf
+      internalID: 676829174
       vertices: []
       indices: 
       edges: []
@@ -156,8 +172,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dynamite_0: -1259824071
-      Dynamite_1: -2124537173
+      Dynamite_0: 61871042
+      Dynamite_1: 676829174
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
