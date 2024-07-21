@@ -2272,6 +2272,8 @@ GameObject:
   - component: {fileID: 1311045161}
   - component: {fileID: 1311045164}
   - component: {fileID: 1311045163}
+  - component: {fileID: 1311045166}
+  - component: {fileID: 1311045165}
   m_Layer: 8
   m_Name: Refrigerator
   m_TagString: Enemy
@@ -2354,7 +2356,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311045160}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -2396,6 +2398,34 @@ PolygonCollider2D:
       - {x: -3.8333335, y: -5.3333335}
       - {x: 4.25, y: -5.3333335}
       - {x: 4.25, y: 5.25}
+--- !u!114 &1311045165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311045160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolArray: []
+--- !u!114 &1311045166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311045160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89542b05266623642a99f2766e97765e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefabArray:
+  - {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
+  - {fileID: 5328794040276415184, guid: 51149136747919d41aa2f80168706116, type: 3}
 --- !u!1 &1323752504
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,14 +13,13 @@ public abstract class Bullet : MonoBehaviour
     public float FinalDamage { get => finalDamage; set => finalDamage = value; }
 
     [Header("Default Settings")]
-    [SerializeField]
-    protected float lifeTIme;
+    [SerializeField] protected float lifeTIme;
 
-    [SerializeField]
-    protected List<string> targetTags;
+    [SerializeField] protected float rotatedDegree;
 
-    [SerializeField]
-    protected List<string> defaultCollideTags;
+    [SerializeField] protected List<string> targetTags;
+
+    [SerializeField] protected List<string> defaultCollideTags;
 
     private void OnEnable()
     {
@@ -51,6 +50,12 @@ public abstract class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
         else objectPool.ReturnBullet(gameObject);
+    }
+
+    public void LookAtDirection(GameObject obj, Vector3 direction)
+    {
+        float rotateDegree = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        obj.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree + rotatedDegree);
     }
 
     public bool AddTargetTag(string tag)

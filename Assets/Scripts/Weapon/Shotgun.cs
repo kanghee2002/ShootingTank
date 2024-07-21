@@ -59,13 +59,12 @@ public class Shotgun : Weapon
         {
             var obj = objectPool.GetBullet();
 
-            obj.GetComponent<Bullet>().FinalDamage = damageValue *
-                GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            Bullet bullet = obj.GetComponent<Bullet>();
+            bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            bullet.LookAtDirection(obj, dir);
 
             obj.transform.position = transform.position + dir * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
-
-            objectPool.LookAtDirection(obj, dir);
         }
 
         CurAmmo--;

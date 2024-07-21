@@ -16,6 +16,10 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8353429375503766615, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: poolArray.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8353429375503766615, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: prefabArray.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -23,6 +27,14 @@ PrefabInstance:
       propertyPath: prefabArray.Array.data[0]
       value: 
       objectReference: {fileID: 5328794040276415184, guid: 51149136747919d41aa2f80168706116, type: 3}
+    - target: {fileID: -8353429375503766615, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: poolArray.Array.data[0].prefab
+      value: 
+      objectReference: {fileID: 5328794040276415184, guid: 51149136747919d41aa2f80168706116, type: 3}
+    - target: {fileID: -8353429375503766615, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
+      propertyPath: poolArray.Array.data[0].poolSize
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: -1317815253261293691, guid: 5da8b858f36136647b581cf64c62fe4a, type: 3}
       propertyPath: canJump
       value: 1

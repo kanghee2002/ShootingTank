@@ -120,7 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabArray:
-  - {fileID: 5923470562336805764, guid: 2904052745c6e1e45aedf8de01d04460, type: 3}
-  poolSize: 30
-  rotatedDegree: 0
+  poolArray:
+  - prefab: {fileID: 5923470562336805764, guid: 2904052745c6e1e45aedf8de01d04460, type: 3}
+    poolSize: 30

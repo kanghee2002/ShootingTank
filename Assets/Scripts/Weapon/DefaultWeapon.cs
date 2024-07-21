@@ -9,13 +9,14 @@ public class DefaultWeapon : Weapon
     {
         var obj = objectPool.GetBullet();
 
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
         var randomDirection = GetRandomDirection(direction, AimAccuracy);
         obj.transform.position = transform.position + randomDirection * weaponLength;
         obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
 
-        objectPool.LookAtDirection(obj, randomDirection);
+        Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+        bullet.LookAtDirection(obj, randomDirection);
 
         Recharge();
     }

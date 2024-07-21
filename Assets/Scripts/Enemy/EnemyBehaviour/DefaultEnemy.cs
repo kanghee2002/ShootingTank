@@ -23,9 +23,8 @@ public class DefaultEnemy : Enemy
         obj.transform.position = transform.position + direction * weaponLength;
         obj.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
 
-        objectPool.LookAtDirection(obj, direction);
-
         Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.LookAtDirection(obj, direction);
         bullet.FinalDamage = damageValue;
         bullet.AddTargetTag(Settings.playerTag);
         StartCoroutine(CoolDownRoutine(coolTime));

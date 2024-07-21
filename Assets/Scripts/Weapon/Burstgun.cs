@@ -34,12 +34,12 @@ public class Burstgun : Weapon
 
             var randomDirection = GetRandomDirection(direction, AimAccuracy);
 
-            obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            Bullet bullet = obj.GetComponent<Bullet>();
+            bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            bullet.LookAtDirection(obj, randomDirection);
 
             obj.transform.position = transform.position + randomDirection * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
-
-            objectPool.LookAtDirection(obj, randomDirection);
 
             yield return new WaitForSeconds(burstIntervalTime);
         }

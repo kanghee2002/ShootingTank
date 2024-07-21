@@ -98,10 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabArray:
-  - {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
-  poolSize: 30
-  rotatedDegree: 90
+  poolArray:
+  - prefab: {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
+    poolSize: 30
 --- !u!114 &468048317285055735
 MonoBehaviour:
   m_ObjectHideFlags: 0

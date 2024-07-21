@@ -121,11 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabArray:
-  - {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
-  poolSize: 20
-  rotatedDegree: 0
-  prefab: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
+  poolArray:
+  - prefab: {fileID: 2725257939580471691, guid: b69b0c41ece2e2c4fab8d784fd7a0768, type: 3}
+    poolSize: 30
 --- !u!60 &7537909691717493701
 PolygonCollider2D:
   m_ObjectHideFlags: 0

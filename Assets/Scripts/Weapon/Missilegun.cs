@@ -22,9 +22,9 @@ public class Missilegun : Weapon
         obj.transform.position = transform.position + randomDirection * weaponLength;
         obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
 
-        objectPool.LookAtDirection(obj, randomDirection);
-
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+        Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+        bullet.LookAtDirection(obj, randomDirection);
 
         CurAmmo--;
 

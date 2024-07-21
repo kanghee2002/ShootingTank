@@ -43,9 +43,8 @@ public class ShotgunEnemy : Enemy
             obj.transform.position = transform.position + dir * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
 
-            objectPool.LookAtDirection(obj, dir);
-
             Bullet bullet = obj.GetComponent<Bullet>();
+            bullet.LookAtDirection(obj, dir);
             bullet.FinalDamage = damageValue;
             bullet.AddTargetTag(Settings.playerTag);
         }

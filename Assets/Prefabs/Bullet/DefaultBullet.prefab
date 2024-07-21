@@ -100,7 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: {fileID: 0}
+  prefabID: 0
   lifeTIme: 3
+  rotatedDegree: 90
   targetTags:
   - Enemy
   defaultCollideTags:
