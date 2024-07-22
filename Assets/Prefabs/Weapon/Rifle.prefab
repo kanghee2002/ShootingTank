@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolArray:
-  - prefab: {fileID: 6917438833306291598}
+  - prefab: {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
     poolSize: 30

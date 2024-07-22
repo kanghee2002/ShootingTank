@@ -54,9 +54,9 @@ public class StageUIController : MonoBehaviour
         weaponController.onWeaponShoot += SetAmmoText;
     }
 
-    private void SetHealthText()
+    private void SetHealthText(float currentHealth, float maxHealth)
     {
-        playerHealthText.text = playerHealth.GetHealth.ToString();
+        playerHealthText.text = currentHealth.ToString();
     }
 
     private void SetChargeSliderValue(WeaponHand weaponHand, Weapon weapon)

@@ -9,10 +9,18 @@ public class Refrigerator : Boss
 {
     [SerializeField] private GameObject[] bulletPrefabArray;
 
+    [SerializeField][Range(0f, 1f)] private float phaseChangeHealthPercentage = 0.5f;
+
+    [SerializeField] private float throwFoodReadyTime;
+
+    [SerializeField] private float bulletFireDistance;
+
+    private int phase = 1;
+
     private List<string> patternArray = new()
     {
         ThrowFood,
-        ThrowIcicle,
+        //ThrowIcicle,
     };
 
     private const string ThrowFood = "Attack_ThrowFood";
@@ -33,6 +41,19 @@ public class Refrigerator : Boss
     {
         this.playerTransform = playerTransform;
         ChangeState(State.Idle);
+        phase = 1;
+
+        health.onHealthChanged += OnPhaseChanged;
+    }
+    
+    private void OnPhaseChanged(float currentHealth, float maxHealth)
+    {
+        if (phase == 1 && (currentHealth / maxHealth) < phaseChangeHealthPercentage)
+        {
+            phase = 2;
+
+            // Excute Phase Change Animation
+        } 
     }
 
     private void ChangeState(State state)
@@ -74,6 +95,8 @@ public class Refrigerator : Boss
             yield return new WaitForFixedUpdate();
         }
 
+        transform.position = originPosition;
+
         ChangeState(State.ReadyToAttack);
     }
 
@@ -86,19 +109,47 @@ public class Refrigerator : Boss
 
     private IEnumerator Attack_ThrowFood()
     {
-        float attackTime = 3f;
-        float elapsedTime = 0f;
+        float attackTime, attackCoolTime, minThrowPower, maxThrowPower;
 
-        while (elapsedTime < attackTime)
+        if (phase == 1)
         {
-            Debug.Log("Throw Random Food");
+            attackTime = 5f;
+            attackCoolTime = 0.1f;
+            minThrowPower = 10f;
+            maxThrowPower = 30f;
+            float elapsedTime = 0f;
 
-            elapsedTime += Time.deltaTime;
+            //yield return new WaitForSeconds(throwFoodReadyTime);
 
-            yield return new WaitForFixedUpdate();
+            while (elapsedTime < attackTime)
+            {
+                Debug.Log("Throw Random Food");
+
+                GameObject selectedPrefab = bulletPrefabArray[Random.Range(0, bulletPrefabArray.Length)];
+
+                float randomRadian = Random.Range(-180f, 180f) * Mathf.Deg2Rad;
+
+                float cos = Mathf.Cos(randomRadian);
+                float sin = Mathf.Sin(randomRadian);
+
+                float randomX = cos * Vector2.right.x - sin * Vector2.right.y;
+                float randomY = sin * Vector2.right.x + cos * Vector2.right.y;
+
+                Vector3 direction = new Vector3(randomX, randomY, 0f);
+
+                FireBullet(selectedPrefab, direction, minThrowPower, maxThrowPower, 0f);
+
+                elapsedTime += attackCoolTime;
+
+                yield return new WaitForSeconds(attackCoolTime);
+            }
+
+            ChangeState(State.Idle);
         }
+        else
+        {
 
-        ChangeState(State.Idle);
+        }
     }
 
     private IEnumerator Attack_ThrowIcicle()
@@ -116,5 +167,19 @@ public class Refrigerator : Boss
         }
 
         ChangeState(State.Idle);
+    }
+
+    private void FireBullet(GameObject prefab, Vector3 direction, float minThrowPower, float maxThrowPower, float damageValue)
+    {
+        float bulletSpeed = Random.Range(minThrowPower, maxThrowPower);
+
+        GameObject bulletObject = objectPool.GetBullet();
+        bulletObject.transform.position = transform.position + direction * bulletFireDistance;
+        bulletObject.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+
+        Bullet bullet = bulletObject.GetComponent<Bullet>();
+        bullet.LookAtDirection(bulletObject, direction);
+        bullet.FinalDamage = damageValue;
+        bullet.AddTargetTag(Settings.playerTag);
     }
 }

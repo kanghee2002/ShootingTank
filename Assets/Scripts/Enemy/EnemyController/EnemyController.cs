@@ -95,7 +95,7 @@ public class EnemyController : MonoBehaviour
 
         playerDetector.circleCollider.radius = detectRadius;
 
-        health.onHealthChanged += () => playerDetector.ExpandDetectRadius(detectionRadiusMultiplier);
+        health.onHealthChanged += (float currentHealth, float maxHealth) => playerDetector.ExpandDetectRadius(detectionRadiusMultiplier);
 
         health.onDie += () => gameObject.SetActive(false);
 
