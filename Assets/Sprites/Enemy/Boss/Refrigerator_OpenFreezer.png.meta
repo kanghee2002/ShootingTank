@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2660538fa85dd2447ace54b6b06a1e6f
+guid: 347f2a98074abd249be7bc1c2e031c1f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,12 +104,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Refrigerator_ThrowFood_0
+      name: Refrigerator_OpenFreezer_0
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 0
-        width: 97
+        width: 256
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -118,19 +118,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 462a1dfcca7b11b4a83d3b5e5c375883
-      internalID: 1464814191
+      spriteID: 8126c85a864328544b295aeceb720597
+      internalID: -1927035670
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Refrigerator_ThrowFood_1
+      name: Refrigerator_OpenFreezer_1
       rect:
         serializedVersion: 2
-        x: 272
+        x: 256
         y: 0
-        width: 97
+        width: 256
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -139,19 +139,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b0b95028c485ad41ae3e63a003e4393
-      internalID: 957756605
+      spriteID: 8af8a9bccb90ff246a44610c91300ed8
+      internalID: 695049731
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Refrigerator_ThrowFood_2
+      name: Refrigerator_OpenFreezer_2
       rect:
         serializedVersion: 2
-        x: 528
+        x: 512
         y: 0
-        width: 97
+        width: 256
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -160,19 +160,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7e7bfb276c092248967082a6b7a7841
-      internalID: 370140803
+      spriteID: 1d23a3b308fb1fb4f94716a8def98e49
+      internalID: 363743043
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Refrigerator_ThrowFood_3
+      name: Refrigerator_OpenFreezer_3
       rect:
         serializedVersion: 2
-        x: 784
+        x: 768
         y: 0
-        width: 121
+        width: 256
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -181,19 +181,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65066b5cfd7d29344ad675b120d0f479
-      internalID: 1042822167
+      spriteID: cb91744f966018c4e9fb7d3a1d93eb05
+      internalID: -464252958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Refrigerator_ThrowFood_4
+      name: Refrigerator_OpenFreezer_4
       rect:
         serializedVersion: 2
-        x: 1040
+        x: 1024
         y: 0
-        width: 170
+        width: 256
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -202,19 +202,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdd58937a8372da4ab45fde417297f74
-      internalID: -1701417803
+      spriteID: 74c250c0dedf36f4099bea7ac77ba0da
+      internalID: 1702312298
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Refrigerator_ThrowFood_5
+      name: Refrigerator_OpenFreezer_5
       rect:
         serializedVersion: 2
-        x: 1296
+        x: 1280
         y: 0
-        width: 192
+        width: 256
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -223,8 +223,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b9e94199e9e36343a9595784a69ea27
-      internalID: -948046110
+      spriteID: 20bd53f8452ae3448b8324fbdea2c600
+      internalID: 1002410523
       vertices: []
       indices: 
       edges: []
@@ -240,12 +240,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Refrigerator_ThrowFood_2: 370140803
-      Refrigerator_ThrowFood_4: -1701417803
-      Refrigerator_ThrowFood_3: 1042822167
-      Refrigerator_ThrowFood_5: -948046110
-      Refrigerator_ThrowFood_0: 1464814191
-      Refrigerator_ThrowFood_1: 957756605
+      Refrigerator_OpenFreezer_1: 695049731
+      Refrigerator_OpenFreezer_2: 363743043
+      Refrigerator_OpenFreezer_4: 1702312298
+      Refrigerator_OpenFreezer_3: -464252958
+      Refrigerator_OpenFreezer_5: 1002410523
+      Refrigerator_OpenFreezer_0: -1927035670
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

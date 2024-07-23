@@ -1,5 +1,81 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7910815745212742342
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3517691485569528647}
+  - component: {fileID: 3977617298881805336}
+  - component: {fileID: 6391512138436408036}
+  m_Layer: 8
+  m_Name: Core
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3517691485569528647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910815745212742342}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9170879183923296424}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3977617298881805336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910815745212742342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30a4f3b180943d4cb3160f5e043678c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSlider: {fileID: 0}
+  maxHealth: 0
+  currentHealth: 0
+  parentHealth: {fileID: 9170879183923296429}
+  coreDamageMultiplier: 2
+--- !u!61 &6391512138436408036
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910815745212742342}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &9170879183923296426
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,6 +91,7 @@ GameObject:
   - component: {fileID: 9170879183923296428}
   - component: {fileID: 9170879183923296431}
   - component: {fileID: 9170879183923296429}
+  - component: {fileID: 1028769434933070967}
   m_Layer: 8
   m_Name: Refrigerator
   m_TagString: Enemy
@@ -31,9 +108,10 @@ Transform:
   m_GameObject: {fileID: 9170879183923296426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 390.87, y: 8.67, z: 0}
-  m_LocalScale: {x: 0.9986, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3517691485569528647}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +155,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 1464814191, guid: 2660538fa85dd2447ace54b6b06a1e6f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -102,11 +180,11 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -5.3, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.083333, y: 10.666667}
+    oldSize: {x: 21.333334, y: 10.666667}
     newSize: {x: 8.083333, y: 10.666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -157,12 +235,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   idleTime: 2
-  bulletPrefabArray:
-  - {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
-  - {fileID: 5328794040276415184, guid: 51149136747919d41aa2f80168706116, type: 3}
+  foodPrefabArray:
+  - {fileID: 5328794040276415184, guid: 9144959d3b02ef54797c0f0e25189ce3, type: 3}
+  - {fileID: 5328794040276415184, guid: 56d812c897fc66f4497eb3a71021428a, type: 3}
+  - {fileID: 5328794040276415184, guid: 6a2c0f460112ded498d57331b500223a, type: 3}
+  - {fileID: 5328794040276415184, guid: 1350f521b9c3f7d4b85b8b1b76c1def1, type: 3}
+  - {fileID: 5328794040276415184, guid: c6b62861631c1904eb82682b02479e87, type: 3}
+  iciclePrefabArray:
+  - {fileID: 5328794040276415184, guid: 9b6805e349a852d4ca13e2b0e31e33ff, type: 3}
+  - {fileID: 5328794040276415184, guid: e1886d7a84a745c459a6b3c08b0ec24f, type: 3}
+  - {fileID: 5328794040276415184, guid: 7f9fb1b0dbc446f4cb40c897f7b52c3e, type: 3}
+  - {fileID: 5328794040276415184, guid: 270da3059b45ce64fa3f66b2be955bc4, type: 3}
   phaseChangeHealthPercentage: 0.5
-  throwFoodReadyTime: 0
-  bulletFireDistance: 0
+  throwFoodReadyTime: 0.6
+  bulletFirePositionOffset: {x: -5.3, y: 0, z: 0}
+  bulletFireDistance: 1
 --- !u!114 &9170879183923296431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,10 +263,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolArray:
-  - prefab: {fileID: 5328794040276415184, guid: 51149136747919d41aa2f80168706116, type: 3}
-    poolSize: 2
-  - prefab: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
-    poolSize: 3
+  - prefab: {fileID: 5328794040276415184, guid: 9144959d3b02ef54797c0f0e25189ce3, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: 56d812c897fc66f4497eb3a71021428a, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: 6a2c0f460112ded498d57331b500223a, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: 1350f521b9c3f7d4b85b8b1b76c1def1, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: c6b62861631c1904eb82682b02479e87, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: 9b6805e349a852d4ca13e2b0e31e33ff, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: e1886d7a84a745c459a6b3c08b0ec24f, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: 7f9fb1b0dbc446f4cb40c897f7b52c3e, type: 3}
+    poolSize: 10
+  - prefab: {fileID: 5328794040276415184, guid: 270da3059b45ce64fa3f66b2be955bc4, type: 3}
+    poolSize: 10
 --- !u!114 &9170879183923296429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,3 +296,23 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
+--- !u!95 &1028769434933070967
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9170879183923296426}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25c0e890e1c74b44fb9ff8ca3d60e227, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
