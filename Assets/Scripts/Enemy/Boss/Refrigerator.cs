@@ -20,8 +20,6 @@ public class Refrigerator : Boss
 
     [SerializeField] private float attackReadyTime;
 
-    [SerializeField] private Vector3 bulletFirePositionOffset = new Vector3(-5.3f, 0f, 0f);
-
     [SerializeField] private float bulletFireDistance;
 
     [Header("Attack Pattenr Settings")]
@@ -39,6 +37,10 @@ public class Refrigerator : Boss
     private const string closeFreezerTrigger = "CloseFreezer";
     private const string startGroggyTrigger = "StartGroggy";
     private const string endGroggyTrigger = "EndGroggy";
+
+    private readonly Vector3 centerPositionOffset = new Vector3(-5.3f, 0f, 0f);
+    private readonly Vector3 foodThrowPositionOffset = new Vector3(0f, -1.5f, 0f);
+    private readonly Vector3 icicleThrowPositionOffset = new Vector3(0f, 3.5f, 0f);
 
     private Animator animator;
     private PolygonCollider2D polygonCollider;
@@ -74,7 +76,7 @@ public class Refrigerator : Boss
         if (Input.GetKeyDown(KeyCode.O))
         {
             playerTransform = GameObject.Find("Player").transform;
-            phase = 2;
+            phase = 1;
             ChangeState(State.Idle);
             isTackling = false;
             hasTackled = false;
@@ -173,15 +175,13 @@ public class Refrigerator : Boss
 
             while (elapsedTime < attackTime)
             {
-                Debug.Log("Throw Random Food");
-
                 GameObject selectedPrefab = foodPrefabArray[Random.Range(0, foodPrefabArray.Length)];
 
                 float randomAngle = Random.Range(-180f, 180f);
 
                 Vector3 direction = GetRotatedVector(Vector2.right, randomAngle);
 
-                GameObject bulletObject = GetBullet(selectedPrefab, transform.position + bulletFirePositionOffset, direction);
+                GameObject bulletObject = GetBullet(selectedPrefab, transform.position + centerPositionOffset + foodThrowPositionOffset, direction);
                 FireBullet(bulletObject, direction, minThrowPower, maxThrowPower, 0f);
 
                 elapsedTime += attackCoolTime;
@@ -219,8 +219,6 @@ public class Refrigerator : Boss
 
             while (elapsedTime < attackTime)
             {
-                Debug.Log("Throw Icicle");
-
                 StartCoroutine(ThrowIcicleRoutine(aimTime, minThrowPower, maxThrowPower));
                 
                 elapsedTime += attackCoolTime;
@@ -240,14 +238,14 @@ public class Refrigerator : Boss
 
     private IEnumerator ThrowIcicleRoutine(float aimTime, float minThrowPower, float maxThrowPower)
     {
-        float positionOffset = 3f;
+        float positionOffset = 2f;
         float angleOffset = 5f;
 
         GameObject selectedPrefab = iciclePrefabArray[Random.Range(0, iciclePrefabArray.Length)];
 
         Vector3 randomPositionOffset = new Vector3(Random.Range(-positionOffset, positionOffset), Random.Range(-positionOffset, positionOffset), 0f);
 
-        Vector3 bulletPosition = transform.position + bulletFirePositionOffset + randomPositionOffset;
+        Vector3 bulletPosition = transform.position + centerPositionOffset + icicleThrowPositionOffset + randomPositionOffset;
 
         Vector3 direction = (playerTransform.position - bulletPosition).normalized;
 
@@ -275,6 +273,7 @@ public class Refrigerator : Boss
 
         int tackleCount;
         float warningLaserWidth = 7f, warningLaserSpeed, tackleSpeed, groggyTime;
+        float laserStartingDistance = 3f, minTackleDistance = 15f;
 
         if (phase == 1)
         {
@@ -296,7 +295,7 @@ public class Refrigerator : Boss
         animator.enabled = false;
         spriteRenderer.sprite = tackleSprite;
 
-        Debug.Log(spriteRenderer.sprite);
+        Vector2 lastDirection = Vector2.right;
 
         for (int count = 0; count < tackleCount; count++)
         {
@@ -304,11 +303,11 @@ public class Refrigerator : Boss
 
             #region Warning
 
-            Vector2 myPosition = transform.position + bulletFirePositionOffset;
+            Vector2 myPosition = transform.position + centerPositionOffset;
 
             Vector2 direction = (playerTransform.position - (Vector3)myPosition).normalized;
 
-            myPosition += direction * bulletFireDistance;
+            myPosition += direction * laserStartingDistance;
 
             float laserDistance = 100f;
 
@@ -321,11 +320,31 @@ public class Refrigerator : Boss
                 tacklePosition = rayHit.point;
             }
 
+            float tackleDistance = (tacklePosition - myPosition).magnitude;
+
+            Debug.Log(tackleDistance);
+
+            if (count != 0 && tackleDistance < minTackleDistance)
+            {
+                myPosition = transform.position + centerPositionOffset;
+                direction = -lastDirection;
+                myPosition += direction * laserStartingDistance;
+
+                rayHit = Physics2D.Raycast(myPosition, direction, laserDistance, tackleBlockingLayer);
+
+                tacklePosition = myPosition + direction * laserDistance;
+
+                if (rayHit)
+                {
+                    tacklePosition = rayHit.point;
+                }
+
+                tackleDistance = (tacklePosition - myPosition).magnitude;
+            }
+
             warningLaser.SetLaserWidth(warningLaserWidth);
 
             warningLaser.StartStretch(myPosition, tacklePosition, warningLaserSpeed);
-
-            float tackleDistance = (tacklePosition - myPosition).magnitude;
 
             float warningTime = tackleDistance / warningLaserSpeed;
 
@@ -347,10 +366,12 @@ public class Refrigerator : Boss
 
             rigid.velocity = Vector2.zero;
 
-            transform.position = (Vector3)tacklePosition - bulletFirePositionOffset;
+            transform.position = (Vector3)tacklePosition - centerPositionOffset;
 
             polygonCollider.isTrigger = false;
             isTackling = false;
+
+            lastDirection = direction;
 
             #endregion Rush to Player
         }
