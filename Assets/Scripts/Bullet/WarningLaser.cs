@@ -8,10 +8,13 @@ public class WarningLaser : MonoBehaviour
 {
     private LineRenderer lineRenderer;
 
+    [Header("Default Settings")]
+    [SerializeField] private LayerMask blockingLayerMask;
+    [SerializeField] private float laserWidth = 0.2f;
+
+    [Header("Luminesce Settings")]
     [SerializeField] private int luminesceCount = 5;
     [SerializeField] private float luminesceDelay = 0.3f;
-    [SerializeField] private float laserWidth = 0.2f;
-    [SerializeField] private LayerMask blockingLayerMask;
 
     private float luminesceTime;
     private Coroutine currentRoutine;
@@ -20,6 +23,7 @@ public class WarningLaser : MonoBehaviour
     {
         lineRenderer = GetComponent<LineRenderer>();
         luminesceTime = (luminesceCount + 0.5f) * luminesceDelay * 2;
+        currentRoutine = null;
     }
 
     public Vector2 SetPosition(Vector2 origin, Vector2 direction)
@@ -44,8 +48,18 @@ public class WarningLaser : MonoBehaviour
         return endPosition;
     }
 
+    public void SetLaserWidth(float width) 
+    {
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+    }
+
     public float StartLuminesce()
     {
+        if (currentRoutine != null)
+        {
+            StopCoroutine(currentRoutine);
+        }
         currentRoutine = StartCoroutine(Luminesce());
         return luminesceTime;
     } 
@@ -67,6 +81,39 @@ public class WarningLaser : MonoBehaviour
         }
     }
 
+    public void StartStretch(Vector2 startPosition, Vector2 endPosition, float stretchSpeed)
+    {
+        if (currentRoutine != null)
+        {
+            StopCoroutine(currentRoutine);
+        }
+        currentRoutine = StartCoroutine(StretchRoutine(startPosition, endPosition, stretchSpeed));
+    }
+
+    private IEnumerator StretchRoutine(Vector2 startPosition, Vector2 endPosition, float stretchSpeed)
+    {
+        lineRenderer.SetPosition(0, startPosition);
+
+        Vector2 direction = (endPosition - startPosition).normalized;
+
+        float distance = (endPosition - startPosition).magnitude;
+
+        float stretchTime = distance / stretchSpeed;
+
+        float elapsedTime = 0f;
+
+        while (elapsedTime < stretchTime)
+        {
+            lineRenderer.SetPosition(1, startPosition + direction * (distance / stretchTime) * elapsedTime);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return new WaitForFixedUpdate();
+        }
+
+        lineRenderer.SetPosition(1, endPosition);
+    }
+
     public void StopRoutine()
     {
         if (currentRoutine != null)
@@ -76,4 +123,5 @@ public class WarningLaser : MonoBehaviour
             lineRenderer.endWidth = 0f;
         }
     }
+
 }

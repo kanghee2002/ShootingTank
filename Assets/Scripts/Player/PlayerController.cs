@@ -22,9 +22,14 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private PolygonCollider2D polygonCollider;
 
+    private const string playerLayerName = "Player";
+    private const string oneWayPlatformLayerName = "OneWayPlatform";
+
     private int jumpCount;
     private JumpState jumpState;
     public JumpState GetJumpState() => jumpState;
+
+    private bool isStunning = false;
 
     private void Awake()
     {
@@ -35,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        isStunning = false;
         jumpCount = maxJumpCount;
         jumpState = JumpState.NotJumping;
     }
@@ -51,8 +57,15 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+        if (isStunning)
+        {
+            return;
+        }
+
         float moveInput = Input.GetAxisRaw("Horizontal");
+        
         rigid.velocity = new Vector2(moveInput * moveSpeed, rigid.velocity.y);
+
         if (moveInput != 0)
         {
             int xDir;
@@ -132,12 +145,22 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        if (isStunning)
+        {
+            return;
+        }
+
         rigid.velocity = Vector2.zero;
         rigid.velocity = new Vector2(rigid.velocity.x, jumpPower);
     }
 
     private void DownJump()
     {
+        if (isStunning)
+        {
+            return;
+        }
+
         StartCoroutine(IgnoreCollisionRoutine(polygonCollider, jumpChecker.oneWayPlatformCollider));
     }
 
@@ -148,6 +171,21 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         Physics2D.IgnoreCollision(collider1, collider2, false);
+    }
+
+    public void KnockBack(Vector2 force, float time)
+    {
+        isStunning = true;
+        rigid.AddForce(force, ForceMode2D.Impulse);
+
+        StartCoroutine(StopStunRoutine(time));
+    }
+
+    private IEnumerator StopStunRoutine(float stunTime)
+    {
+        yield return new WaitForSeconds(stunTime);
+
+        isStunning = false;
     }
 
     private void MinusJumpCount()

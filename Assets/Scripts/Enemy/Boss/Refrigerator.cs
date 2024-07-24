@@ -7,9 +7,15 @@ using Random = UnityEngine.Random;
 
 public class Refrigerator : Boss
 {
+    [Header("Bullet Prefabs")]
     [SerializeField] private GameObject[] foodPrefabArray;
     [SerializeField] private GameObject[] iciclePrefabArray;
 
+    [Header("Tackle References")]
+    [SerializeField] private WarningLaser warningLaser;
+    [SerializeField] private Sprite tackleSprite;
+
+    [Header("Default Settings")]
     [SerializeField][Range(0f, 1f)] private float phaseChangeHealthPercentage = 0.5f;
 
     [SerializeField] private float attackReadyTime;
@@ -18,32 +24,48 @@ public class Refrigerator : Boss
 
     [SerializeField] private float bulletFireDistance;
 
-    private Animator animator;
-
-    private int phase = 1;
-
-    private List<string> patternArray = new()
-    {
-        ThrowFood,
-        ThrowIcicle,
-    };
+    [Header("Attack Pattenr Settings")]
+    [SerializeField] private LayerMask tackleBlockingLayer;
 
     [Header("Attack_ Routine")]
     private const string ThrowFood = "Attack_ThrowFood";
     private const string ThrowIcicle = "Attack_ThrowIcicle";
+    private const string Tackle = "Attack_Tackle";
 
     [Header("Animation Trigger")]
     private const string openFridgeTrigger = "OpenFridge";
     private const string closeFridgeTrigger = "CloseFridge";
     private const string openFreezerTrigger = "OpenFreezer";
     private const string closeFreezerTrigger = "CloseFreezer";
+    private const string startGroggyTrigger = "StartGroggy";
+    private const string endGroggyTrigger = "EndGroggy";
+
+    private Animator animator;
+    private PolygonCollider2D polygonCollider;
+
+    private Sprite idleSprite;
+
+    private int phase = 1;
+
+    private List<string> patternArray = new()
+    {
+        //ThrowFood,
+        //ThrowIcicle,
+        Tackle
+    };
 
     private State state = State.Idle;
+
+    private bool isTackling = false;
+    private bool hasTackled = false;
 
     protected override void Awake()
     {
         base.Awake();
         animator = GetComponent<Animator>();
+        polygonCollider = GetComponent<PolygonCollider2D>();
+
+        idleSprite = spriteRenderer.sprite;
     }
 
     private void Update()
@@ -52,7 +74,10 @@ public class Refrigerator : Boss
         if (Input.GetKeyDown(KeyCode.O))
         {
             playerTransform = GameObject.Find("Player").transform;
+            phase = 2;
             ChangeState(State.Idle);
+            isTackling = false;
+            hasTackled = false;
         }
     }
 
@@ -61,6 +86,8 @@ public class Refrigerator : Boss
         this.playerTransform = playerTransform;
         ChangeState(State.Idle);
         phase = 1;
+        isTackling = false;
+        hasTackled = false;
 
         health.onHealthChanged += OnPhaseChanged;
     }
@@ -71,6 +98,7 @@ public class Refrigerator : Boss
         {
             phase = 2;
 
+            idleTime = 1.5f;
             // Excute Phase Change Animation
         } 
     }
@@ -133,7 +161,7 @@ public class Refrigerator : Boss
         if (phase == 1)
         {
             attackTime = 5f;
-            attackCoolTime = 0.25f;
+            attackCoolTime = 0.125f;
             minThrowPower = 10f;
             maxThrowPower = 20f;
 
@@ -149,15 +177,9 @@ public class Refrigerator : Boss
 
                 GameObject selectedPrefab = foodPrefabArray[Random.Range(0, foodPrefabArray.Length)];
 
-                float randomRadian = Random.Range(-180f, 180f) * Mathf.Deg2Rad;
+                float randomAngle = Random.Range(-180f, 180f);
 
-                float cos = Mathf.Cos(randomRadian);
-                float sin = Mathf.Sin(randomRadian);
-
-                float randomX = cos * Vector2.right.x - sin * Vector2.right.y;
-                float randomY = sin * Vector2.right.x + cos * Vector2.right.y;
-
-                Vector3 direction = new Vector3(randomX, randomY, 0f);
+                Vector3 direction = GetRotatedVector(Vector2.right, randomAngle);
 
                 GameObject bulletObject = GetBullet(selectedPrefab, transform.position + bulletFirePositionOffset, direction);
                 FireBullet(bulletObject, direction, minThrowPower, maxThrowPower, 0f);
@@ -247,6 +269,124 @@ public class Refrigerator : Boss
         FireBullet(bulletObject, randomDirection, minThrowPower, maxThrowPower, 0f);
     }
 
+    private IEnumerator Attack_Tackle()
+    {
+        Vector2 originPosition = transform.position;
+
+        int tackleCount;
+        float warningLaserWidth = 7f, warningLaserSpeed, tackleSpeed, groggyTime;
+
+        if (phase == 1)
+        {
+            tackleCount = 6;
+            warningLaserSpeed = 30f;
+            tackleSpeed = 50f;
+            groggyTime = 3f;
+        }
+        else
+        {
+            tackleCount = 10;
+            warningLaserSpeed = 50f;
+            tackleSpeed = 70f;
+            groggyTime = 4f;
+        }
+
+        #region Tackle
+
+        animator.enabled = false;
+        spriteRenderer.sprite = tackleSprite;
+
+        Debug.Log(spriteRenderer.sprite);
+
+        for (int count = 0; count < tackleCount; count++)
+        {
+            yield return new WaitForSeconds(attackReadyTime);
+
+            #region Warning
+
+            Vector2 myPosition = transform.position + bulletFirePositionOffset;
+
+            Vector2 direction = (playerTransform.position - (Vector3)myPosition).normalized;
+
+            myPosition += direction * bulletFireDistance;
+
+            float laserDistance = 100f;
+
+            RaycastHit2D rayHit = Physics2D.Raycast(myPosition, direction, laserDistance, tackleBlockingLayer);
+
+            Vector2 tacklePosition = myPosition + direction * laserDistance;
+
+            if (rayHit)
+            {
+                tacklePosition = rayHit.point;
+            }
+
+            warningLaser.SetLaserWidth(warningLaserWidth);
+
+            warningLaser.StartStretch(myPosition, tacklePosition, warningLaserSpeed);
+
+            float tackleDistance = (tacklePosition - myPosition).magnitude;
+
+            float warningTime = tackleDistance / warningLaserSpeed;
+
+            yield return new WaitForSeconds(warningTime);
+
+            #endregion Warning
+
+            #region Rush to Player
+
+            polygonCollider.isTrigger = true;
+            isTackling = true;
+            hasTackled = false;
+
+            warningLaser.SetLaserWidth(0f);
+
+            rigid.velocity = direction * tackleSpeed;
+
+            yield return new WaitForSeconds(tackleDistance / tackleSpeed);
+
+            rigid.velocity = Vector2.zero;
+
+            transform.position = (Vector3)tacklePosition - bulletFirePositionOffset;
+
+            polygonCollider.isTrigger = false;
+            isTackling = false;
+
+            #endregion Rush to Player
+        }
+
+        spriteRenderer.sprite = idleSprite;
+        animator.enabled = true;
+
+        #endregion Tackle
+
+        #region Return To Origin Position
+
+        animator.SetTrigger(startGroggyTrigger);
+
+        Vector2 directionToOrigin = (originPosition - (Vector2)transform.position).normalized;
+
+        float distanceToOrigin = (originPosition - (Vector2)transform.position).magnitude;
+
+        float moveSpeed = distanceToOrigin / groggyTime;
+
+        rigid.velocity = directionToOrigin * moveSpeed;
+
+        yield return new WaitForSeconds(distanceToOrigin / moveSpeed);
+
+        animator.SetTrigger(endGroggyTrigger);
+
+        rigid.velocity = Vector2.zero;
+
+        transform.position = originPosition;
+
+        #endregion Return To Origin Position
+
+        warningLaser.SetLaserWidth(0f);
+
+        ChangeState(State.Idle);
+    }
+
     private void FireBullet(GameObject bulletObject, Vector3 direction, float minThrowPower, float maxThrowPower, float damageValue)
     {
         float bulletSpeed = Random.Range(minThrowPower, maxThrowPower);
@@ -265,5 +405,55 @@ public class Refrigerator : Boss
         bulletObject.transform.position = position + direction * bulletFireDistance;
 
         return bulletObject;
+    }
+
+    private Vector3 GetRotatedVector(Vector3 vector, float angle)
+    {
+        float radian = angle * Mathf.Deg2Rad;
+
+        float cos = Mathf.Cos(radian);
+        float sin = Mathf.Sin(radian);
+
+        float randomX = cos * vector.x - sin * vector.y;
+        float randomY = sin * vector.x + cos * vector.y;
+
+        Vector3 rotatedVector = new Vector3(randomX, randomY, 0f);
+
+        return rotatedVector;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Settings.playerTag))
+        {
+            if (!isTackling | hasTackled)
+            {
+                return;
+            }
+
+            hasTackled = true;
+
+            float horizontalVelocity = Mathf.Abs(rigid.velocity.x);
+            float verticalVelocity = Mathf.Abs(rigid.velocity.y);
+
+            Vector2 direction;
+
+            float tacklePower = 0.002f;
+
+            if (horizontalVelocity > verticalVelocity)
+            {
+                if (rigid.velocity.x > 0) direction = new Vector2(1f, 1f);
+                else direction = new Vector2(-1f, 1f);
+            }
+            else
+            {
+                float xGap = (playerTransform.position - transform.position).x;
+
+                if (xGap > 0f) direction = new Vector2(1f, 1f);
+                else direction = new Vector2(-1f, 1f);
+            }
+
+            playerTransform.GetComponent<PlayerController>().KnockBack(direction * tacklePower, 0.5f);
+        }
     }
 }
