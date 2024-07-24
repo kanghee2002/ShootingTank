@@ -49,11 +49,11 @@ public class Refrigerator : Boss
 
     private int phase = 1;
 
-    private List<string> patternArray = new()
+    private Dictionary<string, int> patternCountDictionary = new()
     {
-        //ThrowFood,
-        //ThrowIcicle,
-        Tackle
+        {ThrowFood, 0 },
+        {ThrowIcicle, 0},
+        {Tackle, 0},
     };
 
     private State state = State.Idle;
@@ -76,10 +76,12 @@ public class Refrigerator : Boss
         if (Input.GetKeyDown(KeyCode.O))
         {
             playerTransform = GameObject.Find("Player").transform;
-            phase = 1;
             ChangeState(State.Idle);
+            phase = 1;
             isTackling = false;
             hasTackled = false;
+
+            health.onHealthChanged += OnPhaseChanged;
         }
     }
 
@@ -151,7 +153,31 @@ public class Refrigerator : Boss
 
     private void ExcutePattern()
     {
-        string selectedPattern = patternArray[Random.Range(0, patternArray.Count)];
+        List<string> minCountPatternList = new();
+
+        int minCount = patternCountDictionary[ThrowFood];
+
+        foreach (var patternCount in patternCountDictionary)
+        {
+            if (patternCount.Value < minCount)
+            {
+                minCount = patternCount.Value;
+            }
+        }
+
+        foreach (var patternCount in patternCountDictionary)
+        {
+            if (patternCount.Value == minCount)
+            {
+                minCountPatternList.Add(patternCount.Key);
+            }
+        }
+
+        if (minCountPatternList.Count == 0) Debug.LogError("Refrigerator Error: MinCountPatternList is empty");
+
+        string selectedPattern = minCountPatternList[Random.Range(0, minCountPatternList.Count)];
+
+        patternCountDictionary[selectedPattern] += 1;
 
         StartCoroutine(selectedPattern);
     }
@@ -167,36 +193,40 @@ public class Refrigerator : Boss
             minThrowPower = 10f;
             maxThrowPower = 20f;
 
-            float elapsedTime = 0f;
-
-            animator.SetTrigger(openFridgeTrigger);
-            
-            yield return new WaitForSeconds(attackReadyTime);
-
-            while (elapsedTime < attackTime)
-            {
-                GameObject selectedPrefab = foodPrefabArray[Random.Range(0, foodPrefabArray.Length)];
-
-                float randomAngle = Random.Range(-180f, 180f);
-
-                Vector3 direction = GetRotatedVector(Vector2.right, randomAngle);
-
-                GameObject bulletObject = GetBullet(selectedPrefab, transform.position + centerPositionOffset + foodThrowPositionOffset, direction);
-                FireBullet(bulletObject, direction, minThrowPower, maxThrowPower, 0f);
-
-                elapsedTime += attackCoolTime;
-
-                yield return new WaitForSeconds(attackCoolTime);
-            }
-
-            animator.SetTrigger(closeFridgeTrigger);
-
-            ChangeState(State.Idle);
         }
         else
         {
-            // Phase 2
+            attackTime = 6f;
+            attackCoolTime = 0.0625f;
+            minThrowPower = 15f;
+            maxThrowPower = 25f;
         }
+
+        float elapsedTime = 0f;
+
+        animator.SetTrigger(openFridgeTrigger);
+
+        yield return new WaitForSeconds(attackReadyTime);
+
+        while (elapsedTime < attackTime)
+        {
+            GameObject selectedPrefab = foodPrefabArray[Random.Range(0, foodPrefabArray.Length)];
+
+            float randomAngle = Random.Range(-180f, 180f);
+
+            Vector3 direction = GetRotatedVector(Vector2.right, randomAngle);
+
+            GameObject bulletObject = GetBullet(selectedPrefab, transform.position + centerPositionOffset + foodThrowPositionOffset, direction);
+            FireBullet(bulletObject, direction, minThrowPower, maxThrowPower, 0f);
+
+            elapsedTime += attackCoolTime;
+
+            yield return new WaitForSeconds(attackCoolTime);
+        }
+
+        animator.SetTrigger(closeFridgeTrigger);
+
+        ChangeState(State.Idle);
     }
 
     private IEnumerator Attack_ThrowIcicle()
@@ -211,29 +241,34 @@ public class Refrigerator : Boss
             maxThrowPower = 30f;
             aimTime = 0.1f;
 
-            float elapsedTime = 0f;
-
-            animator.SetTrigger(openFreezerTrigger);
-
-            yield return new WaitForSeconds(attackReadyTime);
-
-            while (elapsedTime < attackTime)
-            {
-                StartCoroutine(ThrowIcicleRoutine(aimTime, minThrowPower, maxThrowPower));
-                
-                elapsedTime += attackCoolTime;
-
-                yield return new WaitForSeconds(attackCoolTime);
-            }
-
-            animator.SetTrigger(closeFreezerTrigger);
-
-            ChangeState(State.Idle);
         }
         else
         {
-            // Phase 2
+            attackTime = 6f;
+            attackCoolTime = 0.1f;
+            minThrowPower = 25f;
+            maxThrowPower = 35f;
+            aimTime = 0.05f;
         }
+
+        float elapsedTime = 0f;
+
+        animator.SetTrigger(openFreezerTrigger);
+
+        yield return new WaitForSeconds(attackReadyTime);
+
+        while (elapsedTime < attackTime)
+        {
+            StartCoroutine(ThrowIcicleRoutine(aimTime, minThrowPower, maxThrowPower));
+
+            elapsedTime += attackCoolTime;
+
+            yield return new WaitForSeconds(attackCoolTime);
+        }
+
+        animator.SetTrigger(closeFreezerTrigger);
+
+        ChangeState(State.Idle);
     }
 
     private IEnumerator ThrowIcicleRoutine(float aimTime, float minThrowPower, float maxThrowPower)
@@ -272,7 +307,7 @@ public class Refrigerator : Boss
         Vector2 originPosition = transform.position;
 
         int tackleCount;
-        float warningLaserWidth = 7f, warningLaserSpeed, tackleSpeed, groggyTime;
+        float warningLaserWidth = 10f, warningLaserSpeed, tackleSpeed, groggyTime;
         float laserStartingDistance = 3f, minTackleDistance = 15f;
 
         if (phase == 1)
@@ -285,8 +320,8 @@ public class Refrigerator : Boss
         else
         {
             tackleCount = 10;
-            warningLaserSpeed = 50f;
-            tackleSpeed = 70f;
+            warningLaserSpeed = 45f;
+            tackleSpeed = 65f;
             groggyTime = 4f;
         }
 
@@ -321,8 +356,6 @@ public class Refrigerator : Boss
             }
 
             float tackleDistance = (tacklePosition - myPosition).magnitude;
-
-            Debug.Log(tackleDistance);
 
             if (count != 0 && tackleDistance < minTackleDistance)
             {
