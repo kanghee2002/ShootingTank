@@ -321,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8667531476937016520, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
       propertyPath: moveSpeed
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a014b7f58b488b41a6f0f56ea5b9e38, type: 3}
@@ -738,9 +738,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Refrigerator
       objectReference: {fileID: 0}
-    - target: {fileID: 9170879183923296430, guid: c2c952329a7c76c499a1da01dd83962f, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
+    - target: {fileID: 9170879183923296429, guid: c2c952329a7c76c499a1da01dd83962f, type: 3}
+      propertyPath: maxHealth
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2c952329a7c76c499a1da01dd83962f, type: 3}

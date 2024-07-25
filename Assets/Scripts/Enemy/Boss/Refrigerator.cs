@@ -61,6 +61,9 @@ public class Refrigerator : Boss
     private bool isTackling = false;
     private bool hasTackled = false;
 
+    private bool hasDonePhaseAction = false;
+    private float totalPhaseActionTime = 0f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -76,10 +79,15 @@ public class Refrigerator : Boss
         if (Input.GetKeyDown(KeyCode.O))
         {
             playerTransform = GameObject.Find("Player").transform;
-            ChangeState(State.Idle);
+
             phase = 1;
+            hasDonePhaseAction = false;
+            totalPhaseActionTime = 0f;
+
+            ChangeState(State.Idle);
             isTackling = false;
             hasTackled = false;
+
 
             health.onHealthChanged += OnPhaseChanged;
         }
@@ -88,10 +96,16 @@ public class Refrigerator : Boss
     public void Initialize(Transform playerTransform)
     {
         this.playerTransform = playerTransform;
+
         ChangeState(State.Idle);
+
         phase = 1;
+
         isTackling = false;
         hasTackled = false;
+
+        hasDonePhaseAction = false;
+        totalPhaseActionTime = 0f;
 
         health.onHealthChanged += OnPhaseChanged;
     }
@@ -130,10 +144,63 @@ public class Refrigerator : Boss
 
     private IEnumerator IdleRoutine()
     {
-        Vector2 originPosition = transform.position;
+        Vector2 originPosition;
 
-        float moveDistance = 5f;
-        int moveCount = 6;
+        int moveCount;
+
+        float moveDistance;
+
+        #region OnPhaseChangeAction
+        if (phase == 2 && !hasDonePhaseAction)
+        {
+            originPosition = transform.position;
+
+            moveCount = 24;
+
+            moveDistance = 5f;
+            
+            float moveSpeed = 40f;
+
+            for (int count = 0; count < moveCount; count++)
+            {
+                if (count == moveCount / 6)
+                {
+                    animator.SetTrigger(startGroggyTrigger);
+                }
+                else if (count == moveCount - 1)
+                {
+                    animator.SetTrigger(endGroggyTrigger);
+                }
+
+                Vector2 randomVector = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+
+                Vector2 randomPosition = originPosition + randomVector * moveDistance;
+
+                if (count == moveCount - 1)
+                {
+                    randomPosition = originPosition;
+                    moveSpeed /= 2f;
+                }
+
+                Vector2 moveDirection = (randomPosition - (Vector2)transform.position).normalized;
+
+                float moveTime = (randomPosition - (Vector2)transform.position).magnitude / moveSpeed;
+
+                rigid.velocity = moveDirection * moveSpeed;
+
+                yield return new WaitForSeconds(moveTime);
+            }
+
+            rigid.velocity = Vector2.zero;
+
+            hasDonePhaseAction = true;
+        }
+        #endregion OnPhaseChangeAction
+
+        originPosition = transform.position;
+
+        moveDistance = 5f;
+        moveCount = 6;
         
         float elapsedTime = 0f;
 
