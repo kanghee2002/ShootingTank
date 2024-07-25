@@ -27,7 +27,10 @@ public class LaserEnemy : Enemy
 
     private void EnemyEvent_OnPlayerLost()
     {
-        StopCoroutine(currentAttackRoutine);
+        if (currentAttackRoutine != null)
+        {
+            StopCoroutine(currentAttackRoutine);
+        }
         warningLaser.StopRoutine();
         isCool = false;
     }

@@ -12,8 +12,9 @@ public class EnemyDefaultBullet : Bullet
             {
                 if (collision.TryGetComponent(out Health health))
                 {
-                    health.TakeDamage(FinalDamage);
                     DestroyBullet();
+                    health.TakeDamage(FinalDamage);
+                    break;
                 }
             }
         }

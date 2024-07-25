@@ -64,6 +64,9 @@ public class EnemyController : MonoBehaviour
     private bool isPlayerDetected;
     public bool IsPlayerDetected { get => isPlayerDetected; }
 
+    private bool isPausing = false;
+    private bool hasStoppedOnPause = false;
+
     public float DetectRadius { get => detectRadius; }
 
 
@@ -76,6 +79,7 @@ public class EnemyController : MonoBehaviour
     private State state;
     private Coroutine currentMoveRoutine;
     private Sprite idleSprite;
+
 
     private void Awake()
     {
@@ -104,6 +108,9 @@ public class EnemyController : MonoBehaviour
         onPlayerLost += EnemyEvent_OnPlayerLost;
 
         isPlayerDetected = false;
+
+        isPausing = false;
+        hasStoppedOnPause = false;
 
         currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
     }
@@ -190,6 +197,20 @@ public class EnemyController : MonoBehaviour
 
         while (true)
         {
+            if (isPausing)
+            {
+                if (!hasStoppedOnPause)
+                {
+                    rigid.velocity = Vector2.zero;
+
+                    hasStoppedOnPause = true;
+                }
+
+                yield return new WaitForFixedUpdate();
+
+                continue;
+            }
+
             float moveTime = 1f;
 
             int moveDirection = Random.Range(0, 1f) > 0.5f ? 1 : -1;
@@ -200,6 +221,18 @@ public class EnemyController : MonoBehaviour
 
             while (moveTime > 0f)
             {
+                if (isPausing)
+                {
+                    if (!hasStoppedOnPause)
+                    {
+                        rigid.velocity = Vector2.zero;
+
+                        hasStoppedOnPause = true;
+                    }
+
+                    break;
+                }
+
                 if (stopProbability <= idleStopProbability)
                 {
                     rigid.velocity = new Vector2(0f, rigid.velocity.y);
@@ -276,6 +309,20 @@ public class EnemyController : MonoBehaviour
 
             while (true)
             {
+                if (isPausing)
+                {
+                    if (!hasStoppedOnPause)
+                    {
+                        rigid.velocity = Vector2.zero;
+
+                        hasStoppedOnPause = true;
+                    }
+
+                    yield return new WaitForFixedUpdate();
+
+                    continue;
+                }
+
                 if (playerTransform == null)
                 {
                     Debug.Log("Player is null");
@@ -336,6 +383,20 @@ public class EnemyController : MonoBehaviour
 
             while (true)
             {
+                if (isPausing)
+                {
+                    if (!hasStoppedOnPause)
+                    {
+                        rigid.velocity = Vector2.zero;
+
+                        hasStoppedOnPause = true;
+                    }
+
+                    yield return new WaitForFixedUpdate();
+
+                    continue;
+                }
+
                 float moveTime = 1f;
 
                 int moveDirection = Random.Range(0, 1f) > 0.5f ? 1 : -1;
@@ -346,6 +407,20 @@ public class EnemyController : MonoBehaviour
 
                 while (moveTime > 0f)
                 {
+                    if (isPausing)
+                    {
+                        if (!hasStoppedOnPause)
+                        {
+                            rigid.velocity = Vector2.zero;
+
+                            hasStoppedOnPause = true;
+                        }
+
+                        yield return new WaitForFixedUpdate();
+
+                        break;
+                    }
+
                     if (stopProbability <= idleStopProbability)
                     {
                         rigid.velocity = new Vector2(0f, rigid.velocity.y);
@@ -429,6 +504,20 @@ public class EnemyController : MonoBehaviour
 
             while (true)
             {
+                if (isPausing)
+                {
+                    if (!hasStoppedOnPause)
+                    {
+                        rigid.velocity = Vector2.zero;
+
+                        hasStoppedOnPause = true;
+                    }
+
+                    yield return new WaitForFixedUpdate();
+
+                    continue;
+                }
+
                 float distanceToPlayer = Mathf.Abs(Vector2.Distance(playerTransform.position, transform.position));
 
                 if (Mathf.Abs(distanceToPlayer - maintainDistance) < 0.5f)          // Stay Still
@@ -543,6 +632,7 @@ public class EnemyController : MonoBehaviour
                 }
                 else if (distanceToPlayer < maintainDistance)
                 {
+
                     #region Run Away From Player
 
                     int moveDirection = playerTransform.position.x - transform.position.x > 0 ? -1 : 1;
@@ -622,6 +712,20 @@ public class EnemyController : MonoBehaviour
 
             while (true)
             {
+                if (isPausing)
+                {
+                    if (!hasStoppedOnPause)
+                    {
+                        rigid.velocity = Vector2.zero;
+
+                        hasStoppedOnPause = true;
+                    }
+
+                    yield return new WaitForFixedUpdate();
+
+                    continue;
+                }
+
                 int moveDirection = playerTransform.position.x - transform.position.x > 0 ? 1 : -1;
 
                 SetObjectDirection(moveDirection);
@@ -686,13 +790,21 @@ public class EnemyController : MonoBehaviour
 
     private IEnumerator PauseMoveRoutine(float time)
     {
-        float firstMoveSpeed = moveSpeed;
+        isPausing = true;
+        hasStoppedOnPause = false;
+
+        float firstMoveSpeed = moveSpeed, firstJumpPower = jumpPower;
 
         moveSpeed = 0f;
+        jumpPower = 0f;
 
         yield return new WaitForSeconds(time);
 
+        isPausing = false;
+        hasStoppedOnPause = false;
+
         moveSpeed = firstMoveSpeed;
+        jumpPower = firstJumpPower;
     }
 
     private void ChangeState(State state) => this.state = state;

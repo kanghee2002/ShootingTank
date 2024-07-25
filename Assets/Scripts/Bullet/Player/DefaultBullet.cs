@@ -14,6 +14,7 @@ public class DefaultBullet : Bullet
                 {
                     health.TakeDamage(FinalDamage);
                     DestroyBullet();
+                    break;
                 }
             }
         }

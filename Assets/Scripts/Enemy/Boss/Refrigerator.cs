@@ -14,6 +14,7 @@ public class Refrigerator : Boss
     [Header("Tackle References")]
     [SerializeField] private WarningLaser warningLaser;
     [SerializeField] private Sprite tackleSprite;
+    [SerializeField] private LayerMask tackleBlockingLayer;
 
     [Header("Default Settings")]
     [SerializeField][Range(0f, 1f)] private float phaseChangeHealthPercentage = 0.5f;
@@ -21,9 +22,6 @@ public class Refrigerator : Boss
     [SerializeField] private float attackReadyTime;
 
     [SerializeField] private float bulletFireDistance;
-
-    [Header("Attack Pattenr Settings")]
-    [SerializeField] private LayerMask tackleBlockingLayer;
 
     [Header("Attack_ Routine")]
     private const string ThrowFood = "Attack_ThrowFood";
