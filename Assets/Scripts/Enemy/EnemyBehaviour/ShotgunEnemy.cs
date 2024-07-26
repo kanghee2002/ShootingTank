@@ -9,8 +9,11 @@ public class ShotgunEnemy : Enemy
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float weaponLength;
 
-    [Header("Attack Settings")]
-    [SerializeField] private float aimAccuracy;
+    [Header("Shotgun Settings")]
+    [SerializeField] Shotgun.ShootingType shootingType;
+    [SerializeField] private int pelletCount;
+    [SerializeField] private float aimAccuracy;         // used on Random
+    [SerializeField] private float shootingAngle;       // used on Angle
 
     public override bool Attack(Transform playerTransform)
     {
@@ -23,18 +26,35 @@ public class ShotgunEnemy : Enemy
 
         List<Vector3> directions = new();
 
-        float aimAngle = (90 - (aimAccuracy * 9 * 0.1f)) * Mathf.Deg2Rad;
+        if (shootingType == Shotgun.ShootingType.Random)
+        {
+            for (int i = 0; i < pelletCount; i++)
+            {
+                directions.Add(GetRandomDirection(direction, aimAccuracy));
+            }
+        }
+        else if (shootingType == Shotgun.ShootingType.Angle)
+        {
+            if (pelletCount % 2 == 0)       // Even
+            {
+                float defaultAngle = shootingAngle / 2f;
+                for (int i = 0; i < pelletCount / 2; i++)
+                {
+                    directions.Add(GetDirectionByAngle(direction, defaultAngle + shootingAngle * i));
+                    directions.Add(GetDirectionByAngle(direction, -(defaultAngle + shootingAngle * i)));
+                }
+            }
+            else                            // Odd
+            {
+                directions.Add(direction);
 
-        Vector3 direction2 = new Vector3(
-                direction.x * Mathf.Cos(aimAngle) - direction.y * Mathf.Sin(aimAngle),
-                direction.x * Mathf.Sin(aimAngle) + direction.y * Mathf.Cos(aimAngle));
-        Vector3 direction3 = new Vector3(
-                direction.x * Mathf.Cos(-aimAngle) - direction.y * Mathf.Sin(-aimAngle),
-                direction.x * Mathf.Sin(-aimAngle) + direction.y * Mathf.Cos(-aimAngle));
-
-        directions.Add(direction);
-        directions.Add(direction2);
-        directions.Add(direction3);
+                for (int i = 1; i <= pelletCount / 2; i++)
+                {
+                    directions.Add(GetDirectionByAngle(direction, shootingAngle * i));
+                    directions.Add(GetDirectionByAngle(direction, -shootingAngle * i));
+                }
+            }
+        }
 
         foreach (var dir in directions)
         {
@@ -53,5 +73,27 @@ public class ShotgunEnemy : Enemy
         StartCoroutine(CoolDownRoutine(coolTime));
 
         return true;
+    }
+
+
+    private Vector3 GetDirectionByAngle(Vector3 dir, float angle)
+    {
+        float radian = angle * Mathf.Deg2Rad;
+        Vector3 newDir = new Vector3(
+                dir.x * Mathf.Cos(radian) - dir.y * Mathf.Sin(radian),
+                dir.x * Mathf.Sin(radian) + dir.y * Mathf.Cos(radian),
+                0);
+        return newDir;
+    }
+
+    private Vector3 GetRandomDirection(Vector3 dir, float aimAccuracy)
+    {
+        float accuracyRadian = (90 - (aimAccuracy * 9 / 10)) * Mathf.Deg2Rad;
+        float randomRadian = Random.Range(-accuracyRadian, accuracyRadian);
+        Vector3 randomDir = new Vector3(
+                dir.x * Mathf.Cos(randomRadian) - dir.y * Mathf.Sin(randomRadian),
+                dir.x * Mathf.Sin(randomRadian) + dir.y * Mathf.Cos(randomRadian),
+                0);
+        return randomDir;
     }
 }
