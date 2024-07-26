@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float maintainDistance = 0f;           //Only Used on Aggression Level 2
 
     [Header("Attack Settings")]
+    [SerializeField] private bool canAttack = true;
     [SerializeField] private float attackRange = 100f;
     [SerializeField] private float stationaryTimeOnAttack = 0f;
 
@@ -175,7 +176,7 @@ public class EnemyController : MonoBehaviour
             case State.Idle:
                 break;
             case State.Attack:
-                if (isPlayerDetected && Vector2.Distance(playerTransform.position, transform.position) <= attackRange)
+                if (canAttack && isPlayerDetected && Vector2.Distance(playerTransform.position, transform.position) <= attackRange)
                 {
                     bool isAttack = enemy.Attack(playerTransform);
 
