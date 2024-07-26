@@ -101,10 +101,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: {fileID: 0}
+  prefabID: 0
   lifeTIme: 3
-  targetTags: []
-  defaultCollideTags:
+  rotatedDegree: 0
+  targetTags:
   - Enemy
+  defaultCollideTags:
   - Platform
   explosion: {fileID: 6495512500664828030}
 --- !u!50 &495847386941388813
