@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2725257939580471691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.161, y: 0.749, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -103,8 +103,7 @@ MonoBehaviour:
   prefabID: 0
   lifeTIme: 3
   rotatedDegree: 90
-  targetTags:
-  - Enemy
+  targetTags: []
   defaultCollideTags:
   - Platform
 --- !u!50 &6398269949806321713

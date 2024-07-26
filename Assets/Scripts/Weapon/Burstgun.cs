@@ -37,6 +37,7 @@ public class Burstgun : Weapon
             Bullet bullet = obj.GetComponent<Bullet>();
             bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
             bullet.LookAtDirection(obj, randomDirection);
+            bullet.AddTargetTag(Settings.enemyTag);
 
             obj.transform.position = transform.position + randomDirection * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;

@@ -62,6 +62,7 @@ public class Shotgun : Weapon
             Bullet bullet = obj.GetComponent<Bullet>();
             bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
             bullet.LookAtDirection(obj, dir);
+            bullet.AddTargetTag(Settings.enemyTag);
 
             obj.transform.position = transform.position + dir * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;

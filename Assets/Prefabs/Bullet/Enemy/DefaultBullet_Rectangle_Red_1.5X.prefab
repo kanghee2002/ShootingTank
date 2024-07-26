@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4003872621897938578}
   - component: {fileID: 9145616883401481574}
-  - component: {fileID: -5344770364092184619}
+  - component: {fileID: -4711764149768561325}
   - component: {fileID: 4627200372952755670}
   - component: {fileID: 5882004848468283853}
   m_Layer: 9
-  m_Name: DefaultBullet_Rectangle_Red_1
+  m_Name: DefaultBullet_Rectangle_Red_1.5X
   m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-5344770364092184619
+--- !u!114 &-4711764149768561325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,17 +96,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5328794040276415184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 492bf9a69d15451489cb743b658fb051, type: 3}
+  m_Script: {fileID: 11500000, guid: 359dff671794cc84eb5c7d2722535e66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: {fileID: 0}
   prefabID: 0
   lifeTIme: 3
   rotatedDegree: 90
-  targetTags:
-  - Player
-  defaultCollideTags:
-  - Platform
+  targetTags: []
+  defaultCollideTags: []
 --- !u!50 &4627200372952755670
 Rigidbody2D:
   serializedVersion: 4

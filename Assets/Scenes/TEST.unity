@@ -592,6 +592,7 @@ MonoBehaviour:
   - enemyRank: 2
     enemyPrefabArray:
     - {fileID: 2398333070115463262, guid: fde596e7a4d8a7e45894d998fa76422c, type: 3}
+    - {fileID: 8983576799784918942, guid: 47922a8bd52e29e48ad452bccfefa628, type: 3}
   - enemyRank: 3
     enemyPrefabArray:
     - {fileID: 4102787878820623299, guid: 0083f5c0cdcc5d9498a96e671dcba6e3, type: 3}

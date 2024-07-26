@@ -27,6 +27,7 @@ public class DefaultEnemy : Enemy
         bullet.LookAtDirection(obj, direction);
         bullet.FinalDamage = damageValue;
         bullet.AddTargetTag(Settings.playerTag);
+
         StartCoroutine(CoolDownRoutine(coolTime));
         isCool = true;
 

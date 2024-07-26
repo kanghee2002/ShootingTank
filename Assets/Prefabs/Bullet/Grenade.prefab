@@ -104,8 +104,7 @@ MonoBehaviour:
   prefabID: 0
   lifeTIme: 3
   rotatedDegree: 0
-  targetTags:
-  - Enemy
+  targetTags: []
   defaultCollideTags:
   - Platform
   explosion: {fileID: 6495512500664828030}
@@ -145,7 +144,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
 --- !u!1001 &4771477686715396862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,6 +155,14 @@ PrefabInstance:
     - target: {fileID: 1689843181765918820, guid: 1855a0cd082bfe04995a3e0dfe0064f0, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689843181765918820, guid: 1855a0cd082bfe04995a3e0dfe0064f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1689843181765918820, guid: 1855a0cd082bfe04995a3e0dfe0064f0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1689843181765918820, guid: 1855a0cd082bfe04995a3e0dfe0064f0, type: 3}
       propertyPath: m_LocalPosition.x

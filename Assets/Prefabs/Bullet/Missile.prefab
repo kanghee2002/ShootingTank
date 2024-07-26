@@ -104,8 +104,7 @@ MonoBehaviour:
   prefabID: 0
   lifeTIme: 3
   rotatedDegree: 90
-  targetTags:
-  - Enemy
+  targetTags: []
   defaultCollideTags:
   - Platform
   explosion: {fileID: 6495512500664828030}

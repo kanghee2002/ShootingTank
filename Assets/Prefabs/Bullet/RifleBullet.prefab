@@ -103,8 +103,7 @@ MonoBehaviour:
   prefabID: 0
   lifeTIme: 3
   rotatedDegree: 90
-  targetTags:
-  - Enemy
+  targetTags: []
   defaultCollideTags:
   - Platform
 --- !u!50 &6398269949806321713

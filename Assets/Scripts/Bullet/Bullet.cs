@@ -43,10 +43,9 @@ public abstract class Bullet : MonoBehaviour
 
     protected virtual void DestroyBullet()
     {
-        //StopAllCoroutines();
         if (!objectPool)
         {
-            Debug.Log("Error: No Shooting Object in" + name + " Bullet");
+            Debug.Log("Error: No ObjectPool in" + name + " Bullet");
             Destroy(gameObject);
         }
         else objectPool.ReturnBullet(gameObject);

@@ -16,7 +16,7 @@ public class Lasergun : Weapon
         var obj = objectPool.GetBullet();
         Laser laser = obj.GetComponent<Laser>();
 
-        laser.AddTargetTag("Enemy");
+        laser.AddTargetTag(Settings.enemyTag);
         laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
         var randomDirection = GetRandomDirection(direction, AimAccuracy);

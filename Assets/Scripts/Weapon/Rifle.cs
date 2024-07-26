@@ -22,6 +22,7 @@ public class Rifle : Weapon
         Bullet bullet = obj.GetComponent<Bullet>();
         bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
         bullet.LookAtDirection(obj, randomDirection);
+        bullet.AddTargetTag(Settings.enemyTag);
 
         CurAmmo--;
         

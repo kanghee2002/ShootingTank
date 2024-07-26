@@ -14,7 +14,9 @@ public class GrenadeLauncher : Weapon
         }
         var obj = objectPool.GetBullet();
 
-        obj.GetComponent<Bullet>().FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+        Bullet bullet = obj.GetComponent<Bullet>();
+        bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+        bullet.AddTargetTag(Settings.enemyTag);
 
         var randomDirection = GetRandomDirection(direction, AimAccuracy);
         obj.transform.position = transform.position + randomDirection * weaponLength;
