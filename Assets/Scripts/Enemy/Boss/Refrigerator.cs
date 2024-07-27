@@ -60,7 +60,6 @@ public class Refrigerator : Boss
     private bool hasTackled = false;
 
     private bool hasDonePhaseAction = false;
-    private float totalPhaseActionTime = 0f;
 
     protected override void Awake()
     {
@@ -80,7 +79,6 @@ public class Refrigerator : Boss
 
             phase = 1;
             hasDonePhaseAction = false;
-            totalPhaseActionTime = 0f;
 
             ChangeState(State.Idle);
             isTackling = false;
@@ -103,7 +101,6 @@ public class Refrigerator : Boss
         hasTackled = false;
 
         hasDonePhaseAction = false;
-        totalPhaseActionTime = 0f;
 
         health.onHealthChanged += OnPhaseChanged;
     }
