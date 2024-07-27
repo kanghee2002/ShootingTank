@@ -8,13 +8,6 @@ public class EnemySpawner : Singleton<EnemySpawner>
     [Header("Enemy Prefab")]
     [SerializeField] private List<EnemyPrefabs> enemyPrefabList;
 
-    public DungeonLevelSO dungeonLevelSO;
-
-    private void Start()
-    {
-
-    }
-
     public bool SpawnEnemy(DungeonLevelSO dungeonLevelSO, DungeonBuilder.RoomInfo[,] roomInfos)
     {
         int dungeonWidth = roomInfos.GetLength(0);

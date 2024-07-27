@@ -50,7 +50,8 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
             BlockUnusedDoors(completedRoomInfos);
 
-            /* // DEBUG
+            #region DEBUG
+            /*
             int smallCount = 0;
             int mediumCount = 0;
             int largeCount = 0;
@@ -64,6 +65,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             Debug.Log("Medium Room Count : " + mediumCount);
             Debug.Log("Large Room Count : " + largeCount);
             // DEBUG */
+            #endregion DEBUG
 
             EnemySpawner.Instance.SpawnEnemy(selectedDungeonLevel, completedRoomInfos);
         }
