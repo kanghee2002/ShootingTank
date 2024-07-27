@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        //InstantiatePlayer();
+        InstantiatePlayer();
 
         #region TEST_SCENE
         if (SceneManager.GetActiveScene().name == "TEST")
@@ -45,7 +45,7 @@ public class GameManager : Singleton<GameManager>
 
     public void MakePlayerActive()
     {
-        playerObj.transform.parent = null;
+        playerObj.transform.SetParent(null);
         playerObj.SetActive(true);
         playerObj.transform.position = Vector3.zero;
     }

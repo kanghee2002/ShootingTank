@@ -26,6 +26,8 @@ public class StageUIController : MonoBehaviour
 
     private void Start()
     {
+        player = GameManager.Instance.playerObj;
+
         InitializeDisplay();
         InitializePlayerComponents();
     }
