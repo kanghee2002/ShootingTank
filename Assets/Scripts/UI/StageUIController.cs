@@ -18,15 +18,12 @@ public class StageUIController : MonoBehaviour
     [Header("Hp Display")]
     [SerializeField] private Slider playerHealthSlider;
     [SerializeField] private TMP_Text playerHealthText;
-
-    [Header("Player")]
-    [SerializeField] private GameObject player;
-
-    private Health playerHealth;
+    
+    private GameObject player;
 
     private void Start()
     {
-        player = GameManager.Instance.playerObj;
+        player = GameManager.Instance.playerObject;
 
         InitializeDisplay();
         InitializePlayerComponents();
@@ -46,7 +43,7 @@ public class StageUIController : MonoBehaviour
 
     private void InitializePlayerComponents()
     {
-        playerHealth = player.GetComponent<Health>();
+        Health playerHealth = player.GetComponent<Health>();
         playerHealth.SetHealthSlider(playerHealthSlider);
         playerHealth.onHealthChanged += SetHealthText;
 

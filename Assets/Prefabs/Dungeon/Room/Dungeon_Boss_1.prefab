@@ -69959,6 +69959,22 @@ PrefabInstance:
       propertyPath: m_Tiles.Array.data[15].second.m_TileObjectToInstantiateIndex
       value: 65535
       objectReference: {fileID: 0}
+    - target: {fileID: 6619731031815478030, guid: fc44a266201d3cd4992d14edbc0b5ad9, type: 3}
+      propertyPath: m_Size.x
+      value: 64.02715
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619731031815478030, guid: fc44a266201d3cd4992d14edbc0b5ad9, type: 3}
+      propertyPath: m_Size.y
+      value: 49.83946
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619731031815478030, guid: fc44a266201d3cd4992d14edbc0b5ad9, type: 3}
+      propertyPath: m_Offset.x
+      value: 12.058765
+      objectReference: {fileID: 0}
+    - target: {fileID: 6619731031815478030, guid: fc44a266201d3cd4992d14edbc0b5ad9, type: 3}
+      propertyPath: m_Offset.y
+      value: 8.019808
+      objectReference: {fileID: 0}
     - target: {fileID: 7206078939362619287, guid: fc44a266201d3cd4992d14edbc0b5ad9, type: 3}
       propertyPath: m_Name
       value: Dungeon_Boss_1

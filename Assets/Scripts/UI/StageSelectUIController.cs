@@ -6,10 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class StageSelectUIController : MonoBehaviour
 {
-    [SerializeField] private Button gamePlayBtn;
+    [SerializeField] private Button playLevelButton;
 
     private void Start()
     {
-        gamePlayBtn.onClick.AddListener(() => SceneManager.LoadScene("Stage1"));
+        playLevelButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Stage");
+            GameManager.Instance.ChangeGameState(GameState.playingLevel);
+        });
     }
 }

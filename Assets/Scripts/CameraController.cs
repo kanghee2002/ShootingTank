@@ -7,13 +7,17 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private float smoothing = 3f;
 
+    private void Start()
+    {
+        transform.position = GameManager.Instance.playerObject.transform.position;
+    }
+
     private void FixedUpdate()
     {
-        if (GameManager.Instance.playerObj)
+        if (GameManager.Instance.playerObject)
         {
-            Vector3 targetPos = GameManager.Instance.playerObj.transform.position;
+            Vector3 targetPos = GameManager.Instance.playerObject.transform.position;
             targetPos.z = -10f;
-            //transform.position = targetPos;
             transform.position = Vector3.Lerp(transform.position, targetPos, smoothing * Time.deltaTime);
         }
     }

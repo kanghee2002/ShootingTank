@@ -55,14 +55,14 @@ public enum EnemyRank
 public enum GameState
 {
     gameStarted,
+    loadLevel,
     playingLevel,
-    engagingEnemies,
+    enterRoom,
+    enterBossRoom,
     bossStage,
-    engagingBoss,
     levelCompleted,
     gameWon,
     gameLost,
     gamePaused,
-    dungeonOverviewMap,
     restartGame
 }

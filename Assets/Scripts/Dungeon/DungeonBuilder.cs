@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DungeonBuilder : Singleton<DungeonBuilder>
+public class DungeonBuilder : MonoBehaviour
 {
     [SerializeField] private DungeonLevelSO[] dungeonLevelSOArray;
 
@@ -27,35 +27,37 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         public Transform roomTransform;
     }
 
+    private RoomInfo[,] currentRoomInfos;
+    public RoomInfo[,] GetCurrentRoomInfos() => currentRoomInfos;
+
     private void Start()
     {
-        BuildDungeon(1);
+       Vector2 playerPosition = BuildDungeon(GameManager.Instance.CurrentDungeonLevel);
+        GameManager.Instance.playerObject.transform.position = playerPosition;
     }
 
-    public void BuildDungeon(int level)
+    private Vector2 BuildDungeon(int level)
     {
         DungeonLevelSO selectedDungeonLevel = SelectDungeonLevelSO(level);
 
         int buildAttemptCount = 10000;
 
-        RoomInfo[,] completedRoomInfos;
-
-        bool isSuccess = AttemptToBuildDungeon(selectedDungeonLevel, buildAttemptCount, out completedRoomInfos);
+        bool isSuccess = AttemptToBuildDungeon(selectedDungeonLevel, buildAttemptCount, out currentRoomInfos);
 
         if (isSuccess)
         {
-            InstantiatedRooms(selectedDungeonLevel, completedRoomInfos);
+            InstantiateRooms(selectedDungeonLevel, currentRoomInfos);
 
-            InstantiateDoors(selectedDungeonLevel, completedRoomInfos);
+            InstantiateDoors(selectedDungeonLevel, currentRoomInfos);
 
-            BlockUnusedDoors(completedRoomInfos);
+            BlockUnusedDoors(currentRoomInfos);
 
             #region DEBUG
             /*
             int smallCount = 0;
             int mediumCount = 0;
             int largeCount = 0;
-            foreach (var room in completedRoomInfos)
+            foreach (var room in currentRoomInfos)
             {
                 if (room.roomType == RoomType.Small) smallCount++;
                 else if (room.roomType == RoomType.Medium) mediumCount++;
@@ -67,11 +69,19 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             // DEBUG */
             #endregion DEBUG
 
-            EnemySpawner.Instance.SpawnEnemy(selectedDungeonLevel, completedRoomInfos);
+            EnemySpawner.Instance.SpawnEnemy(selectedDungeonLevel, currentRoomInfos);
+
+            RoomInfo entranceRoomInfo = currentRoomInfos[0, selectedDungeonLevel.dungeonHeight - 1];
+
+            StageManager.Instance.currentRoomObject = entranceRoomInfo.roomTransform.gameObject;
+
+            return (Vector2)entranceRoomInfo.roomTransform.position + entranceRoomInfo.roomDetails.spawnPositionArray[0];
         }
         else
         {
             Debug.Log("Unable to Build Dungeon");
+
+            return Vector2.zero;
         }
 
     }
@@ -550,17 +560,19 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         roomInfos[farthestPosition.x, farthestPosition.y].roomType = RoomType.Hidden;
     }
 
-    private void InstantiatedRooms(DungeonLevelSO selectedDungeonLevel, RoomInfo[,] roomInfos)
+    private void InstantiateRooms(DungeonLevelSO selectedDungeonLevel, RoomInfo[,] roomInfos)
     {
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
+
+        Transform dungeonRooms = new GameObject("Dungeon Rooms").transform;
 
         for (int x = 0; x < dungeonWidth; x++)
         {
             for (int y = 0; y < dungeonHeight; y++)
             {
-                GameObject roomGameObject = Instantiate(roomInfos[x, y].roomDetails.roomPrefab, this.transform);
-                
+                GameObject roomGameObject = Instantiate(roomInfos[x, y].roomDetails.roomPrefab, dungeonRooms);
+
                 Vector3 roomPosition = new Vector3(x * selectedDungeonLevel.roomGap, y * selectedDungeonLevel.roomGap, 0f);
                 roomGameObject.transform.localPosition = roomPosition;
                 roomInfos[x, y].roomTransform = roomGameObject.transform;
@@ -639,6 +651,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                     Door door = instantiatedDoor.GetComponent<Door>();
                     door.connectedPosition = (Vector2)roomInfos[x, y + 1].roomTransform.position + GetSpecificDoorway(roomInfos[x, y + 1].roomDetails.doorwayArray, Orientation.Down).position +
                         new Vector2(0, Settings.doorVerticalOffset);
+                    door.connectedRoomTransform = roomInfos[x, y + 1].roomTransform;
                 }
                 if (roomInfos[x, y].isDownConnected)
                 {
@@ -650,6 +663,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                     Door door = instantiatedDoor.GetComponent<Door>();
                     door.connectedPosition = (Vector2)roomInfos[x, y - 1].roomTransform.position + GetSpecificDoorway(roomInfos[x, y - 1].roomDetails.doorwayArray, Orientation.Up).position +
                         new Vector2(0, -Settings.doorVerticalOffset);
+                    door.connectedRoomTransform = roomInfos[x, y - 1].roomTransform;
                 }
                 if (roomInfos[x, y].isLeftConnected)
                 {
@@ -661,6 +675,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                     Door door = instantiatedDoor.GetComponent<Door>();
                     door.connectedPosition = (Vector2)roomInfos[x - 1, y].roomTransform.position + GetSpecificDoorway(roomInfos[x - 1, y].roomDetails.doorwayArray, Orientation.Right).position +
                         new Vector2(-Settings.doorHorizontalOffset, 0);
+                    door.connectedRoomTransform = roomInfos[x - 1, y].roomTransform;
                 }
                 if (roomInfos[x, y].isRightConnected)
                 {
@@ -672,6 +687,7 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                     Door door = instantiatedDoor.GetComponent<Door>();
                     door.connectedPosition = (Vector2)roomInfos[x + 1, y].roomTransform.position + GetSpecificDoorway(roomInfos[x + 1, y].roomDetails.doorwayArray, Orientation.Left).position +
                         new Vector2(Settings.doorHorizontalOffset, 0);
+                    door.connectedRoomTransform = roomInfos[x + 1, y].roomTransform;
                 }
             }
         }
@@ -776,7 +792,6 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         Debug.Log("Unable to find " + orientation + " doorway in " + doorwayArray);
         return null;
     }
-
 
     #region DEBUG
     private void PrintRoomInfo(RoomInfo[,] roomInfos, int[,] distanceArray)

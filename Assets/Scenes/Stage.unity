@@ -673,55 +673,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!1 &1153295686
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1153295688}
-  - component: {fileID: 1153295687}
-  m_Layer: 0
-  m_Name: DungeonBuilder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1153295687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153295686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0aff0358e84a1447ab18aa18be75ecb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonLevelSOArray:
-  - {fileID: 11400000, guid: 13caee90bb03bd3469271a8b12f44142, type: 2}
-  block: {fileID: 6236574203605494894, guid: 8cd85b71f6917a848b084d13e3a81744, type: 3}
-  blockRed: {fileID: 6236574203605494894, guid: eb4d5a85350575e4caaabf354735379d, type: 3}
-  blockBlue: {fileID: 6236574203605494894, guid: debc4d3c7a47dde49bf65a1b01565153, type: 3}
---- !u!4 &1153295688
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1153295686}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1307934777
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,6 +749,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1307934777}
   m_CullTransparentMesh: 1
+--- !u!1 &1344477108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1344477110}
+  - component: {fileID: 1344477109}
+  m_Layer: 0
+  m_Name: DungeonBuilder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1344477109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344477108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0aff0358e84a1447ab18aa18be75ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dungeonLevelSOArray:
+  - {fileID: 11400000, guid: 13caee90bb03bd3469271a8b12f44142, type: 2}
+  block: {fileID: 6236574203605494894, guid: 8cd85b71f6917a848b084d13e3a81744, type: 3}
+  blockRed: {fileID: 6236574203605494894, guid: eb4d5a85350575e4caaabf354735379d, type: 3}
+  blockBlue: {fileID: 6236574203605494894, guid: debc4d3c7a47dde49bf65a1b01565153, type: 3}
+--- !u!4 &1344477110
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344477108}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1350015761
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,7 +841,6 @@ MonoBehaviour:
   - {fileID: 2075954377}
   playerHealthSlider: {fileID: 694826335}
   playerHealthText: {fileID: 1902952887}
-  player: {fileID: 0}
 --- !u!114 &1350015763
 MonoBehaviour:
   m_ObjectHideFlags: 0

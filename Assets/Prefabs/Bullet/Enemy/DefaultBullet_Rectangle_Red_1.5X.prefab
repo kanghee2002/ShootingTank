@@ -104,7 +104,8 @@ MonoBehaviour:
   lifeTIme: 3
   rotatedDegree: 90
   targetTags: []
-  defaultCollideTags: []
+  defaultCollideTags:
+  - Platform
 --- !u!50 &4627200372952755670
 Rigidbody2D:
   serializedVersion: 4

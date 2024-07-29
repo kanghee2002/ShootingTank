@@ -1,14 +1,34 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StageManager : Singleton<StageManager>
 {
+    public GameObject currentRoomObject;
+
     protected override void Awake()
     {
-        //Destroy on Load
         GameManager.Instance.MakePlayerActive();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("StageSelect");
+            GameManager.Instance.ChangeGameState(GameState.gameStarted);
+        }
+    }
+
+    public void OnEnterRoom(GameObject rootGameObject)
+    {
+        if (currentRoomObject != null)
+        {
+            // Disable Enemies
+        }
+        currentRoomObject = rootGameObject;
+        // Enable Enemies
     }
 
     public void FinishStage()
@@ -16,6 +36,6 @@ public class StageManager : Singleton<StageManager>
         //Send Data to GameManager
         //Load Scene -> Use coroutine to invoke scene loading
         GameManager.Instance.MakePlayerInactive();
-        SceneManager.LoadScene("Shop");
+        SceneManager.LoadScene("StageSelect");
     }
 }
