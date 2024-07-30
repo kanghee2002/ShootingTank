@@ -80,6 +80,7 @@ public class EnemyController : MonoBehaviour
     private State state;
     private Coroutine currentMoveRoutine;
     private Sprite idleSprite;
+    private Coroutine pauseMoveRoutine;
 
 
     private void Awake()
@@ -113,10 +114,11 @@ public class EnemyController : MonoBehaviour
 
         isPlayerDetected = false;
 
-        isPausing = false;
         hasStoppedOnPause = false;
 
         currentMoveRoutine = StartCoroutine(IdleMoveRoutine());
+
+        pauseMoveRoutine = null;
     }
 
     private void Update()
@@ -789,7 +791,7 @@ public class EnemyController : MonoBehaviour
 
     public void PauseMove(float time)
     {
-        StartCoroutine(PauseMoveRoutine(time));
+        pauseMoveRoutine = StartCoroutine(PauseMoveRoutine(time));
     }
 
     private IEnumerator PauseMoveRoutine(float time)
@@ -892,5 +894,25 @@ public class EnemyController : MonoBehaviour
             return true;
         else
             return false;
+    }
+    
+    public void SetActiveEnemyController(bool isActive)
+    {
+        if (isActive)
+        {
+            isPausing = false;
+        }
+        else
+        {
+            if (pauseMoveRoutine != null)
+            {
+                StopCoroutine(pauseMoveRoutine);
+                pauseMoveRoutine = null;
+            }
+
+            isPausing = true;
+
+            rigid.velocity = Vector2.zero;
+        }
     }
 }

@@ -15,8 +15,11 @@ public class Boss : MonoBehaviour
         Attacking,
     }
 
+    [SerializeField] protected int spawnLevel;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float idleTime;
+
+    public int SpawnLevel { get => spawnLevel; }
 
     protected Transform playerTransform;
 

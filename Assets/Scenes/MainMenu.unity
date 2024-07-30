@@ -865,6 +865,8 @@ MonoBehaviour:
   - enemyRank: 3
     enemyPrefabArray:
     - {fileID: 4102787878820623299, guid: 0083f5c0cdcc5d9498a96e671dcba6e3, type: 3}
+  bossList:
+  - {fileID: 9170879183923296428, guid: c2c952329a7c76c499a1da01dd83962f, type: 3}
 --- !u!1 &1950983317
 GameObject:
   m_ObjectHideFlags: 0

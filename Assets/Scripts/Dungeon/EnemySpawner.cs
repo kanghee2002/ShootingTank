@@ -5,13 +5,29 @@ using System.Linq;
 
 public class EnemySpawner : Singleton<EnemySpawner>
 {
+    [System.Serializable]
+    private struct EnemyPrefabs
+    {
+        public EnemyRank enemyRank;
+        public GameObject[] enemyPrefabArray;
+    }
+
     [Header("Enemy Prefab")]
     [SerializeField] private List<EnemyPrefabs> enemyPrefabList;
+
+    [SerializeField] private List<Boss> bossList;
+
+    private Dictionary<DungeonBuilder.RoomInfo, List<EnemyController>> spawnedEnemiesDictionary;
 
     public bool SpawnEnemy(DungeonLevelSO dungeonLevelSO, DungeonBuilder.RoomInfo[,] roomInfos)
     {
         int dungeonWidth = roomInfos.GetLength(0);
         int dungeonHeight = roomInfos.GetLength(1);
+
+        if (spawnedEnemiesDictionary == null )
+            spawnedEnemiesDictionary = new();
+        else 
+            spawnedEnemiesDictionary.Clear();
 
         Dictionary<RoomType, List<EnemyRank>> compositedEnemyRankDictionary = new();                //ex) Key: Large / Value: [S, A, A, B, B, B, C, C, C, C, C]
 
@@ -36,11 +52,8 @@ public class EnemySpawner : Singleton<EnemySpawner>
         {
             for (int y = 0; y < dungeonHeight; y++)
             {
-                if (roomInfos[x, y].roomType == RoomType.Entrance)      //Spawn Player?
-                {
+                spawnedEnemiesDictionary[roomInfos[x, y]] = new List<EnemyController>();
 
-                }
-                
                 if (Settings.regularRoomTypeList.Contains(roomInfos[x, y].roomType))
                 {
                     RoomType currentRoomType = roomInfos[x, y].roomType;
@@ -81,8 +94,22 @@ public class EnemySpawner : Singleton<EnemySpawner>
                         GameObject instantiatedEnemyObject = Instantiate(selectedEnemyPrefab, roomInfos[x, y].roomTransform);
                         instantiatedEnemyObject.transform.localPosition = spawnPosition;
 
+                        EnemyController enemyController = instantiatedEnemyObject.GetComponent<EnemyController>();
+                        spawnedEnemiesDictionary[roomInfos[x, y]].Add(enemyController);
+                        enemyController.SetActiveEnemyController(false);
+
                         currentCompositedEnemyRankList.RemoveAt(randomlySelectedIndex);
                     }
+                }
+                if (roomInfos[x, y].roomType == RoomType.Boss)
+                {
+                    List<Boss> selectedBossList = bossList.Where(boss => boss.SpawnLevel == dungeonLevelSO.level).ToList();
+
+                    Boss randomBoss = selectedBossList[Random.Range(0, selectedBossList.Count)];
+
+                    Vector2 spawnPosition = (Vector2)roomInfos[x, y].roomTransform.position + roomInfos[x, y].roomDetails.spawnPositionArray[0];
+
+                    Instantiate(randomBoss, spawnPosition, Quaternion.identity);
                 }
             }
         }
@@ -90,10 +117,20 @@ public class EnemySpawner : Singleton<EnemySpawner>
         return true;
     }
 
-    [System.Serializable]
-    private struct EnemyPrefabs
+    public void SetActiveEnemiesInRoom(Transform roomTransform, bool isActive)
     {
-        public EnemyRank enemyRank;
-        public GameObject[] enemyPrefabArray;
+        foreach (KeyValuePair<DungeonBuilder.RoomInfo, List<EnemyController>> keyValuePair in spawnedEnemiesDictionary) 
+        {
+            DungeonBuilder.RoomInfo currentRoomInfo = keyValuePair.Key;
+            List<EnemyController> enemyList = keyValuePair.Value;
+
+            if (currentRoomInfo.roomTransform == roomTransform)
+            {
+                foreach (EnemyController enemyController in enemyList)
+                {
+                    enemyController.SetActiveEnemyController(isActive);
+                }
+            }
+        }
     }
 }

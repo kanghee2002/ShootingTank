@@ -35,4 +35,5 @@ MonoBehaviour:
     doorwayCopyPosition: {x: 38, y: 0}
     doorwayCopyWidth: 6
     doorwayCopyHeight: 8
-  spawnPositionArray: []
+  spawnPositionArray:
+  - {x: 18.5, y: 8}

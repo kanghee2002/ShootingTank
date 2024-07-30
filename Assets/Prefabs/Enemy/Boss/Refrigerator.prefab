@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89542b05266623642a99f2766e97765e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnLevel: 1
   moveSpeed: 0
   idleTime: 2
   foodPrefabArray:
@@ -249,12 +250,12 @@ MonoBehaviour:
   - {fileID: 5328794040276415184, guid: 270da3059b45ce64fa3f66b2be955bc4, type: 3}
   warningLaser: {fileID: 5009508721608107979}
   tackleSprite: {fileID: 21300000, guid: 9ef75521b13bfcf4194b0c74be59bf09, type: 3}
-  phaseChangeHealthPercentage: 0.5
-  attackReadyTime: 0
-  bulletFireDistance: 1
   tackleBlockingLayer:
     serializedVersion: 2
     m_Bits: 2176
+  phaseChangeHealthPercentage: 0.5
+  attackReadyTime: 0
+  bulletFireDistance: 1
 --- !u!114 &9170879183923296431
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,9 +26,10 @@ public class StageManager : Singleton<StageManager>
         if (currentRoomObject != null)
         {
             // Disable Enemies
+            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, false);
         }
         currentRoomObject = rootGameObject;
-        // Enable Enemies
+        EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, true);
     }
 
     public void FinishStage()
