@@ -19,6 +19,8 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
     private Dictionary<DungeonBuilder.RoomInfo, List<EnemyController>> spawnedEnemiesDictionary;
 
+    private Boss spawnedBoss;
+
     public bool SpawnEnemy(DungeonLevelSO dungeonLevelSO, DungeonBuilder.RoomInfo[,] roomInfos)
     {
         int dungeonWidth = roomInfos.GetLength(0);
@@ -109,7 +111,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
 
                     Vector2 spawnPosition = (Vector2)roomInfos[x, y].roomTransform.position + roomInfos[x, y].roomDetails.spawnPositionArray[0];
 
-                    Instantiate(randomBoss, spawnPosition, Quaternion.identity);
+                    spawnedBoss = Instantiate(randomBoss, spawnPosition, Quaternion.identity);
                 }
             }
         }
@@ -117,19 +119,29 @@ public class EnemySpawner : Singleton<EnemySpawner>
         return true;
     }
 
-    public void SetActiveEnemiesInRoom(Transform roomTransform, bool isActive)
+    public void SetActiveEnemiesInRoom(Transform roomTransform, bool isActive, bool isBoss)
     {
-        foreach (KeyValuePair<DungeonBuilder.RoomInfo, List<EnemyController>> keyValuePair in spawnedEnemiesDictionary) 
+        if (!isBoss)
         {
-            DungeonBuilder.RoomInfo currentRoomInfo = keyValuePair.Key;
-            List<EnemyController> enemyList = keyValuePair.Value;
-
-            if (currentRoomInfo.roomTransform == roomTransform)
+            foreach (KeyValuePair<DungeonBuilder.RoomInfo, List<EnemyController>> keyValuePair in spawnedEnemiesDictionary)
             {
-                foreach (EnemyController enemyController in enemyList)
+                DungeonBuilder.RoomInfo currentRoomInfo = keyValuePair.Key;
+                List<EnemyController> enemyList = keyValuePair.Value;
+
+                if (currentRoomInfo.roomTransform == roomTransform)
                 {
-                    enemyController.SetActiveEnemyController(isActive);
+                    foreach (EnemyController enemyController in enemyList)
+                    {
+                        enemyController.SetActiveEnemyController(isActive);
+                    }
                 }
+            }
+        }
+        else
+        {
+            if (isActive)
+            {
+                spawnedBoss.Initialize(GameManager.Instance.playerObject.transform);
             }
         }
     }

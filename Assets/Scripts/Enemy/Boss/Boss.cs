@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(ObjectPooling))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(SpriteRenderer))]
-public class Boss : MonoBehaviour
+public abstract class Boss : MonoBehaviour
 {
     public enum State
     {
@@ -35,4 +35,6 @@ public class Boss : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+    public abstract void Initialize(Transform playerTransform);
 }

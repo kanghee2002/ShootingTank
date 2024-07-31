@@ -21,15 +21,23 @@ public class StageManager : Singleton<StageManager>
         }
     }
 
-    public void OnEnterRoom(GameObject rootGameObject)
+    public void OnEnterRoom(GameObject roomObject, RoomType roomType)
     {
         if (currentRoomObject != null)
         {
             // Disable Enemies
-            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, false);
+            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, false, false);
         }
-        currentRoomObject = rootGameObject;
-        EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, true);
+        currentRoomObject = roomObject;
+
+        if (roomType != RoomType.Boss)
+        {
+            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, true, false);
+        }
+        else        //RoomType.Boss
+        {
+            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, true, true);
+        }
     }
 
     public void FinishStage()

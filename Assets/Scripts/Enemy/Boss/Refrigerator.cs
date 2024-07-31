@@ -89,7 +89,7 @@ public class Refrigerator : Boss
         }
     }
 
-    public void Initialize(Transform playerTransform)
+    public override void Initialize(Transform playerTransform)
     {
         this.playerTransform = playerTransform;
 

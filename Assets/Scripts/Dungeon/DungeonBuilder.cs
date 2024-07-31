@@ -643,54 +643,82 @@ public class DungeonBuilder : MonoBehaviour
             {
                 if (roomInfos[x, y].isUpConnected)
                 {
-                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.horizontalDoorPrefab, roomInfos[x, y].roomTransform);
-
-                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Up);
-                    instantiatedDoor.transform.localPosition = doorway.position;
-
-                    Door door = instantiatedDoor.GetComponent<Door>();
-                    door.connectedPosition = (Vector2)roomInfos[x, y + 1].roomTransform.position + GetSpecificDoorway(roomInfos[x, y + 1].roomDetails.doorwayArray, Orientation.Down).position +
-                        new Vector2(0, Settings.doorVerticalOffset);
-                    door.connectedRoomTransform = roomInfos[x, y + 1].roomTransform;
+                    InstantiateDoor(selectedDungeonLevel, roomInfos, x, y, Orientation.Up);
                 }
                 if (roomInfos[x, y].isDownConnected)
                 {
-                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.horizontalDoorPrefab, roomInfos[x, y].roomTransform);
-
-                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Down);
-                    instantiatedDoor.transform.localPosition = doorway.position;
-
-                    Door door = instantiatedDoor.GetComponent<Door>();
-                    door.connectedPosition = (Vector2)roomInfos[x, y - 1].roomTransform.position + GetSpecificDoorway(roomInfos[x, y - 1].roomDetails.doorwayArray, Orientation.Up).position +
-                        new Vector2(0, -Settings.doorVerticalOffset);
-                    door.connectedRoomTransform = roomInfos[x, y - 1].roomTransform;
+                    InstantiateDoor(selectedDungeonLevel, roomInfos, x, y, Orientation.Down);
                 }
                 if (roomInfos[x, y].isLeftConnected)
                 {
-                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.verticalDoorPrefab, roomInfos[x, y].roomTransform);
-
-                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Left);
-                    instantiatedDoor.transform.localPosition = doorway.position;
-
-                    Door door = instantiatedDoor.GetComponent<Door>();
-                    door.connectedPosition = (Vector2)roomInfos[x - 1, y].roomTransform.position + GetSpecificDoorway(roomInfos[x - 1, y].roomDetails.doorwayArray, Orientation.Right).position +
-                        new Vector2(-Settings.doorHorizontalOffset, 0);
-                    door.connectedRoomTransform = roomInfos[x - 1, y].roomTransform;
+                    InstantiateDoor(selectedDungeonLevel, roomInfos, x, y, Orientation.Left);
                 }
                 if (roomInfos[x, y].isRightConnected)
                 {
-                    GameObject instantiatedDoor = Instantiate(selectedDungeonLevel.verticalDoorPrefab, roomInfos[x, y].roomTransform);
-
-                    Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, Orientation.Right);
-                    instantiatedDoor.transform.localPosition = doorway.position;
-
-                    Door door = instantiatedDoor.GetComponent<Door>();
-                    door.connectedPosition = (Vector2)roomInfos[x + 1, y].roomTransform.position + GetSpecificDoorway(roomInfos[x + 1, y].roomDetails.doorwayArray, Orientation.Left).position +
-                        new Vector2(Settings.doorHorizontalOffset, 0);
-                    door.connectedRoomTransform = roomInfos[x + 1, y].roomTransform;
+                    InstantiateDoor(selectedDungeonLevel, roomInfos, x, y, Orientation.Right);
                 }
             }
         }
+    }
+
+    private void InstantiateDoor(DungeonLevelSO selectedDungeonLevel, RoomInfo[,] roomInfos, int x, int y, Orientation doorOrientation)
+    {
+        int connectedRoomOffsetX = 0, connectedRoomOffsetY = 0;
+        Orientation oppositeOrientation;
+        Vector2 doorOffset;
+        if (doorOrientation == Orientation.Up)
+        {
+            connectedRoomOffsetX = 0;
+            connectedRoomOffsetY = 1;
+
+            oppositeOrientation = Orientation.Down;
+            doorOffset = new Vector2(0, Settings.doorVerticalOffset);
+        }
+        else if (doorOrientation == Orientation.Down)
+        {
+            connectedRoomOffsetX = 0;
+            connectedRoomOffsetY = -1;
+
+            oppositeOrientation = Orientation.Up;
+            doorOffset = new Vector2(0, -Settings.doorVerticalOffset);
+        }
+        else if (doorOrientation == Orientation.Left)
+        {
+            connectedRoomOffsetX = -1;
+            connectedRoomOffsetY = 0;
+
+            oppositeOrientation = Orientation.Right;
+            doorOffset = new Vector2(-Settings.doorHorizontalOffset, 0);
+        }
+        else        //Orientation.Right
+        {
+            connectedRoomOffsetX = 1;
+            connectedRoomOffsetY = 0;
+
+            oppositeOrientation = Orientation.Left;
+            doorOffset = new Vector2(Settings.doorHorizontalOffset, 0);
+        }
+
+        GameObject instantiatedDoor;
+        if (doorOrientation == Orientation.Up || doorOrientation == Orientation.Down)
+        {
+            instantiatedDoor = Instantiate(selectedDungeonLevel.horizontalDoorPrefab, roomInfos[x, y].roomTransform);
+        }
+        else
+        {
+            instantiatedDoor = Instantiate(selectedDungeonLevel.verticalDoorPrefab, roomInfos[x, y].roomTransform);
+        }
+
+        Doorway doorway = GetSpecificDoorway(roomInfos[x, y].roomDetails.doorwayArray, doorOrientation);
+
+        instantiatedDoor.transform.localPosition = doorway.position;
+
+        Door door = instantiatedDoor.GetComponent<Door>();
+        door.connectedPosition = (Vector2)roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomTransform.position + 
+            GetSpecificDoorway(roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomDetails.doorwayArray, oppositeOrientation).position +
+            doorOffset;
+        door.connectedRoomTransform = roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomTransform;
+        door.connectedRoomType = roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomType;
     }
 
     private void BlockUnusedDoors(RoomInfo[,] roomInfos)
