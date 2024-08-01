@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaxChargedDamageBonusAdder : MonoBehaviour
+public class MaxChargedDamageBonusAdder : PlayerUtility
 {
     private WeaponController weaponController;
 

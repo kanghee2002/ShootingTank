@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaxAmmoAdder
+public class MaxAmmoAdder : PlayerUtility
 {
     public int maxAmmoBonus;
 

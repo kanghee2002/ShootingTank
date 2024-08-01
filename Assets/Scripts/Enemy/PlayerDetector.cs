@@ -4,27 +4,46 @@ using UnityEngine;
 
 public class PlayerDetector : MonoBehaviour
 {
+    [Header("Parent Reference")]
     [SerializeField] private EnemyController enemyController;
+    [SerializeField] private UtilityObject utilityObject;
 
-    [SerializeField] private List<LayerMask> viewObstacleLayerMaskList = new();
+    [SerializeField] private LayerMask viewObstacleLayerMask;
 
-    public CircleCollider2D circleCollider;
-
-    private LayerMask compositedObstacleLayerMask;
+    [HideInInspector] public CircleCollider2D circleCollider;
 
     private void Awake()
     {
         circleCollider = GetComponent<CircleCollider2D>();
-        compositedObstacleLayerMask = GetObstacleLayerMask();
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag(Settings.playerTag))
+        if (collision.CompareTag(Settings.playerTag))
         {
-            if (IsTargetVisible(other.transform) && enemyController.IsPlayerDetected == false)
+            if (IsTargetVisible(collision.transform))
             {
-                enemyController.onPlayerDetect?.Invoke(other.transform);
+                if (utilityObject != null)
+                {
+                    utilityObject.OnDetectPlayer(collision.transform);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Settings.playerTag))
+        {
+            if (IsTargetVisible(collision.transform))
+            {
+                if (enemyController != null)
+                {
+                    if (enemyController.IsPlayerDetected == false)
+                    {
+                        enemyController.onPlayerDetect?.Invoke(collision.transform);
+                    }
+                }
             }
         }
     }
@@ -33,34 +52,36 @@ public class PlayerDetector : MonoBehaviour
     {
         if (collision.CompareTag(Settings.playerTag))
         {
-            enemyController.onPlayerLost?.Invoke();
+            if (enemyController != null)
+            {
+                enemyController.onPlayerLost?.Invoke();
+            }
         }
     }
 
     public void ExpandDetectRadius(float multiplier)
     {
-        if (circleCollider.radius == enemyController.DetectRadius)
+        if (enemyController != null)
         {
-            circleCollider.radius = enemyController.DetectRadius * multiplier;
+            if (circleCollider.radius == enemyController.DetectRadius)
+            {
+                circleCollider.radius = enemyController.DetectRadius * multiplier;
+            }
         }
     }
 
-    public void ReduceDetectRadius() => circleCollider.radius = enemyController.DetectRadius;
-
-    private LayerMask GetObstacleLayerMask()
+    public void ReduceDetectRadius()
     {
-        LayerMask newLayerMask = viewObstacleLayerMaskList[0];
-        foreach (var layerMask in viewObstacleLayerMaskList)
+        if (enemyController != null)
         {
-            newLayerMask |= layerMask;
+            circleCollider.radius = enemyController.DetectRadius;
         }
-        return newLayerMask;
     }
 
     private bool IsTargetVisible(Transform target)
     {
         var dir = GetTargetDir(target);
-        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, dir, Vector2.Distance(transform.position, target.position), compositedObstacleLayerMask);
+        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, dir, Vector2.Distance(transform.position, target.position), viewObstacleLayerMask);
 
         //Debug
         if (rayHit) Debug.DrawLine(transform.position, rayHit.point, Color.yellow);

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerController))]
-public class MoveSpeedAdder : MonoBehaviour
+public class MoveSpeedAdder : PlayerUtility
 {
     private PlayerController playerController;
 
@@ -11,7 +10,7 @@ public class MoveSpeedAdder : MonoBehaviour
 
     private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
+        playerController = playerTransform.GetComponent<PlayerController>();
     }
 
     private void OnEnable()

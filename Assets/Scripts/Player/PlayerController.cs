@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private JumpChecker jumpChecker;
 
+    public Transform utilityAnchorTransform;
+
     private Rigidbody2D rigid;
     private SpriteRenderer spriteRenderer;
     private PolygonCollider2D polygonCollider;

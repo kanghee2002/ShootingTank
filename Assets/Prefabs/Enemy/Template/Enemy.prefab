@@ -62,8 +62,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: -1317815253261293691}
-  viewObstacleLayerMaskList:
-  - serializedVersion: 2
+  utilityObject: {fileID: 0}
+  viewObstacleLayerMask:
+    serializedVersion: 2
     m_Bits: 128
   circleCollider: {fileID: 0}
 --- !u!1 &5338972074266918973
@@ -259,8 +260,10 @@ MonoBehaviour:
   canFly: 0
   aggressionLevel: 1
   maintainDistance: 0
+  canAttack: 1
   attackRange: 100
   stationaryTimeOnAttack: 0
+  detectSprite: {fileID: 0}
   detectRadius: 10
   detectOnHit: 1
   detectionRadiusMultiplier: 2.5
@@ -297,9 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4341af5c1d5d47748b251e51af0ee214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 5328794040276415184, guid: 00b9f7e704d475f47a378901d952e9ad, type: 3}
-  poolSize: 15
-  bulletRotatedDegree: 90
+  poolArray: []
 --- !u!50 &4561013565632133627
 Rigidbody2D:
   serializedVersion: 4

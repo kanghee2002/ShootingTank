@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoreTakeDamageMultiplerAdder : MonoBehaviour
+public class CoreTakeDamageMultiplerAdder : PlayerUtility
 {
     [SerializeField]  private float coreTakeDamageMultiplerBonus;
 

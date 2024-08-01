@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(WeaponController))]
-public class ChargeDamageMultiplierBonusAdder : MonoBehaviour
+public class ChargeDamageMultiplierBonusAdder : PlayerUtility
 {
     private WeaponController weaponController;
 

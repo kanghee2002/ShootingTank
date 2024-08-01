@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerController))]
-public class JumpPowerAdder : MonoBehaviour
+public class JumpPowerAdder : PlayerUtility
 {
     private PlayerController playerController;
 

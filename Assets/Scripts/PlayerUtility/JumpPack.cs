@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class JumpPack : MonoBehaviour
+public class JumpPack : PlayerUtility
 {
     public enum Category
     {
