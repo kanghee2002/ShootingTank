@@ -44,15 +44,20 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        //[DEBUG]
+        #region DEBUG
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            MakePlayerActive();
+            playerObject.transform.position = DungeonBuilder.Instance.GetBossRoomInfo().roomTransform.position + new Vector3(5f, 0f);
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
             WeaponManager.Instance.IsRightWeaponEnabled = !WeaponManager.Instance.IsRightWeaponEnabled;
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            DungeonBuilder.Instance.BlockBossRoomDoor();
+        }
+        #endregion
 
         ExcuteGameStateAction();
     }
@@ -102,6 +107,7 @@ public class GameManager : Singleton<GameManager>
                     EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.lastRoomTransform, false, false);
                 }
                 EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.currentRoomTransform, true, false);
+
                 ChangeGameState(GameState.playingLevel);
                 break;
             case GameState.enterBossRoom:
@@ -111,12 +117,18 @@ public class GameManager : Singleton<GameManager>
                     EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.lastRoomTransform, false, false);
                 }
                 EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.currentRoomTransform, true, true);
+                DungeonBuilder.Instance.BlockBossRoomDoor();
+
                 ChangeGameState(GameState.bossStage);
                 break;
             case GameState.bossStage:
                 break;
             case GameState.levelCompleted:
-                // Set Flag that can move player to next Stage (plus level)
+                // Set Flag that can move player to next Stage and plus Dungeon level
+
+                DungeonBuilder.Instance.UnblockBossRoomDoor();
+
+                ChangeGameState(GameState.playingLevel);
                 // if level == lastLevel => ChagneState(gameWon)
                 break;
             case GameState.gameWon:

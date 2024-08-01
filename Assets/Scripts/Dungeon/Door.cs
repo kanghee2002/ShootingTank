@@ -12,6 +12,10 @@ public class Door : MonoBehaviour
     {
         if (collision.CompareTag(Settings.playerTag) || collision.CompareTag(Settings.enemyTag))
         {
+            if (collision.TryGetComponent(out CoreHealth coreHealth))
+            {
+                return;
+            }
             MoveObject(collision.transform, connectedPosition);
         }
     }

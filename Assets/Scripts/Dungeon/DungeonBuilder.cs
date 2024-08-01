@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class DungeonBuilder : MonoBehaviour
+public class DungeonBuilder : Singleton<DungeonBuilder>
 {
     [SerializeField] private DungeonLevelSO[] dungeonLevelSOArray;
 
@@ -16,6 +16,7 @@ public class DungeonBuilder : MonoBehaviour
     [SerializeField] private GameObject blockBlue;
     #endregion DEBUG
 
+ 
     public struct RoomInfo
     {
         public RoomDetailsSO roomDetails;
@@ -28,11 +29,25 @@ public class DungeonBuilder : MonoBehaviour
     }
 
     private RoomInfo[,] currentRoomInfos;
-    public RoomInfo[,] GetCurrentRoomInfos() => currentRoomInfos;
+
+    [Header("Boss Room Blocking")]
+    [SerializeField] private GameObject horizontalPlayerBlockingPrefab;
+    [SerializeField] private GameObject verticalPlayerBlockingPrefab;
+    private RoomInfo bossRoomInfo;
+    public RoomInfo GetBossRoomInfo() => bossRoomInfo;
+    private List<Door> bossRoomDoorList;
+    private List<GameObject> instantiatedBlockingList;
+
+    protected override void Awake()
+    {
+        currentRoomInfos = null;
+        bossRoomDoorList = new();
+        instantiatedBlockingList = new();
+    }
 
     private void Start()
     {
-       Vector2 playerPosition = BuildDungeon(GameManager.Instance.CurrentDungeonLevel);
+        Vector2 playerPosition = BuildDungeon(GameManager.Instance.CurrentDungeonLevel);
         GameManager.Instance.playerObject.transform.position = playerPosition;
     }
 
@@ -70,6 +85,8 @@ public class DungeonBuilder : MonoBehaviour
             #endregion DEBUG
 
             EnemySpawner.Instance.SpawnEnemy(selectedDungeonLevel, currentRoomInfos);
+
+            bossRoomInfo = currentRoomInfos[selectedDungeonLevel.dungeonWidth - 1, 0];
 
             RoomInfo entranceRoomInfo = currentRoomInfos[0, selectedDungeonLevel.dungeonHeight - 1];
 
@@ -723,6 +740,11 @@ public class DungeonBuilder : MonoBehaviour
             doorOffset;
         door.connectedRoomTransform = roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomTransform;
         door.connectedRoomType = roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomType;
+
+        if (roomInfos[x, y].roomType == RoomType.Boss)
+        {
+            bossRoomDoorList.Add(door);
+        }
     }
 
     private void BlockUnusedDoors(RoomInfo[,] roomInfos)
@@ -793,6 +815,75 @@ public class DungeonBuilder : MonoBehaviour
                     tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
                 }
             }
+        }
+    }
+
+    public void BlockBossRoomDoor()
+    {
+        foreach (Door door in bossRoomDoorList)
+        {
+            door.gameObject.SetActive(false);
+        }
+
+        if (bossRoomInfo.isUpConnected)
+        {
+            InstantiatePlayerBlocking(Orientation.Up);
+        }
+        if (bossRoomInfo.isDownConnected)
+        {
+            InstantiatePlayerBlocking(Orientation.Down);
+        }
+        if (bossRoomInfo.isLeftConnected)
+        {
+            InstantiatePlayerBlocking(Orientation.Left);
+        }
+        if (bossRoomInfo.isRightConnected)
+        {
+            InstantiatePlayerBlocking(Orientation.Right);
+        }
+    }
+
+    private void InstantiatePlayerBlocking(Orientation doorOrientation)
+    {
+        Doorway doorway = GetSpecificDoorway(bossRoomInfo.roomDetails.doorwayArray, doorOrientation);
+        Vector2 positionOffset;
+        GameObject instantiatedBlocking;
+        if (doorOrientation == Orientation.Up)
+        {
+            positionOffset = new Vector2(0f, -0.5f);
+            instantiatedBlocking = Instantiate(verticalPlayerBlockingPrefab, bossRoomInfo.roomTransform);
+        }
+        else if (doorOrientation == Orientation.Down)
+        {
+            positionOffset = new Vector2(0f, 0.5f);
+            instantiatedBlocking = Instantiate(verticalPlayerBlockingPrefab, bossRoomInfo.roomTransform);
+        }
+        else if (doorOrientation == Orientation.Left)
+        {
+            positionOffset = new Vector2(0.5f, 0f);
+            instantiatedBlocking = Instantiate(horizontalPlayerBlockingPrefab, bossRoomInfo.roomTransform);
+        }
+        else
+        {
+            positionOffset = new Vector2(-0.5f, 0f);
+            instantiatedBlocking = Instantiate(horizontalPlayerBlockingPrefab, bossRoomInfo.roomTransform);
+        }
+
+        instantiatedBlocking.transform.localPosition = doorway.position + positionOffset;
+
+        instantiatedBlockingList.Add(instantiatedBlocking);
+    }
+
+    public void UnblockBossRoomDoor()
+    {
+        foreach (Door door in bossRoomDoorList)
+        {
+            door.gameObject.SetActive(true);
+        }
+
+        foreach (GameObject instantiatedBlocking in instantiatedBlockingList)
+        {
+            instantiatedBlocking.SetActive(false);
         }
     }
 

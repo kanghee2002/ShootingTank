@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,8 @@ public abstract class Boss : MonoBehaviour
         objectPool = GetComponent<ObjectPooling>();
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        health.onDie += () => GameManager.Instance.ChangeGameState(GameState.levelCompleted);
     }
 
     public abstract void Initialize(Transform playerTransform);

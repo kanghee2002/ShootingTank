@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4092313781833306147}
   m_Layer: 7
   m_Name: Doorway_Horizontal
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectedPosition: {x: 0, y: 0, z: 0}
+  connectedRoomTransform: {fileID: 0}
+  connectedRoomType: 0
 --- !u!1001 &4415041691920391606
 PrefabInstance:
   m_ObjectHideFlags: 0

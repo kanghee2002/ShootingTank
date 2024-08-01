@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,8 +15,7 @@ public class Health : MonoBehaviour
     public delegate void OnHealthChanged(float currentHealth, float maxHealth);
     public event OnHealthChanged onHealthChanged;
 
-    public delegate void OnDie();
-    public event OnDie onDie;
+    public Action onDie;
 
     private void Start()
     {

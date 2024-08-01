@@ -71,6 +71,8 @@ public class Refrigerator : Boss
         polygonCollider = GetComponent<PolygonCollider2D>();
 
         idleSprite = spriteRenderer.sprite;
+
+        health.onDie += () => gameObject.SetActive(false);
     }
 
     private void Update()
@@ -220,7 +222,7 @@ public class Refrigerator : Boss
     {
         List<string> minCountPatternList = new();
 
-        int minCount = patternCountDictionary[ThrowFood];
+        int minCount = int.MaxValue;
 
         foreach (var patternCount in patternCountDictionary)
         {
@@ -392,6 +394,7 @@ public class Refrigerator : Boss
 
         #region Tackle
 
+        polygonCollider.isTrigger = true;
         animator.enabled = false;
         spriteRenderer.sprite = tackleSprite;
 
@@ -452,7 +455,6 @@ public class Refrigerator : Boss
 
             #region Rush to Player
 
-            polygonCollider.isTrigger = true;
             isTackling = true;
             hasTackled = false;
 
@@ -466,7 +468,6 @@ public class Refrigerator : Boss
 
             transform.position = (Vector3)tacklePosition - centerPositionOffset;
 
-            polygonCollider.isTrigger = false;
             isTackling = false;
 
             lastDirection = direction;
@@ -474,6 +475,7 @@ public class Refrigerator : Boss
             #endregion Rush to Player
         }
 
+        polygonCollider.isTrigger = false;
         spriteRenderer.sprite = idleSprite;
         animator.enabled = true;
 
