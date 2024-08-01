@@ -4,6 +4,11 @@ using UnityEngine;
 
 public static class Settings
 {
+    public const string mainMenuScene = "MainMenu";
+    public const string stageScene = "Stage";
+    public const string stageSelectScene = "StageSelect";
+    public const string testScene = "TEST";
+
     public const string playerTag = "Player";
     public const string enemyTag = "Enemy";
 

@@ -256,6 +256,9 @@ MonoBehaviour:
   phaseChangeHealthPercentage: 0.5
   attackReadyTime: 0
   bulletFireDistance: 1
+  foodDamage: 1
+  icicleDamage: 1
+  tackleDamage: 1
 --- !u!114 &9170879183923296431
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,6 @@ public class Door : MonoBehaviour
     private void MoveObject(Transform objectTransform, Vector3 movePosition)
     {
         objectTransform.position = movePosition;
-        StageManager.Instance.OnEnterRoom(connectedRoomTransform.gameObject, connectedRoomType);
+        StageManager.Instance.OnEnterRoom(connectedRoomTransform, connectedRoomType);
     }
 }

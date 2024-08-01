@@ -26,7 +26,7 @@ public class GameManager : Singleton<GameManager>
 
 
         #region TEST_SCENE
-        if (SceneManager.GetActiveScene().name == "TEST")
+        if (SceneManager.GetActiveScene().name == Settings.testScene)
         {
             playerObject = GameObject.FindGameObjectWithTag("Player");
 
@@ -87,6 +87,7 @@ public class GameManager : Singleton<GameManager>
             case GameState.playingLevel:
                 if (lastGameState == GameState.gameStarted)
                 {
+                    MakePlayerActive();
                     ChangeGameState(GameState.loadLevel);
                 }
                 break;
@@ -94,13 +95,23 @@ public class GameManager : Singleton<GameManager>
                 ChangeGameState(GameState.playingLevel);
                 break;
             case GameState.enterRoom:
+                // Make Last Room Dark
                 // Make Only Current Room Bright
-                // Make Other Room Enemy Inactive
-                //ChangeGameState(GameState.playingLevel);
+                if (StageManager.Instance.lastRoomTransform != null)
+                {
+                    EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.lastRoomTransform, false, false);
+                }
+                EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.currentRoomTransform, true, false);
+                ChangeGameState(GameState.playingLevel);
                 break;
             case GameState.enterBossRoom:
-                // Initialize Boos
-                //ChangeGameState(GameState.bossStage);
+                // Boss Cut Scene
+                if (StageManager.Instance.lastRoomTransform != null)
+                {
+                    EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.lastRoomTransform, false, false);
+                }
+                EnemySpawner.Instance.SetActiveEnemiesInRoom(StageManager.Instance.currentRoomTransform, true, true);
+                ChangeGameState(GameState.bossStage);
                 break;
             case GameState.bossStage:
                 break;

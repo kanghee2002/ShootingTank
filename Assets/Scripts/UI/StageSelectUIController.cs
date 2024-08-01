@@ -12,7 +12,7 @@ public class StageSelectUIController : MonoBehaviour
     {
         playLevelButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("Stage");
+            SceneManager.LoadScene(Settings.stageScene);
             GameManager.Instance.ChangeGameState(GameState.playingLevel);
         });
     }

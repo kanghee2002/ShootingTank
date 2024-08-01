@@ -5,38 +5,41 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : Singleton<StageManager>
 {
-    public GameObject currentRoomObject;
+    [SerializeField] private CameraController cameraController;
+
+    [HideInInspector] public Transform lastRoomTransform;
+    [HideInInspector] public Transform currentRoomTransform;
 
     protected override void Awake()
     {
-        GameManager.Instance.MakePlayerActive();
+        GameManager.Instance.ChangeGameState(GameState.playingLevel);
+
+        lastRoomTransform = null;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            SceneManager.LoadScene("StageSelect");
+            SceneManager.LoadScene(Settings.stageSelectScene);
             GameManager.Instance.ChangeGameState(GameState.gameStarted);
         }
     }
 
-    public void OnEnterRoom(GameObject roomObject, RoomType roomType)
+    public void OnEnterRoom(Transform roomTransform, RoomType roomType)
     {
-        if (currentRoomObject != null)
-        {
-            // Disable Enemies
-            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, false, false);
-        }
-        currentRoomObject = roomObject;
+        lastRoomTransform = currentRoomTransform;
+        currentRoomTransform = roomTransform;
+
+        cameraController.transform.position = GameManager.Instance.playerObject.transform.position;
 
         if (roomType != RoomType.Boss)
         {
-            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, true, false);
+            GameManager.Instance.ChangeGameState(GameState.enterRoom);
         }
         else        //RoomType.Boss
         {
-            EnemySpawner.Instance.SetActiveEnemiesInRoom(currentRoomObject.transform, true, true);
+            GameManager.Instance.ChangeGameState(GameState.enterBossRoom);
         }
     }
 
@@ -45,6 +48,6 @@ public class StageManager : Singleton<StageManager>
         //Send Data to GameManager
         //Load Scene -> Use coroutine to invoke scene loading
         GameManager.Instance.MakePlayerInactive();
-        SceneManager.LoadScene("StageSelect");
+        SceneManager.LoadScene(Settings.stageSelectScene);
     }
 }

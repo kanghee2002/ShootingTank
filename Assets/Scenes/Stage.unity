@@ -969,6 +969,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa89897b12944f54b8d205daf2d673da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraController: {fileID: 519420033}
+  lastRoomTransform: {fileID: 0}
+  currentRoomTransform: {fileID: 0}
 --- !u!1 &1627171429
 GameObject:
   m_ObjectHideFlags: 0

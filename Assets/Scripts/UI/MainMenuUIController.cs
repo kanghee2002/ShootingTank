@@ -10,6 +10,6 @@ public class MainMenuUIController : MonoBehaviour
 
     private void Start()
     {
-        shopBtn.onClick.AddListener(() => SceneManager.LoadScene("StageSelect"));
+        shopBtn.onClick.AddListener(() => SceneManager.LoadScene(Settings.stageSelectScene));
     }
 }

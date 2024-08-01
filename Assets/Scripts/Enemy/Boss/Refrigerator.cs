@@ -18,10 +18,13 @@ public class Refrigerator : Boss
 
     [Header("Default Settings")]
     [SerializeField][Range(0f, 1f)] private float phaseChangeHealthPercentage = 0.5f;
-
     [SerializeField] private float attackReadyTime;
-
     [SerializeField] private float bulletFireDistance;
+
+    [Header("Attack Damage")]
+    [SerializeField] private float foodDamage;
+    [SerializeField] private float icicleDamage;
+    [SerializeField] private float tackleDamage;
 
     [Header("Attack_ Routine")]
     private const string ThrowFood = "Attack_ThrowFood";
@@ -279,7 +282,7 @@ public class Refrigerator : Boss
             Vector3 direction = GetRotatedVector(Vector2.right, randomAngle);
 
             GameObject bulletObject = GetBullet(selectedPrefab, transform.position + centerPositionOffset + foodThrowPositionOffset, direction);
-            FireBullet(bulletObject, direction, minThrowPower, maxThrowPower, 0f);
+            FireBullet(bulletObject, direction, minThrowPower, maxThrowPower, foodDamage);
 
             elapsedTime += attackCoolTime;
 
@@ -361,7 +364,7 @@ public class Refrigerator : Boss
 
         yield return new WaitForSeconds(aimTime);
 
-        FireBullet(bulletObject, randomDirection, minThrowPower, maxThrowPower, 0f);
+        FireBullet(bulletObject, randomDirection, minThrowPower, maxThrowPower, icicleDamage);
     }
 
     private IEnumerator Attack_Tackle()
@@ -548,6 +551,11 @@ public class Refrigerator : Boss
             }
 
             hasTackled = true;
+
+            if (collision.TryGetComponent(out Health health))
+            {
+                health.TakeDamage(tackleDamage);
+            }
 
             float horizontalVelocity = Mathf.Abs(rigid.velocity.x);
             float verticalVelocity = Mathf.Abs(rigid.velocity.y);

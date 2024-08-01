@@ -73,7 +73,9 @@ public class DungeonBuilder : MonoBehaviour
 
             RoomInfo entranceRoomInfo = currentRoomInfos[0, selectedDungeonLevel.dungeonHeight - 1];
 
-            StageManager.Instance.currentRoomObject = entranceRoomInfo.roomTransform.gameObject;
+            StageManager.Instance.currentRoomTransform = entranceRoomInfo.roomTransform;
+
+            //entranceRoomInfo.roomTransform.gameObject.SetActive(true);
 
             return (Vector2)entranceRoomInfo.roomTransform.position + entranceRoomInfo.roomDetails.spawnPositionArray[0];
         }
@@ -576,6 +578,8 @@ public class DungeonBuilder : MonoBehaviour
                 Vector3 roomPosition = new Vector3(x * selectedDungeonLevel.roomGap, y * selectedDungeonLevel.roomGap, 0f);
                 roomGameObject.transform.localPosition = roomPosition;
                 roomInfos[x, y].roomTransform = roomGameObject.transform;
+
+                //roomGameObject.SetActive(false);
             }
         }
     }
