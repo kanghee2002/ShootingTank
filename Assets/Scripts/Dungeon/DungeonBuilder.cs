@@ -734,6 +734,15 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
 
         instantiatedDoor.transform.localPosition = doorway.position;
 
+        if (doorOrientation == Orientation.Left)
+        {
+            instantiatedDoor.transform.localScale = new Vector3(-Mathf.Abs(instantiatedDoor.transform.localScale.x), instantiatedDoor.transform.localScale.y, 1f);
+        }
+        if (doorOrientation == Orientation.Up)
+        {
+            instantiatedDoor.transform.localScale = new Vector3(instantiatedDoor.transform.localScale.x, -Mathf.Abs(instantiatedDoor.transform.localScale.y), 1f);
+        }
+
         Door door = instantiatedDoor.GetComponent<Door>();
         door.connectedPosition = (Vector2)roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomTransform.position + 
             GetSpecificDoorway(roomInfos[x + connectedRoomOffsetX, y + connectedRoomOffsetY].roomDetails.doorwayArray, oppositeOrientation).position +
