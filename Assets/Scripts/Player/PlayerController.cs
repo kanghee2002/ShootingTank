@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Rendering;
 
 
@@ -12,6 +13,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower;
 
     [SerializeField] private int maxJumpCount;
+
+    [SerializeField] private float downFallPower;
+
+    [SerializeField] private float downFallCoolTime;
 
     [Header("Additional Settings")]
     [SerializeField] private List<Transform> weaponParents;
@@ -33,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isStunning = false;
 
+    private float downFallTimer;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -45,11 +52,13 @@ public class PlayerController : MonoBehaviour
         isStunning = false;
         jumpCount = maxJumpCount;
         jumpState = JumpState.NotJumping;
+        downFallTimer = 0f;
     }
 
     private void Update()
     {
         SetJumpVariables();
+        CoolDownDownFallTIme();
     }
 
     private void FixedUpdate()
@@ -143,6 +152,17 @@ public class PlayerController : MonoBehaviour
         {
             DownJump();
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (jumpState == JumpState.Jumping || jumpState == JumpState.Falling)
+            {
+                if (downFallTimer <= 0f)
+                {
+                    DownFall();
+                }
+            }
+        }
     }
 
     private void Jump()
@@ -164,6 +184,21 @@ public class PlayerController : MonoBehaviour
         }
 
         StartCoroutine(IgnoreCollisionRoutine(polygonCollider, jumpChecker.oneWayPlatformCollider));
+    }
+
+    private void DownFall()
+    {
+        rigid.AddForce(Vector2.down * downFallPower * rigid.mass);
+
+        downFallTimer = downFallCoolTime;
+    }
+
+    private void CoolDownDownFallTIme()
+    {
+        if (downFallTimer > 0f)
+        {
+            downFallTimer -= Time.deltaTime;
+        }
     }
 
     private IEnumerator IgnoreCollisionRoutine(Collider2D collider1, Collider2D collider2)

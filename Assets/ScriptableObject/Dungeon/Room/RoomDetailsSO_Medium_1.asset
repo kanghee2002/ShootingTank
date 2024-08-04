@@ -19,21 +19,21 @@ MonoBehaviour:
     position: {x: 22, y: 22}
     doorwayCopyPosition: {x: 18, y: 16}
     doorwayCopyWidth: 8
-    doorwayCopyHeight: 6
+    doorwayCopyHeight: 7
   - orientation: 1
     position: {x: -1, y: -17}
-    doorwayCopyPosition: {x: -5, y: -17}
+    doorwayCopyPosition: {x: -5, y: -18}
     doorwayCopyWidth: 8
     doorwayCopyHeight: 6
   - orientation: 2
     position: {x: -20, y: 9}
-    doorwayCopyPosition: {x: -20, y: 6}
+    doorwayCopyPosition: {x: -21, y: 6}
     doorwayCopyWidth: 6
     doorwayCopyHeight: 8
   - orientation: 3
     position: {x: 32, y: -8}
     doorwayCopyPosition: {x: 26, y: -11}
-    doorwayCopyWidth: 6
+    doorwayCopyWidth: 7
     doorwayCopyHeight: 8
   spawnPositionArray:
   - {x: -5, y: 5}
