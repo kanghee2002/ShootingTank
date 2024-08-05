@@ -9,9 +9,10 @@ public class Explosion : MonoBehaviour
 
     [SerializeField] private List<string> targetLayerMasks;
 
-    [SerializeField]
-    private float damageAmount;
+    [SerializeField] private float damageAmount;
     public float DamageAmount { get => damageAmount; set => damageAmount = value; }
+
+    public float CoreHitDamageAmount { get; set; }
 
     [SerializeField] private float radius;
     public float Radius
@@ -57,7 +58,11 @@ public class Explosion : MonoBehaviour
             
         foreach (Collider2D target in targets)
         {
-            if (target.TryGetComponent(out Health health))
+            if (target.TryGetComponent(out CoreHealth coreHealth))
+            {
+                coreHealth.TakeDamage(CoreHitDamageAmount);
+            }
+            else if (target.TryGetComponent(out Health health))
             {
                 health.TakeDamage(damageAmount);
             }

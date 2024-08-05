@@ -18,7 +18,9 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] protected float damageValue;
 
-    [SerializeField] protected float ChargeDamageMultiplier;
+    [SerializeField] protected float chargeDamageMultiplier;
+
+    [SerializeField] protected float coreHitDamageMultiplierBonus;
 
     [SerializeField] protected float bulletSpeed;
 
@@ -41,7 +43,7 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField]
     private float aimAccuracy;
-    public float AimAccuracy { get => aimAccuracy; set => aimAccuracy = value; }
+    public float AimAccuracy { get => aimAccuracy;}
 
     [SerializeField]
     private float minChargeTime;
@@ -72,7 +74,7 @@ public abstract class Weapon : MonoBehaviour
     {
         objectPool = GetComponent<ObjectPooling>();
         curAmmo = maxAmmo;
-        ChargeDamageMultiplier = 1.5f;
+        chargeDamageMultiplier = 1.5f;
     }
 
     private void OnEnable()
@@ -94,7 +96,7 @@ public abstract class Weapon : MonoBehaviour
     {
         float x = percentage;
 
-        float resultDamageMultiplier = (ChargeDamageMultiplier + chargeDamageMultiplierBonus) * Mathf.Pow(x, 2) + 1;
+        float resultDamageMultiplier = (chargeDamageMultiplier + chargeDamageMultiplierBonus) * Mathf.Pow(x, 2) + 1;
         
         if (percentage >= 1f)
         {
@@ -137,7 +139,23 @@ public abstract class Weapon : MonoBehaviour
     public abstract void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
         float maxChargedDamageBonus);
 
-    public void AddDamageValue(float amount) => damageValue += amount;
+    public void IncreaseDamageValue(float amount) => damageValue += amount;
 
-    public void AddMaxAmmo(int amount) => maxAmmo += amount;
+    public void IncreaseCoreHitDamageMultiplierBonus(float amount) => coreHitDamageMultiplierBonus += amount;
+
+    public void IncreaseMaxAmmo(int amount) => maxAmmo += amount;
+
+    public void AddAmmo(int amount) => CurAmmo += amount;
+
+    public void IncreaseAimAccuracy(float amount)
+    {
+        aimAccuracy += amount;
+
+        if (aimAccuracy > 100f)
+        {
+            aimAccuracy = 100f;
+        }
+    }
+
+    public void IncreaseBulletSpeed(float amount) => bulletSpeed += amount;
 }

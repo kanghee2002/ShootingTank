@@ -138,7 +138,11 @@ public class Laser : Bullet
         {
             if (collision.CompareTag(targetTag))
             {
-                if (collision.TryGetComponent(out Health health))
+                if (collision.TryGetComponent(out CoreHealth coreHealth))
+                {
+                    coreHealth.TakeDamage(FinalDamage * CoreHitDamageMultiplier);
+                }
+                else if (collision.TryGetComponent(out Health health))
                 {
                     health.TakeDamage(FinalDamage);
                 }

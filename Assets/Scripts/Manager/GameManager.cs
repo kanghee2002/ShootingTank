@@ -175,6 +175,7 @@ public class GameManager : Singleton<GameManager>
                 // Button will detect and Change State
                 break;
             case GameState.restartGame:
+                // Re Instantiate Player
                 break;
         }
     }

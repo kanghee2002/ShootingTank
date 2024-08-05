@@ -5,16 +5,16 @@ using UnityEngine;
 
 public class WeaponManager : Singleton<WeaponManager>
 {
-    [SerializeField]
-    private List<GameObject> weaponPrefabList = new List<GameObject>();
+    [SerializeField] private List<GameObject> weaponPrefabList = new List<GameObject>();
+    private List<Weapon> playerWeaponList = new List<Weapon>();
     private List<Weapon> availableWeaponList = new List<Weapon>();
 
-    [SerializeField]
-    private Transform weaponsParent;
+    [SerializeField] private Transform weaponsParent;
 
-    [SerializeField]
-    private bool isRightWeaponEnabled;
+    [SerializeField] private bool isRightWeaponEnabled;
     public bool IsRightWeaponEnabled { get => isRightWeaponEnabled; set => isRightWeaponEnabled = value; }
+
+    public List<Weapon> PlayerWeaponList { get => playerWeaponList; }
 
     public int availableWeaponNum { get { return availableWeaponList.Count; } 
                                     private set { availableWeaponNum = availableWeaponList.Count; } }
@@ -54,12 +54,11 @@ public class WeaponManager : Singleton<WeaponManager>
             {
                 if (weapon.Title == weaponName)
                 {
+                    // 중복되는 무기 추가 시 탄약 증가
                     return;
                 }
             }
         }
-
-        // 중복되는 무기 추가 시 탄약 증가
 
         foreach (GameObject weaponPrefab in weaponPrefabList)
         {
@@ -68,6 +67,7 @@ public class WeaponManager : Singleton<WeaponManager>
             {
                 Weapon instantiatedWeapon = InitializeWeapon(weaponPrefab);
                 availableWeaponList.Add(instantiatedWeapon);
+                playerWeaponList.Add(instantiatedWeapon);
                 return;
             }
         }

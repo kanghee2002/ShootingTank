@@ -52,19 +52,13 @@ public class JumpPack : PlayerUtility
 
     private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
-        rigid = GetComponent<Rigidbody2D>();
+        playerController = playerTransform.GetComponent<PlayerController>();
+        rigid = playerTransform.GetComponent<Rigidbody2D>();
         curGauge = maxGauge;
-
-        //Re
-        slider = GameObject.Find("JumpPackSlider").GetComponent<Slider>();
     }
 
     private void Update()
     {
-        //Re
-        slider.value = curGauge / maxGauge;
-
         if (Input.GetKey(KeyCode.Space) && curGauge > 0f 
             && playerController.GetJumpState() == JumpState.Falling)
         {

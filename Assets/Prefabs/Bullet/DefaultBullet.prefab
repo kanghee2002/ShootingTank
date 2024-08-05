@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPool: {fileID: 0}
   prefabID: 0
+  coreHitDamageMultiplier: 1
   lifeTIme: 3
   rotatedDegree: 90
   targetTags: []

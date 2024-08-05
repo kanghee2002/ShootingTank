@@ -34,6 +34,8 @@ public class Burstgun : Weapon, IMultiFiregun
     {
         float burstIntervalTime = burstTime / pelletCount;
 
+        float damage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+
         for (int i = 0; i < pelletCount; i++)
         {
             var obj = objectPool.GetBullet();
@@ -41,7 +43,8 @@ public class Burstgun : Weapon, IMultiFiregun
             var randomDirection = GetRandomDirection(direction, AimAccuracy);
 
             Bullet bullet = obj.GetComponent<Bullet>();
-            bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            bullet.FinalDamage = damage;
+            bullet.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
             bullet.LookAtDirection(obj, randomDirection);
             bullet.AddTargetTag(Settings.enemyTag);
 

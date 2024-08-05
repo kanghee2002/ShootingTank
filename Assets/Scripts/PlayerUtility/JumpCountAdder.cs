@@ -10,7 +10,7 @@ public class JumpCountAdder : PlayerUtility
 
     private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
+        playerController = playerTransform.GetComponent<PlayerController>();
     }
 
     private void OnEnable()

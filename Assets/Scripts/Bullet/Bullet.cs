@@ -12,7 +12,13 @@ public abstract class Bullet : MonoBehaviour
     private float finalDamage;
     public float FinalDamage { get => finalDamage; set => finalDamage = value; }
 
+    public float coreHitDamageMultiplierBonus { get; set; }
+
+    public float CoreHitDamageMultiplier { get => coreHitDamageMultiplier + coreHitDamageMultiplierBonus; }
+
     [Header("Default Settings")]
+    [SerializeField] private float coreHitDamageMultiplier = 1f;
+
     [SerializeField] protected float lifeTIme;
 
     [SerializeField] protected float rotatedDegree;
@@ -23,9 +29,12 @@ public abstract class Bullet : MonoBehaviour
 
     protected Coroutine checkLifeTimeRoutine;
 
+    protected bool hasDamaged;
+
     private void OnEnable()
     {
         checkLifeTimeRoutine = StartCoroutine(CheckLifeTime(lifeTIme));
+        hasDamaged = false;
     }
 
     private void OnDisable()

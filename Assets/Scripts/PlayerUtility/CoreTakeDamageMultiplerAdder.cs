@@ -10,7 +10,7 @@ public class CoreTakeDamageMultiplerAdder : PlayerUtility
 
     private void Awake()
     {
-        coreHealthArray = GetComponentsInChildren<CoreHealth>();
+        coreHealthArray = playerTransform.GetComponentsInChildren<CoreHealth>();
     }
 
     private void OnEnable()

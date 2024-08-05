@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: {fileID: 0}
+  prefabID: 0
+  coreHitDamageMultiplier: 1
   lifeTIme: 0.5
+  rotatedDegree: 0
   targetTags: []
   defaultCollideTags: []
   blockLayerMaskList:

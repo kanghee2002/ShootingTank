@@ -65,6 +65,7 @@ public class LaserShotgun : Weapon, IMultiFiregun, ILasergun
 
             laser.AddTargetTag(Settings.enemyTag);
             laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+            laser.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
 
             laser.SetDuration(laserDuration);
             laser.SetLaserWidth(laserWidth);

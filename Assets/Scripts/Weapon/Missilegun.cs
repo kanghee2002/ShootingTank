@@ -26,6 +26,8 @@ public class Missilegun : Weapon, IExplosivegun
 
         ExplosiveBullet bullet = obj.GetComponent<ExplosiveBullet>();
         bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+        bullet.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
+
         bullet.LookAtDirection(obj, randomDirection);
         bullet.AddTargetTag(Settings.enemyTag);
         bullet.explosion.Radius = explosionRadius;
