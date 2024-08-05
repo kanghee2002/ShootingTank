@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserShotgun : Weapon
+public class LaserShotgun : Weapon, IMultiFiregun, ILasergun
 {
     public enum ShootingType
     {
@@ -13,6 +13,10 @@ public class LaserShotgun : Weapon
     [SerializeField] private int pelletCount;
     [SerializeField] private ShootingType shootingType;
     [SerializeField] private float shootingAngle;
+
+    [SerializeField] private float laserWidth;
+
+    [SerializeField] private float laserDuration;
 
     public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus, float maxChargedDamageBonus)
     {
@@ -62,6 +66,9 @@ public class LaserShotgun : Weapon
             laser.AddTargetTag(Settings.enemyTag);
             laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
+            laser.SetDuration(laserDuration);
+            laser.SetLaserWidth(laserWidth);
+
             obj.transform.position = transform.position + dir * weaponLength;
 
             laser.Activate(dir);
@@ -70,5 +77,25 @@ public class LaserShotgun : Weapon
         CurAmmo--;
 
         Recharge();
+    }
+
+    void IMultiFiregun.IncreasePelletCount(int count)
+    {
+        pelletCount += count;
+    }
+
+    void IDefaultgun.IncreaseBulletsize(float amount)
+    {
+
+    }
+
+    void ILasergun.IncreaseLaserWidth(float amount)
+    {
+        laserWidth += amount;
+    }
+
+    void ILasergun.IncreaseLaserDuration(float amount)
+    {
+        laserDuration += amount;
     }
 }

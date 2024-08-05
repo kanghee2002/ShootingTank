@@ -16,7 +16,7 @@ public class DefaultWeapon : Weapon, IDefaultgun
         var randomDirection = GetRandomDirection(direction, AimAccuracy);
         obj.transform.position = transform.position + randomDirection * weaponLength;
         obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
-        obj.transform.localScale = new Vector2(bulletSize, bulletSize);
+        obj.transform.localScale = Vector2.one * bulletSize;
 
         Bullet bullet = obj.GetComponent<Bullet>();
         bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);

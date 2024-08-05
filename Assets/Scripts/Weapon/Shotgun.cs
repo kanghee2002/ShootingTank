@@ -68,7 +68,7 @@ public class Shotgun : Weapon, IMultiFiregun
 
             obj.transform.position = transform.position + dir * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
-            obj.transform.localScale = new Vector2(bulletSize, bulletSize);
+            obj.transform.localScale = Vector2.one * bulletSize;
         }
 
         CurAmmo--;

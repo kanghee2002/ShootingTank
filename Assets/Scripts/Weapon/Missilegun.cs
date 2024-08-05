@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missilegun : Weapon
+public class Missilegun : Weapon, IExplosivegun
 {
+    [SerializeField] private float explosionRadius;
+
     public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
         float maxChargedDamageBonus)
     {
@@ -22,13 +24,19 @@ public class Missilegun : Weapon
         obj.transform.position = transform.position + randomDirection * weaponLength;
         obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
 
-        Bullet bullet = obj.GetComponent<Bullet>();
+        ExplosiveBullet bullet = obj.GetComponent<ExplosiveBullet>();
         bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
         bullet.LookAtDirection(obj, randomDirection);
         bullet.AddTargetTag(Settings.enemyTag);
+        bullet.explosion.Radius = explosionRadius;
 
         CurAmmo--;
 
         Recharge();
+    }
+
+    void IExplosivegun.IncreaseExplosionRadius(float amount)
+    {
+        explosionRadius += amount;
     }
 }

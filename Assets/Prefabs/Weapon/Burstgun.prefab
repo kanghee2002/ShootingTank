@@ -123,5 +123,7 @@ MonoBehaviour:
   aimAccuracy: 100
   minChargeTime: 0.5
   maxChargeTime: 1.5
-  burstCount: 3
-  burstIntervalTime: 0.1
+  maxBulletSize: 5
+  bulletSize: 1
+  pelletCount: 3
+  burstTime: 0.3

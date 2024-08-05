@@ -108,6 +108,8 @@ MonoBehaviour:
   aimAccuracy: 90
   minChargeTime: 1
   maxChargeTime: 3
+  maxBulletSize: 5
+  bulletSize: 1
   pelletCount: 5
   shootingType: 0
   shootingAngle: 0

@@ -108,6 +108,8 @@ MonoBehaviour:
   aimAccuracy: 90
   minChargeTime: 0.15
   maxChargeTime: 1
+  bulletSize: 1
+  maxBulletSize: 5
 --- !u!114 &5325302779619427807
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -108,6 +108,7 @@ MonoBehaviour:
   aimAccuracy: 100
   minChargeTime: 0.5
   maxChargeTime: 2
+  explosionRadius: 2
 --- !u!114 &6815156192474566382
 MonoBehaviour:
   m_ObjectHideFlags: 0

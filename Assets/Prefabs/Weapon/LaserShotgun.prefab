@@ -126,3 +126,5 @@ MonoBehaviour:
   pelletCount: 4
   shootingType: 1
   shootingAngle: 10
+  laserWidth: 0.5
+  laserDuration: 0.5
