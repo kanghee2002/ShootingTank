@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class UtilityObject : MonoBehaviour
 {
-    // Child Object's Trigger Collider detects player
-    // if child detects, this flies to player
-    // if this detects player, then add playerUtilty to player's child (Utilities) and destroy itself
-    // When it fly, it doesn't collide with platform or others
-
     [Header("Utility Reference")]
     [SerializeField] private Transform utilityTransform;
 
