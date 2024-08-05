@@ -56,6 +56,8 @@ MonoBehaviour:
   aimAccuracy: 100
   minChargeTime: 0.5
   maxChargeTime: 2
+  laserWidth: 0.5
+  laserDuration: 0.5
 --- !u!114 &8544781852477815607
 MonoBehaviour:
   m_ObjectHideFlags: 0

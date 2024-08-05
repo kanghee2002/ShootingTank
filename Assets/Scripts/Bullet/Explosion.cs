@@ -14,7 +14,15 @@ public class Explosion : MonoBehaviour
     public float DamageAmount { get => damageAmount; set => damageAmount = value; }
 
     [SerializeField] private float radius;
-    public float Radius { get => radius; set => radius = value; }
+    public float Radius
+    {
+        get => radius;
+        set 
+        {
+            radius = value;
+            transform.localScale = Vector2.one * radius * 2f;
+        }
+    }
 
     [SerializeField] private float explosionTime;
 

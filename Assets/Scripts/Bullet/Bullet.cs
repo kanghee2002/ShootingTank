@@ -21,9 +21,11 @@ public abstract class Bullet : MonoBehaviour
 
     [SerializeField] protected List<string> defaultCollideTags;
 
+    protected Coroutine checkLifeTimeRoutine;
+
     private void OnEnable()
     {
-        StartCoroutine(CheckLifeTime(lifeTIme));
+        checkLifeTimeRoutine = StartCoroutine(CheckLifeTime(lifeTIme));
     }
 
     private void OnDisable()

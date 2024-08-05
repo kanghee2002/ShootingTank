@@ -64,11 +64,15 @@ public class Laser : Bullet
 
     private IEnumerator FadeOut()
     {
-        float width = firstWidth, elapsedTime = 0f;
-        while (width > 0)
+        float width = firstWidth, elapsedTime = 0f, decreaseSpeed = width / lifeTIme;
+
+        StopCoroutine(checkLifeTimeRoutine);
+        
+        while (elapsedTime < lifeTIme)
         {
             elapsedTime += Time.deltaTime;
-            width = firstWidth * (1 - (elapsedTime / lifeTIme));
+            width -= decreaseSpeed * Time.deltaTime;
+
             lineRenderer.startWidth = width;
             lineRenderer.endWidth = width;
 
@@ -80,6 +84,7 @@ public class Laser : Bullet
         lineRenderer.startWidth = firstWidth;
         lineRenderer.endWidth = firstWidth;
         lineRenderer.enabled = false;
+
         DestroyBullet();
     }
 
@@ -100,6 +105,18 @@ public class Laser : Bullet
         };
 
         polygonCollider.points = points.ToArray();
+    }
+
+    public void SetLaserWidth(float width)
+    {
+        firstWidth = width;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
+    }
+
+    public void SetDuration(float duration)
+    {
+        lifeTIme = duration;
     }
 
     public bool AddBlockLayerMask(string layerMask)

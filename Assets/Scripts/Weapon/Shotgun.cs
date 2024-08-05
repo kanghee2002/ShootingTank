@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shotgun : Weapon
+public class Shotgun : Weapon, IMultiFiregun
 {
     public enum ShootingType
     {
         Random,
         Angle
     }
+
+    [SerializeField] private float maxBulletSize;
+    [SerializeField] private float bulletSize;
     [SerializeField] private int pelletCount;
     [SerializeField] private ShootingType shootingType;
     [SerializeField] private float shootingAngle;
-
 
     public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
         float maxChargedDamageBonus)
@@ -66,10 +68,28 @@ public class Shotgun : Weapon
 
             obj.transform.position = transform.position + dir * weaponLength;
             obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
+            obj.transform.localScale = new Vector2(bulletSize, bulletSize);
         }
 
         CurAmmo--;
 
         Recharge();
+    }
+    void IDefaultgun.IncreaseBulletsize(float amount)
+    {
+        if (bulletSize < maxBulletSize)
+        {
+            bulletSize += amount;
+
+            if (bulletSize > maxBulletSize)
+            {
+                bulletSize = maxBulletSize;
+            }
+        }
+    }
+
+    void IMultiFiregun.IncreasePelletCount(int count)
+    {
+        pelletCount += count;
     }
 }

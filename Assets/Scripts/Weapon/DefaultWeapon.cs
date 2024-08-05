@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultWeapon : Weapon
+public class DefaultWeapon : Weapon, IDefaultgun
 {
+    [SerializeField] private float maxBulletSize;
+    [SerializeField] private float bulletSize;
+
     public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
         float maxChargedDamageBonus)
     {
@@ -13,6 +16,7 @@ public class DefaultWeapon : Weapon
         var randomDirection = GetRandomDirection(direction, AimAccuracy);
         obj.transform.position = transform.position + randomDirection * weaponLength;
         obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
+        obj.transform.localScale = new Vector2(bulletSize, bulletSize);
 
         Bullet bullet = obj.GetComponent<Bullet>();
         bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
@@ -20,5 +24,18 @@ public class DefaultWeapon : Weapon
         bullet.AddTargetTag(Settings.enemyTag);
 
         Recharge();
+    }
+
+    void IDefaultgun.IncreaseBulletsize(float amount)
+    {
+        if (bulletSize < maxBulletSize)
+        {
+            bulletSize += amount;
+
+            if (bulletSize > maxBulletSize)
+            {
+                bulletSize = maxBulletSize;
+            }
+        }
     }
 }
