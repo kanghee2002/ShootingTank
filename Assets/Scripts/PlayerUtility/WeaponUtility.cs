@@ -11,8 +11,8 @@ public class WeaponUtility : PlayerUtility
     [SerializeField] private float coreHitDamageMultiplierBonus;
 
     [Header("Ammo")]
-    [SerializeField] private int maxAmmoBonus;
-    [SerializeField] private int ammoBonus;
+    [SerializeField] [Range(0f, 1f)] private float maxAmmoBonusPercentage; 
+    [SerializeField] [Range(0f, 1f)] private float ammoBonusPercentage;
 
     [Header("Etc")]
     [SerializeField] private float aimAccuracyBonus;
@@ -36,10 +36,10 @@ public class WeaponUtility : PlayerUtility
     [SerializeField] private int coinBonusOnKill;
 
     [SerializeField] private bool canGetAmmoOnKill;
-    [SerializeField] private int ammoBonusOnKill;
+    [SerializeField] [Range(0f, 1f)] private float ammoBonusPercentageOnKill;
 
     [SerializeField] private bool canGetHealthOnCoreHit;
-    [SerializeField] private float healthBonusOnCoreHit;        // Multiplier
+    [SerializeField] [Range(0f, 3f)] private float healthBonusPercentageOnCoreHit;
 
     [SerializeField] private bool canGetHealthOnKill;
     [SerializeField] private float healthBonusOnKill;
@@ -65,9 +65,11 @@ public class WeaponUtility : PlayerUtility
 
             weapon.IncreaseCoreHitDamageMultiplier(coreHitDamageMultiplierBonus);
 
-            weapon.IncreaseMaxAmmo(maxAmmoBonus);
+            weapon.IncreaseMaxAmmo(Mathf.RoundToInt(maxAmmoBonusPercentage * weapon.MaxAmmo));
 
-            weapon.AddAmmo(ammoBonus);
+            weapon.AddAmmo(Mathf.RoundToInt(maxAmmoBonusPercentage * weapon.MaxAmmo));
+
+            weapon.AddAmmo(Mathf.RoundToInt(ammoBonusPercentage * weapon.MaxAmmo));
 
             weapon.IncreaseAimAccuracy(aimAccuracyBonus);
 
@@ -128,7 +130,7 @@ public class WeaponUtility : PlayerUtility
 
             weapon.IncreaseCoreHitDamageMultiplier(-coreHitDamageMultiplierBonus);
 
-            weapon.IncreaseMaxAmmo(-maxAmmoBonus);
+            weapon.IncreaseMaxAmmo(Mathf.RoundToInt(-maxAmmoBonusPercentage * weapon.MaxAmmo));
 
             weapon.IncreaseAimAccuracy(-aimAccuracyBonus);
 
@@ -192,13 +194,13 @@ public class WeaponUtility : PlayerUtility
     {
         foreach (Weapon weapon in WeaponManager.Instance.PlayerWeaponList)
         {
-            weapon.AddAmmo(ammoBonusOnKill);
+            weapon.AddAmmo(Mathf.RoundToInt(ammoBonusPercentageOnKill * weapon.MaxAmmo));
         }
     }
 
     private void IncreaseHealthOnCoreHit(float damageAmount)
     {
-        health.IncreaseHealth(damageAmount * healthBonusOnCoreHit);
+        health.IncreaseHealth(damageAmount * healthBonusPercentageOnCoreHit);
     }
 
     private void IncreaseHealthOnKill()
