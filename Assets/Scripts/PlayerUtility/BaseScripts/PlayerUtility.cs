@@ -7,4 +7,8 @@ public abstract class PlayerUtility : MonoBehaviour
     public string utilityName;
 
     public Transform playerTransform;
+
+    [SerializeField] protected UtilityRank utilityRank;
+
+    public UtilityRank UtilityRank { get => utilityRank; }
 }

@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2394922807224276017
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663445744310141686, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402413278466502537, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5399667234512989580, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+      propertyPath: m_Name
+      value: WeaponUtility
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+--- !u!1 &6401533396963040258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8785020045066340403, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+  m_PrefabInstance: {fileID: 2394922807224276017}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3531891166754965488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401533396963040258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38930ce021029f46bca8c2b064d47c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  utilityName: 
+  playerTransform: {fileID: 0}
+  utilityRank: 0
+  damageValueBonus: 0
+  chargeDamageMultiplierBonus: 0
+  maxChargedDamageBonus: 0
+  coreHitDamageMultiplierBonus: 0
+  maxAmmoBonusPercentage: 0
+  ammoBonusPercentage: 0
+  aimAccuracyBonus: 0
+  bulletSpeedBonus: 0
+  bulletSizeBonus: 0
+  pelletCountBonus: 0
+  explosionRadiusBonus: 0
+  laserWidthBonus: 0
+  laserDurationBonus: 0
+  canGetCoinOnKill: 0
+  coinBonusOnKill: 0
+  canGetAmmoOnKill: 0
+  ammoBonusPercentageOnKill: 0
+  canGetHealthOnCoreHit: 0
+  healthBonusPercentageOnCoreHit: 0
+  canGetHealthOnKill: 0
+  healthBonusOnKill: 0

@@ -181,5 +181,5 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    public void IncreaseBulletSpeed(float amount) => bulletSpeed += amount;
+    public void IncreaseBulletSpeed(float percentage) => bulletSpeed += bulletSpeed * percentage;
 }

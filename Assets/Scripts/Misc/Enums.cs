@@ -52,6 +52,14 @@ public enum EnemyRank
     S
 }
 
+public enum UtilityRank
+{
+    C,
+    B,
+    A,
+    S
+}
+
 public enum GameState
 {
     gameStarted,

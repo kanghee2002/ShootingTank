@@ -16,7 +16,7 @@ public class WeaponUtility : PlayerUtility
 
     [Header("Etc")]
     [SerializeField] private float aimAccuracyBonus;
-    [SerializeField] private float bulletSpeedBonus;
+    [SerializeField] [Range(0f, 1f)] private float bulletSpeedBonusPercentage;
 
     [Header("Defaultgun")]
     [SerializeField] private float bulletSizeBonus;
@@ -73,7 +73,7 @@ public class WeaponUtility : PlayerUtility
 
             weapon.IncreaseAimAccuracy(aimAccuracyBonus);
 
-            weapon.IncreaseBulletSpeed(bulletSpeedBonus);
+            weapon.IncreaseBulletSpeed(bulletSpeedBonusPercentage);
 
             if (weapon is IDefaultgun)
             {
@@ -134,7 +134,7 @@ public class WeaponUtility : PlayerUtility
 
             weapon.IncreaseAimAccuracy(-aimAccuracyBonus);
 
-            weapon.IncreaseBulletSpeed(bulletSpeedBonus);
+            weapon.IncreaseBulletSpeed(-bulletSpeedBonusPercentage);
 
             if (weapon is IDefaultgun)
             {
