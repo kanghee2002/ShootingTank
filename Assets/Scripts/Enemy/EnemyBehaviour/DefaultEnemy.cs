@@ -5,11 +5,6 @@ using UnityEngine.UIElements;
 
 public class DefaultEnemy : Enemy
 {
-    [Header("Attack Settings")]
-    [SerializeField] private float bulletSpeed;
-
-    [SerializeField] private float weaponLength;
-
     public override bool Attack(Transform playerTransform)
     {
         if (isCool)
@@ -18,15 +13,10 @@ public class DefaultEnemy : Enemy
         }
 
         Vector3 direction = GetTargetDirection(playerTransform);
-
-        var obj = objectPool.GetBullet();
-        obj.transform.position = transform.position + direction * weaponLength;
-        obj.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-
+        GameObject obj = objectPool.GetBullet();
         Bullet bullet = obj.GetComponent<Bullet>();
-        bullet.LookAtDirection(obj, direction);
-        bullet.FinalDamage = damageValue;
-        bullet.AddTargetTag(Settings.playerTag);
+
+        SetBullet(obj, bullet, direction, damageValue);
 
         StartCoroutine(CoolDownRoutine(coolTime));
         isCool = true;

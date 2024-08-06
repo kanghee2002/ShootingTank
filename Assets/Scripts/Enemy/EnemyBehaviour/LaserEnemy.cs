@@ -6,9 +6,6 @@ using UnityEngine.UIElements;
 
 public class LaserEnemy : Enemy
 {
-    [Header("Attack Settings")]
-    [SerializeField] private float weaponLength;
-
     [Header("Warning Laser")]
     [SerializeField] private WarningLaser warningLaser;
 
@@ -71,7 +68,6 @@ public class LaserEnemy : Enemy
             }
             else
             {
-                //enemyController.PauseMove(1f);
                 firePosition = warningLaser.SetPosition(transform.position, (firePosition - transform.position).normalized);
             }
             elapsedTime += Time.deltaTime;
@@ -84,13 +80,17 @@ public class LaserEnemy : Enemy
     {
         Vector3 direction = (firePosition - transform.position).normalized;
 
-        var obj = objectPool.GetBullet();
+        GameObject obj = objectPool.GetBullet();
 
         obj.transform.position = transform.position + direction * weaponLength;
 
         Laser laser = obj.GetComponent<Laser>();
+
         laser.FinalDamage = damageValue;
+        laser.FinalDamageOnCoreHit = damageValue;
         laser.AddTargetTag(Settings.playerTag);
+        laser.SetLaserWidth(1);
+
         laser.Activate(direction);
 
         obj.GetComponent<LineRenderer>().material.color = new Color(128, 0, 0);

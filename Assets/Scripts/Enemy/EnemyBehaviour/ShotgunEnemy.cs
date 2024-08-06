@@ -5,10 +5,6 @@ using UnityEngine.UIElements;
 
 public class ShotgunEnemy : Enemy
 {
-    [Header("Attack Settings")]
-    [SerializeField] private float bulletSpeed;
-    [SerializeField] private float weaponLength;
-
     [Header("Shotgun Settings")]
     [SerializeField] Shotgun.ShootingType shootingType;
     [SerializeField] private int pelletCount;
@@ -56,17 +52,12 @@ public class ShotgunEnemy : Enemy
             }
         }
 
-        foreach (var dir in directions)
+        foreach (Vector3 dir in directions)
         {
-            var obj = objectPool.GetBullet();
-
-            obj.transform.position = transform.position + dir * weaponLength;
-            obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
-
+            GameObject obj = objectPool.GetBullet();
             Bullet bullet = obj.GetComponent<Bullet>();
-            bullet.LookAtDirection(obj, dir);
-            bullet.FinalDamage = damageValue;
-            bullet.AddTargetTag(Settings.playerTag);
+
+            SetBullet(obj, bullet, dir, damageValue);
         }
 
         isCool = true;

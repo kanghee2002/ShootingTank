@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class BurstEnemy : Enemy
 {
-    [Header("Attack Settings")]
-    [SerializeField] private float bulletSpeed;
-
-    [SerializeField] private float weaponLength;
-
     [Header("Burst Settings")]
     [SerializeField] private int burstCount;
 
@@ -33,14 +28,10 @@ public class BurstEnemy : Enemy
     {
         for (int i = 0; i < burstCount; i++)
         {
-            var obj = objectPool.GetBullet();
-            obj.transform.position = transform.position + direction * weaponLength;
-            obj.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-
+            GameObject obj = objectPool.GetBullet();
             Bullet bullet = obj.GetComponent<Bullet>();
-            bullet.LookAtDirection(obj, direction);
-            bullet.FinalDamage = damageValue;
-            bullet.AddTargetTag(Settings.playerTag);
+
+            SetBullet(obj, bullet, direction, damageValue);
 
             yield return new WaitForSeconds(burstInterval);
         }

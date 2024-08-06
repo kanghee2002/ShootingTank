@@ -7,13 +7,16 @@ using UnityEngine.UI;
 
 public abstract class Enemy : MonoBehaviour
 {
-
     protected ObjectPooling objectPool;
 
     [Header("Enemy Settings")]
     [SerializeField] protected EnemyRank enemyRank;
     [SerializeField] protected float coolTime;
     [SerializeField] protected float damageValue;
+
+    [Header("Attack Settings")]
+    [SerializeField] protected float bulletSpeed;
+    [SerializeField] protected float weaponLength;
 
     protected bool isCool;
 
@@ -39,4 +42,15 @@ public abstract class Enemy : MonoBehaviour
 
     protected Vector3 GetTargetDirection(Transform target)
         => (target.position - transform.position).normalized;
+
+    protected void SetBullet(GameObject obj, Bullet bullet, Vector3 direction, float damageAmount)
+    {
+        obj.transform.position = transform.position + direction * weaponLength;
+        obj.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+
+        bullet.LookAtDirection(obj, direction);
+        bullet.FinalDamage = damageAmount;
+        bullet.FinalDamageOnCoreHit = damageAmount;
+        bullet.AddTargetTag(Settings.playerTag);
+    }
 }
