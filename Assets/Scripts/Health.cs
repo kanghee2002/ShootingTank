@@ -24,6 +24,16 @@ public class Health : MonoBehaviour
         onHealthChanged += SetHealthSliderValue;
     }
 
+    public void IncreaseHealth(float amount)
+    {
+        currentHealth += amount;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
     public void SetHealthSlider(Slider slider)
     {
         healthSlider = slider;

@@ -33,15 +33,21 @@ public class WeaponUtility : PlayerUtility
 
     [Header("On Hit")]
     [SerializeField] private bool canGetCoinOnKill;
+    [SerializeField] private int coinBonusOnKill;
     [SerializeField] private bool canGetAmmoOnKill;
+    [SerializeField] private int ammoBonusOnKill;
     [SerializeField] private bool canGetHealthOnCoreHit;
+    [SerializeField] private float healthBonusOnCoreHit;        // Multiplier
     [SerializeField] private bool canGetHealthOnKill;
+    [SerializeField] private float healthBonusOnKill;
 
     private WeaponController weaponController;
+    private Health health;
 
     private void Awake()
     {
         weaponController = playerTransform.GetComponent<WeaponController>();
+        health = playerTransform.GetComponent<Health>();
     }
 
     private void OnEnable()
@@ -54,7 +60,7 @@ public class WeaponUtility : PlayerUtility
         {
             weapon.IncreaseDamageValue(damageValueBonus);
 
-            weapon.IncreaseCoreHitDamageMultiplierBonus(coreHitDamageMultiplierBonus);
+            weapon.IncreaseCoreHitDamageMultiplier(coreHitDamageMultiplierBonus);
 
             weapon.IncreaseMaxAmmo(maxAmmoBonus);
 
@@ -81,6 +87,21 @@ public class WeaponUtility : PlayerUtility
                 (weapon as ILasergun).IncreaseLaserWidth(laserWidthBonus);
                 (weapon as ILasergun).IncreaseLaserDuration(laserDurationBonus);
             }
+
+            if (canGetCoinOnKill)
+            {
+                weapon.onKill += GetCoin;
+            }
+
+            if (canGetAmmoOnKill)
+            {
+                weapon.onKill += () => weapon.AddAmmo(ammoBonusOnKill);
+            }
+
+            if (canGetHealthOnCoreHit)
+            {
+                weapon.onCoreHit += IncreaseHealthOnCoreHit;
+            }
         }
     }
 
@@ -94,7 +115,7 @@ public class WeaponUtility : PlayerUtility
         {
             weapon.IncreaseDamageValue(-damageValueBonus);
 
-            weapon.IncreaseCoreHitDamageMultiplierBonus(-coreHitDamageMultiplierBonus);
+            weapon.IncreaseCoreHitDamageMultiplier(-coreHitDamageMultiplierBonus);
 
             weapon.IncreaseMaxAmmo(-maxAmmoBonus);
 
@@ -119,6 +140,31 @@ public class WeaponUtility : PlayerUtility
                 (weapon as ILasergun).IncreaseLaserWidth(-laserWidthBonus);
                 (weapon as ILasergun).IncreaseLaserDuration(-laserDurationBonus);
             }
+
+            if (canGetCoinOnKill)
+            {
+                weapon.onKill -= GetCoin;
+            }
+
+            if (canGetAmmoOnKill)
+            {
+                weapon.onKill -= () => weapon.AddAmmo(ammoBonusOnKill);
+            }
+
+            if (canGetHealthOnCoreHit)
+            {
+                weapon.onCoreHit -= IncreaseHealthOnCoreHit;
+            }
         }
+    }
+
+    private void GetCoin()
+    {
+
+    }
+
+    private void IncreaseHealthOnCoreHit(float damageAmount)
+    {
+        health.IncreaseHealth(damageAmount * healthBonusOnCoreHit);
     }
 }

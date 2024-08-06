@@ -116,7 +116,8 @@ MonoBehaviour:
   title: 6
   handlePosition: {x: 1, y: 0.2}
   damageValue: 1
-  ChargeDamageMultiplier: 1.5
+  chargeDamageMultiplier: 1.5
+  coreHitDamageMultiplier: 1
   bulletSpeed: 30
   weaponLength: 1.7
   maxAmmo: 200

@@ -9,15 +9,13 @@ public abstract class Bullet : MonoBehaviour
 
     public int prefabID;
 
-    private float finalDamage;
-    public float FinalDamage { get => finalDamage; set => finalDamage = value; }
+    public Weapon firedWeapon;
 
-    public float coreHitDamageMultiplierBonus { get; set; }
+    public float FinalDamage { get; set; }
 
-    public float CoreHitDamageMultiplier { get => coreHitDamageMultiplier + coreHitDamageMultiplierBonus; }
+    public float FinalDamageOnCoreHit { get; set; }
 
     [Header("Default Settings")]
-    [SerializeField] private float coreHitDamageMultiplier = 1f;
 
     [SerializeField] protected float lifeTIme;
 

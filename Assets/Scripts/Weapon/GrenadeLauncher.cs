@@ -14,15 +14,13 @@ public class GrenadeLauncher : Weapon, IExplosivegun
             Debug.Log(name + " : No Ammo");
             return;
         }
-        var obj = objectPool.GetBullet();
-        var randomDirection = GetRandomDirection(direction, AimAccuracy);
-        obj.transform.position = transform.position + randomDirection * weaponLength;
-        obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
-
+        GameObject obj = objectPool.GetBullet();
+        Vector3 randomDirection = GetRandomDirection(direction, AimAccuracy);
         ExplosiveBullet bullet = obj.GetComponent<ExplosiveBullet>();
-        bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
-        bullet.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
-        bullet.AddTargetTag(Settings.enemyTag);
+        float damageAmount = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+
+        SetBullet(obj, bullet, direction, damageAmount);
+
         bullet.explosion.Radius = explosionRadius;
 
         CurAmmo--;

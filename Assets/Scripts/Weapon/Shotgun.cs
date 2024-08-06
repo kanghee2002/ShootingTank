@@ -57,19 +57,14 @@ public class Shotgun : Weapon, IMultiFiregun
             }
         }
 
-        foreach (var dir in directions)
+        foreach (Vector3 dir in directions)
         {
-            var obj = objectPool.GetBullet();
-
+            GameObject obj = objectPool.GetBullet();
             Bullet bullet = obj.GetComponent<Bullet>();
-            bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
-            bullet.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
+            float damageAmount = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
-            bullet.LookAtDirection(obj, dir);
-            bullet.AddTargetTag(Settings.enemyTag);
+            SetBullet(obj, bullet, dir, damageAmount);
 
-            obj.transform.position = transform.position + dir * weaponLength;
-            obj.GetComponent<Rigidbody2D>().velocity = dir * bulletSpeed;
             obj.transform.localScale = Vector2.one * bulletSize;
         }
 

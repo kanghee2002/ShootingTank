@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(ObjectPooling))]
 public abstract class Weapon : MonoBehaviour
@@ -20,7 +22,7 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField] protected float chargeDamageMultiplier;
 
-    [SerializeField] protected float coreHitDamageMultiplierBonus;
+    [SerializeField] protected float coreHitDamageMultiplier;
 
     [SerializeField] protected float bulletSpeed;
 
@@ -70,11 +72,14 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
+    public Action<float> onHit;             //Parameter : DamageAmount
+    public Action<float> onCoreHit;
+    public Action onKill;
+
     private void Awake()
     {
         objectPool = GetComponent<ObjectPooling>();
         curAmmo = maxAmmo;
-        chargeDamageMultiplier = 1.5f;
     }
 
     private void OnEnable()
@@ -139,9 +144,21 @@ public abstract class Weapon : MonoBehaviour
     public abstract void Fire(Vector3 direction, float chargeDamageMultiplierBonus,
         float maxChargedDamageBonus);
 
+    protected void SetBullet(GameObject obj, Bullet bullet, Vector3 direction, float damageAmount)
+    {
+        obj.transform.position = transform.position + direction * weaponLength;
+        obj.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+
+        bullet.firedWeapon = this;
+        bullet.FinalDamage = damageAmount;
+        bullet.FinalDamageOnCoreHit = damageAmount * coreHitDamageMultiplier;
+        bullet.LookAtDirection(obj, direction);
+        bullet.AddTargetTag(Settings.enemyTag);
+    }
+
     public void IncreaseDamageValue(float amount) => damageValue += amount;
 
-    public void IncreaseCoreHitDamageMultiplierBonus(float amount) => coreHitDamageMultiplierBonus += amount;
+    public void IncreaseCoreHitDamageMultiplier(float amount) => coreHitDamageMultiplier += amount;
 
     public void IncreaseMaxAmmo(int amount) => maxAmmo += amount;
 

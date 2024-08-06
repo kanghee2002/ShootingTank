@@ -7,12 +7,14 @@ public class Explosion : MonoBehaviour
     private Transform parent;
     private SpriteRenderer spriteRenderer;
 
+    public Weapon firedWeapon { get; set; }
+
     [SerializeField] private List<string> targetLayerMasks;
 
     [SerializeField] private float damageAmount;
     public float DamageAmount { get => damageAmount; set => damageAmount = value; }
 
-    public float CoreHitDamageAmount { get; set; }
+    public float DamageAmountOnCoreHit { get; set; }
 
     [SerializeField] private float radius;
     public float Radius
@@ -60,11 +62,21 @@ public class Explosion : MonoBehaviour
         {
             if (target.TryGetComponent(out CoreHealth coreHealth))
             {
-                coreHealth.TakeDamage(CoreHitDamageAmount);
+                coreHealth.TakeDamage(DamageAmountOnCoreHit);
+
+                if (firedWeapon)
+                {
+                    firedWeapon.onCoreHit?.Invoke(DamageAmountOnCoreHit * coreHealth.CoreDamageMultiplier);
+                }
             }
             else if (target.TryGetComponent(out Health health))
             {
                 health.TakeDamage(damageAmount);
+
+                if (firedWeapon)
+                {
+                    firedWeapon.onHit?.Invoke(damageAmount);
+                }
             }
         }
         yield return new WaitForSeconds(explosionTime);

@@ -17,18 +17,18 @@ public class Lasergun : Weapon, ILasergun
             return;
         }
 
-        var obj = objectPool.GetBullet();
-        Laser laser = obj.GetComponent<Laser>();
+        GameObject obj = objectPool.GetBullet();
+        Vector3 randomDirection = GetRandomDirection(direction, AimAccuracy);
+        obj.transform.position = transform.position + randomDirection * weaponLength;
 
-        laser.AddTargetTag(Settings.enemyTag);
+        Laser laser = obj.GetComponent<Laser>();
+        laser.firedWeapon = this;
         laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
-        laser.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
+        laser.FinalDamageOnCoreHit = laser.FinalDamage * coreHitDamageMultiplier;
+        laser.AddTargetTag(Settings.enemyTag);
 
         laser.SetDuration(laserDuration);
         laser.SetLaserWidth(laserWidth);
-
-        var randomDirection = GetRandomDirection(direction, AimAccuracy);
-        obj.transform.position = transform.position + randomDirection * weaponLength;
 
         laser.Activate(randomDirection);
 

@@ -60,17 +60,18 @@ public class LaserShotgun : Weapon, IMultiFiregun, ILasergun
 
         foreach (var dir in directions)
         {
-            var obj = objectPool.GetBullet();
+            GameObject obj = objectPool.GetBullet();
+            obj.transform.position = transform.position + dir * weaponLength;
+
             Laser laser = obj.GetComponent<Laser>();
 
-            laser.AddTargetTag(Settings.enemyTag);
+            laser.firedWeapon = this;
             laser.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
-            laser.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
+            laser.FinalDamageOnCoreHit = laser.FinalDamage * coreHitDamageMultiplier;
+            laser.AddTargetTag(Settings.enemyTag);
 
             laser.SetDuration(laserDuration);
             laser.SetLaserWidth(laserWidth);
-
-            obj.transform.position = transform.position + dir * weaponLength;
 
             laser.Activate(dir);
         }

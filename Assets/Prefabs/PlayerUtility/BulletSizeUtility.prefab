@@ -188,12 +188,16 @@ MonoBehaviour:
   ammoBonus: 0
   aimAccuracyBonus: 0
   bulletSpeedBonus: 0
-  bulletSizeBonus: 5
+  bulletSizeBonus: 0
   pelletCountBonus: 0
   explosionRadiusBonus: 0
   laserWidthBonus: 0
   laserDurationBonus: 0
   canGetCoinOnKill: 0
+  coinBonusOnKill: 0
   canGetAmmoOnKill: 0
-  canGetHealthOnCoreHit: 0
+  ammoBonusOnKill: 0
+  canGetHealthOnCoreHit: 1
+  healthBonusOnCoreHit: 1
   canGetHealthOnKill: 0
+  healthBonusOnKill: 0

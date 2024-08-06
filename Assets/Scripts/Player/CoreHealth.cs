@@ -9,6 +9,8 @@ public class CoreHealth : Health
 
     [SerializeField] private float coreDamageMultiplier;
 
+    public float CoreDamageMultiplier { get => coreDamageMultiplier; }
+
     public override void TakeDamage(float damageAmount)
     {
         parentHealth.TakeDamage(damageAmount * coreDamageMultiplier);

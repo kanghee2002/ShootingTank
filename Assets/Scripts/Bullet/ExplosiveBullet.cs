@@ -33,8 +33,9 @@ public class ExplosiveBullet : Bullet
         {
             explosion.AddTargetLayerMask(targetTag);
         }
+        explosion.firedWeapon = firedWeapon;
         explosion.DamageAmount = FinalDamage;
-        explosion.CoreHitDamageAmount = FinalDamage * CoreHitDamageMultiplier;
+        explosion.DamageAmountOnCoreHit = FinalDamageOnCoreHit;
         explosion.gameObject.SetActive(true);
         explosion.transform.SetParent(null);
     }

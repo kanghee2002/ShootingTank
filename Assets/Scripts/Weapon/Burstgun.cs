@@ -34,22 +34,16 @@ public class Burstgun : Weapon, IMultiFiregun
     {
         float burstIntervalTime = burstTime / pelletCount;
 
-        float damage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+        float damageAmount = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
         for (int i = 0; i < pelletCount; i++)
         {
-            var obj = objectPool.GetBullet();
-
-            var randomDirection = GetRandomDirection(direction, AimAccuracy);
-
+            GameObject obj = objectPool.GetBullet();
+            Vector3 randomDirection = GetRandomDirection(direction, AimAccuracy);
             Bullet bullet = obj.GetComponent<Bullet>();
-            bullet.FinalDamage = damage;
-            bullet.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
-            bullet.LookAtDirection(obj, randomDirection);
-            bullet.AddTargetTag(Settings.enemyTag);
 
-            obj.transform.position = transform.position + randomDirection * weaponLength;
-            obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
+            SetBullet(obj, bullet, randomDirection, damageAmount);
+            
             obj.transform.localScale = Vector3.one * bulletSize;
 
             yield return new WaitForSeconds(burstIntervalTime);

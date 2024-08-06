@@ -15,21 +15,13 @@ public class Missilegun : Weapon, IExplosivegun
             return;
         }
 
-        var obj = objectPool.GetBullet();
-
-        obj.transform.position = transform.position + direction * weaponLength;
-        obj.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-
-        var randomDirection = GetRandomDirection(direction, AimAccuracy);
-        obj.transform.position = transform.position + randomDirection * weaponLength;
-        obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
-
+        GameObject obj = objectPool.GetBullet();
+        Vector3 randomDirection = GetRandomDirection(direction, AimAccuracy);
         ExplosiveBullet bullet = obj.GetComponent<ExplosiveBullet>();
-        bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
-        bullet.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
+        float damageAmount = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
 
-        bullet.LookAtDirection(obj, randomDirection);
-        bullet.AddTargetTag(Settings.enemyTag);
+        SetBullet(obj, bullet, randomDirection, damageAmount);
+
         bullet.explosion.Radius = explosionRadius;
 
         CurAmmo--;

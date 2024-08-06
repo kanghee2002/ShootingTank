@@ -17,18 +17,14 @@ public class Rifle : Weapon, IDefaultgun
             return;
         }
 
-        var obj = objectPool.GetBullet();
-
-        var randomDirection = GetRandomDirection(direction, AimAccuracy);
-        obj.transform.position = transform.position + randomDirection * weaponLength;
-        obj.GetComponent<Rigidbody2D>().velocity = randomDirection * bulletSpeed;
-        obj.transform.localScale = Vector2.one * bulletSize;
-
+        GameObject obj = objectPool.GetBullet();
+        Vector3 randomDirection = GetRandomDirection(direction, AimAccuracy);
         Bullet bullet = obj.GetComponent<Bullet>();
-        bullet.FinalDamage = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
-        bullet.coreHitDamageMultiplierBonus = coreHitDamageMultiplierBonus;
-        bullet.LookAtDirection(obj, randomDirection);
-        bullet.AddTargetTag(Settings.enemyTag);
+        float damageAmount = damageValue * GetDamageMultiplier(ChargePercentage, chargeDamageMultiplierBonus, maxChargedDamageBonus);
+
+        SetBullet(obj, bullet, randomDirection, damageAmount);
+
+        obj.transform.localScale = Vector2.one * bulletSize;
 
         CurAmmo--;
         
