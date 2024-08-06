@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ public class WeaponController : MonoBehaviour
 
     public delegate void OnWeaponShoot(WeaponHand weaponHand, Weapon weapon);
     public event OnWeaponShoot onWeaponShoot;
+
+    public Action<WeaponHand, Weapon> onWeaponAmmoChanged;
 
     private float chargeDamageMultiplierBonus;
     private float maxChargedDamageBonus;

@@ -43,14 +43,11 @@ public abstract class Weapon : MonoBehaviour
         } 
     }
 
-    [SerializeField]
-    private float aimAccuracy;
+    [SerializeField] private float aimAccuracy;
     public float AimAccuracy { get => aimAccuracy;}
 
-    [SerializeField]
-    private float minChargeTime;
-    [SerializeField]
-    private float maxChargeTime;
+    [SerializeField] private float minChargeTime;
+    [SerializeField] private float maxChargeTime;
 
     private float chargedTime;
 
@@ -71,6 +68,8 @@ public abstract class Weapon : MonoBehaviour
             else return percentage;
         }
     }
+
+    public event Action onAmmoChanged;
 
     public Action<float> onHit;             //Parameter : DamageAmount
     public Action<float> onCoreHit;
@@ -160,9 +159,17 @@ public abstract class Weapon : MonoBehaviour
 
     public void IncreaseCoreHitDamageMultiplier(float amount) => coreHitDamageMultiplier += amount;
 
-    public void IncreaseMaxAmmo(int amount) => maxAmmo += amount;
+    public void IncreaseMaxAmmo(int amount)
+    {
+        maxAmmo += amount;
+        onAmmoChanged?.Invoke();
+    }
 
-    public void AddAmmo(int amount) => CurAmmo += amount;
+    public void AddAmmo(int amount)
+    {
+        CurAmmo += amount;
+        onAmmoChanged?.Invoke();
+    }
 
     public void IncreaseAimAccuracy(float amount)
     {

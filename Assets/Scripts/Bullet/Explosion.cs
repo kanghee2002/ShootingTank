@@ -62,20 +62,30 @@ public class Explosion : MonoBehaviour
         {
             if (target.TryGetComponent(out CoreHealth coreHealth))
             {
-                coreHealth.TakeDamage(DamageAmountOnCoreHit);
+                bool hasKilled = coreHealth.TakeDamage(DamageAmountOnCoreHit);
 
                 if (firedWeapon)
                 {
                     firedWeapon.onCoreHit?.Invoke(DamageAmountOnCoreHit * coreHealth.CoreDamageMultiplier);
+
+                    if (hasKilled)
+                    {
+                        firedWeapon.onKill?.Invoke();
+                    }
                 }
             }
             else if (target.TryGetComponent(out Health health))
             {
-                health.TakeDamage(damageAmount);
+                bool hasKilled = health.TakeDamage(damageAmount);
 
                 if (firedWeapon)
                 {
                     firedWeapon.onHit?.Invoke(damageAmount);
+
+                    if (hasKilled)
+                    {
+                        firedWeapon.onKill?.Invoke();
+                    }
                 }
             }
         }

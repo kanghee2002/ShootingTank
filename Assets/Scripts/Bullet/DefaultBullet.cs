@@ -20,12 +20,18 @@ public class DefaultBullet : Bullet
                 {
                     hasDamaged = true;
 
-                    coreHealth.TakeDamage(FinalDamageOnCoreHit);
+                    bool hasKilled = coreHealth.TakeDamage(FinalDamageOnCoreHit);
 
                     if (firedWeapon)
                     {
                         firedWeapon.onCoreHit?.Invoke(FinalDamageOnCoreHit * coreHealth.CoreDamageMultiplier);
+
+                        if (hasKilled)
+                        {
+                            firedWeapon.onKill?.Invoke();
+                        }
                     }
+
 
                     DestroyBullet();
                 } 
@@ -34,11 +40,16 @@ public class DefaultBullet : Bullet
                 {
                     hasDamaged = true;
 
-                    health.TakeDamage(FinalDamage);
+                    bool hasKilled = health.TakeDamage(FinalDamage);
 
                     if (firedWeapon)
                     {
                         firedWeapon.onHit?.Invoke(FinalDamage);
+
+                        if (hasKilled)
+                        {
+                            firedWeapon.onKill?.Invoke();
+                        }
                     }
 
                     DestroyBullet();

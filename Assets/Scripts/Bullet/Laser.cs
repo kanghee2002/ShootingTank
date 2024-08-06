@@ -140,20 +140,30 @@ public class Laser : Bullet
             {
                 if (collision.TryGetComponent(out CoreHealth coreHealth))
                 {
-                    coreHealth.TakeDamage(FinalDamageOnCoreHit);
+                    bool hasKilled = coreHealth.TakeDamage(FinalDamageOnCoreHit);
 
                     if (firedWeapon)
                     {
                         firedWeapon.onCoreHit?.Invoke(FinalDamageOnCoreHit * coreHealth.CoreDamageMultiplier);
+
+                        if (hasKilled)
+                        {
+                            firedWeapon.onKill?.Invoke();
+                        }
                     }
                 }
                 else if (collision.TryGetComponent(out Health health))
                 {
-                    health.TakeDamage(FinalDamage);
+                    bool hasKilled = health.TakeDamage(FinalDamage);
 
                     if (firedWeapon)
                     {
                         firedWeapon.onHit?.Invoke(FinalDamage);
+
+                        if (hasKilled)
+                        {
+                            firedWeapon.onKill?.Invoke();
+                        }
                     }
                 }
             }

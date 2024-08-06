@@ -195,9 +195,9 @@ MonoBehaviour:
   laserDurationBonus: 0
   canGetCoinOnKill: 0
   coinBonusOnKill: 0
-  canGetAmmoOnKill: 0
-  ammoBonusOnKill: 0
-  canGetHealthOnCoreHit: 1
-  healthBonusOnCoreHit: 1
+  canGetAmmoOnKill: 1
+  ammoBonusOnKill: 3
+  canGetHealthOnCoreHit: 0
+  healthBonusOnCoreHit: 0
   canGetHealthOnKill: 0
   healthBonusOnKill: 0

@@ -32,6 +32,8 @@ public class Health : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+
+        onHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 
     public void SetHealthSlider(Slider slider)
@@ -47,7 +49,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public virtual void TakeDamage(float damageAmount)
+    public virtual bool TakeDamage(float damageAmount)          // If Die return true
     {
         currentHealth -= damageAmount;
 
@@ -56,7 +58,10 @@ public class Health : MonoBehaviour
         if (currentHealth <= 0f)
         {
             Die();
+            return true;
         }
+
+        return false;
     }
 
     private void Die()

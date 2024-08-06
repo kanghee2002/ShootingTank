@@ -34,10 +34,13 @@ public class WeaponUtility : PlayerUtility
     [Header("On Hit")]
     [SerializeField] private bool canGetCoinOnKill;
     [SerializeField] private int coinBonusOnKill;
+
     [SerializeField] private bool canGetAmmoOnKill;
     [SerializeField] private int ammoBonusOnKill;
+
     [SerializeField] private bool canGetHealthOnCoreHit;
     [SerializeField] private float healthBonusOnCoreHit;        // Multiplier
+
     [SerializeField] private bool canGetHealthOnKill;
     [SerializeField] private float healthBonusOnKill;
 
@@ -95,14 +98,22 @@ public class WeaponUtility : PlayerUtility
 
             if (canGetAmmoOnKill)
             {
-                weapon.onKill += () => weapon.AddAmmo(ammoBonusOnKill);
+                weapon.onKill += AddAmmoOnKill;
+                weapon.onKill += WeaponAmmoChanged;
             }
 
             if (canGetHealthOnCoreHit)
             {
                 weapon.onCoreHit += IncreaseHealthOnCoreHit;
             }
+
+            if (canGetHealthOnKill)
+            {
+                weapon.onKill += IncreaseHealthOnKill;
+            }
         }
+
+        WeaponAmmoChanged();
     }
 
     private void OnDisable()
@@ -148,14 +159,28 @@ public class WeaponUtility : PlayerUtility
 
             if (canGetAmmoOnKill)
             {
-                weapon.onKill -= () => weapon.AddAmmo(ammoBonusOnKill);
+                weapon.onKill -= AddAmmoOnKill;
+                weapon.onKill -= WeaponAmmoChanged;
             }
 
             if (canGetHealthOnCoreHit)
             {
                 weapon.onCoreHit -= IncreaseHealthOnCoreHit;
             }
+
+            if (canGetHealthOnKill)
+            {
+                weapon.onKill -= IncreaseHealthOnKill;
+            }
         }
+
+        WeaponAmmoChanged();
+    }
+
+    private void WeaponAmmoChanged()
+    {
+        weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Left, weaponController.Weapons[0]);
+        weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Right, weaponController.Weapons[1]);
     }
 
     private void GetCoin()
@@ -163,8 +188,21 @@ public class WeaponUtility : PlayerUtility
 
     }
 
+    private void AddAmmoOnKill()
+    {
+        foreach (Weapon weapon in WeaponManager.Instance.PlayerWeaponList)
+        {
+            weapon.AddAmmo(ammoBonusOnKill);
+        }
+    }
+
     private void IncreaseHealthOnCoreHit(float damageAmount)
     {
         health.IncreaseHealth(damageAmount * healthBonusOnCoreHit);
+    }
+
+    private void IncreaseHealthOnKill()
+    {
+        health.IncreaseHealth(healthBonusOnKill);
     }
 }

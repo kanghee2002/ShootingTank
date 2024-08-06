@@ -51,6 +51,10 @@ public class StageUIController : MonoBehaviour
         weaponController.onWeaponChanged += SetAmmoText;
         weaponController.onWeaponCharged += SetChargeSliderValue;
         weaponController.onWeaponShoot += SetAmmoText;
+        weaponController.onWeaponAmmoChanged += SetAmmoText;
+
+        weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Left, weaponController.Weapons[0]);
+        weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Right, weaponController.Weapons[1]);
     }
 
     private void SetHealthText(float currentHealth, float maxHealth)
