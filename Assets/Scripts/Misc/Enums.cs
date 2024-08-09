@@ -45,8 +45,8 @@ public enum WeaponName
     //A
     LaserShotgun,
     MissileShotgun,
-    ContinuousGrenadeLauncher,
-    ContinuousLasergun,
+    BurstGrenadeLauncher,
+    BurstLasergun,
     BurstShotgun,
     HugeLasergun,
     HugeExplosionGrenadeLauncher,
