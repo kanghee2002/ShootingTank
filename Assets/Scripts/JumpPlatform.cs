@@ -22,7 +22,7 @@ public class JumpPlatform : MonoBehaviour
     {
         if (collision.TryGetComponent(out PlayerController playerController))
         {
-            playerController.MinusJumpPowerValue(jumpPowerBonus);
+            playerController.AddJumpPowerValue(-jumpPowerBonus);
         }
     }
 }

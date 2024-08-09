@@ -24,6 +24,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3531891166754965488, guid: 443c57f74fea95c4eb800813ddea6d80, type: 3}
+      propertyPath: maxUtilityCount
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3531891166754965488, guid: 443c57f74fea95c4eb800813ddea6d80, type: 3}
       propertyPath: ammoBonusPercentage
       value: 0.3
       objectReference: {fileID: 0}

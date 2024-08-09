@@ -9,8 +9,9 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private Slider healthSlider;
     [SerializeField] private float maxHealth;
+    public float MaxHealth { get => maxHealth; }
     [SerializeField] protected float currentHealth;
-    public float GetHealth { get => currentHealth; }
+    public float CurrentHealth { get => currentHealth; }
 
     public delegate void OnHealthChanged(float currentHealth, float maxHealth);
     public event OnHealthChanged onHealthChanged;
@@ -24,7 +25,7 @@ public class Health : MonoBehaviour
         onHealthChanged += SetHealthSliderValue;
     }
 
-    public void IncreaseHealth(float amount)
+    public void HealByAmount(float amount)
     {
         currentHealth += amount;
 
@@ -33,7 +34,30 @@ public class Health : MonoBehaviour
             currentHealth = maxHealth;
         }
 
-        onHealthChanged?.Invoke(currentHealth, maxHealth);
+        HealthChanged();
+    }
+
+    public void HealByPercentage(float percentage)
+    {
+        currentHealth += maxHealth * percentage;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        HealthChanged();
+    }
+
+    public void IncreaseMaxHealthByPercentage(float percentage)
+    {
+        float increaseAmount = maxHealth * percentage;
+
+        maxHealth += increaseAmount;
+
+        currentHealth += increaseAmount;
+
+        HealthChanged();
     }
 
     public void SetHealthSlider(Slider slider)
@@ -53,7 +77,7 @@ public class Health : MonoBehaviour
     {
         currentHealth -= damageAmount;
 
-        onHealthChanged?.Invoke(currentHealth, maxHealth);
+        HealthChanged();
 
         if (currentHealth <= 0f)
         {
@@ -67,5 +91,10 @@ public class Health : MonoBehaviour
     private void Die()
     {
         onDie?.Invoke();
+    }
+
+    private void HealthChanged()
+    {
+        onHealthChanged?.Invoke(currentHealth, maxHealth);
     }
 }

@@ -200,11 +200,11 @@ public class WeaponUtility : PlayerUtility
 
     private void IncreaseHealthOnCoreHit(float damageAmount)
     {
-        health.IncreaseHealth(damageAmount * healthBonusPercentageOnCoreHit);
+        health.HealByAmount(damageAmount * healthBonusPercentageOnCoreHit);
     }
 
     private void IncreaseHealthOnKill()
     {
-        health.IncreaseHealth(healthBonusOnKill);
+        health.HealByAmount(healthBonusOnKill);
     }
 }

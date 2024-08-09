@@ -118,7 +118,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   jumpPower: 15
-  maxJumpCount: 4
+  maxJumpCount: 2
+  downFallPower: 1000
+  downFallCoolTime: 1
   weaponParents:
   - {fileID: 1691444259}
   - {fileID: 1691934165}

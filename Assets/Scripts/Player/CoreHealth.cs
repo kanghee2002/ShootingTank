@@ -16,7 +16,13 @@ public class CoreHealth : Health
        return parentHealth.TakeDamage(damageAmount * coreDamageMultiplier);
     }
 
-    public void AddCoreDamageMultiplier(float amount) => coreDamageMultiplier += amount;
+    public void MinusCoreDamageMultiplier(float amount)
+    {
+        coreDamageMultiplier -= amount;
 
-    public void MinusCoreDamageMultiplier(float amount) => coreDamageMultiplier -= amount;
+        if (coreDamageMultiplier < 0.5f)
+        {
+            coreDamageMultiplier = 0.5f;
+        }
+    }
 }

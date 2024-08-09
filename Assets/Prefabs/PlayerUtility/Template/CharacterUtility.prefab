@@ -53,7 +53,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5399667234512989580, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
       propertyPath: m_Name
-      value: UtilityObject
+      value: CharacterUtility
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+--- !u!1 &7339403033216237443 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8785020045066340403, guid: 7ab2011c944916a438740e0529d70d1c, type: 3}
+  m_PrefabInstance: {fileID: 2031234499137419184}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4668065223342284375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339403033216237443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ec0188d63f12f49979a1d6bcfe9204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  utilityName: 
+  playerTransform: {fileID: 0}
+  utilityRank: 0
+  jumpCountBonus: 0
+  jumpPowerBonus: 0
+  moveSpeedBonus: 0
+  downFallCoolTimeBonus: 0
+  coreScaleBonus: 0
+  coreTakeDamageMultiplierBonus: 0
+  playerScale: 0
+  canJumpInfinitely: 0
+  canSetCoreInactive: 0

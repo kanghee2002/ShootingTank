@@ -11,4 +11,8 @@ public abstract class PlayerUtility : MonoBehaviour
     [SerializeField] protected UtilityRank utilityRank;
 
     public UtilityRank UtilityRank { get => utilityRank; }
+
+    [SerializeField] protected int maxUtilityCount;
+
+    public int MaxUtilityCount { get => maxUtilityCount; }
 }

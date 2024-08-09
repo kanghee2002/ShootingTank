@@ -34,11 +34,18 @@ public class PlayerController : MonoBehaviour
 
     private int jumpCount;
     private JumpState jumpState;
-    public JumpState GetJumpState() => jumpState;
 
     private bool isStunning = false;
 
     private float downFallTimer;
+
+    private bool canJumpInfinitely;
+
+    public int MaxJumpCount { get => maxJumpCount; }
+
+    public JumpState GetJumpState() => jumpState;
+
+    public void AllowInfiniteJump(bool canJumpInfinitely) => this.canJumpInfinitely = canJumpInfinitely;
 
     private void Awake()
     {
@@ -53,6 +60,7 @@ public class PlayerController : MonoBehaviour
         jumpCount = maxJumpCount;
         jumpState = JumpState.NotJumping;
         downFallTimer = 0f;
+        canJumpInfinitely = false;
     }
 
     private void Update()
@@ -89,7 +97,7 @@ public class PlayerController : MonoBehaviour
                 xDir = -1;
             }
 
-            transform.localScale = new Vector3(xDir,
+            transform.localScale = new Vector3(xDir * Mathf.Abs(transform.localScale.x),
                 transform.localScale.y, transform.localScale.z);
             foreach(var weaponObj in weaponParents)
             {
@@ -227,15 +235,24 @@ public class PlayerController : MonoBehaviour
 
     private void MinusJumpCount()
     {
+        if (canJumpInfinitely) return;
+
         if (jumpCount > 0) jumpCount--;
     }
 
     public void AddMaxJumpCount(int count) => maxJumpCount += count;
-    public void MinusMaxJumpCount(int count) => maxJumpCount -= count;
 
     public void AddJumpPowerValue(float power) => jumpPower += power;
-    public void MinusJumpPowerValue(float power) => jumpPower -= power;
 
     public void AddMoveSpeedValue(float speed) => moveSpeed += speed;
-    public void MinusMoveSpeedValue(float speed) => moveSpeed -= speed;
+
+    public void MinusDownFallCoolTime(float time)
+    {
+        if (downFallCoolTime - time <= 0.2f)
+        {
+            downFallCoolTime = 0.2f;
+            return;
+        }
+        downFallCoolTime -= time;
+    }
 }
