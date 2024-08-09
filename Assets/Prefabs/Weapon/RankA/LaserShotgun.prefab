@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7223422800345576941}
-  - component: {fileID: 5409469234311050851}
   - component: {fileID: 8544781852477815607}
   - component: {fileID: 4747361088154296145}
+  - component: {fileID: -5139735466235445875}
   m_Layer: 0
-  m_Name: Lasergun
+  m_Name: LaserShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,31 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5409469234311050851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7357572772690487926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47d89fdd4bca21f44b1a5f65914c6d8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: 5
-  handlePosition: {x: 1, y: -0.05}
-  damageValue: 1
-  chargeDamageMultiplier: 1.5
-  coreHitDamageMultiplier: 1
-  bulletSpeed: 0
-  weaponLength: 1.2
-  maxAmmo: 200
-  aimAccuracy: 100
-  minChargeTime: 0.5
-  maxChargeTime: 2
-  laserWidth: 0.5
-  laserDuration: 0.5
 --- !u!114 &8544781852477815607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,3 +101,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-5139735466235445875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7357572772690487926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80354c82893da364d81e8add7d36cd83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: 25
+  handlePosition: {x: 1, y: -0.05}
+  damageValue: 12
+  chargeDamageMultiplier: 1
+  coreHitDamageMultiplier: 0.75
+  bulletSpeed: 0
+  weaponLength: 1.2
+  maxAmmo: 100
+  aimAccuracy: 90
+  minChargeTime: 0.75
+  maxChargeTime: 1.5
+  pelletCount: 3
+  shootingType: 0
+  shootingAngle: 0
+  laserWidth: 0.5
+  laserDuration: 0.5

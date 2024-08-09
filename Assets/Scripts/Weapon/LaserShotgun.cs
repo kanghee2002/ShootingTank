@@ -10,12 +10,13 @@ public class LaserShotgun : Weapon, IMultiFiregun, ILasergun
         Angle
     }
 
+    [Header("Shotgun")]
     [SerializeField] private int pelletCount;
     [SerializeField] private ShootingType shootingType;
     [SerializeField] private float shootingAngle;
 
+    [Header("Laser")]
     [SerializeField] private float laserWidth;
-
     [SerializeField] private float laserDuration;
 
     public override void Fire(Vector3 direction, float chargeDamageMultiplierBonus, float maxChargedDamageBonus)

@@ -13,14 +13,47 @@ public enum JumpState
 
 public enum WeaponName
 {
+    //C
     Default,
-    Rifle,
-    Shotgun,
-    Missilegun,
+    M16,
+    AK47,
+    abandonedShotgun,
+    RustyShotgun,
+    Revolver,
+    NoChargingRifle,
+    BrokenRifle,
+    OldSniperRifle,
+    HugeRifle,
+    FaintGun,
+    SlowGun,
+    PeaGun,
+    
+    //B
     GrenadeLauncher,
     Lasergun,
-    Burstgun,
-    LaserShotgun
+    Missilegun,
+    Coregun,
+    SniperRifle,
+    M4A16,
+    Shotgun,
+    Scattergun,         //산탄총
+    HugeRevolver,
+    ScatterShotgun,      //산탄 산탄총
+    Splitgun,
+    Tailgun,
+    
+    //A
+    LaserShotgun,
+    MissileShotgun,
+    ContinuousGrenadeLauncher,
+    ContinuousLasergun,
+    BurstShotgun,
+    HugeLasergun,
+    HugeExplosionGrenadeLauncher,
+    Sniper,
+
+    //S
+    Taser
 }
 
 public enum RoomType

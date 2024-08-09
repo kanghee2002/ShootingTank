@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5902622998344908052}
   - component: {fileID: 5860492195903490947}
+  - component: {fileID: 7469840312503022622}
   - component: {fileID: 5325302779619427807}
-  - component: {fileID: 468048317285055735}
   m_Layer: 0
-  m_Name: Burstgun
+  m_Name: RifleTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,6 +86,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7469840312503022622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917438833306291598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79c06f852ed965546ba475e27afcb332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: 0
+  handlePosition: {x: 1, y: 0.2}
+  damageValue: 1.2
+  chargeDamageMultiplier: 1.5
+  coreHitDamageMultiplier: 1
+  bulletSpeed: 30
+  weaponLength: 1.7
+  maxAmmo: 500
+  aimAccuracy: 90
+  minChargeTime: 0.19
+  maxChargeTime: 0.2
+  bulletSize: 1
+  maxBulletSize: 5
 --- !u!114 &5325302779619427807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,30 +126,3 @@ MonoBehaviour:
   poolArray:
   - prefab: {fileID: 2725257939580471691, guid: 603e8a242701dd24e812edffcb75a23b, type: 3}
     poolSize: 30
---- !u!114 &468048317285055735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6917438833306291598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7c989e4c1c49064ea62908c2833e1f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: 6
-  handlePosition: {x: 1, y: 0.2}
-  damageValue: 1
-  chargeDamageMultiplier: 1.5
-  coreHitDamageMultiplier: 1
-  bulletSpeed: 30
-  weaponLength: 1.7
-  maxAmmo: 200
-  aimAccuracy: 100
-  minChargeTime: 0.5
-  maxChargeTime: 1.5
-  maxBulletSize: 5
-  bulletSize: 1
-  pelletCount: 3
-  burstTime: 0.3

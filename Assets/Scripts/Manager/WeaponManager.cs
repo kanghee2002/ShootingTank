@@ -19,6 +19,8 @@ public class WeaponManager : Singleton<WeaponManager>
     public int availableWeaponNum { get { return availableWeaponList.Count; } 
                                     private set { availableWeaponNum = availableWeaponList.Count; } }
 
+    public List<WeaponName> InitialWeaponList;
+
     protected override void Awake()
     {
         base.Awake();
@@ -28,13 +30,11 @@ public class WeaponManager : Singleton<WeaponManager>
     {
         AddAvailableWeapon(WeaponName.Default);
         AddAvailableWeapon(WeaponName.Default);
-        AddAvailableWeapon(WeaponName.Rifle);
-        AddAvailableWeapon(WeaponName.Shotgun);
-        AddAvailableWeapon(WeaponName.Missilegun);
-        AddAvailableWeapon(WeaponName.GrenadeLauncher);
-        AddAvailableWeapon(WeaponName.Lasergun);
-        AddAvailableWeapon(WeaponName.Burstgun);
-        AddAvailableWeapon(WeaponName.LaserShotgun);
+
+        foreach(WeaponName weaponName in InitialWeaponList)
+        {
+            AddAvailableWeapon(weaponName);
+        }
 
         //isRightWeaponEnabled = false;
     }
