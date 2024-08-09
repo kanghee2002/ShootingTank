@@ -10,9 +10,11 @@ public abstract class Weapon : MonoBehaviour
     protected ObjectPooling objectPool;
 
     [Header("Weapon Settings")]
-    [SerializeField]
-    private WeaponName title;
+    [SerializeField] private WeaponName title;
     public WeaponName Title { get => title; }
+
+    [SerializeField] private string weaponName;
+    public string WeaponName { get => weaponName; }
 
     [SerializeField] private Vector2 handlePosition;
 
@@ -155,7 +157,7 @@ public abstract class Weapon : MonoBehaviour
         bullet.AddTargetTag(Settings.enemyTag);
     }
 
-    public void IncreaseDamageValue(float amount) => damageValue += amount;
+    public void IncreaseDamageValue(float percentage) => damageValue += damageValue * percentage;
 
     public void IncreaseCoreHitDamageMultiplier(float amount) => coreHitDamageMultiplier += amount;
 

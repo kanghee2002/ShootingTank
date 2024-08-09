@@ -64,6 +64,10 @@ PrefabInstance:
       value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: weaponName
+      value: "\uACE0\uC7A5\uB09C \uC18C\uCD1D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: aimAccuracy
       value: 80
       objectReference: {fileID: 0}

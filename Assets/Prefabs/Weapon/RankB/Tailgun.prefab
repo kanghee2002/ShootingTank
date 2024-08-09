@@ -114,6 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: 24
+  weaponName: "\uAF2C\uB9AC \uCD1D"
   handlePosition: {x: 1, y: 0.2}
   damageValue: 5
   chargeDamageMultiplier: 1

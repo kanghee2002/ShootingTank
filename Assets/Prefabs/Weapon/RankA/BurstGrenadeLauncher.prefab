@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: 27
+  weaponName: "\uC5F0\uC18D \uC720\uD0C4\uBC1C\uC0AC\uAE30"
   handlePosition: {x: 1.1, y: -0.05}
   damageValue: 15
   chargeDamageMultiplier: 1

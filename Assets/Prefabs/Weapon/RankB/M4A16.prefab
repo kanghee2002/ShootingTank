@@ -20,6 +20,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: weaponName
+      value: M4A16
+      objectReference: {fileID: 0}
+    - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: aimAccuracy
       value: 95
       objectReference: {fileID: 0}

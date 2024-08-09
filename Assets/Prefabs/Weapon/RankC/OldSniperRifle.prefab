@@ -64,6 +64,10 @@ PrefabInstance:
       value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: weaponName
+      value: "\uB0A1\uC740 \uC800\uACA9\uCD1D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: bulletSpeed
       value: 40
       objectReference: {fileID: 0}

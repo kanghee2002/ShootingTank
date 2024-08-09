@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponUtility : PlayerUtility
 {
     [Header("Damage Value")]
-    [SerializeField] private float damageValueBonus;
+    [SerializeField] private float damageValueBonusPercentage;
     [SerializeField] private float chargeDamageMultiplierBonus;
     [SerializeField] private float maxChargedDamageBonus;
     [SerializeField] private float coreHitDamageMultiplierBonus;
@@ -61,7 +61,7 @@ public class WeaponUtility : PlayerUtility
 
         foreach (Weapon weapon in WeaponManager.Instance.PlayerWeaponList)
         {
-            weapon.IncreaseDamageValue(damageValueBonus);
+            weapon.IncreaseDamageValue(damageValueBonusPercentage);
 
             weapon.IncreaseCoreHitDamageMultiplier(coreHitDamageMultiplierBonus);
 
@@ -126,7 +126,7 @@ public class WeaponUtility : PlayerUtility
 
         foreach (Weapon weapon in WeaponManager.Instance.PlayerWeaponList)
         {
-            weapon.IncreaseDamageValue(-damageValueBonus);
+            weapon.IncreaseDamageValue(-damageValueBonusPercentage);
 
             weapon.IncreaseCoreHitDamageMultiplier(-coreHitDamageMultiplierBonus);
 
