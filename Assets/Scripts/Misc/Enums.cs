@@ -53,7 +53,7 @@ public enum WeaponName
     Sniper,
 
     //S
-    Taser
+    Infinitygun
 }
 
 public enum RoomType

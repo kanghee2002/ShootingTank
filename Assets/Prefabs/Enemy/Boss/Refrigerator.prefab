@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 0}
-  maxHealth: 100
+  maxHealth: 1500
   currentHealth: 0
 --- !u!95 &1028769434933070967
 Animator:
