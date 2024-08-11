@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: weaponName
-      value: M16
+      value: "3\uC810\uC0AC \uC18C\uCD1D"
       objectReference: {fileID: 0}
     - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: damageValue

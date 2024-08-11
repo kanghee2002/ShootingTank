@@ -34,11 +34,11 @@ public enum WeaponName
     Missilegun,
     Coregun,
     SniperRifle,
-    Machinegun,
+    Machinegun,         //기관단총
     Shotgun,
     Scattergun,         //산탄총
     HugeRevolver,
-    ScatterShotgun,      //산탄 산탄총
+    ScatterShotgun,     //산탄 산탄총
     Splitgun,
     Tailgun,
     
