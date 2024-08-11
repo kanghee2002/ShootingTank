@@ -15,8 +15,8 @@ public enum WeaponName
 {
     //C
     Default,
-    M16,
-    AK47,
+    BurstRifle,
+    AssaultRifle,
     abandonedShotgun,
     RustyShotgun,
     Revolver,
@@ -34,7 +34,7 @@ public enum WeaponName
     Missilegun,
     Coregun,
     SniperRifle,
-    M4A16,
+    Machinegun,
     Shotgun,
     Scattergun,         //산탄총
     HugeRevolver,

@@ -47,6 +47,10 @@ PrefabInstance:
       propertyPath: chargeDamageMultiplier
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 050b01a14cfd82b42a4a981695cb0f27, type: 3}
     - target: {fileID: 5902622998344908052, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: m_RootOrder
       value: 0

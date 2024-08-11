@@ -79,9 +79,10 @@ MonoBehaviour:
   - {fileID: 7422603840517737260, guid: cf3892ce8db3f1c499ee2e64bacd2595, type: 3}
   - {fileID: 9071530587020189275, guid: 443fb7e7d04eab349bc47a81122f9942, type: 3}
   - {fileID: 3714167266168504114, guid: 30e36580996a3e145a180a6c3c459dff, type: 3}
+  - {fileID: 3714167266168504114, guid: c3fe8c0771b82b8489fb24535a298e30, type: 3}
   weaponsParent: {fileID: 203285065590799482}
-  isRightWeaponEnabled: 1
-  InitialWeaponList: 20000000
+  isRightWeaponEnabled: 0
+  InitialWeaponList: 0400000005000000
 --- !u!1 &203285065590799481
 GameObject:
   m_ObjectHideFlags: 0

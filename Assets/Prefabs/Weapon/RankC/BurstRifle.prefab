@@ -23,9 +23,29 @@ PrefabInstance:
       propertyPath: damageValue
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bb85d9a51082e0a4791e0503a9947a8d, type: 3}
+    - target: {fileID: 5860492195903490947, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6132076
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6132076
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6132076
+      objectReference: {fileID: 0}
     - target: {fileID: 5902622998344908052, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902622998344908052, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5902622998344908052, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: m_LocalPosition.x
@@ -69,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6917438833306291598, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: m_Name
-      value: M16
+      value: BurstRifle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}

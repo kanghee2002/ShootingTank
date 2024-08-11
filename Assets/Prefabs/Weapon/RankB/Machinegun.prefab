@@ -35,9 +35,17 @@ PrefabInstance:
       propertyPath: pelletCount
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5e03ed47403558041b0f0efed6262e0c, type: 3}
     - target: {fileID: 5902622998344908052, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902622998344908052, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5902622998344908052, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: m_LocalPosition.x
@@ -81,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6917438833306291598, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: m_Name
-      value: M4A16
+      value: Machinegun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
