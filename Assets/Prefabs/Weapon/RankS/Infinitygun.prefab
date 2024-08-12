@@ -7,6 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: m_Size.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: m_Size.y
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b0dad1f90e9e6444ea2141d22bd362c0, type: 3}
+    - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5902622998344908052, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -94,6 +110,14 @@ PrefabInstance:
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: minChargeTime
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: handlePosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: handlePosition.y
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: chargeDamageMultiplier

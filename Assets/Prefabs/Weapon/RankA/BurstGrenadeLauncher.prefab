@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BurstGrenadeLauncher
       objectReference: {fileID: 0}
+    - target: {fileID: 3870980280410431036, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8755dc54c53b61f4e9ea4a068895ffd1, type: 3}
     - target: {fileID: 4514322087987701076, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
       propertyPath: m_RootOrder
       value: 0
