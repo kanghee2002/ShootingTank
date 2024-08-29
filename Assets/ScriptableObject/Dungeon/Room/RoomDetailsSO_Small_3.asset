@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13adfc726af3c8540abfcee847d5e885, type: 3}
-  m_Name: RoomDetailsSO_Small_1
+  m_Name: RoomDetailsSO_Small_3
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 2950281325090501188, guid: b5592d9cda2312e4a9a09cfb07a33544, type: 3}
+  roomPrefab: {fileID: 2950281325090501188, guid: ab79be83c9d03e5458ed75ddc5c04d10, type: 3}
   roomType: 2
   doorwayArray:
   - orientation: 0
-    position: {x: -1, y: 12}
-    doorwayCopyPosition: {x: -5, y: 6}
+    position: {x: -1, y: 22}
+    doorwayCopyPosition: {x: -5, y: 16}
     doorwayCopyWidth: 8
     doorwayCopyHeight: 7
   - orientation: 1
@@ -31,12 +31,12 @@ MonoBehaviour:
     doorwayCopyWidth: 7
     doorwayCopyHeight: 8
   - orientation: 3
-    position: {x: 19, y: -3}
-    doorwayCopyPosition: {x: 13, y: -6}
+    position: {x: 10, y: 9}
+    doorwayCopyPosition: {x: 4, y: 6}
     doorwayCopyWidth: 7
     doorwayCopyHeight: 8
   spawnPositionArray:
   - {x: -12, y: -12}
-  - {x: 10, y: -12}
-  - {x: -9, y: -4}
-  - {x: 6, y: -4}
+  - {x: -3, y: -4}
+  - {x: 1, y: -4}
+  - {x: -11, y: 8}

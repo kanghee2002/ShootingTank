@@ -29,7 +29,7 @@ MonoBehaviour:
   - roomType: 2
     enemyCount:
     - enemyRank: 0
-      count: 1
+      count: 3
     - enemyRank: 1
       count: 0
     - enemyRank: 2
@@ -39,7 +39,7 @@ MonoBehaviour:
   - roomType: 3
     enemyCount:
     - enemyRank: 0
-      count: 1
+      count: 5
     - enemyRank: 1
       count: 1
     - enemyRank: 2
@@ -49,11 +49,11 @@ MonoBehaviour:
   - roomType: 4
     enemyCount:
     - enemyRank: 0
-      count: 1
+      count: 7
     - enemyRank: 1
-      count: 1
+      count: 2
     - enemyRank: 2
-      count: 1
+      count: 0
     - enemyRank: 3
       count: 0
   roomDetailsArray:

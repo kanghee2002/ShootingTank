@@ -63,13 +63,20 @@ public class EnemySpawner : Singleton<EnemySpawner>
                     // Make Clone Enemy Rank List
                     List<EnemyRank> currentCompositedEnemyRankList = compositedEnemyRankDictionary[currentRoomType].ToList();
 
-                    // Get Spawn Position Array
-                    Vector2[] enemySpawnPositionArray = roomInfos[x, y].roomDetails.spawnPositionArray;
+                    // Get Spawn Position List
+                    List<Vector2> enemySpawnPositionList = roomInfos[x, y].roomDetails.spawnPositionArray.ToList();
 
-                    foreach (Vector2 spawnPosition in enemySpawnPositionArray)
+                    while (currentCompositedEnemyRankList.Count > 0)
                     {
+                        // Select Spawn Position
+                        if (enemySpawnPositionList.Count <= 0) Debug.Log("Error: SpawnPosition Count is less than Enemy Count");
+                        int randomlySelectedIndex = Random.Range(0, enemySpawnPositionList.Count);
+                        Vector2 spawnPosition = enemySpawnPositionList[randomlySelectedIndex];
+                        enemySpawnPositionList.RemoveAt(randomlySelectedIndex);
+
+
                         // Select Random EnemyRank
-                        int randomlySelectedIndex = Random.Range(0, currentCompositedEnemyRankList.Count);
+                        randomlySelectedIndex = Random.Range(0, currentCompositedEnemyRankList.Count);
                         EnemyRank selectedEnemyRank = currentCompositedEnemyRankList[randomlySelectedIndex];
 
                         // Select Enemy Prefab Array By EnemyRank

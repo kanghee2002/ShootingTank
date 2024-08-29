@@ -24,11 +24,11 @@ MonoBehaviour:
     position: {x: 13, y: -17}
     doorwayCopyPosition: {x: 9, y: -18}
     doorwayCopyWidth: 8
-    doorwayCopyHeight: 6
+    doorwayCopyHeight: 7
   - orientation: 2
     position: {x: -20, y: 9}
     doorwayCopyPosition: {x: -21, y: 6}
-    doorwayCopyWidth: 6
+    doorwayCopyWidth: 7
     doorwayCopyHeight: 8
   - orientation: 3
     position: {x: 44, y: 3}
@@ -36,6 +36,15 @@ MonoBehaviour:
     doorwayCopyWidth: 7
     doorwayCopyHeight: 8
   spawnPositionArray:
-  - {x: -4, y: -5}
-  - {x: 10, y: 3}
-  - {x: 19, y: 12}
+  - {x: -1, y: -11}
+  - {x: 27, y: -9}
+  - {x: 2, y: -2}
+  - {x: 12, y: -4}
+  - {x: 25, y: 1}
+  - {x: -1, y: 6}
+  - {x: 10, y: 9}
+  - {x: 20, y: 11}
+  - {x: 33, y: 7}
+  - {x: -11, y: 15}
+  - {x: 2, y: 18}
+  - {x: 29, y: 19}
