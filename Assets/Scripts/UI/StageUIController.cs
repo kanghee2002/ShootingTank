@@ -9,10 +9,11 @@ public class StageUIController : MonoBehaviour
     [Header("Weapon Display")]
     [SerializeField] private GameObject[] weaponDisplay;
 
-    [Header("Charge Slider")]
+    [Header("Charge Display")]
     [SerializeField] private Slider[] weaponChargeSlider;
 
-    [Header("Ammo Text")]
+    [Header("Ammo Display")]
+    [SerializeField] private Slider[] weaponAmmoSlider;
     [SerializeField] private TMP_Text[] weaponAmmoText;
 
     [Header("Hp Display")]
@@ -48,10 +49,10 @@ public class StageUIController : MonoBehaviour
         playerHealth.onHealthChanged += SetHealthText;
 
         WeaponController weaponController = player.GetComponent<WeaponController>();
-        weaponController.onWeaponChanged += SetAmmoText;
+        weaponController.onWeaponChanged += SetAmmoDisplay;
         weaponController.onWeaponCharged += SetChargeSliderValue;
-        weaponController.onWeaponShoot += SetAmmoText;
-        weaponController.onWeaponAmmoChanged += SetAmmoText;
+        weaponController.onWeaponShoot += SetAmmoDisplay;
+        weaponController.onWeaponAmmoChanged += SetAmmoDisplay;
 
         weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Left, weaponController.Weapons[0]);
         weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Right, weaponController.Weapons[1]);
@@ -68,15 +69,17 @@ public class StageUIController : MonoBehaviour
         weaponChargeSlider[weaponHandIdx].value = weapon.ChargePercentage;
     }
 
-    private void SetAmmoText(WeaponHand weaponHand, Weapon weapon)
+    private void SetAmmoDisplay(WeaponHand weaponHand, Weapon weapon)
     {
         int weaponHandIdx = (int)weaponHand;
         if (weapon.Title == WeaponName.Default)
         {
+            weaponAmmoSlider[weaponHandIdx].value = 1f;
             weaponAmmoText[weaponHandIdx].text = " - / - ";
         }
         else
         {
+            weaponAmmoSlider[weaponHandIdx].value = (float)weapon.CurAmmo / weapon.MaxAmmo;
             weaponAmmoText[weaponHandIdx].text = weapon.CurAmmo.ToString() + " / " + weapon.MaxAmmo.ToString();
         }
     }
