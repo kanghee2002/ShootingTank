@@ -8,9 +8,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: m_Size.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7de8cfdb31a25294cbfb7bb9a9eb557f, type: 3}
+      objectReference: {fileID: 21300000, guid: 9889c2a0a686c3a4dbb502bbd8dec3e5, type: 3}
     - target: {fileID: 5902622998344908052, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: m_RootOrder
       value: 0

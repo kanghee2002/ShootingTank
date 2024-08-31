@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: weaponName
-      value: "\uC0B0\uD0C4 \uC0B0\uD0C4"
+      value: "\uC0B0\uD0C4 \uC0B0\uD0C4\uCD1D"
       objectReference: {fileID: 0}
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: aimAccuracy
@@ -46,7 +46,7 @@ PrefabInstance:
     - target: {fileID: 5860492195903490947, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 0d9fdd1ca062df94494fdc30533d55bf, type: 3}
+      objectReference: {fileID: 21300000, guid: 8a76feccb85674f448395d4417405e0f, type: 3}
     - target: {fileID: 5902622998344908052, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: m_RootOrder
       value: 0

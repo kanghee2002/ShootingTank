@@ -8,9 +8,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: m_Size.x
+      value: 0.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860492195903490947, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 7de8cfdb31a25294cbfb7bb9a9eb557f, type: 3}
+      objectReference: {fileID: 21300000, guid: c45f7efff2d6cab4aa653d30dce6dfd6, type: 3}
     - target: {fileID: 5902622998344908052, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -80,11 +84,19 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: weaponLength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: maxChargeTime
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: minChargeTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: handlePosition.x
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
