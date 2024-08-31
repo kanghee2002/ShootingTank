@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f9922725036a8be439fc2c0510104425
+guid: 9957ab1d1cc7de743be00caa6ffe6e94
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 12
+  spritePixelsToUnits: 6
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,8 +109,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 256
-        height: 128
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5d75d6f5c92ba144819068027b14a82
-      internalID: 321874415
+      spriteID: 62914b710a0a02f4bb7c8b7103829b1f
+      internalID: -121291943
       vertices: []
       indices: 
       edges: []
@@ -128,10 +128,10 @@ TextureImporter:
       name: Refrigerator_Groggy_1
       rect:
         serializedVersion: 2
-        x: 256
+        x: 128
         y: 0
-        width: 256
-        height: 128
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,8 +139,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04ea67bfbfe0cdf49a2d684b03998555
-      internalID: -1184910738
+      spriteID: 1093a8b7b29e94e45947386164a7fc1c
+      internalID: -1170272391
       vertices: []
       indices: 
       edges: []
@@ -149,10 +149,10 @@ TextureImporter:
       name: Refrigerator_Groggy_2
       rect:
         serializedVersion: 2
-        x: 512
+        x: 256
         y: 0
-        width: 256
-        height: 128
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,8 +160,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb3f18b0d5256e849a616802c88e96a3
-      internalID: 369597051
+      spriteID: 10874fb9f3eebee41b05e61c7dd2e400
+      internalID: -255817432
       vertices: []
       indices: 
       edges: []
@@ -170,10 +170,10 @@ TextureImporter:
       name: Refrigerator_Groggy_3
       rect:
         serializedVersion: 2
-        x: 768
+        x: 384
         y: 0
-        width: 256
-        height: 128
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34191ed212decbc46b38f45da2608cb7
-      internalID: 2139744882
+      spriteID: 51e4afe2b2b18ec4db1dab7ff64b0561
+      internalID: -1532342932
       vertices: []
       indices: 
       edges: []
@@ -191,10 +191,10 @@ TextureImporter:
       name: Refrigerator_Groggy_4
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 512
         y: 0
-        width: 256
-        height: 128
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,8 +202,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66d0fa306c50fb3429649c2ab72199be
-      internalID: 319255785
+      spriteID: f0bb922ce6bf76547b4dc07ec69612a8
+      internalID: 1008827402
       vertices: []
       indices: 
       edges: []
@@ -212,10 +212,10 @@ TextureImporter:
       name: Refrigerator_Groggy_5
       rect:
         serializedVersion: 2
-        x: 1280
+        x: 640
         y: 0
-        width: 256
-        height: 128
+        width: 128
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,8 +223,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd0c17aebfcff11488b4141f5c9c177b
-      internalID: 43559721
+      spriteID: dfa32c68ebb331d4aac2254eb977d562
+      internalID: -1541176250
       vertices: []
       indices: 
       edges: []
@@ -240,12 +240,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Refrigerator_Groggy_5: 43559721
-      Refrigerator_Groggy_0: 321874415
-      Refrigerator_Groggy_3: 2139744882
-      Refrigerator_Groggy_4: 319255785
-      Refrigerator_Groggy_1: -1184910738
-      Refrigerator_Groggy_2: 369597051
+      Refrigerator_Groggy_5: -1541176250
+      Refrigerator_Groggy_0: -121291943
+      Refrigerator_Groggy_3: -1532342932
+      Refrigerator_Groggy_4: 1008827402
+      Refrigerator_Groggy_1: -1170272391
+      Refrigerator_Groggy_2: -255817432
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

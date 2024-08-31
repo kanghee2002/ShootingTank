@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dde662e480d1222428c5e2888703f171
+guid: ca6b84325101ddc409f531093c180812
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,12 +47,12 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0.58
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -107,10 +107,10 @@ TextureImporter:
       name: CellPhone_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 0
-        width: 56
-        height: 100
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dd9c5d01c565ac44da748f2df1dda3f4
-      internalID: 466855171
+      spriteID: 662c7d18d56d0a248bc0a9b07d9695b1
+      internalID: 2000899956
       vertices: []
       indices: 
       edges: []
@@ -128,10 +128,10 @@ TextureImporter:
       name: CellPhone_1
       rect:
         serializedVersion: 2
-        x: 68
+        x: 32
         y: 0
-        width: 56
-        height: 100
+        width: 32
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,49 +139,25 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f19440a17d8e5546ab0c4245a243dea
-      internalID: 458089547
+      spriteID: 7701729c2c3d7174c9891e5027a6b9b9
+      internalID: -2075851673
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
-    physicsShape:
-    - - {x: -7, y: 33}
-      - {x: -12, y: 36}
-      - {x: -52, y: 36}
-      - {x: -57, y: 33}
-      - {x: -60, y: 28}
-      - {x: -60, y: -59}
-      - {x: -58, y: -62}
-      - {x: -55, y: -64}
-      - {x: -9, y: -64}
-      - {x: -6, y: -62}
-      - {x: -4, y: -59}
-      - {x: -4, y: 28}
-    - - {x: 57, y: 33}
-      - {x: 52, y: 36}
-      - {x: 12, y: 36}
-      - {x: 7, y: 33}
-      - {x: 4, y: 27}
-      - {x: 4, y: -59}
-      - {x: 6, y: -62}
-      - {x: 9, y: -64}
-      - {x: 55, y: -64}
-      - {x: 58, y: -62}
-      - {x: 60, y: -59}
-      - {x: 60, y: 28}
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CellPhone_1: 458089547
-      CellPhone_0: 466855171
+      CellPhone_1: -2075851673
+      CellPhone_0: 2000899956
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

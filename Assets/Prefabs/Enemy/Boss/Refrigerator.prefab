@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1464814191, guid: 2660538fa85dd2447ace54b6b06a1e6f, type: 3}
+  m_Sprite: {fileID: -1356222395, guid: 1abf45f13b8a64846b39db0caaeb76a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   - {fileID: 5328794040276415184, guid: 7f9fb1b0dbc446f4cb40c897f7b52c3e, type: 3}
   - {fileID: 5328794040276415184, guid: 270da3059b45ce64fa3f66b2be955bc4, type: 3}
   warningLaser: {fileID: 5009508721608107979}
-  tackleSprite: {fileID: 21300000, guid: 9ef75521b13bfcf4194b0c74be59bf09, type: 3}
+  tackleSprite: {fileID: 21300000, guid: 656add93087f92149818700d7ec397ac, type: 3}
   tackleBlockingLayer:
     serializedVersion: 2
     m_Bits: 2176

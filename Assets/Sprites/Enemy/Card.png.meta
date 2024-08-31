@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 221fd966b39cca343b224a3cb3d2c7f8
+guid: d38bc61d90eff5a4e84308f2ee905e47
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -107,27 +107,19 @@ TextureImporter:
       name: Card_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 0
-        width: 56
-        height: 100
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -28, y: 50}
-        - {x: -28, y: -50}
-        - {x: 28, y: -50}
-        - {x: 28, y: 50}
-      physicsShape:
-      - - {x: -28, y: 50}
-        - {x: -28, y: -50}
-        - {x: 28, y: -50}
-        - {x: 28, y: 50}
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23086201d64b2a84e98fd9f00c603712
-      internalID: -1653288927
+      spriteID: 7fe70bba0292e7b41ae9a25dbfdd26a3
+      internalID: 1411827789
       vertices: []
       indices: 
       edges: []
@@ -136,19 +128,19 @@ TextureImporter:
       name: Card_1
       rect:
         serializedVersion: 2
-        x: 68
+        x: 32
         y: 0
-        width: 56
-        height: 100
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 622c7376078d85948987bb076b078e8c
-      internalID: 2022111920
+      spriteID: 9ac98906c3e56e9419f8adfb3f30b154
+      internalID: -2136675897
       vertices: []
       indices: 
       edges: []
@@ -164,8 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Card_1: 2022111920
-      Card_0: -1653288927
+      Card_1: -2136675897
+      Card_0: 1411827789
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

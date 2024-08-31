@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 65f033219d305c74791ff8d780b56bef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b473d920e231b9c49b70b93866e77ed2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPool: {fileID: 0}
   prefabID: 0
+  firedWeapon: {fileID: 0}
   lifeTIme: 3
   rotatedDegree: 90
   targetTags: []
@@ -146,7 +147,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5238096, y: 1.5238096}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 2.784, y: 2.248}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -154,12 +155,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.45742798, y: -0.76755667}
-      - {x: 0.45999146, y: 0.23654652}
-      - {x: 0.2666626, y: 0.747154}
-      - {x: -0.24490356, y: 0.75640845}
-      - {x: -0.45184326, y: 0.25473952}
-      - {x: -0.43511963, y: -0.75083447}
+    - - {x: 0.5978825, y: -0.97489434}
+      - {x: 0.5870694, y: 0.2833647}
+      - {x: 0.30010414, y: 1.0013099}
+      - {x: -0.28503343, y: 1.003876}
+      - {x: -0.5989861, y: 0.28149277}
+      - {x: -0.6023274, y: -0.97154874}
 --- !u!1001 &4941892445279454221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -230,7 +231,7 @@ PrefabInstance:
     - target: {fileID: 1689843181765918827, guid: 7a9b427af86b4304484f6771f80e0179, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 57665c3304496744d8a85eee9fe58758, type: 3}
+      objectReference: {fileID: 21300000, guid: 460929e4bd1e40c4c9b55f20c80b387f, type: 3}
     - target: {fileID: 1734734235494986368, guid: 7a9b427af86b4304484f6771f80e0179, type: 3}
       propertyPath: radius
       value: 4

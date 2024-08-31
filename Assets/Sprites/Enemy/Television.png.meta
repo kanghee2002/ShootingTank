@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1c82dfd16d84ffc4fb850056fb115b52
+guid: 813d09d353227d140bd944f19b7f7900
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,8 +109,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 64
+        width: 64
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -118,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7da65aa7ddc36454fbaf239e6fcf95aa
-      internalID: 1036110843
+      spriteID: f1e50ab51d0e40f44a10c1a044354acd
+      internalID: -734445278
       vertices: []
       indices: 
       edges: []
@@ -128,10 +128,10 @@ TextureImporter:
       name: Television_1
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 0
-        width: 128
-        height: 64
+        width: 64
+        height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,8 +139,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 334f7c007a5c04e42abbf728a6b3c6f8
-      internalID: -1946481856
+      spriteID: c8cd5bd8e408df34d8887ed03e3a03d2
+      internalID: -1206187752
       vertices: []
       indices: 
       edges: []
@@ -156,8 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Television_0: 1036110843
-      Television_1: -1946481856
+      Television_0: -734445278
+      Television_1: -1206187752
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

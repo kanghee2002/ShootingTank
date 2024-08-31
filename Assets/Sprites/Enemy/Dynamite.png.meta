@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 68360f044814a84419801910ea322c35
+guid: aa3cd725cbfaf2a4b85bb704f2ca52e6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,27 +107,19 @@ TextureImporter:
       name: Dynamite_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 0
-        width: 26
-        height: 63
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -11, y: 26.5}
-        - {x: -13, y: 24.5}
-        - {x: -13, y: -29.5}
-        - {x: -11, y: -31.5}
-        - {x: 11, y: -31.5}
-        - {x: 13, y: -29.5}
-        - {x: 13, y: 24.5}
-        - {x: 11, y: 26.5}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cda11b962c47ac48ba65df7922258d0
-      internalID: 61871042
+      spriteID: eeb9144e3d76933499f2c9a5babfc90f
+      internalID: 53127059
       vertices: []
       indices: 
       edges: []
@@ -136,27 +128,19 @@ TextureImporter:
       name: Dynamite_1
       rect:
         serializedVersion: 2
-        x: 35
+        x: 32
         y: 0
-        width: 26
-        height: 63
+        width: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -11, y: 26.5}
-        - {x: -13, y: 24.5}
-        - {x: -13, y: -29.5}
-        - {x: -11, y: -31.5}
-        - {x: 11, y: -31.5}
-        - {x: 13, y: -29.5}
-        - {x: 13, y: 24.5}
-        - {x: 11, y: 26.5}
-      tessellationDetail: 0.22
+      physicsShape: []
+      tessellationDetail: 0
       bones: []
-      spriteID: b99a7621c6408eb4abf4b386fb49a4cf
-      internalID: 676829174
+      spriteID: b575070bebd0c384581869d1ca405f82
+      internalID: -455693916
       vertices: []
       indices: 
       edges: []
@@ -172,8 +156,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dynamite_0: 61871042
-      Dynamite_1: 676829174
+      Dynamite_0: 53127059
+      Dynamite_1: -455693916
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
