@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a8ca6c5d9eef531449603d44d0d51f5f
+guid: fbfbd103a2282c34c833ad859979da86
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,76 +104,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: OneWayPlatforms_0
+      name: Portal_Animation_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
-        height: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -16, y: 16}
-        - {x: -16, y: 8}
-        - {x: 16, y: 8}
-        - {x: 16, y: 16}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3514665df38142040816d61b0d818169
-      internalID: 1040147352
+      spriteID: b5d8fc2aab0efdf4e98c48d738c15271
+      internalID: 947865968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OneWayPlatforms_1
+      name: Portal_Animation_1
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 32
-        height: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -16, y: 16}
-        - {x: -16, y: 8}
-        - {x: 16, y: 8}
-        - {x: 16, y: 16}
-      tessellationDetail: 1
+      physicsShape: []
+      tessellationDetail: 0
       bones: []
-      spriteID: ffedc126f19a64e42854e8777da851cc
-      internalID: 230535473
+      spriteID: fafc9ac104055d04e8a44d35c1a133cb
+      internalID: -400272471
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: OneWayPlatforms_2
+      name: Portal_Animation_2
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 32
-        height: 32
+        height: 64
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-      physicsShape:
-      - - {x: -16, y: 16}
-        - {x: -16, y: 8}
-        - {x: 16, y: 8}
-        - {x: 16, y: 16}
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3835a41d4a46b44ab58b7ab66bcb719
-      internalID: -699602176
+      spriteID: d0c325a89cef981489d417ea54e4cc69
+      internalID: -15125795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_Animation_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94b6c82449bd2244793e8cd407f6aafb
+      internalID: -1421453438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Portal_Animation_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b20c3a1b181b2248b9d1b488ea3f552
+      internalID: 1557580489
       vertices: []
       indices: 
       edges: []
@@ -189,9 +219,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      OneWayPlatforms_1: 230535473
-      OneWayPlatforms_0: 1040147352
-      OneWayPlatforms_2: -699602176
+      Portal_Animation_4: 1557580489
+      Portal_Animation_3: -1421453438
+      Portal_Animation_0: 947865968
+      Portal_Animation_1: -400272471
+      Portal_Animation_2: -15125795
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -58,14 +58,21 @@ MonoBehaviour:
       count: 0
   roomDetailsArray:
   - {fileID: 11400000, guid: 448d9a9e10c56644d9feac0ed8106aa5, type: 2}
+  - {fileID: 11400000, guid: 2e66386d2bdf6a04da7521a7f3bcb582, type: 2}
   - {fileID: 11400000, guid: a2ebcf25bac75114d97c3e4b13e140f7, type: 2}
   - {fileID: 11400000, guid: e9045c8837fe1904bb79048fc53e94cc, type: 2}
-  - {fileID: 11400000, guid: 44f4e80cfb39c314295f2fac2eac7ec3, type: 2}
-  - {fileID: 11400000, guid: 729130f12f0aa0949a428069ae62967d, type: 2}
-  - {fileID: 11400000, guid: 2e66386d2bdf6a04da7521a7f3bcb582, type: 2}
-  - {fileID: 11400000, guid: 63a7d6d9112047d409846ddfe13b9935, type: 2}
+  - {fileID: 11400000, guid: fa5b5a3faecd0f141b7335be19683604, type: 2}
   - {fileID: 11400000, guid: efd725f1c1cf27f41938ebb895e2673b, type: 2}
+  - {fileID: 11400000, guid: 44f4e80cfb39c314295f2fac2eac7ec3, type: 2}
   - {fileID: 11400000, guid: 8fccbd20d1a9b644b8f6fe9165b29c10, type: 2}
+  - {fileID: 11400000, guid: 9bd7d0e2e0709c84bbe8065ea2d4a2e9, type: 2}
+  - {fileID: 11400000, guid: 82dda0b0391750549b39dd0b7174807f, type: 2}
+  - {fileID: 11400000, guid: 63a7d6d9112047d409846ddfe13b9935, type: 2}
+  - {fileID: 11400000, guid: 729130f12f0aa0949a428069ae62967d, type: 2}
   - {fileID: 11400000, guid: 08bc0c748896f024da0587ae82366da0, type: 2}
+  - {fileID: 11400000, guid: 14349a40517098f42be21e2ea881eb73, type: 2}
+  - {fileID: 11400000, guid: 6854fdd5cce093c45b0d8b0364f1fe02, type: 2}
+  - {fileID: 11400000, guid: d72c905dea7d0a542b790bd10fdc6b92, type: 2}
+  - {fileID: 11400000, guid: af6cd50501bd9904e98e614d07fc7daa, type: 2}
   verticalDoorPrefab: {fileID: 7206078939362619287, guid: 6bd9d05694522b94a8df92c8a1c04093, type: 3}
   horizontalDoorPrefab: {fileID: 7206078939362619287, guid: e1e1492a164097447b165f93ea6099e3, type: 3}
