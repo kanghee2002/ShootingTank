@@ -806,6 +806,8 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
                 for (int x = copyPosition.x + 1; x < copyPosition.x + copyWidth; x++)
                 {
                     tilemap.SetTile(new Vector3Int(x, y, 0), copiedTile);
+
+                    tilemap.SetTransformMatrix(new Vector3Int(x, y, 0), Matrix4x4.identity);
                 }
             }
         }
