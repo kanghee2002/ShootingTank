@@ -350,7 +350,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyRank: 1
-  coolTime: 1
+  coinPrefab: {fileID: 5838844518405991277, guid: 2c9ff9ecda2fd724ab4200aa2b5d2e79, type: 3}
+  bonusCoins: 0
   damageValue: 1
+  coolTime: 1
   bulletSpeed: 20
   weaponLength: 1

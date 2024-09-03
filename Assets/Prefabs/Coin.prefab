@@ -68,7 +68,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 4
+  m_Radius: 6
 --- !u!50 &808455707781121695
 Rigidbody2D:
   serializedVersion: 4
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5838844518405991277}
   - component: {fileID: 5136568948811539490}
   - component: {fileID: 7659866421279480993}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,8 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04cfbd2d0ebefbd4d8668e7e6a2da933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
   value: 0
+  moveSpeed: 15
 --- !u!61 &5136568948811539490
 BoxCollider2D:
   m_ObjectHideFlags: 0

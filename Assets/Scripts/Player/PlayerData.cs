@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerData : MonoBehaviour
 {
-    private int coin;
+    [SerializeField] private int coin;
     public int Coin { get => coin; }
 
     public void GetCoin(int value)

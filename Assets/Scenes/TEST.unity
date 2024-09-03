@@ -1983,6 +1983,10 @@ PrefabInstance:
       value: WeaponManager
       objectReference: {fileID: 0}
     - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
+      propertyPath: isRightWeaponEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
       propertyPath: InitialWeaponList.Array.size
       value: 7
       objectReference: {fileID: 0}

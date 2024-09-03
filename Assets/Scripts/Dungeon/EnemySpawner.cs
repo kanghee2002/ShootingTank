@@ -108,6 +108,9 @@ public class EnemySpawner : Singleton<EnemySpawner>
                         spawnedEnemiesDictionary[roomInfos[x, y]].Add(enemyController);
                         enemyController.SetActiveEnemyController(false);
 
+                        Enemy enemy = instantiatedEnemyObject.GetComponent<Enemy>();
+                        enemy.currentLevel = dungeonLevelSO.level;
+
                         currentCompositedEnemyRankList.RemoveAt(randomlySelectedIndex);
                     }
                 }

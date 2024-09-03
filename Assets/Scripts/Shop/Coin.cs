@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    public int value;
+
     [Header("Default Settings")]
     [SerializeField] private float moveSpeed;
-
-    [SerializeField] private int value;
 
     private Rigidbody2D rigid;
     private Collider2D myCollider;

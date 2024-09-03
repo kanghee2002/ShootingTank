@@ -70,7 +70,6 @@ public class EnemyController : MonoBehaviour
 
     public float DetectRadius { get => detectRadius; }
 
-
     public delegate void OnPlayerDetect(Transform playerTransform);
     public OnPlayerDetect onPlayerDetect;
     public delegate void OnPlayerLost();
@@ -106,7 +105,7 @@ public class EnemyController : MonoBehaviour
             health.onHealthChanged += (float currentHealth, float maxHealth) => playerDetector.ExpandDetectRadius(detectionRadiusMultiplier);
         }
 
-        health.onDie += () => gameObject.SetActive(false);
+        health.onDie += EnemyEvent_OnEnemyDie;
 
         onPlayerDetect += EnemyEvent_OnPlayerDetect;
 
@@ -914,5 +913,10 @@ public class EnemyController : MonoBehaviour
 
             rigid.velocity = Vector2.zero;
         }
+    }
+
+    private void EnemyEvent_OnEnemyDie()
+    {
+        gameObject.SetActive(false);
     }
 }
