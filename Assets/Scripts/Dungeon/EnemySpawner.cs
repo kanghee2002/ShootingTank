@@ -8,6 +8,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
     [System.Serializable]
     private struct EnemyPrefabs
     {
+        public int level;
         public EnemyRank enemyRank;
         public GameObject[] enemyPrefabArray;
     }

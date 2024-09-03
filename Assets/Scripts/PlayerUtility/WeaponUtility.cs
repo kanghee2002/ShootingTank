@@ -46,11 +46,13 @@ public class WeaponUtility : PlayerUtility
 
     private WeaponController weaponController;
     private Health health;
+    private PlayerData playerData;
 
     private void Awake()
     {
         weaponController = playerTransform.GetComponent<WeaponController>();
         health = playerTransform.GetComponent<Health>();
+        playerData = playerTransform.GetComponent<PlayerData>();
     }
 
     private void OnEnable()
@@ -187,7 +189,7 @@ public class WeaponUtility : PlayerUtility
 
     private void GetCoin()
     {
-
+        playerData.GetCoin(coinBonusOnKill);
     }
 
     private void AddAmmoOnKill()

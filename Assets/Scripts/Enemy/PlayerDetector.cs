@@ -7,6 +7,7 @@ public class PlayerDetector : MonoBehaviour
     [Header("Parent Reference")]
     [SerializeField] private EnemyController enemyController;
     [SerializeField] private UtilityObject utilityObject;
+    [SerializeField] private Coin coinObject;
 
     [SerializeField] private LayerMask viewObstacleLayerMask;
 
@@ -26,6 +27,10 @@ public class PlayerDetector : MonoBehaviour
                 if (utilityObject != null)
                 {
                     utilityObject.OnDetectPlayer(collision.transform);
+                }
+                if (coinObject != null)
+                {
+                    coinObject.OnDetectPlayer(collision.transform);
                 }
             }
         }

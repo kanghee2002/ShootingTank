@@ -625,7 +625,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabList:
-  - enemyRank: 0
+  - level: 1
+    enemyRank: 0
     enemyPrefabArray:
     - {fileID: 1722137782028133477, guid: 17b8e37d5a35a29409abc1b92d629c60, type: 3}
     - {fileID: 8983576799784918942, guid: 37c0977df6286234f93dc3fb60cef9b0, type: 3}
@@ -636,7 +637,8 @@ MonoBehaviour:
     - {fileID: 2398333070115463262, guid: fde596e7a4d8a7e45894d998fa76422c, type: 3}
     - {fileID: 8983576799784918942, guid: 175ade1ba96bb194baa11999abadcf99, type: 3}
     - {fileID: 8983576799784918942, guid: 1865abbc337675b41adc935e9a065538, type: 3}
-  - enemyRank: 1
+  - level: 1
+    enemyRank: 1
     enemyPrefabArray:
     - {fileID: 2398333070115463262, guid: c86051f0816480043a6891a2d650b713, type: 3}
     - {fileID: 8983576799784918942, guid: 88715a12b551526488d63fc9008ac3fa, type: 3}
@@ -644,12 +646,12 @@ MonoBehaviour:
     - {fileID: 4102787878820623299, guid: 0083f5c0cdcc5d9498a96e671dcba6e3, type: 3}
     - {fileID: 8983576799784918942, guid: 5fe9eb8569e15234492695aef0194a88, type: 3}
     - {fileID: 8983576799784918942, guid: 2d30c35940f24134195ac1045c57a5a3, type: 3}
-  - enemyRank: 2
-    enemyPrefabArray:
-    - {fileID: 8983576799784918942, guid: 2d30c35940f24134195ac1045c57a5a3, type: 3}
-  - enemyRank: 3
-    enemyPrefabArray:
-    - {fileID: 4102787878820623299, guid: 0083f5c0cdcc5d9498a96e671dcba6e3, type: 3}
+  - level: 1
+    enemyRank: 2
+    enemyPrefabArray: []
+  - level: 1
+    enemyRank: 3
+    enemyPrefabArray: []
   bossList:
   - {fileID: 9170879183923296428, guid: c2c952329a7c76c499a1da01dd83962f, type: 3}
 --- !u!4 &456555227
