@@ -60,7 +60,7 @@ public class StageUIController : MonoBehaviour
 
     private void SetHealthText(float currentHealth, float maxHealth)
     {
-        playerHealthText.text = currentHealth.ToString();
+        playerHealthText.text = Mathf.FloorToInt(currentHealth).ToString();
     }
 
     private void SetChargeSliderValue(WeaponHand weaponHand, Weapon weapon)
