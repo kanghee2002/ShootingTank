@@ -85,7 +85,7 @@ public enum EnemyRank
     S
 }
 
-public enum UtilityRank
+public enum ItemRank
 {
     C,
     B,

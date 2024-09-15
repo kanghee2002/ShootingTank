@@ -4,15 +4,21 @@ using UnityEngine;
 
 public abstract class PlayerUtility : MonoBehaviour
 {
-    public string utilityName;
+    [Header("Basic Info")]
+    [SerializeField] private string utilityName;
+    public string UtilityName { get => utilityName; }
 
-    public Transform playerTransform;
+    [SerializeField] protected ItemRank itemRank;
+    public ItemRank ItemRank { get => itemRank; }
 
-    [SerializeField] protected UtilityRank utilityRank;
+    [SerializeField] protected string description;
+    public string Description { get => description; }
 
-    public UtilityRank UtilityRank { get => utilityRank; }
-
+    [Header("Details")]
     [SerializeField] protected int maxUtilityCount;
-
     public int MaxUtilityCount { get => maxUtilityCount; }
+
+    [HideInInspector] public int price;     // used in Shop
+
+    public abstract void GetAbility();
 }

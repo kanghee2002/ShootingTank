@@ -10,6 +10,8 @@ public class StageManager : Singleton<StageManager>
     [HideInInspector] public Transform lastRoomTransform;
     [HideInInspector] public Transform currentRoomTransform;
 
+    public ShopDisplay shopDisplay;
+
     protected override void Awake()
     {
         GameManager.Instance.ChangeGameState(GameState.playingLevel);

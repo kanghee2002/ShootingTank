@@ -67,6 +67,14 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: maxUtilityCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: canSetCoreInactive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4668065223342284375, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: utilityRank
       value: 2
@@ -179,5 +187,6 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}

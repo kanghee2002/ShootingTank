@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class UtilityObject : MonoBehaviour
 {
-    [Header("Utility Reference")]
-    [SerializeField] private Transform utilityTransform;
-
     [Header("Default Settings")]
     [SerializeField] private float moveSpeed;
 
@@ -23,7 +20,7 @@ public class UtilityObject : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         myCollider = GetComponent<Collider2D>();
-        playerUtility = utilityTransform.GetComponent<PlayerUtility>();
+        playerUtility = GetComponent<PlayerUtility>();
         
         isPlayerDetected = false;
         playerTransform = null;
@@ -72,12 +69,8 @@ public class UtilityObject : MonoBehaviour
         {
             if (collision.TryGetComponent(out PlayerController playerController))
             {
-                utilityTransform.SetParent(playerController.utilityAnchorTransform);
-
-                playerUtility.playerTransform = collision.transform;
-
-                utilityTransform.gameObject.SetActive(true);
-
+                playerUtility.GetAbility();
+                playerTransform = collision.transform;
                 gameObject.SetActive(false);
             }
         }

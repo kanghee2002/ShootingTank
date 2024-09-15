@@ -28,12 +28,12 @@ public class CharacterUtility : PlayerUtility
 
     private void Awake()
     {
-        playerController = playerTransform.GetComponent<PlayerController>();
-        health = playerTransform.GetComponent<Health>();
-        coreHealth = playerTransform.GetComponentInChildren<CoreHealth>();
+        playerController = GameManager.Instance.playerObject.GetComponent<PlayerController>();
+        health = GameManager.Instance.playerObject.GetComponent<Health>();
+        coreHealth = GameManager.Instance.playerObject.GetComponentInChildren<CoreHealth>();
     }
 
-    private void OnEnable()
+    public override void GetAbility()
     {
         playerController.AddMaxJumpCount(jumpCountBonus);
 
@@ -62,9 +62,38 @@ public class CharacterUtility : PlayerUtility
         }
     }
 
+    private void OnEnable()
+    {
+        /*playerController.AddMaxJumpCount(jumpCountBonus);
+
+        playerController.AddJumpPowerValue(jumpPowerBonus);
+
+        playerController.AddMoveSpeedValue(moveSpeedBonus);
+
+        playerController.MinusDownFallCoolTime(downFallCoolTimeBonus);
+
+        coreHealth.MinusCoreDamageMultiplier(coreTakeDamageMultiplierBonus);
+
+        health.HealByPercentage(healPercentage);
+
+        health.IncreaseMaxHealthByPercentage(maxHealthBonusPercentage);
+
+        if (playerScaleBonus > 0f)
+        {
+            ReducePlayerScale(playerScaleBonus);
+        }
+
+        playerController.AllowInfiniteJump(canJumpInfinitely);
+
+        if (canSetCoreInactive)
+        {
+            coreHealth.gameObject.SetActive(false);
+        }*/
+    }
+
     private void OnDisable()
     {
-        playerController.AddMaxJumpCount(-jumpCountBonus);
+        /*playerController.AddMaxJumpCount(-jumpCountBonus);
 
         playerController.AddJumpPowerValue(-jumpPowerBonus);
 
@@ -86,11 +115,13 @@ public class CharacterUtility : PlayerUtility
         if (canSetCoreInactive)
         {
             coreHealth.gameObject.SetActive(true);
-        }
+        }*/
     }
 
     private void ReducePlayerScale(float playerScaleBonus)
     {
+        Transform playerTransform = GameManager.Instance.playerObject.transform;
+
         float currentPlayerScale = Mathf.Abs(playerTransform.localScale.x);
 
         float newPlayerScale = currentPlayerScale - playerScaleBonus;

@@ -50,12 +50,12 @@ public class WeaponUtility : PlayerUtility
 
     private void Awake()
     {
-        weaponController = playerTransform.GetComponent<WeaponController>();
-        health = playerTransform.GetComponent<Health>();
-        playerData = playerTransform.GetComponent<PlayerData>();
+        weaponController = GameManager.Instance.playerObject.GetComponent<WeaponController>();
+        health = GameManager.Instance.playerObject.GetComponent<Health>();
+        playerData = GameManager.Instance.playerObject.GetComponent<PlayerData>();
     }
 
-    private void OnEnable()
+    public override void GetAbility()
     {
         weaponController.AddChargeDamageMultiplierBonus(chargeDamageMultiplierBonus);
 
@@ -120,9 +120,74 @@ public class WeaponUtility : PlayerUtility
         WeaponAmmoChanged();
     }
 
+    private void OnEnable()
+    {
+        /*weaponController.AddChargeDamageMultiplierBonus(chargeDamageMultiplierBonus);
+
+        weaponController.AddMaxChargedDamageBonus(maxChargedDamageBonus);
+
+        foreach (Weapon weapon in WeaponManager.Instance.PlayerWeaponList)
+        {
+            weapon.IncreaseDamageValue(damageValueBonusPercentage);
+
+            weapon.IncreaseCoreHitDamageMultiplier(coreHitDamageMultiplierBonus);
+
+            weapon.IncreaseMaxAmmo(Mathf.RoundToInt(maxAmmoBonusPercentage * weapon.MaxAmmo));
+
+            weapon.AddAmmo(Mathf.RoundToInt(maxAmmoBonusPercentage * weapon.MaxAmmo));
+
+            weapon.AddAmmo(Mathf.RoundToInt(ammoBonusPercentage * weapon.MaxAmmo));
+
+            weapon.IncreaseAimAccuracy(aimAccuracyBonus);
+
+            weapon.IncreaseBulletSpeed(bulletSpeedBonusPercentage);
+
+            if (weapon is IDefaultgun)
+            {
+                (weapon as IDefaultgun).IncreaseBulletsize(bulletSizeBonus);
+            }
+            if (weapon is IMultiFiregun)
+            {
+                (weapon as IMultiFiregun).IncreasePelletCount(pelletCountBonus);
+            }
+            if (weapon is IExplosivegun)
+            {
+                (weapon as IExplosivegun).IncreaseExplosionRadius(explosionRadiusBonus);
+            }
+            if (weapon is ILasergun)
+            {
+                (weapon as ILasergun).IncreaseLaserWidth(laserWidthBonus);
+                (weapon as ILasergun).IncreaseLaserDuration(laserDurationBonus);
+            }
+
+            if (canGetCoinOnKill)
+            {
+                weapon.onKill += GetCoin;
+            }
+
+            if (canGetAmmoOnKill)
+            {
+                weapon.onKill += AddAmmoOnKill;
+                weapon.onKill += WeaponAmmoChanged;
+            }
+
+            if (canGetHealthOnCoreHit)
+            {
+                weapon.onCoreHit += IncreaseHealthOnCoreHit;
+            }
+
+            if (canGetHealthOnKill)
+            {
+                weapon.onKill += IncreaseHealthOnKill;
+            }
+        }
+
+        WeaponAmmoChanged();*/
+    }
+
     private void OnDisable()
     {
-        weaponController.MinusChargeDamageMultiplierBonus(chargeDamageMultiplierBonus);
+        /*weaponController.MinusChargeDamageMultiplierBonus(chargeDamageMultiplierBonus);
 
         weaponController.MinusMaxChargedDamageBonus(maxChargedDamageBonus);
 
@@ -178,7 +243,7 @@ public class WeaponUtility : PlayerUtility
             }
         }
 
-        WeaponAmmoChanged();
+        WeaponAmmoChanged();*/
     }
 
     private void WeaponAmmoChanged()

@@ -9,16 +9,26 @@ public abstract class Weapon : MonoBehaviour
 {
     protected ObjectPooling objectPool;
 
-    [Header("Weapon Settings")]
+    [Header("Weapon Basic Info")]
     [SerializeField] private WeaponName title;
     public WeaponName Title { get => title; }
 
     [SerializeField] private string weaponName;
     public string WeaponName { get => weaponName; }
 
-    [SerializeField] private Vector2 handlePosition;
+    [SerializeField] private ItemRank itemRank;
+    public ItemRank ItemRank { get => itemRank; }
 
+    [SerializeField] private string description;
+    public string Description { get => description; }
+
+    [HideInInspector] public int price;     // used in Shop
+
+    [Header("Weapon Details")]
+    [SerializeField] private Vector2 handlePosition;
     public Vector2 HandlePosition { get => handlePosition; }
+
+    [SerializeField] protected float weaponLength;
 
     [SerializeField] protected float damageValue;
 
@@ -27,8 +37,6 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected float coreHitDamageMultiplier;
 
     [SerializeField] protected float bulletSpeed;
-
-    [SerializeField] protected float weaponLength;
 
     public float WeaponLength { get => weaponLength; }
 

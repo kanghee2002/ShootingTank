@@ -52,8 +52,8 @@ public class JumpPack : PlayerUtility
 
     private void Awake()
     {
-        playerController = playerTransform.GetComponent<PlayerController>();
-        rigid = playerTransform.GetComponent<Rigidbody2D>();
+        //playerController = playerTransform.GetComponent<PlayerController>();
+        //rigid = playerTransform.GetComponent<Rigidbody2D>();
         curGauge = maxGauge;
     }
 
@@ -84,6 +84,10 @@ public class JumpPack : PlayerUtility
         }
     }
 
+    public override void GetAbility()
+    {
+
+    }
     private void Use()
     {
         rigid.velocity = new Vector2(rigid.velocity.x, riseSpeed);
