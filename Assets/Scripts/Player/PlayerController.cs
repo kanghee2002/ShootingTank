@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
 
     public void AllowInfiniteJump(bool canJumpInfinitely) => this.canJumpInfinitely = canJumpInfinitely;
 
+    private int maxMoveSpeed = 20;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -244,7 +246,12 @@ public class PlayerController : MonoBehaviour
 
     public void AddJumpPowerValue(float power) => jumpPower += power;
 
-    public void AddMoveSpeedValue(float speed) => moveSpeed += speed;
+    public void AddMoveSpeedValue(float speed)
+    {
+        moveSpeed += speed;
+
+        if (moveSpeed > maxMoveSpeed) moveSpeed = maxMoveSpeed;
+    }
 
     public void MinusDownFallCoolTime(float time)
     {

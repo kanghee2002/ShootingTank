@@ -191,5 +191,49 @@ PrefabInstance:
       propertyPath: m_Name
       value: GetHealthOnCoreHitUtility
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3531891166754965488, guid: 443c57f74fea95c4eb800813ddea6d80, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 443c57f74fea95c4eb800813ddea6d80, type: 3}
+--- !u!1 &3559707285252612844 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7769555049417800125, guid: 443c57f74fea95c4eb800813ddea6d80, type: 3}
+  m_PrefabInstance: {fileID: 6536306139141364561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1770556662748689674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3559707285252612844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38930ce021029f46bca8c2b064d47c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  utilityName: 
+  itemRank: 3
+  description: 
+  maxUtilityCount: 1
+  price: 0
+  damageValueBonusPercentage: 0
+  chargeDamageMultiplierBonus: 0
+  maxChargedDamageBonus: 0
+  coreHitDamageMultiplierBonus: 0
+  maxAmmoBonusPercentage: 0
+  ammoBonusPercentage: 0
+  aimAccuracyBonus: 0
+  bulletSpeedBonusPercentage: 0
+  bulletSizeBonus: 0
+  pelletCountBonus: 0
+  explosionRadiusBonus: 0
+  laserWidthBonus: 0
+  laserDurationBonus: 0
+  canGetCoinOnKill: 0
+  coinBonusOnKill: 0
+  canGetAmmoOnKill: 0
+  ammoBonusPercentageOnKill: 0
+  canGetHealthOnCoreHit: 1
+  healthBonusPercentageOnCoreHit: 0.05
+  canGetHealthOnKill: 0
+  healthBonusOnKill: 0
