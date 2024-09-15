@@ -80,8 +80,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: description
+      value: "\uCCB4\uB825\uC744 50% \uD68C\uBCF5\uD569\uB2C8\uB2E4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: utilityName
+      value: "\uCCB4\uB825 \uD68C\uBCF5+"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: healPercentage
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: maxUtilityCount
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4668065223342284375, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: utilityRank

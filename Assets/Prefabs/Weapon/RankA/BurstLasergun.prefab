@@ -81,12 +81,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: 28
   weaponName: "\uC5F0\uC18D \uB808\uC774\uC800\uAC74"
+  itemRank: 2
+  description: 
+  price: 85
   handlePosition: {x: 1, y: -0.05}
+  weaponLength: 1.2
   damageValue: 10
   chargeDamageMultiplier: 1
   coreHitDamageMultiplier: 0.75
   bulletSpeed: 0
-  weaponLength: 1.2
   maxAmmo: 100
   aimAccuracy: 97
   minChargeTime: 0.75

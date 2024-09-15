@@ -8,12 +8,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -627939969267361456, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
+      propertyPath: price
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: -627939969267361456, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
       propertyPath: title
       value: 31
       objectReference: {fileID: 0}
     - target: {fileID: -627939969267361456, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
       propertyPath: maxAmmo
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -627939969267361456, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
+      propertyPath: itemRank
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -627939969267361456, guid: c47cbd76de5150a43a37964946c741b5, type: 3}
       propertyPath: weaponName

@@ -115,12 +115,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: 24
   weaponName: "\uAF2C\uB9AC \uCD1D"
+  itemRank: 1
+  description: 
+  price: 104
   handlePosition: {x: 1, y: 0.2}
+  weaponLength: 1.7
   damageValue: 5
   chargeDamageMultiplier: 1
   coreHitDamageMultiplier: 1
   bulletSpeed: 30
-  weaponLength: 1.7
   maxAmmo: 70
   aimAccuracy: 95
   minChargeTime: 0.5

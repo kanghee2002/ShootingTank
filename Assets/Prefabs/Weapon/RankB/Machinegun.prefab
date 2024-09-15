@@ -8,12 +8,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: price
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: title
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: maxAmmo
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
+      propertyPath: itemRank
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 468048317285055735, guid: 7a2f1b1adbea7734fa021b366681e713, type: 3}
       propertyPath: burstTime

@@ -211,9 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38930ce021029f46bca8c2b064d47c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  utilityName: 
+  utilityName: "\uCC98\uCE58 \uD6A8\uACFC"
   itemRank: 2
-  description: 
+  description: "\uC801 \uCC98\uCE58 \uC2DC \uCD94\uAC00\uC801\uC73C\uB85C 10 \uCF54\uC778\uC744
+    \uC5BB\uC2B5\uB2C8\uB2E4"
   maxUtilityCount: 2
   price: 0
   damageValueBonusPercentage: 0
@@ -230,7 +231,7 @@ MonoBehaviour:
   laserWidthBonus: 0
   laserDurationBonus: 0
   canGetCoinOnKill: 1
-  coinBonusOnKill: 5
+  coinBonusOnKill: 10
   canGetAmmoOnKill: 0
   ammoBonusPercentageOnKill: 0
   canGetHealthOnCoreHit: 0

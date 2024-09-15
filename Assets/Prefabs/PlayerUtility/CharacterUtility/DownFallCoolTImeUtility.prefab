@@ -68,6 +68,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: description
+      value: "\uD558\uAC15 \uCFE8\uD0C0\uC784\uC774 0.2\uCD08 \uAC10\uC18C\uD569\uB2C8\uB2E4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: utilityName
+      value: "\uD558\uAC15 \uCFE8\uD0C0\uC784 \uAC10\uC18C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: maxUtilityCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: downFallCoolTimeBonus
       value: 0.2
       objectReference: {fileID: 0}

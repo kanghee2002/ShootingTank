@@ -72,6 +72,18 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: description
+      value: "\uBB34\uD55C \uC810\uD504\uAC00 \uAC00\uB2A5\uD574\uC9D1\uB2C8\uB2E4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: utilityName
+      value: "\uBB34\uD55C \uC810\uD504"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: maxUtilityCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: canJumpInfinitely
       value: 1
       objectReference: {fileID: 0}

@@ -12,12 +12,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 3e1e2abcf224f6840935e8c0d888b8e6, type: 3}
     - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
+      propertyPath: price
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
       propertyPath: title
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
       propertyPath: maxAmmo
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
+      propertyPath: itemRank
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
       propertyPath: laserWidth

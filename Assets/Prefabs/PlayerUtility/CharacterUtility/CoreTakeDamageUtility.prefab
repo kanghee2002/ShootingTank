@@ -80,8 +80,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: description
+      value: "\uB0B4 \uCF54\uC5B4\uC758 \uCD94\uAC00 \uB370\uBBF8\uC9C0\uAC00 10%
+        \uAC10\uC18C\uD569\uB2C8\uB2E4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: utilityName
+      value: "\uCF54\uC5B4 \uB370\uBBF8\uC9C0 \uAC10\uC18C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: maxUtilityCount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: coreTakeDamageMultiplierBonus
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 4668065223342284375, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: maxUtilityCount

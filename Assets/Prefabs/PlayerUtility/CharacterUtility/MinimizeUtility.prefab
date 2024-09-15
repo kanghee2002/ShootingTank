@@ -72,12 +72,25 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: description
+      value: "\uD50C\uB808\uC774\uC5B4 \uD06C\uAE30 \uAC10\uC18C, \uC774\uB3D9 \uC18D\uB3C4\uC640
+        \uC810\uD504 \uB192\uC774 \uC99D\uAC00"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: utilityName
+      value: "\uCD95\uC18C\uD654 \uBB3C\uC57D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: jumpPowerBonus
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: moveSpeedBonus
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: maxUtilityCount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: playerScaleBonus

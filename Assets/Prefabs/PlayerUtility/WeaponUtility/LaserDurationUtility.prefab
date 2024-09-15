@@ -199,9 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a38930ce021029f46bca8c2b064d47c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  utilityName: 
+  utilityName: "\uB808\uC774\uC800 \uC9C0\uC18D \uC99D\uAC00"
   itemRank: 1
-  description: 
+  description: "\uB808\uC774\uC800\uC758 \uC9C0\uC18D\uC2DC\uAC04\uC774 0.3\uCD08
+    \uC99D\uAC00\uD569\uB2C8\uB2E4"
   maxUtilityCount: 2
   price: 0
   damageValueBonusPercentage: 0

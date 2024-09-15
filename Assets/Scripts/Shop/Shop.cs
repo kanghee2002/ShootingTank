@@ -39,8 +39,8 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
-        weapon = GetRandomWeapon();
-        for (int i = 0; i < 3; i++) utilityList.Add(GetRandomUtility());
+        weapon = null;
+        utilityList = new();
     }
 
     private void Update()
