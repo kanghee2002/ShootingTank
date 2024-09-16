@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: price
-      value: 81
+      value: 182
       objectReference: {fileID: 0}
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: title
@@ -30,6 +30,10 @@ PrefabInstance:
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: damageValue
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
+      propertyPath: description
+      value: "5\uBC1C\uC744 \uB113\uAC8C \uBC1C\uC0AC\uD558\uB294 \uC0F7\uAC74"
       objectReference: {fileID: 0}
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: shootingType

@@ -68,6 +68,10 @@ PrefabInstance:
       value: OldSniperRifle
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: price
+      value: 118
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: title
       value: 8
       objectReference: {fileID: 0}
@@ -86,6 +90,11 @@ PrefabInstance:
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: damageValue
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: description
+      value: "\uCC28\uC9D5 \uB370\uBBF8\uC9C0 \uC99D\uAC00\uC728\uC774 250%\uC778
+        \uC18C\uCD1D"
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: maxChargeTime

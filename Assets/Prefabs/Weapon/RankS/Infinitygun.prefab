@@ -108,6 +108,11 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: description
+      value: "\uCC28\uC9D5 \uB370\uBBF8\uC9C0 \uC99D\uAC00\uC728\uC774 7500%\uC774\uC9C0\uB9CC
+        \uD0C4\uC57D\uC740 1\uBC1C\uC778 \uCD1D"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: weaponLength
       value: 1
       objectReference: {fileID: 0}

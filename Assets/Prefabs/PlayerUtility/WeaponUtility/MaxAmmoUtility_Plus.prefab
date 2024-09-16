@@ -209,9 +209,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   utilityName: "\uD0C4\uC57D \uC6A9\uB7C9 \uC99D\uAC00"
   itemRank: 1
-  description: "\uD0C4\uC57D \uC6A9\uB7C9\uC774 50% \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  description: "\uD0C4\uC57D \uC6A9\uB7C9 50% \uC99D\uAC00"
   maxUtilityCount: 2147483647
-  price: 0
+  price: 108
   damageValueBonusPercentage: 0
   chargeDamageMultiplierBonus: 0
   maxChargedDamageBonus: 0

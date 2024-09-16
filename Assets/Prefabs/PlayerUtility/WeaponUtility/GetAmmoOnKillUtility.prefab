@@ -213,9 +213,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   utilityName: "\uCC98\uCE58 \uD6A8\uACFC"
   itemRank: 2
-  description: "\uC801 \uCC98\uCE58 \uC2DC \uCD1D\uC54C\uC744 3% \uC7AC\uC7A5\uC804\uD569\uB2C8\uB2E4"
+  description: "\uC801 \uCC98\uCE58 \uC2DC \uD0C4\uC57D 3% \uC7AC\uC7A5\uC804"
   maxUtilityCount: 2
-  price: 0
+  price: 259
   damageValueBonusPercentage: 0
   chargeDamageMultiplierBonus: 0
   maxChargedDamageBonus: 0

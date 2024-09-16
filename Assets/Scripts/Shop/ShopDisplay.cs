@@ -13,8 +13,19 @@ public class ShopDisplay : MonoBehaviour
 
     [SerializeField] private Button exitButton;
 
-    public void SetShopDisplay(Weapon weapon, List<PlayerUtility> utilityList)
+    private Shop currentShop;
+
+    private void Start()
     {
+        exitButton.onClick.AddListener(ExitShop);
+    }
+
+    public void SetShopDisplay(Shop shop,Weapon weapon, List<PlayerUtility> utilityList)
+    {
+        currentShop = shop;
+
+        shopUI.SetActive(true);
+
         // Set Weapon
         Sprite weaponSprite = weapon.GetComponent<SpriteRenderer>().sprite;
 
@@ -22,27 +33,32 @@ public class ShopDisplay : MonoBehaviour
         shopComponentList[3].image.sprite = weaponSprite;
         shopComponentList[3].name.text = weapon.WeaponName;
         shopComponentList[3].description.text = weapon.Description;
-        shopComponentList[3].price.text = weapon.price.ToString();
+        shopComponentList[3].price.text = "$" + weapon.price.ToString();
 
         int ratio = weaponSprite.texture.width / weaponSprite.texture.height;
 
         shopComponentList[3].image.rectTransform.sizeDelta = new Vector2(50f * ratio, 50f);
 
         // Set Utility
-
         for (int i = 0; i < 3; i++)
         {
             shopComponentList[i].rank.text = utilityList[i].ItemRank.ToString();
             shopComponentList[i].image.sprite = utilityList[i].GetComponent<SpriteRenderer>().sprite;
             shopComponentList[i].name.text = utilityList[i].UtilityName;
             shopComponentList[i].description.text = utilityList[i].Description;
-            shopComponentList[i].price.text = utilityList[i].price.ToString();
+            shopComponentList[i].price.text = "$" + utilityList[i].price.ToString();
         }
 
         foreach (ShopComponent shopComponent in shopComponentList)
         {
             // Set shopComponent.buyButton
         }
+    }
+
+    public void ExitShop()
+    {
+        currentShop.isOpening = false;
+        shopUI.SetActive(false);
     }
 }
 

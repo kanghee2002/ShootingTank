@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2304633276514625487}
   - component: {fileID: 8947027297450068978}
   - component: {fileID: 3934979557062893196}
-  m_Layer: 0
+  - component: {fileID: 1368199545}
+  m_Layer: 12
   m_Name: Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,3 +175,29 @@ MonoBehaviour:
   - {fileID: 7601797440627893470, guid: 8fb53f4533fff00468a80036e386fb23, type: 3}
   - {fileID: 7288475667729354151, guid: 24489a354669a6d408cfda7b0288f85e, type: 3}
   - {fileID: 5446644318824337565, guid: 6e2831e2dea70ed48983ff3a12cae472, type: 3}
+--- !u!61 &1368199545
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8716021305734329128}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0

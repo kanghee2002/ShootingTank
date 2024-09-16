@@ -19,6 +19,9 @@ public class StageUIController : MonoBehaviour
     [Header("Hp Display")]
     [SerializeField] private Slider playerHealthSlider;
     [SerializeField] private TMP_Text playerHealthText;
+
+    [Header("Coin Display")]
+    [SerializeField] private TMP_Text coinText;
     
     private GameObject player;
 
@@ -56,6 +59,9 @@ public class StageUIController : MonoBehaviour
 
         weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Left, weaponController.Weapons[0]);
         weaponController.onWeaponAmmoChanged?.Invoke(WeaponHand.Right, weaponController.Weapons[1]);
+    
+        PlayerData playerData = player.GetComponent<PlayerData>();
+        playerData.onGetCoin += SetCoinText;
     }
 
     private void SetHealthText(float currentHealth, float maxHealth)
@@ -82,5 +88,10 @@ public class StageUIController : MonoBehaviour
             weaponAmmoSlider[weaponHandIdx].value = (float)weapon.CurAmmo / weapon.MaxAmmo;
             weaponAmmoText[weaponHandIdx].text = weapon.CurAmmo.ToString() + " / " + weapon.MaxAmmo.ToString();
         }
+    }
+
+    private void SetCoinText(int coin)
+    {
+        coinText.text = coin.ToString();
     }
 }

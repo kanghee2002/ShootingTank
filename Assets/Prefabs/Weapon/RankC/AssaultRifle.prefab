@@ -80,6 +80,10 @@ PrefabInstance:
       value: AssaultRifle
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: price
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: title
       value: 2
       objectReference: {fileID: 0}
@@ -94,6 +98,10 @@ PrefabInstance:
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: damageValue
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: description
+      value: "\uAE30\uBCF8\uC801\uC778 \uC18C\uCD1D"
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: chargeDamageMultiplier

@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: price
-      value: 106
+      value: 199
       objectReference: {fileID: 0}
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: title
@@ -30,6 +30,11 @@ PrefabInstance:
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: damageValue
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
+      propertyPath: description
+      value: "2\uAC00\uC9C0 \uBC29\uD5A5\uC73C\uB85C \uD55C \uBC88\uC5D0 2\uBC1C
+        \uBC1C\uC0AC\uD558\uB294 \uC18C\uCD1D"
       objectReference: {fileID: 0}
     - target: {fileID: -4330493285825271069, guid: 0397629cb1be171408f3233dc21c94c6, type: 3}
       propertyPath: pelletCount

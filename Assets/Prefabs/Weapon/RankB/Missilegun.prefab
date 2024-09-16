@@ -49,8 +49,8 @@ MonoBehaviour:
   title: 15
   weaponName: "\uBBF8\uC0AC\uC77C \uBC1C\uC0AC\uAE30"
   itemRank: 1
-  description: 
-  price: 80
+  description: "\uAE30\uBCF8\uC801\uC778 \uBBF8\uC0AC\uC77C \uBC1C\uC0AC\uAE30"
+  price: 169
   handlePosition: {x: 1.05, y: -0.05}
   weaponLength: 1.7
   damageValue: 12

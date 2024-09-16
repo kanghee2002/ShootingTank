@@ -201,10 +201,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   utilityName: "\uD0C4\uD658 \uC99D\uAC00"
   itemRank: 0
-  description: "\uD55C \uBC88\uC5D0 \uBC1C\uC0AC\uD558\uB294 \uD0C4\uD658 \uC218\uAC00
-    \uC99D\uAC00\uD569\uB2C8\uB2E4"
+  description: "\uD55C \uBC88\uC5D0 \uBC1C\uC0AC\uD558\uB294 \uD0C4\uD658 \uC218
+    \uC99D\uAC00"
   maxUtilityCount: 5
-  price: 0
+  price: 55
   damageValueBonusPercentage: 0
   chargeDamageMultiplierBonus: 0
   maxChargedDamageBonus: 0

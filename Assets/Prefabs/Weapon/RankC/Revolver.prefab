@@ -64,6 +64,10 @@ PrefabInstance:
       value: Revolver
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: price
+      value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: title
       value: 5
       objectReference: {fileID: 0}
@@ -86,6 +90,10 @@ PrefabInstance:
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: damageValue
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: description
+      value: "\uAE30\uBCF8\uC801\uC778 \uB9AC\uBCFC\uBC84"
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: maxChargeTime

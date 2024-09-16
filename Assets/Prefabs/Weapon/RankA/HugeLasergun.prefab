@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 3e1e2abcf224f6840935e8c0d888b8e6, type: 3}
     - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
       propertyPath: price
-      value: 85
+      value: 467
       objectReference: {fileID: 0}
     - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
       propertyPath: title
@@ -38,6 +38,10 @@ PrefabInstance:
     - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
       propertyPath: damageValue
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
+      propertyPath: description
+      value: "\uBC94\uC704\uAC00 \uB9E4\uC6B0 \uB113\uC740 \uB808\uC774\uC800\uAC74"
       objectReference: {fileID: 0}
     - target: {fileID: 5409469234311050851, guid: d5bae5d13744a3349926fa19707e685c, type: 3}
       propertyPath: weaponLength

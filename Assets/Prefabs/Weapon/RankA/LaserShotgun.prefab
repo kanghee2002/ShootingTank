@@ -116,7 +116,7 @@ MonoBehaviour:
   title: 25
   weaponName: "\uB808\uC774\uC800 \uC0F7\uAC74"
   itemRank: 2
-  description: 
+  description: "\uD55C \uBC88\uC5D0 3\uBC1C \uBC1C\uC0AC\uD558\uB294 \uB808\uC774\uC800\uAC74"
   price: 107
   handlePosition: {x: 1, y: -0.05}
   weaponLength: 1.2

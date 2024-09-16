@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4514322087987701076}
-  - component: {fileID: -627939969267361456}
   - component: {fileID: 3870980280410431036}
+  - component: {fileID: -627939969267361456}
   - component: {fileID: 6309080376357006929}
   m_Layer: 0
   m_Name: GrenadeLauncher
@@ -34,34 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-627939969267361456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277207108211459209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 862b7cbf44a1f114e8f619accb8a025c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: 13
-  weaponName: "\uC720\uD0C4\uBC1C\uC0AC\uAE30"
-  itemRank: 1
-  description: 
-  price: 102
-  handlePosition: {x: 1.1, y: -0.05}
-  weaponLength: 1.7
-  damageValue: 15
-  chargeDamageMultiplier: 1
-  coreHitDamageMultiplier: 0.75
-  bulletSpeed: 40
-  maxAmmo: 80
-  aimAccuracy: 100
-  minChargeTime: 0.75
-  maxChargeTime: 1.5
-  explosionRadius: 2
 --- !u!212 &3870980280410431036
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -114,6 +86,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-627939969267361456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277207108211459209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862b7cbf44a1f114e8f619accb8a025c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: 13
+  weaponName: "\uC720\uD0C4\uBC1C\uC0AC\uAE30"
+  itemRank: 1
+  description: "\uAE30\uBCF8\uC801\uC778 \uC720\uD0C4\uBC1C\uC0AC\uAE30"
+  price: 164
+  handlePosition: {x: 1.1, y: -0.05}
+  weaponLength: 1.7
+  damageValue: 15
+  chargeDamageMultiplier: 1
+  coreHitDamageMultiplier: 0.75
+  bulletSpeed: 40
+  maxAmmo: 80
+  aimAccuracy: 100
+  minChargeTime: 0.75
+  maxChargeTime: 1.5
+  explosionRadius: 2
 --- !u!114 &6309080376357006929
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -73,7 +73,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: description
-      value: "\uB0B4 \uCF54\uC5B4\uAC00 \uBE44\uD65C\uC131\uD654\uB429\uB2C8\uB2E4"
+      value: "\uB0B4 \uCF54\uC5B4\uAC00 \uBE44\uD65C\uC131\uD654\uB428"
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: utilityName

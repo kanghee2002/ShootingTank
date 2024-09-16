@@ -82,7 +82,7 @@ MonoBehaviour:
   title: 28
   weaponName: "\uC5F0\uC18D \uB808\uC774\uC800\uAC74"
   itemRank: 2
-  description: 
+  description: "\uC5F0\uC18D 3\uBC1C \uBC1C\uC0AC\uD558\uB294 \uB808\uC774\uC800\uAC74"
   price: 85
   handlePosition: {x: 1, y: -0.05}
   weaponLength: 1.2

@@ -76,12 +76,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
+      propertyPath: price
+      value: 303
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: itemRank
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: description
-      value: "\uCCB4\uB825\uC744 \uBAA8\uB450 \uD68C\uBCF5\uD569\uB2C8\uB2E4"
+      value: "\uCCB4\uB825 \uBAA8\uB450 \uD68C\uBCF5"
       objectReference: {fileID: 0}
     - target: {fileID: 3572985176259410983, guid: 27557ad6418d73c42a9550912d8dc70c, type: 3}
       propertyPath: utilityName

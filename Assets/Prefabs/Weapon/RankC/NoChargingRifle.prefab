@@ -80,6 +80,10 @@ PrefabInstance:
       value: NoChargingRifle
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: price
+      value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: title
       value: 6
       objectReference: {fileID: 0}
@@ -94,6 +98,11 @@ PrefabInstance:
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: damageValue
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
+      propertyPath: description
+      value: "\uCC28\uC9D5\uD574\uB3C4 \uB370\uBBF8\uC9C0\uAC00 \uC99D\uAC00\uD558\uC9C0
+        \uC54A\uC544 \uAFB9 \uB20C\uB7EC\uC4F0\uB294 \uC18C\uCD1D"
       objectReference: {fileID: 0}
     - target: {fileID: 7469840312503022622, guid: 43f87eaf27824ac4b8623d7928767b12, type: 3}
       propertyPath: maxChargeTime

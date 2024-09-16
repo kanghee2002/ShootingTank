@@ -37,28 +37,53 @@ public class Shop : MonoBehaviour
     private Weapon weapon;
     private List<PlayerUtility> utilityList;
 
+    private bool isPlayerInRange;
+    public bool isOpening;
+
     private void Start()
     {
-        weapon = null;
+        isPlayerInRange = false;
+        weapon = GetRandomWeapon();
         utilityList = new();
+        for (int i = 0; i < 3; i++) utilityList.Add(GetRandomUtility());
     }
 
     private void Update()
     {
+        // DEBUG
         if (Input.GetKeyDown(KeyCode.M))
         {
             weapon = GetRandomWeapon();
             utilityList.Clear();
             for (int i = 0; i < 3; i++) utilityList.Add(GetRandomUtility());
-            StageManager.Instance.shopDisplay.SetShopDisplay(weapon, utilityList);
+            StageManager.Instance.shopDisplay.SetShopDisplay(this, weapon, utilityList);
+        }
+
+        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        {
+            isOpening = true;
+            StageManager.Instance.shopDisplay.SetShopDisplay(this, weapon, utilityList);
+        }
+
+        if (isOpening && Vector3.Distance(transform.position, GameManager.Instance.playerObject.transform.position) > 10f)
+        {
+            StageManager.Instance.shopDisplay.ExitShop();
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(Settings.playerTag) && Input.GetKeyDown(KeyCode.E))
+        if (collision.CompareTag(Settings.playerTag))
         {
-            //OPEN SHOP
+            isPlayerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Settings.playerTag))
+        {
+            isPlayerInRange = false;
         }
     }
 
