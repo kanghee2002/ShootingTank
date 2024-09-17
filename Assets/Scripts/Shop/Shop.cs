@@ -38,7 +38,7 @@ public class Shop : MonoBehaviour
     private List<PlayerUtility> utilityList;
 
     private bool isPlayerInRange;
-    public bool isOpening;
+    public bool isDisplaying;
     public bool[] isSold = new bool[4];
 
     private void Start()
@@ -63,11 +63,10 @@ public class Shop : MonoBehaviour
 
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            isOpening = true;
             StageManager.Instance.shopDisplay.SetShopDisplay(this, weapon, utilityList);
         }
 
-        if (isOpening && Vector3.Distance(transform.position, GameManager.Instance.playerObject.transform.position) > 10f)
+        if (isDisplaying && Vector3.Distance(transform.position, GameManager.Instance.playerObject.transform.position) > 10f)
         {
             StageManager.Instance.shopDisplay.ExitShop();
         }

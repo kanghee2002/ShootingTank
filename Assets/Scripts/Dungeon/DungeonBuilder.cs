@@ -8,9 +8,11 @@ using UnityEngine.Tilemaps;
 
 public class DungeonBuilder : Singleton<DungeonBuilder>
 {
+    [Header("Dungeon Level SO")]
     [SerializeField] private DungeonLevelSO[] dungeonLevelSOArray;
 
     #region DEBUG
+    [Header("DEBUG")]
     [SerializeField] private GameObject block;
     [SerializeField] private GameObject blockRed;
     [SerializeField] private GameObject blockBlue;
@@ -37,6 +39,9 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
     public RoomInfo GetBossRoomInfo() => bossRoomInfo;
     private List<Door> bossRoomDoorList;
     private List<GameObject> instantiatedBlockingList;
+
+    [Header("Shop Prefab")]
+    [SerializeField] private GameObject shopPrefab;
 
     protected override void Awake()
     {
@@ -66,6 +71,8 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
             InstantiateDoors(selectedDungeonLevel, currentRoomInfos);
 
             BlockUnusedDoors(currentRoomInfos);
+
+            //InstantiateShops(currentRoomInfos);       Shop is in Room Prefab
 
             #region DEBUG
             /*
@@ -895,6 +902,31 @@ public class DungeonBuilder : Singleton<DungeonBuilder>
         foreach (GameObject instantiatedBlocking in instantiatedBlockingList)
         {
             instantiatedBlocking.SetActive(false);
+        }
+    }
+
+    private void InstantiateShops(RoomInfo[,] roomInfos)
+    {
+        int dungeonWidth = roomInfos.GetLength(0);
+        int dungeonHeight = roomInfos.GetLength(1);
+
+        for (int x = 0; x < dungeonWidth; x++)
+        {
+            for (int y = 0;  y < dungeonHeight; y++)
+            {
+                if (roomInfos[x, y].roomType == RoomType.Shop)
+                {
+                    Vector2[] spawnPositionArray = roomInfos[x, y].roomDetails.spawnPositionArray;
+
+                    if (spawnPositionArray.Length == 0) continue;
+
+                    Vector2 spawnPosition = spawnPositionArray[Random.Range(0, spawnPositionArray.Length)];
+
+                    GameObject instantiatedShop = Instantiate(shopPrefab, roomInfos[x, y].roomTransform);
+
+                    instantiatedShop.transform.localPosition = spawnPosition;
+                }
+            }
         }
     }
 

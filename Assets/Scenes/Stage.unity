@@ -4509,6 +4509,7 @@ MonoBehaviour:
   blockBlue: {fileID: 6236574203605494894, guid: debc4d3c7a47dde49bf65a1b01565153, type: 3}
   horizontalPlayerBlockingPrefab: {fileID: 8544675218403657084, guid: e2a3d9a1421380c469ee35bcee84cf94, type: 3}
   verticalPlayerBlockingPrefab: {fileID: 5900650442343861331, guid: 98237947d920aac47855732fc70f25a2, type: 3}
+  shopPrefab: {fileID: 8716021305734329128, guid: 8f616439bb16d27478941f6aba7e017f, type: 3}
 --- !u!4 &1344477110
 Transform:
   m_ObjectHideFlags: 0

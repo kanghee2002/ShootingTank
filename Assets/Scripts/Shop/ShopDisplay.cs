@@ -31,6 +31,7 @@ public class ShopDisplay : MonoBehaviour
     public void SetShopDisplay(Shop shop,Weapon weapon, List<PlayerUtility> utilityList)
     {
         currentShop = shop;
+        currentShop.isDisplaying = true;
 
         shopUI.SetActive(true);
         isOpening = true;
@@ -73,7 +74,7 @@ public class ShopDisplay : MonoBehaviour
 
     public void ExitShop()
     {
-        currentShop.isOpening = false;
+        currentShop.isDisplaying = false;
         shopUI.SetActive(false);
         isOpening = false;
     }
