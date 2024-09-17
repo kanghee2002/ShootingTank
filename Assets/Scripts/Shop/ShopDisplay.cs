@@ -18,9 +18,14 @@ public class ShopDisplay : MonoBehaviour
 
     private int weaponIndex = 3;
 
+    private bool isOpening;
+    public bool IsOpening { get => isOpening; }
+
     private void Start()
     {
         exitButton.onClick.AddListener(ExitShop);
+
+        isOpening = false;
     }
 
     public void SetShopDisplay(Shop shop,Weapon weapon, List<PlayerUtility> utilityList)
@@ -28,6 +33,7 @@ public class ShopDisplay : MonoBehaviour
         currentShop = shop;
 
         shopUI.SetActive(true);
+        isOpening = true;
 
         foreach (ShopComponent shopComponent in shopComponentList)
         {
@@ -69,6 +75,7 @@ public class ShopDisplay : MonoBehaviour
     {
         currentShop.isOpening = false;
         shopUI.SetActive(false);
+        isOpening = false;
     }
 
     private void TryBuyWeapon(Shop shop, Weapon weapon)
@@ -80,7 +87,6 @@ public class ShopDisplay : MonoBehaviour
             if (shop.isSold[weaponIndex])
             {
                 // Can't buy sound
-                Debug.Log("Can't buy");
                 return;
             }
 
@@ -94,7 +100,6 @@ public class ShopDisplay : MonoBehaviour
         }
         else
         {
-            Debug.Log("Can't buy");
             // Can't buy sound
         }
     }
@@ -107,7 +112,6 @@ public class ShopDisplay : MonoBehaviour
         {
             if (shop.isSold[index])
             {
-                Debug.Log("Can't buy");
                 // Can't buy sound
                 return;
             }
@@ -122,7 +126,6 @@ public class ShopDisplay : MonoBehaviour
         }
         else
         {
-            Debug.Log("Can't buy");
             // Can't buy sound
         }
     }

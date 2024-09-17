@@ -294,7 +294,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.14017443, g: 0.39120343, b: 0.4716981, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -430,6 +430,10 @@ PrefabInstance:
     - target: {fileID: 203285065542807102, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
       propertyPath: m_Name
       value: WeaponManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 203285065542807103, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
+      propertyPath: isRightWeaponEnabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54c3659284ddf5488760eb99af445c9, type: 3}
@@ -846,7 +850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabList:
-  - enemyRank: 0
+  - level: 0
+    enemyRank: 0
     enemyPrefabArray:
     - {fileID: 8983576799784918942, guid: 1865abbc337675b41adc935e9a065538, type: 3}
     - {fileID: 1722137782028133477, guid: 17b8e37d5a35a29409abc1b92d629c60, type: 3}
@@ -855,14 +860,17 @@ MonoBehaviour:
     - {fileID: 8983576799784918942, guid: 58b69a1a9566bca43986b8f77245a178, type: 3}
     - {fileID: 8983576799784918942, guid: c844779270929f64c8cad9c8d990f5f2, type: 3}
     - {fileID: 8983576799784918942, guid: 175ade1ba96bb194baa11999abadcf99, type: 3}
-  - enemyRank: 1
+  - level: 0
+    enemyRank: 1
     enemyPrefabArray:
     - {fileID: 1514442416914801553, guid: 2636ebe0f729d2d4cab806be731f89ed, type: 3}
-  - enemyRank: 2
+  - level: 0
+    enemyRank: 2
     enemyPrefabArray:
     - {fileID: 2398333070115463262, guid: fde596e7a4d8a7e45894d998fa76422c, type: 3}
     - {fileID: 8983576799784918942, guid: 47922a8bd52e29e48ad452bccfefa628, type: 3}
-  - enemyRank: 3
+  - level: 0
+    enemyRank: 3
     enemyPrefabArray:
     - {fileID: 4102787878820623299, guid: 0083f5c0cdcc5d9498a96e671dcba6e3, type: 3}
   bossList:

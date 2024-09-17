@@ -162,6 +162,7 @@ public class WeaponController : MonoBehaviour
         {
             if (!weapon) return;
             if (!weapon.isCharged) return;
+            if (StageManager.Instance.shopDisplay.IsOpening) return;
 
             Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 myPos = transform.position;
