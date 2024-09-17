@@ -28,7 +28,7 @@ public class GameManager : Singleton<GameManager>
         #region TEST_SCENE
         if (SceneManager.GetActiveScene().name == Settings.testScene)
         {
-            playerObject = GameObject.FindGameObjectWithTag("Player");
+            playerObject = GameObject.Find("Player");
 
             currentDungeonLevel = 1;
         }

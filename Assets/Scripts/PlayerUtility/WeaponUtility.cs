@@ -48,7 +48,7 @@ public class WeaponUtility : PlayerUtility
     private Health health;
     private PlayerData playerData;
 
-    private void Awake()
+    private void Start()
     {
         weaponController = GameManager.Instance.playerObject.GetComponent<WeaponController>();
         health = GameManager.Instance.playerObject.GetComponent<Health>();
@@ -57,6 +57,10 @@ public class WeaponUtility : PlayerUtility
 
     public override void GetAbility()
     {
+        if (weaponController == null)    weaponController = GameManager.Instance.playerObject.GetComponent<WeaponController>();
+        if (health == null)              health = GameManager.Instance.playerObject.GetComponent<Health>();
+        if (playerData == null)          playerData = GameManager.Instance.playerObject.GetComponent<PlayerData>();
+
         weaponController.AddChargeDamageMultiplierBonus(chargeDamageMultiplierBonus);
 
         weaponController.AddMaxChargedDamageBonus(maxChargedDamageBonus);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using TMPro;
@@ -15,6 +16,8 @@ public class ShopDisplay : MonoBehaviour
 
     private Shop currentShop;
 
+    private int weaponIndex = 3;
+
     private void Start()
     {
         exitButton.onClick.AddListener(ExitShop);
@@ -26,18 +29,26 @@ public class ShopDisplay : MonoBehaviour
 
         shopUI.SetActive(true);
 
+        foreach (ShopComponent shopComponent in shopComponentList)
+        {
+            shopComponent.buyButton.onClick.RemoveAllListeners();
+        }
+
         // Set Weapon
         Sprite weaponSprite = weapon.GetComponent<SpriteRenderer>().sprite;
 
-        shopComponentList[3].rank.text = weapon.ItemRank.ToString();
-        shopComponentList[3].image.sprite = weaponSprite;
-        shopComponentList[3].name.text = weapon.WeaponName;
-        shopComponentList[3].description.text = weapon.Description;
-        shopComponentList[3].price.text = "$" + weapon.price.ToString();
+        shopComponentList[weaponIndex].rank.text = weapon.ItemRank.ToString();
+        shopComponentList[weaponIndex].image.sprite = weaponSprite;
+        shopComponentList[weaponIndex].name.text = weapon.WeaponName;
+        shopComponentList[weaponIndex].description.text = weapon.Description;
+        if (shop.isSold[weaponIndex]) shopComponentList[weaponIndex].price.text = "구매 완료";
+        else shopComponentList[weaponIndex].price.text = "$" + weapon.price.ToString();
 
         int ratio = weaponSprite.texture.width / weaponSprite.texture.height;
 
-        shopComponentList[3].image.rectTransform.sizeDelta = new Vector2(50f * ratio, 50f);
+        shopComponentList[weaponIndex].image.rectTransform.sizeDelta = new Vector2(50f * ratio, 50f);
+
+        shopComponentList[weaponIndex].buyButton.onClick.AddListener(() => TryBuyWeapon(shop, weapon));
 
         // Set Utility
         for (int i = 0; i < 3; i++)
@@ -46,12 +57,11 @@ public class ShopDisplay : MonoBehaviour
             shopComponentList[i].image.sprite = utilityList[i].GetComponent<SpriteRenderer>().sprite;
             shopComponentList[i].name.text = utilityList[i].UtilityName;
             shopComponentList[i].description.text = utilityList[i].Description;
-            shopComponentList[i].price.text = "$" + utilityList[i].price.ToString();
-        }
+            if (shop.isSold[i]) shopComponentList[i].price.text = "구매 완료";
+            else shopComponentList[i].price.text = "$" + utilityList[i].price.ToString();
 
-        foreach (ShopComponent shopComponent in shopComponentList)
-        {
-            // Set shopComponent.buyButton
+            int index = i;
+            shopComponentList[i].buyButton.onClick.AddListener(() => TryBuyUtility(shop, utilityList[index], index));
         }
     }
 
@@ -59,6 +69,62 @@ public class ShopDisplay : MonoBehaviour
     {
         currentShop.isOpening = false;
         shopUI.SetActive(false);
+    }
+
+    private void TryBuyWeapon(Shop shop, Weapon weapon)
+    {
+        PlayerData playerData = GameManager.Instance.playerObject.GetComponent<PlayerData>();
+
+        if (playerData.Coin >= weapon.price)
+        {
+            if (shop.isSold[weaponIndex])
+            {
+                // Can't buy sound
+                Debug.Log("Can't buy");
+                return;
+            }
+
+            playerData.UseCoin(weapon.price);
+
+            WeaponManager.Instance.AddAvailableWeapon(weapon.Title);
+
+            shop.isSold[weaponIndex] = true;
+
+            shopComponentList[weaponIndex].price.text = "구매 완료";
+        }
+        else
+        {
+            Debug.Log("Can't buy");
+            // Can't buy sound
+        }
+    }
+
+    private void TryBuyUtility(Shop shop, PlayerUtility utility, int index)
+    {
+        PlayerData playerData = GameManager.Instance.playerObject.GetComponent<PlayerData>();
+
+        if (playerData.Coin >= utility.price)
+        {
+            if (shop.isSold[index])
+            {
+                Debug.Log("Can't buy");
+                // Can't buy sound
+                return;
+            }
+
+            playerData.UseCoin(utility.price);
+
+            utility.GetAbility();
+
+            shop.isSold[index] = true;
+
+            shopComponentList[index].price.text = "구매 완료";
+        }
+        else
+        {
+            Debug.Log("Can't buy");
+            // Can't buy sound
+        }
     }
 }
 

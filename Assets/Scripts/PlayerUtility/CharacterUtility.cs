@@ -26,7 +26,7 @@ public class CharacterUtility : PlayerUtility
     private Health health;
     private CoreHealth coreHealth;
 
-    private void Awake()
+    private void Start()
     {
         playerController = GameManager.Instance.playerObject.GetComponent<PlayerController>();
         health = GameManager.Instance.playerObject.GetComponent<Health>();
@@ -35,6 +35,10 @@ public class CharacterUtility : PlayerUtility
 
     public override void GetAbility()
     {
+        if (playerController == null)   playerController = GameManager.Instance.playerObject.GetComponent<PlayerController>();
+        if (health == null)             health = GameManager.Instance.playerObject.GetComponent<Health>();
+        if (coreHealth == null)         coreHealth = GameManager.Instance.playerObject.GetComponentInChildren<CoreHealth>();
+
         playerController.AddMaxJumpCount(jumpCountBonus);
 
         playerController.AddJumpPowerValue(jumpPowerBonus);

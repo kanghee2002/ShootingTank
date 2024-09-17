@@ -39,6 +39,7 @@ public class Shop : MonoBehaviour
 
     private bool isPlayerInRange;
     public bool isOpening;
+    public bool[] isSold = new bool[4];
 
     private void Start()
     {
@@ -46,6 +47,7 @@ public class Shop : MonoBehaviour
         weapon = GetRandomWeapon();
         utilityList = new();
         for (int i = 0; i < 3; i++) utilityList.Add(GetRandomUtility());
+        for (int i = 0; i < 4; i++) isSold[i] = false;
     }
 
     private void Update()

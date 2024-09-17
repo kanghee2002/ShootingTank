@@ -62,6 +62,7 @@ public class StageUIController : MonoBehaviour
     
         PlayerData playerData = player.GetComponent<PlayerData>();
         playerData.onGetCoin += SetCoinText;
+        playerData.onUseCoin += SetCoinText;
     }
 
     private void SetHealthText(float currentHealth, float maxHealth)
