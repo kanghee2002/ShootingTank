@@ -31,13 +31,21 @@ public class Shop : MonoBehaviour
 
     };
 
+    [Header("Preferences")]
     [SerializeField] private List<Weapon> weaponPrefabList;
     [SerializeField] private List<PlayerUtility> utilityPrefabList;
+    [SerializeField] private SpriteRenderer eButtonSpriteRenderer;
+    [SerializeField] private List<Sprite> eButtonSprite;
 
     private Weapon weapon;
     private List<PlayerUtility> utilityList;
 
     private bool isPlayerInRange;
+
+    private float timer;
+    private int index;
+
+    [Header("Variables")]
     public bool isDisplaying;
     public bool[] isSold = new bool[4];
 
@@ -48,6 +56,10 @@ public class Shop : MonoBehaviour
         utilityList = new();
         for (int i = 0; i < 3; i++) utilityList.Add(GetRandomUtility());
         for (int i = 0; i < 4; i++) isSold[i] = false;
+
+        eButtonSpriteRenderer.gameObject.SetActive(false);
+        timer = 0f;
+        index = 0;
     }
 
     private void Update()
@@ -70,6 +82,15 @@ public class Shop : MonoBehaviour
         {
             StageManager.Instance.shopDisplay.ExitShop();
         }
+
+        if (timer > 1f)
+        {
+            index++;
+            if (index >= 2) index = 0;
+            eButtonSpriteRenderer.sprite = eButtonSprite[index];
+            timer = 0f;
+        }
+        timer += Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -77,6 +98,7 @@ public class Shop : MonoBehaviour
         if (collision.CompareTag(Settings.playerTag))
         {
             isPlayerInRange = true;
+            eButtonSpriteRenderer.gameObject.SetActive(true);
         }
     }
 
@@ -85,6 +107,7 @@ public class Shop : MonoBehaviour
         if (collision.CompareTag(Settings.playerTag))
         {
             isPlayerInRange = false;
+            eButtonSpriteRenderer.gameObject.SetActive(false);
         }
     }
 
