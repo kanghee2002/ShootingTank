@@ -21,4 +21,21 @@ public abstract class PlayerUtility : MonoBehaviour
     [HideInInspector] public int price;     // used in Shop
 
     public abstract void GetAbility();
+
+    public void DisableDetector(float time) => StartCoroutine(DisableDetectorRoutine(time));
+
+    private IEnumerator DisableDetectorRoutine(float time)
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        yield return new WaitForSeconds(time);
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
 }

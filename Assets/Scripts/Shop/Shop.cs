@@ -34,8 +34,7 @@ public class Shop : MonoBehaviour
     [Header("Preferences")]
     [SerializeField] private List<Weapon> weaponPrefabList;
     [SerializeField] private List<PlayerUtility> utilityPrefabList;
-    [SerializeField] private SpriteRenderer eButtonSpriteRenderer;
-    [SerializeField] private List<Sprite> eButtonSprite;
+    [SerializeField] private GameObject eButton;
 
     private Weapon weapon;
     private List<PlayerUtility> utilityList;
@@ -57,22 +56,13 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < 3; i++) utilityList.Add(GetRandomUtility());
         for (int i = 0; i < 4; i++) isSold[i] = false;
 
-        eButtonSpriteRenderer.gameObject.SetActive(false);
+        eButton.SetActive(false);
         timer = 0f;
         index = 0;
     }
 
     private void Update()
     {
-        // DEBUG
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            weapon = GetRandomWeapon();
-            utilityList.Clear();
-            for (int i = 0; i < 3; i++) utilityList.Add(GetRandomUtility());
-            StageManager.Instance.shopDisplay.SetShopDisplay(this, weapon, utilityList);
-        }
-
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             StageManager.Instance.shopDisplay.SetShopDisplay(this, weapon, utilityList);
@@ -82,15 +72,6 @@ public class Shop : MonoBehaviour
         {
             StageManager.Instance.shopDisplay.ExitShop();
         }
-
-        if (timer > 1f)
-        {
-            index++;
-            if (index >= 2) index = 0;
-            eButtonSpriteRenderer.sprite = eButtonSprite[index];
-            timer = 0f;
-        }
-        timer += Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -98,7 +79,7 @@ public class Shop : MonoBehaviour
         if (collision.CompareTag(Settings.playerTag))
         {
             isPlayerInRange = true;
-            eButtonSpriteRenderer.gameObject.SetActive(true);
+            eButton.SetActive(true);
         }
     }
 
@@ -107,7 +88,7 @@ public class Shop : MonoBehaviour
         if (collision.CompareTag(Settings.playerTag))
         {
             isPlayerInRange = false;
-            eButtonSpriteRenderer.gameObject.SetActive(false);
+            eButton.SetActive(false);
         }
     }
 
@@ -185,5 +166,4 @@ public class Shop : MonoBehaviour
 
         return cumulativePercentage;
     }
-
 }
