@@ -11,9 +11,9 @@ public class CoreHealth : Health
 
     public float CoreDamageMultiplier { get => coreDamageMultiplier; }
 
-    public override bool TakeDamage(float damageAmount)
+    public override bool TakeDamage(float damageAmount, bool isCoreHit = true)
     {
-        return parentHealth.TakeDamage(damageAmount * coreDamageMultiplier);
+        return parentHealth.TakeDamage(damageAmount * coreDamageMultiplier, isCoreHit);
     }
 
     public void MinusCoreDamageMultiplier(float amount)

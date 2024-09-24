@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +19,49 @@ public class Health : MonoBehaviour
 
     public Action onDie;
 
+    private SpriteRenderer spriteRenderer;
+
+    private float blinkTimer;
+    private bool isCoreHit;
+
     private void Start()
     {
         currentHealth = maxHealth;
 
         onHealthChanged += SetHealthSliderValue;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        blinkTimer = 0f;
+    }
+
+    private void Update()
+    {
+        if (blinkTimer > 0f)
+        {
+            blinkTimer -= Time.deltaTime;
+            
+            float newRGB = 0.5f;
+            if (spriteRenderer != null)
+            {
+                if (isCoreHit)
+                {
+                    spriteRenderer.color = new Color(1f, 0f, 0f);
+                }
+                else
+                {
+                    spriteRenderer.color = new Color(1f, newRGB, newRGB);
+                }
+            }
+        }
+
+        if (blinkTimer <= 0f)
+        {
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = new Color(1f, 1f, 1f);
+            }
+        }
     }
 
     public void HealByAmount(float amount)
@@ -73,9 +112,12 @@ public class Health : MonoBehaviour
         }
     }
 
-    public virtual bool TakeDamage(float damageAmount)          // If Die return true
+    public virtual bool TakeDamage(float damageAmount, bool isCoreHit = false)          // If Die return true
     {
         currentHealth -= damageAmount;
+
+        blinkTimer = 0.25f;
+        this.isCoreHit = isCoreHit;
 
         HealthChanged();
 
