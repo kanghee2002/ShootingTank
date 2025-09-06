@@ -1,8 +1,8 @@
 ## 플레이
 ![Animation1-1](https://github.com/user-attachments/assets/e443cf2a-67b4-4c85-b3c2-d2557322343f)
 ![Animation2-1](https://github.com/user-attachments/assets/17a7a41d-e643-4a20-a8a5-88969614f056)
-![Animation5-1](https://github.com/user-attachments/assets/14b0206a-ed3a-44d5-8ed8-aab9615d4d9a)
-![Animation6-1](https://github.com/user-attachments/assets/cb105c46-691f-47ab-a80a-1894720c61e9)
+![Animation1](https://github.com/user-attachments/assets/4d9cb72d-e1db-4fb6-871e-cb7a6295c26a)
+![Animation2](https://github.com/user-attachments/assets/b55166c7-8b5e-4532-8113-c4255d584d3f)
 
 ## 플랫포머 슈팅 게임
 - 2024.02 ~ 2024.09
